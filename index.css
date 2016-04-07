@@ -1,0 +1,142 @@
+.container {
+  width: 900px;
+}
+
+/*******************************************************************************
+ *
+ *  Standings
+ *
+ */
+
+.standings {
+  position: relative;
+}
+
+.standings .team-row {
+  position: relative;
+  background-color: white;
+  transition: background-color 1s linear;
+}
+
+.standings .team-row.legend {
+  font-weight: bold;
+}
+
+.standings .team-row.sticky {
+  background-color: #eee;
+}
+
+.standings .team-row.animating {
+  transition: top 3s ease;
+}
+
+.standings .team-row.new-solved {
+  background-color: #ffbb14;
+}
+
+.standings .team-row .team-table {
+  table-layout: fixed;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 0;
+  line-height: 1.3;
+  transition: top 3s ease, background-color 1s linear;
+}
+
+.standings > ul {
+  margin-bottom: 0;
+}
+
+.standings .team-row:last-child .team-table {
+  border-bottom: 1px solid #888;
+}
+
+.standings > ul:last-child .team-row:last-child .team-table {
+  border-bottom: 1px solid #ddd;
+}
+
+.standings .team-row .team-table > tbody > tr > td,
+.standings .team-row .team-table > tbody > tr > th {
+  padding: 5px 3px;
+}
+
+.standings .team-row .team-table .team-mark {
+  width: 20px;
+  padding: 6px 2px 4px !important;
+  text-align: center;
+  user-select: none;
+}
+
+.standings .team-row .team-table .team-mark .glyphicon-pushpin {
+  color: #ccc;
+}
+
+.standings .team-row .team-table .team-mark .glyphicon-pushpin.pinned {
+  color: red;
+}
+
+.standings .team-row .team-table .team-rank {
+  width: 32px;
+  text-align: center;
+}
+
+.standings .team-row .team-table .team-name {
+  width: 240px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.standings .team-row .team-table .team-score {
+  width: 48px;
+  text-align: center;
+}
+
+.standings .team-row .team-table .team-problem {
+  width: auto;
+  text-align: center;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-flag {
+  position: absolute;
+  display: inline-block;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell {
+  position: relative;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-fg {
+  position: relative;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+@keyframes standings-blink {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-bg.solved {
+  background-color: #1cd416;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-bg.pending {
+  background-color: #ffbb14;
+  animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-bg.rejected {
+  background-color: #dc1434;
+}
+
+.standings .team-row .team-table .team-problem .team-problem-cell-bg.unattempted {
+  background-color: inherit;
+}
+
