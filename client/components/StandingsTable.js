@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router';
 
 const StandingsLegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
@@ -104,7 +105,7 @@ class StandingsRow extends React.Component {
 
   render() {
     const { team, pinned, onClickPin, sticky } = this.props;
-    const { rank, name, university, solved, penalty, problems } = team;
+    const { id, rank, name, university, solved, penalty, problems } = team;
     const cols = problems.map(
       (problem) => <StandingsProblemCol problem={problem} />);
     const displayRank = this.state.rankHidden ? '...' : rank;
@@ -119,8 +120,10 @@ class StandingsRow extends React.Component {
               </td>
               <td className="team-rank">{displayRank}</td>
               <td className="team-name">
-                {name}
-                <br /><small>{university}</small>
+                <Link to={`/team/${id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+                  {name}
+                  <br /><small>{university}</small>
+                </Link>
               </td>
               <td className="team-score">
                 {solved}

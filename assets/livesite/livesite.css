@@ -1,5 +1,13 @@
 .container {
-  width: 900px;
+  width: 960px;
+}
+
+/* bugfix to bootstrap-material-design */
+@media (max-width: 1199px) {
+.navbar-text {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
 }
 
 /*******************************************************************************
@@ -14,7 +22,6 @@
 
 .standings .team-row {
   position: relative;
-  background-color: white;
   transition: background-color 1s linear;
 }
 
@@ -23,7 +30,7 @@
 }
 
 .standings .team-row.sticky {
-  background-color: #eee;
+  background-color: #BDBDBD;
 }
 
 .standings .team-row.animating {
@@ -31,7 +38,7 @@
 }
 
 .standings .team-row.new-solved {
-  background-color: #ffbb14;
+  background-color: #FFD600;
 }
 
 .standings .team-row .team-table {
@@ -68,11 +75,11 @@
 }
 
 .standings .team-row .team-table .team-mark .glyphicon-pushpin {
-  color: #ccc;
+  color: #BDBDBD;
 }
 
 .standings .team-row .team-table .team-mark .glyphicon-pushpin.pinned {
-  color: red;
+  color: #F44336;
 }
 
 .standings .team-row .team-table .team-rank {
@@ -124,19 +131,57 @@
 }
 
 .standings .team-row .team-table .team-problem .team-problem-cell-bg.solved {
-  background-color: #1cd416;
+  background-color: #64DD17;
 }
 
 .standings .team-row .team-table .team-problem .team-problem-cell-bg.pending {
-  background-color: #ffbb14;
+  background-color: #FFD600;
   animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
 .standings .team-row .team-table .team-problem .team-problem-cell-bg.rejected {
-  background-color: #dc1434;
+  background-color: #FF5252;
 }
 
 .standings .team-row .team-table .team-problem .team-problem-cell-bg.unattempted {
   background-color: inherit;
 }
 
+
+/*******************************************************************************
+ *
+ *  Team
+ *
+ */
+
+.teaminfo .team-photo {
+  width: 100%;
+  height: auto;
+  margin-bottom: 24px;
+}
+
+.teaminfo .profile {
+  overflow: hidden;
+  margin-bottom: 12px;
+}
+
+.teaminfo .profile-icon {
+  width: 80px;
+  height: 80px;
+  float: left;
+}
+
+.teaminfo .profile-data {
+  margin-left: 100px;
+}
+
+.teaminfo .profile-data > p {
+  margin-bottom: 4px;
+}
+
+.teaminfo .profile-name {
+  font-size: 18px;
+  font-weight: bold;
+  overflow: hidden;
+  vertical-align: bottom;
+}

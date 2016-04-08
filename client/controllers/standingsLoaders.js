@@ -15,11 +15,12 @@ class ProductionStandingsLoader {
     this.loadConfig().then(() => {
       this.attemptWebSocket();
     });
+    // TODO: Poll standings.
     this.loadStandings();
   }
 
   loadConfig() {
-    return axios.get('config.json').then((response) => {
+    return axios.get('/api/config.json').then((response) => {
       this._config = response.data;
     });
   }
@@ -65,7 +66,7 @@ class ProductionStandingsLoader {
   };
 
   loadStandings() {
-    return axios.get('standings.json').then((response) => {
+    return axios.get('/api/standings.json').then((response) => {
       this.updateStandings(response.data);
     });
   }
@@ -92,7 +93,7 @@ class DemoStandingsLoader {
   }
 
   loadConfig() {
-    return axios.get('demo.json').then((response) => {
+    return axios.get('/api/demo.json').then((response) => {
       this._config = response.data.demo;
     });
   }
@@ -116,7 +117,8 @@ class DemoStandingsLoader {
   }
 };
 
-export const createDefaultStandingLoader = (store) => {
+export const createDefaultStandingsLoader = (store) => {
+  // TODO: Use more graceful way to enable demo mode.
   if (location.search.indexOf('demo') >= 0) {
     return new DemoStandingsLoader(store);
   }
