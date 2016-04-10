@@ -1,13 +1,13 @@
 import React from 'react';
 
-import LiveStandingsTable from '../containers/LiveStandingsTable';
+import StandingsTableContainer from '../containers/StandingsTableContainer';
 
 const StandingsPage = () => (
   <div>
     <h1 className="page-header">
       Standings
     </h1>
-    <LiveStandingsTable />
+    <StandingsTableContainer />
   </div>
 );
 

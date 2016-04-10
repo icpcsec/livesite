@@ -1,8 +1,6 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
 
-import LiveStandingsTable from '../containers/LiveStandingsTable';
-
 class NavLink extends React.Component {
   render() {
     const { router } = this.context;

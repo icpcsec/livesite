@@ -117,7 +117,7 @@ class DemoStandingsLoader {
   }
 };
 
-export const createDefaultStandingsLoader = (store) => {
+export const createDefault = (store) => {
   // TODO: Use more graceful way to enable demo mode.
   if (location.search.indexOf('demo') >= 0) {
     return new DemoStandingsLoader(store);

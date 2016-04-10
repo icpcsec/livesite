@@ -172,7 +172,7 @@ class StandingsTable extends React.Component {
 
     rows.forEach((li, index) => {
       // Reset row offsets first so li.offsetTop indicates the destination.
-      li.style.top = '0';
+      li.style.transform = 'translate(0, 0)';
       li.classList.remove('animating');
       li.style.zIndex = 9999 - index;
     });
@@ -189,10 +189,10 @@ class StandingsTable extends React.Component {
         lastIndex === undefined ?
         0 : indexToOffsetY[lastIndex] - indexToOffsetY[index];
       if (relativeOffsetY != 0) {
-        li.style.top = `${relativeOffsetY}px`;
+        li.style.transform = `translate(0, ${relativeOffsetY}px)`;
         setTimeout(() => {
           li.classList.add('animating');
-          li.style.top = '0';
+          li.style.transform = 'translate(0, 0)';
         }, 1000);
       }
     });

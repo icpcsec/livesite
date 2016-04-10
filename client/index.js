@@ -4,17 +4,17 @@ import { Provider } from 'react-redux';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 import { createStore } from 'redux';
 
-import App from './components/App';
-import FrontPage from './components/FrontPage';
-import StandingsPage from './components/StandingsPage';
-import TeamInfoPage from './components/TeamInfoPage';
-import TeamIndexPage from './components/TeamIndexPage';
+import App from './pages/App';
+import FrontPage from './pages/FrontPage';
+import StandingsPage from './pages/StandingsPage';
+import TeamInfoPage from './pages/TeamInfoPage';
+import TeamIndexPage from './pages/TeamIndexPage';
 import reducer from './reducers';
-import { createDefaultStandingsLoader } from './controllers/standingsLoaders';
+import * as standingsLoaders from './controllers/standingsLoaders';
 
 const store = createStore(reducer);
 
-const loader = createDefaultStandingsLoader(store);
+const loader = standingsLoaders.createDefault(store);
 loader.start();
 
 ReactDOM.render(

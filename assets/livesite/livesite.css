@@ -34,7 +34,7 @@
 }
 
 .standings .team-row.animating {
-  transition: top 3s ease;
+  transition: transform 3s ease;
 }
 
 .standings .team-row.new-solved {
