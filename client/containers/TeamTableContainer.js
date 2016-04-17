@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 import TeamTable from '../components/TeamTable';
 
-const mapStateToProps = ({ standings: { teams } }) => ({ teams });
+const mapStateToProps = ({ teams }) => ({ teams });
 
 const mapDispatchToProps = (dispatch) => ({});
 
-const LiveTeamTable =
+const TeamTableContainer =
   connect(mapStateToProps, mapDispatchToProps)(TeamTable);
 
-export default LiveTeamTable;
+export default TeamTableContainer;

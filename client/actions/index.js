@@ -4,3 +4,10 @@ export const updateStandings = (standings) => (
     standings,
   }
 );
+
+export const updateTeams = (teams) => (
+  {
+    type: 'UPDATE_TEAMS',
+    teams,
+  }
+);

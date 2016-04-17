@@ -7,7 +7,7 @@ const mapStateToProps = ({ standings }) => ({ standings });
 
 const mapDispatchToProps = (dispatch) => ({});
 
-const LiveStandingsTable =
+const StandingsTableContainer =
   connect(mapStateToProps, mapDispatchToProps)(StandingsTable);
 
-export default LiveStandingsTable;
+export default StandingsTableContainer;

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "browserify client/index.js -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ] -g [ envify --NODE_ENV production ] -g uglifyify -o assets/livesite/bundle.js",
     "watch": "watchify client/index.js -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ] -d -o assets/livesite/bundle.js -v",
-    "devserver": "beefy --live --index=static/index.html client/index.js -- -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ] -d -o assets/livesite/bundle.js",
+    "devserver": "beefy --index=static/index.html client/index.js:assets/livesite/bundle.js -- -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ] -d -o assets/livesite/bundle.js -v",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -21,13 +21,16 @@
     "bootstrap": "^3.3.6",
     "bootstrap-material-design": "^0.5.9",
     "browserify": "^13.0.0",
+    "deep-equal": "^1.0.1",
     "envify": "^3.4.0",
     "jquery": "^2.2.3",
     "react": "^0.14.8",
+    "react-addons-update": "^0.14.8",
     "react-dom": "^0.14.8",
     "react-redux": "^4.4.1",
     "react-router": "^2.0.1",
     "redux": "^3.3.1",
+    "snackbarjs": "^1.1.0",
     "uglifyify": "^3.0.1"
   },
   "devDependencies": {

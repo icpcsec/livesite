@@ -117,10 +117,19 @@ class DemoStandingsLoader {
   }
 };
 
-export const createDefault = (store) => {
-  // TODO: Use more graceful way to enable demo mode.
-  if (location.search.indexOf('demo') >= 0) {
-    return new DemoStandingsLoader(store);
+class StandingsLoader {
+  constructor(store) {
+    // TODO: Use more graceful way to enable demo mode.
+    if (location.search.indexOf('demo') >= 0) {
+      this._impl = new DemoStandingsLoader(store);
+    } else {
+      this._impl = new ProductionStandingsLoader(store);
+    }
   }
-  return new ProductionStandingsLoader(store);
+
+  start() {
+    return this._impl.start();
+  }
 };
+
+export default StandingsLoader;

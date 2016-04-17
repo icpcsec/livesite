@@ -7,15 +7,20 @@ import { createStore } from 'redux';
 import App from './pages/App';
 import FrontPage from './pages/FrontPage';
 import StandingsPage from './pages/StandingsPage';
+import TeamEditPage from './pages/TeamEditPage';
 import TeamInfoPage from './pages/TeamInfoPage';
 import TeamIndexPage from './pages/TeamIndexPage';
 import reducer from './reducers';
-import * as standingsLoaders from './controllers/standingsLoaders';
+import StandingsLoader from './loaders/StandingsLoader';
+import TeamsLoader from './loaders/TeamsLoader';
 
 const store = createStore(reducer);
 
-const loader = standingsLoaders.createDefault(store);
-loader.start();
+const standingsLoader = new StandingsLoader(store);
+standingsLoader.start();
+
+const teamsLoader = new TeamsLoader(store);
+teamsLoader.start();
 
 ReactDOM.render(
   <Provider store={store}>
@@ -25,7 +30,8 @@ ReactDOM.render(
         <Route path="/standings/" component={StandingsPage} />
         <Route path="/team/">
           <IndexRoute component={TeamIndexPage} />
-          <Route path="/team/:requestedTeamIdStr" component={TeamInfoPage} />
+          <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
+          <Route path="/team/:requestedTeamId/edit" component={TeamEditPage} />
         </Route>
       </Route>
     </Router>

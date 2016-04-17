@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import TeamInfo from '../components/TeamInfo';
+import TeamEdit from '../components/TeamEdit';
 
 const mapStateToProps = (state, ownProps) => {
   const { requestedTeamId } = ownProps.params;
@@ -16,7 +16,7 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => ({});
 
-const TeamInfoContainer =
-  connect(mapStateToProps, mapDispatchToProps)(TeamInfo);
+const TeamEditContainer =
+  connect(mapStateToProps, mapDispatchToProps)(TeamEdit);
 
-export default TeamInfoContainer;
+export default TeamEditContainer;
