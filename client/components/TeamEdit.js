@@ -106,8 +106,8 @@ const TeamEditPanel = ({ team: { name, university, photo }, onFormChange, onPhot
     <div className="panel panel-default">
       <div className="panel-body">
         <form>
-          <StaticFormItem label="チーム名 (編集不可能)" value={name} />
-          <StaticFormItem label="大学名 (編集不可能)" value={university} />
+          <StaticFormItem label="チーム名 (編集できません)" value={name} />
+          <StaticFormItem label="大学名 (編集できません)" value={university} />
           <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} onChange={onPhotoChange} />
         </form>
       </div>
