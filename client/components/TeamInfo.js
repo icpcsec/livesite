@@ -40,7 +40,7 @@ const MemberProfile = ({ profile }) => {
       'GitHub: ',
       <a target="_blank"
          href={`https:\/\/github.com/${profile.githubId}/`}>
-        @{profile.githubId}
+        {profile.githubId}
       </a>,
       ', ');
   }
