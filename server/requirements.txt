@@ -1,1 +1,8 @@
-bottle
+bottle==0.12.9
+google-api-python-client==1.5.0
+passlib==1.6.5
+paste==2.0.3
+pillow==3.2.0
+pymongo==3.2.2
+python-gflags==3.0.4
+uwsgi==2.0.12
