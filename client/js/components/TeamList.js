@@ -8,12 +8,12 @@ const TeamItem = ({ team: { id, name, university, photo, members } }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <Link to={`/team/${id}`}><FixedRatioThumbnail url={photo} ratio={1 / 3} /></Link>
-      <h3 className="text-ellipsis">
-        <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
-      </h3>
       <h4 className="text-ellipsis">
-        <Link to={`/team/${id}`} className="no-decoration">{university}</Link>
+        <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
       </h4>
+      <div className="text-ellipsis">
+        <Link to={`/team/${id}`} className="no-decoration">{university}</Link>
+      </div>
     </div>
   </div>
 );
