@@ -4,6 +4,13 @@ import { Link } from 'react-router';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 
+const DEFAULT_TEAM = {
+  id: 'null',
+  name: '???',
+  university: '???',
+  members: [],
+};
+
 const StandingsLegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
     <th className="team-problem">
@@ -273,7 +280,7 @@ class StandingsTable extends React.Component {
   render() {
     const { standings, teamsMap, problems, detailed } = this.props;
     const normalRows = standings.map((status) => {
-      const team = teamsMap[status.teamId];
+      const team = teamsMap[status.teamId] || DEFAULT_TEAM;
       return (
         <StandingsRow
           key={`normal ${status.teamId}`}
@@ -289,7 +296,7 @@ class StandingsTable extends React.Component {
     const pinnedStandings = standings.filter(
       (status) => this.state.pinnedTeamIdSet.has(status.teamId));
     const stickyRows = pinnedStandings.map((status) => {
-      const team = teamsMap[status.teamId];
+      const team = teamsMap[status.teamId] || DEFAULT_TEAM;
       return (
         <StandingsRow
           key={`sticky ${status.teamId}`}
