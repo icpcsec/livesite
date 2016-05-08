@@ -11,4 +11,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . /opt/app
 
 ENV PYTHONPATH=/opt/app
-CMD ./run.sh --http-socket=:8000 --pyargv='--gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/'
+CMD ./run.sh
