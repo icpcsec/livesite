@@ -1,5 +1,3 @@
-#!/usr/bin/python
-
 import colorsys
 import random
 import sys
