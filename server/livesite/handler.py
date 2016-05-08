@@ -27,6 +27,10 @@ PROFILE_SCHEMA = (
 )
 
 
+def stringify_ts(ts):
+  return '%d.%d' % (ts.time, ts.inc)
+
+
 def respond_with_json(result):
   bottle.response.content_type = 'application/json'
   return json.dumps(result, sort_keys=True, separators=(',', ':'))
@@ -35,18 +39,20 @@ def respond_with_json(result):
 @bottle.get('/api/<name:re:(contest|teams|standings)>.json')
 def api_generic_json_handler(name):
   client_ts = bottle.request.query.get('ts')
-  if client_ts and client_ts == model.get_entity_ts(name):
+  if client_ts and client_ts == stringify_ts(model.get_entity_ts(name)):
     result = {
         'ok': True,
         'cached': True,
         'ts': client_ts,
     }
   else:
-    result = model.get_entity(name)
-    result.update({
+    entry = model.get_entity(name)
+    result = {
         'ok': True,
         'cached': False,
-    })
+        'data': entry['data'],
+        'ts': stringify_ts(entry['ts']),
+    }
   return respond_with_json(result)
 
 

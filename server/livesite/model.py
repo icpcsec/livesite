@@ -22,24 +22,20 @@ def drop_db():
   open_client().drop_database(FLAGS.mongodb_db)
 
 
-def stringify_ts(ts):
-  return '%d.%d' % (ts.time, ts.inc)
-
-
 def get_entity(name):
   db = open_db()
   entry = db.entities.find_one({'_id': name})
   if not entry:
-    return {'data': None, 'ts': stringify_ts(bson.timestamp.Timestamp(0, 0))}
-  return {'data': entry['data'], 'ts': stringify_ts(entry['ts'])}
+    return {'data': None, 'ts': bson.timestamp.Timestamp(0, 0)}
+  return {'data': entry['data'], 'ts': entry['ts']}
 
 
 def get_entity_ts(name):
   db = open_db()
   entry = db.entities.find_one({'_id': name}, projection=['ts'])
   if not entry:
-    return stringify_ts(bson.timestamp.Timestamp(0, 0))
-  return stringify_ts(entry['ts'])
+    return bson.timestamp.Timestamp(0, 0)
+  return entry['ts']
 
 
 def update_entity(name, update):
