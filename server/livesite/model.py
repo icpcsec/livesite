@@ -42,7 +42,8 @@ def update_entity(name, update):
   real_update = update.copy()
   for command, payload in real_update.iteritems():
     real_update[command] = {
-        ('data.%s' % key): value for key, value in payload.iteritems()}
+        ('data.%s' % key if key else 'data'): value
+        for key, value in payload.iteritems()}
   real_update.setdefault('$set', {})
   real_update['$set']['_id'] = name
   real_update['$set']['ts'] = bson.timestamp.Timestamp(0, 0)
