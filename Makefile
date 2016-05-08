@@ -27,13 +27,7 @@ watchify:
 build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/tools build/dev/requirements.txt
 	touch $@
 
-build/dev/static/.stamp: build/dev/static/index.html build/dev/static/assets/.stamp
-	touch $@
-
-build/dev/static/index.html: client/html/index.html
-	mkdir -p `dirname $@`
-	rm -f $@
-	ln -s ../../../client/html/index.html $@
+build/dev/static/.stamp: build/dev/static/assets/.stamp
 	touch $@
 
 build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules/.stamp

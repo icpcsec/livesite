@@ -128,4 +128,5 @@ def not_found_handler(path):
 
 @bottle.get('<path:path>')
 def index_handler(path):
-  return bottle.static_file('index.html', root='static')
+  title = model.get_entity('contest').get('data', {}).get('title', 'LiveSite')
+  return bottle.template('index.html', title=title)

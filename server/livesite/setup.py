@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import os
 import sys
 
 import bottle
@@ -57,5 +58,6 @@ def setup_database():
 
 def setup():
   FLAGS(sys.argv)
+  bottle.TEMPLATE_PATH = [os.path.join(os.path.dirname(__file__), 'templates')]
   bottle.BaseRequest.MEMFILE_MAX = 8 * 1024 * 1024
   setup_database()
