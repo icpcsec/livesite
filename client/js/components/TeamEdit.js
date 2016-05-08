@@ -266,7 +266,7 @@ class TeamEdit extends React.Component {
       form.set('teamPhotoFile', this.state.teamPhotoFile);
     }
     form.set('password', this.state.password);
-    axios.post('/api/teams.json', form).then((response) => {
+    axios.post('/api/ui/update_team', form).then((response) => {
       if (response.data.ok) {
         $.snackbar({
           content: '正常に更新されました。',

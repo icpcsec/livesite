@@ -50,8 +50,8 @@ def api_generic_json_handler(name):
   return respond_with_json(result)
 
 
-@bottle.post('/api/teams.json')
-def api_teams_update_handler():
+@bottle.post('/api/ui/update_team')
+def api_ui_update_team_handler():
   teamId = bottle.request.forms['id']
   password = bottle.request.forms['password']
 
