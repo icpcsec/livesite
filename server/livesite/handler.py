@@ -1,11 +1,11 @@
 import cStringIO
 import hashlib
-import json
 
 import bottle
 import gflags
 from passlib.hash import sha256_crypt
 import PIL.Image
+import ujson
 
 from livesite import model
 from livesite import storage
@@ -39,7 +39,7 @@ def get_api_key():
 
 def respond_with_json(result):
   bottle.response.content_type = 'application/json'
-  return json.dumps(result, sort_keys=True, separators=(',', ':'))
+  return ujson.dumps(result, sort_keys=True)
 
 
 @bottle.get('/api/<name:re:(contest|teams|standings)>.json')
@@ -131,7 +131,7 @@ def api_ui_update_team_handler():
 def api_admin_update_handler(name):
   if bottle.request.forms['api_key'] != get_api_key():
     bottle.abort(403)
-  update = json.loads(bottle.request.forms['update'])
+  update = ujson.loads(bottle.request.forms['update'])
   model.update_entity(name, update)
   return 'ok'
 
