@@ -44,18 +44,11 @@ def update_entity(name, update):
     real_update[command] = {
         ('data.%s' % key if key else 'data'): value
         for key, value in payload.iteritems()}
-  real_update.setdefault('$set', {})
-  real_update['$set']['_id'] = name
-  real_update['$set']['ts'] = bson.timestamp.Timestamp(0, 0)
+  real_update.setdefault('$set', {})['_id'] = name
+  real_update.setdefault('$currentDate', {})['ts'] = {'$type': 'timestamp'}
   db = open_db()
   db.entities.update_one({'_id': name}, real_update, upsert=True)
 
 
 def replace_entity(name, entity):
-  replacement = {
-      '_id': name,
-      'ts': bson.timestamp.Timestamp(0, 0),
-      'data': entity,
-  }
-  db = open_db()
-  db.entities.replace_one({'_id': name}, replacement, upsert=True)
+  update_entity(name, {'': entity})
