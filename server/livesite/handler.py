@@ -2,6 +2,7 @@ import cStringIO
 import hashlib
 
 import bottle
+import bson.timestamp
 import gflags
 from passlib.hash import sha256_crypt
 import PIL.Image
@@ -27,10 +28,6 @@ PROFILE_SCHEMA = (
 )
 
 
-def stringify_ts(ts):
-  return '%d.%d' % (ts.time, ts.inc)
-
-
 def get_api_key():
   api_key = model.get_entity('apiKey')['data']
   assert api_key, 'API key has not been generated yet.'
@@ -44,21 +41,18 @@ def respond_with_json(result):
 
 @bottle.get('/api/<name:re:(contest|teams|standings)>.json')
 def api_generic_json_handler(name):
-  client_ts = bottle.request.query.get('ts')
-  if client_ts and client_ts == stringify_ts(model.get_entity_ts(name)):
-    result = {
-        'ok': True,
-        'cached': True,
-        'ts': client_ts,
-    }
-  else:
-    entry = model.get_entity(name)
-    result = {
-        'ok': True,
-        'cached': False,
-        'data': entry['data'],
-        'ts': stringify_ts(entry['ts']),
-    }
+  ts = model.get_entity_ts(name)
+  bottle.redirect('/api/%s.cached.%d.%d.json' % (name, ts.time, ts.inc))
+
+
+@bottle.get('/api/<name:re:(contest|teams|standings)>.cached.<ts_time:int>.<ts_inc:int>.json')
+def api_generic_cached_json_handler(name, ts_time, ts_inc):
+  requested_ts = bson.timestamp.Timestamp(ts_time, ts_inc)
+  entry = model.get_entity(name)
+  if entry['ts'] < requested_ts:
+    bottle.abort(404, 'No data.')
+  bottle.response.headers['Cache-Control'] = 'public,max-age=3600'
+  result = {'data': entry['data']}
   return respond_with_json(result)
 
 
