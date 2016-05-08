@@ -90,11 +90,11 @@ def api_ui_update_team_handler():
     im.save(buf, format='jpeg')
     buf.seek(0)
 
-    upload_path = '%s%s.%s.%s.jpg' % (
+    upload_path = '%simages/upload/%s.%s.%s.jpg' % (
         FLAGS.gcs_bucket_path_prefix, teamId, upload_name,
         hashlib.md5(buf.getvalue()).hexdigest())
     uploader.upload(FLAGS.gcs_bucket_name, upload_path, buf, 'image/jpeg')
-    update['$set'][entity_key] = 'https://storage.googleapis.com/%s/%s' % (
+    update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
         FLAGS.gcs_bucket_name, upload_path)
 
   process_photo_upload(
