@@ -120,8 +120,12 @@ def assets_handler(path):
   return bottle.static_file(path, root='static/assets')
 
 
+@bottle.get('/demodata/<path:path>')
+def demodata_handler(path):
+  return bottle.static_file(path, root='static/demodata')
+
+
 @bottle.get('/api/<path:re:.*>')
-@bottle.get('/assets/<path:re:.*>')
 def not_found_handler(path):
   bottle.abort(404, 'File not found.')
 
