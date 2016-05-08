@@ -31,6 +31,12 @@ def stringify_ts(ts):
   return '%d.%d' % (ts.time, ts.inc)
 
 
+def get_api_key():
+  api_key = model.get_entity('apiKey')['data']
+  assert api_key, 'API key has not been generated yet.'
+  return api_key
+
+
 def respond_with_json(result):
   bottle.response.content_type = 'application/json'
   return json.dumps(result, sort_keys=True, separators=(',', ':'))
@@ -119,6 +125,15 @@ def api_ui_update_team_handler():
   model.update_entity('teams', update)
 
   return respond_with_json({'ok': True, 'message': 'Successfully updated.'})
+
+
+@bottle.post('/api/admin/update/<name:re:(contest|teams|standings|auth)>')
+def api_admin_update_handler(name):
+  if bottle.request.forms['api_key'] != get_api_key():
+    bottle.abort(403)
+  update = json.loads(bottle.request.forms['update'])
+  model.update_entity(name, update)
+  return 'ok'
 
 
 @bottle.get('/assets/<path:path>')
