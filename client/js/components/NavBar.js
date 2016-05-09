@@ -20,22 +20,12 @@ class Clock extends React.Component {
   updateText() {
     const { start, end } = this.props.contest.times;
     const now = new Date().getTime() / 1000;
-    let text;
-    if (now < start) {
-      const delta = start - now;
-      text = sprintf(
-        'Starts in %d:%02d:%02d',
-        Math.floor(delta / 60 / 60),
-        Math.floor(delta / 60) % 60,
-        Math.floor(delta) % 60);
-    } else {
-      const delta = Math.max(0, end - now);
-      text = sprintf(
-        '%d:%02d:%02d',
-        Math.floor(delta / 60 / 60),
-        Math.floor(delta / 60) % 60,
-        Math.floor(delta) % 60);
-    }
+    const delta = Math.max(end, now) - Math.max(start, now);
+    const text = sprintf(
+      '%d:%02d:%02d',
+      Math.floor(delta / 60 / 60),
+      Math.floor(delta / 60) % 60,
+      Math.floor(delta) % 60);
     this.setState({ text });
   }
 
@@ -49,7 +39,7 @@ class Clock extends React.Component {
   }
 
   render() {
-    return <span>{this.state.text}</span>;
+    return <p className="navbar-text clock">{this.state.text}</p>;
   }
 };
 
@@ -66,7 +56,7 @@ const NavBar = ({ contest }) => (
         </ul>
         <ul className="nav navbar-nav navbar-right">
           <li>
-            <p className="navbar-text"><Clock contest={contest} /></p>
+            <Clock contest={contest} />
           </li>
         </ul>
       </div>

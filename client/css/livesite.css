@@ -25,6 +25,13 @@ a.no-decoration {
   max-width: 100000px;
 }
 
+.navbar .clock {
+  margin-top: 10px !important;
+  margin-bottom: 10px !important;
+  line-height: 30px;
+  font-size: 18px;
+}
+
 
 /*******************************************************************************
  *
