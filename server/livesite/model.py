@@ -10,8 +10,13 @@ gflags.DEFINE_string(
     'mongodb_db', 'livesite', 'MongoDB database name.')
 
 
+_cached_client = None
+
 def open_client():
-  return pymongo.MongoClient(FLAGS.mongodb_url)
+  global _cached_client
+  if not _cached_client:
+    _cached_client = pymongo.MongoClient(FLAGS.mongodb_url)
+  return _cached_client
 
 
 def open_db():
