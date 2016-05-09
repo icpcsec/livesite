@@ -28,6 +28,10 @@ PROFILE_SCHEMA = (
 )
 
 
+def stringify_ts(ts):
+  return '%d.%d' % (ts.time, ts.inc)
+
+
 def get_api_key():
   api_key = model.get_entity('apiKey')['data']
   assert api_key, 'API key has not been generated yet.'
@@ -52,7 +56,7 @@ def api_generic_cached_json_handler(name, ts_time, ts_inc):
   if entry['ts'] < requested_ts:
     bottle.abort(404, 'No data.')
   bottle.response.headers['Cache-Control'] = 'public,max-age=3600'
-  result = {'data': entry['data']}
+  result = {'data': entry['data'], 'ts': stringify_ts(entry['ts'])}
   return respond_with_json(result)
 
 

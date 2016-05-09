@@ -2,42 +2,49 @@ import axios from 'axios';
 
 import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
 
+const FEEDS = ['contest', 'teams', 'standings'];
+const POLLING_INTERVAL_IN_SECONDS = 60;
+const UPDATE_FUNCS = {
+  contest: updateContest,
+  teams: updateTeams,
+  standings: updateStandings,
+};
+
 class LiveLoader {
   constructor(store) {
     this._store = store;
+    this._feedToTs = {};
   }
 
   start() {
-    this.loadFeed('contest');
-    this.loadFeed('teams');
-    this.loadFeed('standings');
-    // TODO: poll feeds
+    this.loadAllFeeds();
+    this._timer = setInterval(
+        () => this.loadAllFeeds(),
+        POLLING_INTERVAL_IN_SECONDS * 1000);
+  }
+
+  loadAllFeeds() {
+    FEEDS.forEach((feed) => this.loadFeed(feed));
   }
 
   loadFeed(feed) {
-    let updateFunc;
-    if (feed == 'contest') {
-      updateFunc = updateContest;
-    } else if (feed == 'teams') {
-      updateFunc = updateTeams;
-    } else if (feed == 'standings') {
-      updateFunc = updateStandings;
-    } else {
+    const updateFunc = UPDATE_FUNCS[feed];
+    if (!updateFunc) {
       return Promise.reject();
     }
-    // TODO: Set ?ts=
     return axios.get(`/api/${feed}.json`).then((response) => {
       const data = response.data;
-      if (data.cached) {
+      if (this._feedToTs[feed] === data.ts) {
         return;
       }
+      this._feedToTs[feed] = data.ts;
       if (data.data === null) {
         // TODO: Set visible message
         console.log('The server returned empty feed. Contact admin to initialize the database.');
-      } else {
-        this._store.dispatch(updateFunc(data.data, data.ts));
-        this._store.dispatch(markLoaded(feed));
+        return;
       }
+      this._store.dispatch(updateFunc(data.data));
+      this._store.dispatch(markLoaded(feed));
     });
   }
 };
