@@ -21,6 +21,11 @@ def setup_database():
       'title': u'ACM-ICPC 2016 国内予選',
       'detailedStandings': False,
       'problems': [],
+      'times': {
+          'start': 1451574000,   # 2016-01-01
+          'end': 1483196400,     # 2017-01-01
+          'freeze': 1483196400,  # 2017-01-01
+      },
   }
 
   model.replace_entity('contest', contest)

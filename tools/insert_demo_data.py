@@ -23,6 +23,11 @@ def main(unused_argv):
            'label': chr(ord('A') + i),
           'name': 'Problem %s' % chr(ord('A') + i),
       } for i in xrange(10)],
+      'times': {
+          'start': 1451574000,   # 2016-01-01
+          'end': 1483196400,     # 2017-01-01
+          'freeze': 1483196400,  # 2017-01-01
+      },
   }
 
   model.replace_entity('contest', contest)
