@@ -44,13 +44,13 @@ def respond_with_json(result):
 
 
 @bottle.get('/api/<name:re:(contest|teams|standings)>.json')
-def api_generic_json_handler(name):
+def api_generic_json_redirect_handler(name):
   ts = model.get_entity_ts(name)
-  bottle.redirect('/api/cached/%s.%d.%d.json' % (name, ts.time, ts.inc))
+  bottle.redirect('/api/%s.%d.%d.json' % (name, ts.time, ts.inc))
 
 
-@bottle.get('/api/cached/<name:re:(contest|teams|standings)>.<ts_time:int>.<ts_inc:int>.json')
-def api_generic_cached_json_handler(name, ts_time, ts_inc):
+@bottle.get('/api/<name:re:(contest|teams|standings)>.<ts_time:int>.<ts_inc:int>.json')
+def api_generic_json_with_ts_handler(name, ts_time, ts_inc):
   requested_ts = bson.timestamp.Timestamp(ts_time, ts_inc)
   entry = model.get_entity(name)
   if entry['ts'] < requested_ts:
