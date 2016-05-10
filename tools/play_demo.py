@@ -10,9 +10,8 @@ from livesite import model
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('demodata_dir', None, '')
-gflags.DEFINE_float('time_scale', None, '')
+gflags.DEFINE_float('time_scale', 60, '')
 gflags.MarkFlagAsRequired('demodata_dir')
-gflags.MarkFlagAsRequired('time_scale')
 
 
 def load_feed(name):
