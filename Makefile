@@ -24,10 +24,10 @@ prod: build/prod/.stamp
 watchify:
 	cd client && node_modules/.bin/watchify js/index.js -t $(BROWSERIFY_TRANSFORM_ARGS) -d -o ../build/dev/.work/bundle.js -v
 
-build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/tools build/dev/requirements.txt
+build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/demodata build/dev/tools build/dev/requirements.txt
 	touch $@
 
-build/dev/static/.stamp: build/dev/static/assets/.stamp build/dev/static/demodata
+build/dev/static/.stamp: build/dev/static/assets/.stamp
 	touch $@
 
 build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules/.stamp
@@ -39,9 +39,9 @@ build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules
 	ln -s ../../../.work/bundle.js build/dev/static/assets/livesite/
 	touch $@
 
-build/dev/static/demodata:
+build/dev/demodata:
 	mkdir -p `dirname $@`
-	ln -s ../../../demodata $@
+	ln -s ../../demodata $@
 
 build/dev/livesite:
 	mkdir -p `dirname $@`
