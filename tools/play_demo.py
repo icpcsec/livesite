@@ -9,9 +9,10 @@ from livesite import model
 
 FLAGS = gflags.FLAGS
 
-gflags.DEFINE_string('demodata_dir', 'demodata', '')
-gflags.DEFINE_integer('update_interval', 10, '')
-gflags.DEFINE_integer('contest_duration', 5 * 60 * 60, '')
+gflags.DEFINE_string('demodata_dir', None, '')
+gflags.DEFINE_float('time_scale', None, '')
+gflags.MarkFlagAsRequired('demodata_dir')
+gflags.MarkFlagAsRequired('time_scale')
 
 
 def load_feed(name):
@@ -23,13 +24,21 @@ def main(unused_argv):
   contest_feed = load_feed('contest.json')
   teams_feed = load_feed('teams.json')
   auth_feed = load_feed('auth.json')
-  standings_feeds = []
-  for i in xrange(1000):
-    try:
-      standings_feeds.append(load_feed('standings/%d.json' % i))
-    except IOError:
-      break
-  assert len(standings_feeds) >= 3
+
+  standings_index = load_feed('standings.json')
+  standings_timestamp_feeds = []
+  for entry in standings_index:
+    standings = load_feed(entry['filename'])
+    timestamp = entry['time']
+    standings_timestamp_feeds.append((standings, timestamp))
+
+  first_timestamp = standings_timestamp_feeds[0][1]
+  last_timestamp = (
+      standings_timestamp_feeds[-1][1] +
+      (standings_timestamp_feeds[-1][1] - standings_timestamp_feeds[-2][1]))
+  standings_timestamp_feeds.append(([], last_timestamp))  # sentinel
+
+  original_times = contest_feed['times']
 
   model.replace_entity('teams', teams_feed)
   model.replace_entity('auth', auth_feed)
@@ -37,22 +46,23 @@ def main(unused_argv):
   while True:
 
     base_time = int(time.time())
-    start_time = base_time + FLAGS.update_interval
-    end_time = base_time + FLAGS.update_interval * (len(standings_feeds) - 1)
+
+    def convert_time(timestamp):
+      return int((timestamp - first_timestamp) / FLAGS.time_scale + base_time)
+
     contest_feed['times'] = {
-        'start': start_time,
-        'end': end_time,
-        'freeze': 2 ** 32 - 1,
-        'scale': float(FLAGS.contest_duration) / (end_time - start_time),
+        'start': convert_time(original_times['start']),
+        'end': convert_time(original_times['end']),
+        'freeze': convert_time(original_times['freeze']),
+        'scale': FLAGS.time_scale,
     }
     model.replace_entity('contest', contest_feed)
 
-    for i, standings_feed in enumerate(standings_feeds):
+    for (standings_feed, timestamp), (_, next_timestamp) in zip(standings_timestamp_feeds, standings_timestamp_feeds[1:]):
       model.replace_entity('standings', standings_feed)
 
-      target_time = base_time + FLAGS.update_interval * (i + 1)
-      current_time = time.time()
-      delta_time = target_time - current_time
+      next_time = convert_time(next_timestamp)
+      delta_time = next_time - time.time()
       if delta_time > 0:
         time.sleep(delta_time)
 
