@@ -14,38 +14,75 @@ class LiveLoader {
   constructor(store) {
     this._store = store;
     this._feedToTs = {};
+    this._ws = null;
   }
 
   start() {
     this.loadAllFeeds();
     this._timer = setInterval(
-        () => this.loadAllFeeds(),
+        () => this.maybePollFeeds(),
         POLLING_INTERVAL_IN_SECONDS * 1000);
+    this.attemptWebSocket();
+  }
+
+  maybePollFeeds() {
+    if (!this._ws) {
+      this.loadAllFeeds();
+    }
   }
 
   loadAllFeeds() {
     FEEDS.forEach((feed) => this.loadFeed(feed));
   }
 
-  loadFeed(feed) {
+  loadFeed(feed, url = null) {
     const updateFunc = UPDATE_FUNCS[feed];
     if (!updateFunc) {
       return Promise.reject();
     }
-    return axios.get(`/api/${feed}.json`).then((response) => {
+    return axios.get(url || `/api/${feed}.json`).then((response) => {
       const data = response.data;
       if (this._feedToTs[feed] === data.ts) {
         return;
       }
       this._feedToTs[feed] = data.ts;
-      if (data.data === null) {
-        // TODO: Set visible message
-        console.log('The server returned empty feed. Contact admin to initialize the database.');
-        return;
-      }
       this._store.dispatch(updateFunc(data.data));
       this._store.dispatch(markLoaded(feed));
     });
+  }
+
+  attemptWebSocket() {
+    if (!window.WebSocket) {
+      return;
+    }
+    const ws = new WebSocket('ws://' + location.host + '/ws/realtime');
+    ws.onopen = (e) => {
+      this._ws = ws;
+      ws.onmessage = (e) => {
+        this.onRealtimeMessage(JSON.parse(e.data));
+      };
+      ws.onclose = ws.onerror = (e) => {
+        ws.onerror = ws.onclose = undefined;
+        this._ws = null;
+        this.attemptWebSocket();
+      };
+    };
+    ws.onerror = (e) => {
+      ws.onerror = ws.onclose = undefined;
+      setTimeout(() => this.attemptWebSocket(), 3 * 60 * 1000);
+    };
+  }
+
+  onRealtimeMessage(data) {
+    if (data.command === 'feeds_update') {
+      const feedsMap = data.params.feeds;
+      Object.keys(feedsMap).forEach((feed) => {
+        const { url, ts } = feedsMap[feed];
+        if (this._feedToTs[feed] !== ts) {
+          this.loadFeed(feed, url);
+        }
+      });
+    }
   }
 };
 
