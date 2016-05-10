@@ -6,6 +6,7 @@ import tornado.httpserver
 import tornado.ioloop
 import tornado.web
 import tornado.websocket
+import ujson
 
 from livesite import model
 
@@ -57,9 +58,10 @@ class Master(object):
     }
 
   def _broadcast(self, data):
+    message = ujson.dumps(data)
     for c in self._connections:
       try:
-        c.write_message(data)
+        c.write_message(message)
       except Exception:
         logging.exception('write_message failed')
 
