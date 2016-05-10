@@ -116,17 +116,33 @@ const TeamInfoTip = ({ team }) => {
 class StandingsRow extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { rankHidden: false };
+    this.state = { rankHidden: false, newSolved: false };
+    this._timers = new Set();
+  }
+
+  setTimeout(callback, timeout) {
+    const timer = setTimeout(() => {
+      if (this._timers.has(timer)) {
+        this._timers.delete(timer);
+        callback();
+      }
+    }, timeout);
+    this._timers.add(timer);
+  }
+
+  clearTimeouts() {
+    this._timers.forEach((timer) => {
+      clearTimeout(timer);
+    });
+    this._timers.clear();
   }
 
   animateForNewSolve() {
-    this._li.classList.add('new-solved');
-    setTimeout(() => {
-      this._li.classList.remove('new-solved');
-    }, 10000);
-
-    this.setState({ rankHidden: true });
-    setTimeout(() => {
+    this.setState({ rankHidden: true, newSolved: true });
+    this.setTimeout(() => {
+      this.setState({ newSolved: false });
+    }, 9000);
+    this.setTimeout(() => {
       this.setState({ rankHidden: false });
     }, 4000);
   }
@@ -154,6 +170,7 @@ class StandingsRow extends React.Component {
   }
 
   componentWillUnmount() {
+    this.clearTimeouts();
     /*
     $(this._hover).popover('destroy');
     */
@@ -172,9 +189,9 @@ class StandingsRow extends React.Component {
       cols.push(<td />);
     }
     const displayRank = this.state.rankHidden ? '...' : rank;
+    const { newSolved } = this.state;
     return (
-      <li className={`team-row ${sticky ? 'sticky' : ''}`}
-          ref={(li) => { this._li = li; }}>
+      <li className={`team-row ${sticky ? 'sticky' : ''} ${newSolved ? 'new-solved' : ''}`}>
         <table className="team-table">
           <tbody>
             <tr>
