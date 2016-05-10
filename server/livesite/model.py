@@ -59,7 +59,7 @@ def update_entity(name, update):
 
 
 def replace_entity(name, entity):
-  update_entity(name, {'': entity})
+  update_entity(name, {'$set': {'': entity}})
 
 
 def get_api_key():
