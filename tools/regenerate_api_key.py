@@ -1,5 +1,3 @@
-import hashlib
-import os
 import sys
 
 import gflags
@@ -10,9 +8,8 @@ FLAGS = gflags.FLAGS
 
 
 def main(unused_argv):
-  api_key = hashlib.md5(os.urandom(64)).hexdigest()
-  model.update_entity('apiKey', {'$set': {'': api_key}})
-  print api_key
+  model.update_entity('apiKey', {'$set': None});
+  print model.get_api_key()
 
 
 if __name__ == '__main__':

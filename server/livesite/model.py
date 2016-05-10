@@ -1,3 +1,6 @@
+import hashlib
+import os
+
 import bson.timestamp
 import gflags
 import pymongo
@@ -57,3 +60,12 @@ def update_entity(name, update):
 
 def replace_entity(name, entity):
   update_entity(name, {'': entity})
+
+
+def get_api_key():
+  api_key = get_entity('apiKey')['data']
+  if not api_key:
+    api_key = hashlib.md5(os.urandom(64)).hexdigest()
+    update_entity('apiKey', {'$setOnInsert': {'': api_key}})
+    api_key = get_entity('apiKey')['data']
+  return api_key
