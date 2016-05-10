@@ -3,7 +3,7 @@ import axios from 'axios';
 import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
 
 const FEEDS = ['contest', 'teams', 'standings'];
-const POLLING_INTERVAL_IN_SECONDS = 60;
+const POLLING_INTERVAL_IN_SECONDS = 10;
 const UPDATE_FUNCS = {
   contest: updateContest,
   teams: updateTeams,
