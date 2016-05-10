@@ -35,7 +35,7 @@ def setup_database():
       'id': 'sample',
       'name': 'Sample Team',
       'university': 'University of Sample',
-      'photo': 'https://storage.googleapis.com/icpcsec/images/default-photo.png',
+      'photo': '/images/default-photo.png',
       'members': [{
           'name': 'Member %d' % (i + 1),
           'topcoderId': '',
@@ -43,7 +43,7 @@ def setup_database():
           'twitterId': '',
           'githubId': '',
           'comment': '',
-          'icon': 'https://storage.googleapis.com/icpcsec/images/default-icon.png',
+          'icon': '/images/default-icon.png',
       } for i in xrange(3)],
       'hidden': True,
   }

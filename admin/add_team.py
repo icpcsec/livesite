@@ -37,7 +37,7 @@ def main(unused_argv):
               'id': FLAGS.id,
               'name': FLAGS.name,
               'university': FLAGS.university,
-              'photo': 'https://storage.googleapis.com/icpcsec/images/default-photo.png',
+              'photo': '/images/default-photo.png',
               'members': [{
                   'name': u'メンバー%d' % (i + 1),
                   'topcoderId': '',
@@ -45,7 +45,7 @@ def main(unused_argv):
                   'twitterId': '',
                   'githubId': '',
                   'comment': '',
-                  'icon': 'https://storage.googleapis.com/icpcsec/images/default-icon.png',
+                  'icon': '/images/default-icon.png',
               } for i in xrange(3)],
           },
       },

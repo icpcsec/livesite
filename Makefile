@@ -27,7 +27,7 @@ watchify:
 build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/demodata build/dev/tools build/dev/requirements.txt
 	touch $@
 
-build/dev/static/.stamp: build/dev/static/assets/.stamp
+build/dev/static/.stamp: build/dev/static/assets/.stamp build/dev/static/images
 	touch $@
 
 build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules/.stamp
@@ -38,6 +38,10 @@ build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules
 	set -e; for i in $(wildcard client/css/*.css); do ln -s ../../../../../$$i build/dev/static/assets/livesite/; done
 	ln -s ../../../.work/bundle.js build/dev/static/assets/livesite/
 	touch $@
+
+build/dev/static/images:
+	mkdir -p `dirname $@`
+	ln -s ../../../images $@
 
 build/dev/demodata:
 	mkdir -p `dirname $@`

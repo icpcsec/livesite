@@ -139,6 +139,11 @@ def assets_handler(path):
   return bottle.static_file(path, root='static/assets')
 
 
+@bottle.get('/images/<path:path>')
+def images_handler(path):
+  return bottle.static_file(path, root='static/images')
+
+
 @bottle.get('/api/<path:re:.*>')
 @bottle.get('/favicon.ico')
 @bottle.get('/robots.txt')
