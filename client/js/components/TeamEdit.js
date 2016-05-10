@@ -282,7 +282,6 @@ class TeamEdit extends React.Component {
         });
       }
     }, (err) => {
-      console.log(err);
       $.snackbar({
         content: 'サーバーエラーが発生しました。時間を置いてやり直して下さい。',
         timeout: 5000,
