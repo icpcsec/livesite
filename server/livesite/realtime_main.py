@@ -90,7 +90,10 @@ def poll_feeds():
   feeds = {}
   for name in ('standings', 'teams', 'contest'):
     ts = model.get_entity_ts(name)
-    feeds[name] = '/api/%s.%d.%d.json' % (name, ts.time, ts.inc)
+    feeds[name] = {
+        'ts': '%d.%d' % (ts.time, ts.inc),
+        'url': '/api/%s.%d.%d.json' % (name, ts.time, ts.inc),
+    }
   g_master.on_feeds_change(feeds)
 
 
