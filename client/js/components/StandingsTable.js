@@ -178,7 +178,7 @@ class StandingsRow extends React.Component {
 
   render() {
     const { status, team, pinned, onClickPin, sticky, detailed } = this.props;
-    const { rank, solved, penalty, problems } = status;
+    const { rank, solved, penalty, problems = [] } = status;
     const { id, name, university } = team;
     const cols = [];
     if (detailed) {
