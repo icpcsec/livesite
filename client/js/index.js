@@ -1,3 +1,4 @@
+import Perf from 'react-addons-perf';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux';
@@ -20,3 +21,5 @@ ReactDOM.render(
 );
 
 $.material.init();
+
+window.Perf = Perf;

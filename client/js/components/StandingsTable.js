@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
+import shallowCompare from 'react-addons-shallow-compare';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 
@@ -70,11 +71,18 @@ const LegendRowDetailed = ({ problems }) => {
   );
 };
 
-const TeamCol = ({ text, small, to, ...rest }) => {
-  const content = <span>{text}<br /><small>{small}</small></span>;
-  const inner =
-      to ? <Link to={to} className="no-decoration">{content}</Link> : content;
-  return <td {...rest}>{inner}</td>;
+class TeamCol extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return shallowCompare(this, nextProps, nextState);
+  }
+
+  render() {
+    const { text, small, to, ...rest } = this.props;
+    const content = <span>{text}<br /><small>{small}</small></span>;
+    const inner =
+        to ? <Link to={to} className="no-decoration">{content}</Link> : content;
+    return <td {...rest}>{inner}</td>;
+  }
 };
 
 const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
@@ -148,7 +156,7 @@ const TeamRowSimple = (props) => {
 };
 
 const TeamRowDetailed = (props) => {
-  const { status, team, pinned, onClickPin, className = '', ...rest } = props;
+  const { status, team, pinned, onClickPin, className = '', ...rest } = this.props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university } = team;
   const rewrittenClassName = 'team-row ' + className;
