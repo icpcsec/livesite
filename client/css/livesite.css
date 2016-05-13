@@ -117,8 +117,13 @@ a.no-decoration {
   text-overflow: ellipsis;
 }
 
-.standings .team-row .team-table .team-score {
+.standings .team-row .team-table .team-solved {
   width: 48px;
+  text-align: center;
+}
+
+.standings .team-row .team-table .team-penalty {
+  width: 80px;
   text-align: center;
 }
 
