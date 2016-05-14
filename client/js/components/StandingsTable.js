@@ -225,6 +225,10 @@ class AnimatingTeamRow extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    this.clearTimeouts();
+  }
+
   render() {
     const { component: Component, className = '', status, ...rest } = this.props;
     const rewrittenClassName =
