@@ -147,6 +147,7 @@ def images_handler(path):
 @bottle.get('/api/<path:re:.*>')
 @bottle.get('/favicon.ico')
 @bottle.get('/robots.txt')
+@bottle.get('/ws/<path:re:.*>')
 def not_found_handler(path=None):
   bottle.abort(404, 'File not found.')
 
