@@ -293,44 +293,15 @@ class AnimatingList extends React.Component {
 class StandingsTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      pinnedTeamIdSet: this.loadPins(),
-    }
   }
 
-  setState(nextState) {
-    super.setState(nextState);
-    const pinnedTeamIdSet = nextState.pinnedTeamIdSet;
-    if (pinnedTeamIdSet !== undefined) {
-      this.savePins(pinnedTeamIdSet);
-    }
-  }
-
-  loadPins() {
-    const serialized = localStorage.getItem(this.props.pinLocalStorageName);
-    if (!serialized || !serialized.length) {
-      return new Set();
-    }
-    return new Set(serialized.split(','));
-  }
-
-  savePins(pinnedTeamIdSet) {
-    const serialized = Array.from(pinnedTeamIdSet).join(',');
-    localStorage.setItem(this.props.pinLocalStorageName, serialized);
-  }
-
-  handleClickPin(id) {
-    const newPinnedTeamIdSet = new Set(this.state.pinnedTeamIdSet);
-    if (this.state.pinnedTeamIdSet.has(id)) {
-      newPinnedTeamIdSet.delete(id);
-    } else {
-      newPinnedTeamIdSet.add(id);
-    }
-    this.setState({pinnedTeamIdSet: newPinnedTeamIdSet});
+  handleClickPin(teamId) {
+    this.props.togglePin(teamId);
   }
 
   render() {
-    const { standings, teamsMap, problems, detailed } = this.props;
+    const { standings, teamsMap, problems, detailed, pinnedTeamIds } = this.props;
+    const pinnedTeamIdSet = new Set(pinnedTeamIds);
     const TeamRow = detailed ? TeamRowDetailed : TeamRowSimple;
     const LegendRow = detailed ? LegendRowDetailed : LegendRowSimple;
     const normalRows = standings.map((status) => {
@@ -341,13 +312,13 @@ class StandingsTable extends React.Component {
           key={status.teamId}
           status={status}
           team={team}
-          pinned={this.state.pinnedTeamIdSet.has(status.teamId)}
+          pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
         />
       );
     });
     const pinnedStandings = standings.filter(
-      (status) => this.state.pinnedTeamIdSet.has(status.teamId));
+      (status) => pinnedTeamIdSet.has(status.teamId));
     const stickyRows = pinnedStandings.map((status) => {
       const team = teamsMap[status.teamId] || DEFAULT_TEAM;
       return (
@@ -375,9 +346,6 @@ class StandingsTable extends React.Component {
       </div>
     );
   }
-};
-StandingsTable.defaultProps = {
-  pinLocalStorageName: 'pinnedTeams',
 };
 
 export default StandingsTable;

@@ -25,3 +25,10 @@ export const markLoaded = (feed) => (
     feed,
   }
 );
+
+export const updateSettings = (settings) => (
+  {
+    type: 'UPDATE_SETTINGS',
+    settings,
+  }
+);
