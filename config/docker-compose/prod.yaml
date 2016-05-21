@@ -1,0 +1,24 @@
+# docker-compose YAML definition
+version: '2'
+
+# TODO: Configure logging.
+# TODO: Secure network access.
+
+services:
+  livesite:
+    image: asia.gcr.io/icpcsec/livesite
+    command: [./run.sh, --pyargv=--gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/]
+    restart: always
+    network_mode: host
+  nginx:
+    image: nginx:1.9.15
+    restart: always
+    network_mode: host
+    volumes:
+      - /opt/livesite/nginx.conf:/etc/nginx/nginx.conf:ro
+  mongodb:
+    image: mongo:3.2.6
+    restart: always
+    network_mode: host
+    volumes:
+      - /opt/livesite/db:/data/db
