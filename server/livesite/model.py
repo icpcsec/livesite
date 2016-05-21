@@ -4,6 +4,7 @@ import os
 import bson.timestamp
 import gflags
 import pymongo
+import pymongo.collection
 
 FLAGS = gflags.FLAGS
 
@@ -52,10 +53,16 @@ def update_entity(name, update):
     real_update[command] = {
         ('data.%s' % key if key else 'data'): value
         for key, value in payload.iteritems()}
-  real_update.setdefault('$set', {})['_id'] = name
+  real_update.setdefault('$set', {})['key'] = name
   real_update.setdefault('$currentDate', {})['ts'] = {'$type': 'timestamp'}
   db = open_db()
-  db.entities.update_one({'_id': name}, real_update, upsert=True)
+  new_entity = db.entities.find_one_and_update(
+      {'key': name},
+      real_update,
+      upsert=True,
+      return_document=pymongo.collection.ReturnDocument.AFTER)
+  new_entity.pop('_id')
+  db.entities_log.insert_one(new_entity)
 
 
 def replace_entity(name, entity):
