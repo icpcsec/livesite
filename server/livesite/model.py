@@ -33,7 +33,7 @@ def drop_db():
 
 def get_entity(name):
   db = open_db()
-  entry = db.entities.find_one({'_id': name})
+  entry = db.entities.find_one({'key': name})
   if not entry:
     return {'data': None, 'ts': bson.timestamp.Timestamp(0, 0)}
   return {'data': entry['data'], 'ts': entry['ts']}
@@ -41,7 +41,7 @@ def get_entity(name):
 
 def get_entity_ts(name):
   db = open_db()
-  entry = db.entities.find_one({'_id': name}, projection=['ts'])
+  entry = db.entities.find_one({'key': name}, projection=['ts'])
   if not entry:
     return bson.timestamp.Timestamp(0, 0)
   return entry['ts']
