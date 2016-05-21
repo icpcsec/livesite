@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
 import LoadingCheckContainer from '../containers/LoadingCheckContainer';
+import AdminPage from './AdminPage';
 import Frame from './Frame';
 import FrontPage from './FrontPage';
 import LoadingPage from './LoadingPage';
@@ -34,6 +35,7 @@ class App extends React.Component {
                 <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
                 <Route path="/team/:requestedTeamId/edit" component={TeamEditPage} />
               </Route>
+              <Route path="/admin/" component={AdminPage} />
             </Route>
           </Router>
         </LoadingCheckContainer>
