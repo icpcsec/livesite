@@ -1,4 +1,5 @@
 import React from 'react';
+import GA from 'react-ga';
 import { Provider } from 'react-redux';
 import { IndexRoute, Router, Route, browserHistory } from 'react-router';
 
@@ -16,11 +17,15 @@ class App extends React.Component {
     return { loader: this.props.loader };
   }
 
+  handlePageView() {
+    GA.pageview(window.location.pathname);
+  }
+
   render() {
     return (
       <Provider store={this.props.store}>
         <LoadingCheckContainer loading={<LoadingPage/>}>
-          <Router history={browserHistory}>
+          <Router history={browserHistory} onUpdate={() => this.handlePageView()}>
             <Route path="/" component={Frame}>
               <IndexRoute component={FrontPage} />
               <Route path="/standings/" component={StandingsPage} />
