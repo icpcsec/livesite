@@ -23,7 +23,7 @@ sudo apt-get update
 sudo apt-get install -y docker-engine < /dev/null
 '
 
-gcloud compute ssh "$@" 'sudo mkdir -p /opt/livesite /opt/livesite/db'
+gcloud compute ssh "$@" 'sudo mkdir -p /opt/livesite /opt/livesite/db /opt/livesite/log'
 
 gcloud compute ssh "$@" 'sudo tee /opt/livesite/nginx.conf' < configs/nginx/nginx.conf
 
