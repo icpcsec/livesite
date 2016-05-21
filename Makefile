@@ -64,10 +64,10 @@ build/dev/.work/python/.stamp: server/requirements.txt
 	build/dev/.work/python/bin/pip install -r server/requirements.txt
 	touch $@
 
-build/prod/.stamp: build/dev/.stamp $(shell find production -type f) build/prod/.work/bundle.js client/node_modules/.stamp
+build/prod/.stamp: build/dev/.stamp $(shell find docker -type f) build/prod/.work/bundle.js client/node_modules/.stamp
 	mkdir -p `dirname $@`
 	rsync -rpLt --delete --exclude='.*' --exclude='*.pyc' --exclude='assets/livesite/bundle.js' build/dev/ build/prod/
-	rsync -rpLt --include='.dockerignore' --exclude='.*' production/ build/prod/
+	rsync -rpLt --include='.dockerignore' --exclude='.*' docker/ build/prod/
 	cp build/prod/.work/bundle.js build/prod/static/assets/livesite/bundle.js
 	touch $@
 
