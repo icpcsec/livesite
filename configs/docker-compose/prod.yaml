@@ -5,11 +5,20 @@ version: '2'
 # TODO: Secure network access.
 
 services:
-  livesite:
+  app:
     image: asia.gcr.io/icpcsec/livesite
     command: [./run.sh, --pyargv=--gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/]
     restart: always
     network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+  realtime:
+    image: asia.gcr.io/icpcsec/livesite
+    command: [./run-realtime.sh]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
   nginx:
     image: nginx:1.9.15
     restart: always

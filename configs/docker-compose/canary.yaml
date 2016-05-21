@@ -1,0 +1,40 @@
+# docker-compose YAML definition
+version: '2'
+
+# TODO: Configure logging.
+# TODO: Secure network access.
+
+services:
+  app:
+    image: asia.gcr.io/nya3jp/livesite
+    command: [./run.sh, --pyargv=livesite-dev-nya --gcs_bucket_path_prefix=livesite-canary/]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+  realtime:
+    image: asia.gcr.io/nya3jp/livesite
+    command: [./run-realtime.sh]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+  nginx:
+    image: nginx:1.9.15
+    restart: always
+    network_mode: host
+    volumes:
+      - /opt/livesite/nginx.conf:/etc/nginx/nginx.conf:ro
+  mongodb:
+    image: mongo:3.2.6
+    restart: always
+    network_mode: host
+    volumes:
+      - /opt/livesite/db:/data/db
+  demo:
+    image: asia.gcr.io/nya3jp/livesite
+    command: [python, tools/play_demo.py, --demodata_dir=demodata/domestic]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
