@@ -1,5 +1,5 @@
 DEVSERVER_ARGS ?=
-BROWSERIFY_TRANSFORM_ARGS ?= [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ]
+BROWSERIFY_TRANSFORM_ARGS ?= [ babelify --presets [ es2015 react ] --plugins [ transform-object-assign transform-object-rest-spread ] ]
 DIST_MODULES := bootstrap bootstrap-material-design jquery snackbarjs
 
 .PHONY: default force clean distclean devserver dev prod watchify
