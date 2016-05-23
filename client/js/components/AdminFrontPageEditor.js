@@ -1,10 +1,11 @@
+import axios from 'axios';
 import React from 'react';
 
 class AdminFrontPageEditor extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      password: '',
+      apiKey: '',
       frontPageHtml: '',
     };
   }
@@ -23,8 +24,8 @@ class AdminFrontPageEditor extends React.Component {
     this.resetState(newProps);
   }
 
-  handlePasswordChange(e) {
-    this.setState({ password: e.target.value });
+  handleApiKeyChange(e) {
+    this.setState({ apiKey: e.target.value });
   }
 
   handleFrontPageHtmlChange(e) {
@@ -33,7 +34,30 @@ class AdminFrontPageEditor extends React.Component {
 
   handleSubmitClick(e) {
     e.preventDefault();
-    alert('not implemented');
+    const form = new FormData();
+    form.set('api_key', this.state.apiKey);
+    form.set('update', JSON.stringify({
+      $set: { frontPageHtml: this.state.frontPageHtml },
+    }));
+    axios.post('/api/admin/update/contest', form).then((response) => {
+      $.snackbar({
+        content: 'Successfully updated.',
+        timeout: 5000,
+      });
+    }, (response) => {
+      if (response.status === 403) {
+        $.snackbar({
+          content: 'API key rejected.',
+          timeout: 5000,
+        });
+      } else {
+        $.snackbar({
+          content: 'Unknown error. See JavaScript console for details.',
+          timeout: 5000,
+        });
+        console.log(response);
+      }
+    });
   }
 
   render() {
@@ -57,7 +81,7 @@ class AdminFrontPageEditor extends React.Component {
             <div className="col-xs-3">
               <div className="form-group">
                 <label>API Key</label>
-                <input className="form-control" type="password" value={this.state.password} onChange={this.handlePasswordChange.bind(this)} />
+                <input className="form-control" type="password" value={this.state.apiKey} onChange={this.handleApiKeyChange.bind(this)} />
               </div>
             </div>
             <div className="col-xs-3">
