@@ -32,3 +32,10 @@ services:
     network_mode: host
     volumes:
       - /opt/livesite/db:/data/db
+  dump:
+    image: mongo:3.2.6
+    command: [bash, -c, "while :; do mongodump --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"]
+    restart: always
+    network_mode: host
+    volumes:
+      - /opt/livesite:/mnt
