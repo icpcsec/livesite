@@ -61,8 +61,8 @@ def update_entity(name, update):
       real_update,
       upsert=True,
       return_document=pymongo.collection.ReturnDocument.AFTER)
-  new_entity.pop('_id')
-  db.entities_log.insert_one(new_entity)
+  # new_entity.pop('_id')
+  # db.entities_log.insert_one(new_entity)
 
 
 def replace_entity(name, entity):
