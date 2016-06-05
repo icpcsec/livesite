@@ -34,7 +34,7 @@ services:
       - /opt/livesite/db:/data/db
   demo:
     image: asia.gcr.io/nya3jp/livesite
-    command: [python, tools/play_demo.py, --demodata_dir=demodata/domestic]
+    command: [python, -m, livesite.tools.play_demo, --demodata_dir=demodata/domestic]
     restart: always
     network_mode: host
     volumes:
