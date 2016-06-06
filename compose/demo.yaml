@@ -1,0 +1,64 @@
+# docker-compose YAML definition
+version: '2'
+
+services:
+
+  app:
+    image: asia.gcr.io/nya3jp/livesite-app
+    command: [./run.sh, "--pyargv=--logtostderr --nologtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-demo/"]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+    logging:
+      driver: syslog
+
+  realtime:
+    image: asia.gcr.io/nya3jp/livesite-app
+    command: [./run-realtime.sh, --logtostderr, --nologtosyslog]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+    logging:
+      driver: syslog
+
+  nginx:
+    image: asia.gcr.io/nya3jp/livesite-nginx
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+    logging:
+      driver: syslog
+
+  mongodb:
+    image: mongo:3.2.6
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+      - /opt/livesite/db:/data/db
+    logging:
+      driver: syslog
+
+  dump:
+    image: mongo:3.2.6
+    command: [bash, -c, "while :; do mongodump --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+      - /opt/livesite:/mnt
+    logging:
+      driver: syslog
+
+  demo:
+    image: asia.gcr.io/nya3jp/livesite-app
+    command: [python, -m, livesite.tools.play_demo, --demodata_dir=demodata/domestic]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+    logging:
+      driver: syslog

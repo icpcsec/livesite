@@ -4,14 +4,10 @@ cd "$(dirname "$0")/.."
 
 set -ex
 
-make prod
-sudo docker build -t asia.gcr.io/nya3jp/livesite build/prod
-gcloud docker push asia.gcr.io/nya3jp/livesite
-
-gcloud compute ssh livesite-demo "
+gcloud compute ssh --project=nya3jp livesite-demo '
 set -ex
-
-sudo gcloud docker pull asia.gcr.io/nya3jp/livesite
-
-sudo docker-compose -f demo.yaml up -d
-"
+cat > docker-compose.yml
+sudo gcloud docker pull asia.gcr.io/nya3jp/livesite-app
+sudo gcloud docker pull asia.gcr.io/nya3jp/livesite-nginx
+sudo docker-compose up -d --timeout 3 --remove-orphans
+' < compose/demo.yaml

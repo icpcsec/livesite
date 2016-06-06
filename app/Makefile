@@ -24,7 +24,7 @@ prod: build/prod/.stamp
 watchify:
 	cd client && node_modules/.bin/watchify js/index.js -t $(BROWSERIFY_TRANSFORM_ARGS) -d -o ../build/dev/.work/bundle.js -v
 
-build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/demodata build/dev/tools build/dev/requirements.txt
+build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/demodata build/dev/requirements.txt
 	touch $@
 
 build/dev/static/.stamp: build/dev/static/assets/.stamp build/dev/static/images
@@ -50,10 +50,6 @@ build/dev/demodata:
 build/dev/livesite:
 	mkdir -p `dirname $@`
 	ln -s ../../server/livesite $@
-
-build/dev/tools:
-	mkdir -p `dirname $@`
-	ln -s ../../tools $@
 
 build/dev/requirements.txt:
 	mkdir -p `dirname $@`

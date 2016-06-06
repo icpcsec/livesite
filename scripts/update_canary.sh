@@ -4,14 +4,18 @@ cd "$(dirname "$0")/.."
 
 set -ex
 
-make prod
-sudo docker build -t asia.gcr.io/nya3jp/livesite build/prod
-gcloud docker push asia.gcr.io/nya3jp/livesite
+make -C app prod
 
-gcloud compute ssh livesite-canary "
+sudo docker build -t asia.gcr.io/nya3jp/livesite-app app/build/prod
+sudo docker build -t asia.gcr.io/nya3jp/livesite-nginx nginx
+
+gcloud docker push asia.gcr.io/nya3jp/livesite-app
+gcloud docker push asia.gcr.io/nya3jp/livesite-nginx
+
+gcloud compute ssh --project=nya3jp livesite-canary '
 set -ex
-
-sudo gcloud docker pull asia.gcr.io/nya3jp/livesite
-
-sudo docker-compose -f canary.yaml up -d
-"
+cat > docker-compose.yml
+sudo gcloud docker pull asia.gcr.io/nya3jp/livesite-app
+sudo gcloud docker pull asia.gcr.io/nya3jp/livesite-nginx
+sudo docker-compose up -d --timeout 3 --remove-orphans
+' < compose/canary.yaml
