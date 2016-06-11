@@ -14,8 +14,10 @@ clean:
 distclean: clean
 	rm -rf client/node_modules
 
-devserver: dev build/dev/.work/python/.stamp
+devserver: dev devpython
 	cd build/dev && PYTHONPATH=$$PWD .work/python/bin/python2 livesite/devserver_main.py $(DEVSERVER_ARGS)
+
+devpython: build/dev/.work/python/.stamp
 
 dev: build/dev/.stamp
 
