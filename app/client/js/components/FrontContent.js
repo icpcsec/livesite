@@ -5,9 +5,7 @@ const FrontContent = ({ contest }) => (
     <h1 className="page-header">
       { contest.title }
     </h1>
-    <p>
-      ここにいろいろ書く
-    </p>
+    <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />
   </div>
 );
 

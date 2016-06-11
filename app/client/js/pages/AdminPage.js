@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AdminFrontPageEditorContainer from '../containers/AdminFrontPageEditorContainer';
+import AdminContestEditorContainer from '../containers/AdminContestEditorContainer';
 
 class AdminPage extends React.Component {
   componentDidMount() {
@@ -14,27 +14,29 @@ class AdminPage extends React.Component {
         <h1 className="page-header">
           Administration
         </h1>
-        <h2>UI Switches</h2>
-        <form>
-          <div className="form-group">
-            <div className="togglebutton">
-              <label>
-                <input type="checkbox" checked={false} />
-                Inverted coloring (not implemented yet)
-              </label>
+        <div style={{display: 'none'}}>
+          <h2>UI Switches</h2>
+          <form>
+            <div className="form-group">
+              <div className="togglebutton">
+                <label>
+                  <input type="checkbox" checked={false} />
+                  Inverted coloring (not implemented yet)
+                </label>
+              </div>
             </div>
-          </div>
-          <div className="form-group">
-            <div className="togglebutton">
-              <label>
-                <input type="checkbox" checked={false} />
-                Autoscroll standings (not implemented yet)
-              </label>
+            <div className="form-group">
+              <div className="togglebutton">
+                <label>
+                  <input type="checkbox" checked={false} />
+                  Autoscroll standings (not implemented yet)
+                </label>
+              </div>
             </div>
-          </div>
-        </form>
-        <h2>Edit Front Page</h2>
-        <AdminFrontPageEditorContainer />
+          </form>
+        </div>
+        <h2>Edit Contest Info</h2>
+        <AdminContestEditorContainer />
       </div>
     );
   }
