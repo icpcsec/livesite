@@ -23,6 +23,16 @@ services:
     logging:
       driver: syslog
 
+  ratings:
+    image: asia.gcr.io/nya3jp/livesite-app
+    command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
+    restart: always
+    network_mode: host
+    volumes:
+      - /dev/log:/dev/log
+    logging:
+      driver: syslog
+
   nginx:
     image: asia.gcr.io/nya3jp/livesite-nginx
     restart: always
