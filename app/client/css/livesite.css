@@ -32,6 +32,13 @@ a.no-decoration {
   font-size: 18px;
 }
 
+@media (min-width: 1200px) {
+.navbar .clock {
+  margin-top: 15px !important;
+  margin-bottom: 15px !important;
+}
+}
+
 /* Always show help message */
 .help-block {
   display: block !important;
