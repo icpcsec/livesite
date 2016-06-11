@@ -79,13 +79,13 @@ class AdminFrontPageEditor extends React.Component {
     return (
       <div>
         <h3>Title</h3>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="form-group">
             <input className="form-control" type="text" value={this.state.title} onChange={(e) => this.setState({title: e.target.value})} />
           </div>
         </form>
         <h3>Times</h3>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="row">
             <div className="col-xs-3">
               <div className="form-group">
@@ -146,7 +146,7 @@ class AdminFrontPageEditor extends React.Component {
           </div>
         </div>
         <h3>Links</h3>
-        <form>
+        <form onSubmit={(e) => e.preventDefault()}>
           <div className="row">
             <div className="col-xs-12">
               <div className="form-group">

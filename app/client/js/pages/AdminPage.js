@@ -16,7 +16,7 @@ class AdminPage extends React.Component {
         </h1>
         <div style={{display: 'none'}}>
           <h2>UI Switches</h2>
-          <form>
+          <form onSubmit={(e) => e.preventDefault()}>
             <div className="form-group">
               <div className="togglebutton">
                 <label>
