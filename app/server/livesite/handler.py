@@ -60,7 +60,8 @@ def api_ui_update_team_handler():
   password = bottle.request.forms['password']
 
   hash = model.get_entity('auth')['data'].get(teamId)
-  if not hash or not sha256_crypt.verify(password, hash):
+  if not ((hash and sha256_crypt.verify(password, hash)) or
+          password == model.get_api_key()):
     return respond_with_json({'ok': False, 'message': 'Wrong password.'})
 
   update = {'$set': {}}
