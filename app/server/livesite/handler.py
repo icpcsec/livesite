@@ -24,7 +24,7 @@ PROFILE_SCHEMA = (
   ('codeforcesId', 32),
   ('twitterId', 32),
   ('githubId', 32),
-  ('comment', 140),
+  ('comment', 40),
 )
 
 

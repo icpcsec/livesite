@@ -158,8 +158,8 @@ const MemberEditPanel = ({ index, profile, onFormChange, onIconChange }) => {
           <TextFormItem
             label="ひとこと"
             value={profile.comment}
-            help="140文字以内で好きなメッセージを入力してください。"
-            onChange={(value) => onFormChange({comment: {$set: value.substr(0, 140)}})}
+            help="40文字以内で好きなメッセージを入力してください。"
+            onChange={(value) => onFormChange({comment: {$set: value.substr(0, 40)}})}
           />
         </form>
       </div>
