@@ -1,13 +1,14 @@
 import axios from 'axios';
 
-import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
+import { markLoaded, updateContest, updateStandings, updateTeams, updateRatings } from '../actions';
 
-const FEEDS = ['contest', 'teams', 'standings'];
+const FEEDS = ['contest', 'teams', 'standings', 'ratings'];
 const POLLING_INTERVAL_IN_SECONDS = 10;
 const UPDATE_FUNCS = {
   contest: updateContest,
   teams: updateTeams,
   standings: updateStandings,
+  ratings: updateRatings,
 };
 
 class LiveLoader {

@@ -1,27 +1,51 @@
+import { Buffer } from 'buffer';
 import React from 'react';
 import { Link } from 'react-router';
 
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 
-const MemberProfile = ({ profile }) => {
+const getRating = (ratings, key, name) => {
+  const nameHex = Buffer.from(name, 'utf8').toString('hex');
+  const rating = ((ratings[key] || {})[nameHex] || {}).rating;
+  return ((rating && rating > 0) ? rating : 0);
+};
+
+const MemberProfile = ({ profile, ratings }) => {
   const contactsElements = [];
   if (profile.topcoderId) {
-    // TODO: Color!
+    const rating = getRating(ratings, 'topcoderId', profile.topcoderId);
+    const color =
+      rating >= 2200 ? '#ee0000' :
+      rating >= 1500 ? '#ddcc00' :
+      rating >= 1200 ? '#6666ff' :
+      rating >= 900 ? '#00a900' :
+      '#999999';
     contactsElements.push(
       'TopCoder: ',
       <a target="_blank"
-         href={`https:\/\/www.topcoder.com/members/${profile.topcoderId}/`}>
+         href={`https:\/\/www.topcoder.com/members/${profile.topcoderId}/`}
+         style={{ color }}>
         {profile.topcoderId}
       </a>,
       ', ');
   }
   if (profile.codeforcesId) {
-    // TODO: Color!
+    // TODO: Support 2900+ black/red coloring
+    const rating = getRating(ratings, 'codeforcesId', profile.codeforcesId);
+    const color =
+      rating >= 2400 ? '#ff0000' :
+      rating >= 2200 ? '#ff8c00' :
+      rating >= 1900 ? '#aa00aa' :
+      rating >= 1600 ? '#0000ff' :
+      rating >= 1400 ? '#03a89e' :
+      rating >= 1200 ? '#008000' :
+      '#808080';
     contactsElements.push(
       'CodeForces: ',
       <a target="_blank"
-         href={`http:\/\/codeforces.com/profile/${profile.codeforcesId}/`}>
+         href={`http:\/\/codeforces.com/profile/${profile.codeforcesId}/`}
+         style={{ color }}>
         {profile.codeforcesId}
       </a>,
       ', ');
@@ -63,12 +87,12 @@ const MemberProfile = ({ profile }) => {
   );
 };
 
-const TeamInfo = ({ team }) => {
+const TeamInfo = ({ team, ratings }) => {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
   const memberElements = team.members.map(
-    (profile) => <MemberProfile profile={profile} />);
+    (profile) => <MemberProfile profile={profile} ratings={ratings} />);
   return (
     <div className="teaminfo">
       <div className="page-header">

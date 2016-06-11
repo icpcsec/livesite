@@ -19,6 +19,13 @@ export const updateTeams = (teams) => (
   }
 );
 
+export const updateRatings = (ratings) => (
+  {
+    type: 'UPDATE_RATINGS',
+    ratings,
+  }
+);
+
 export const markLoaded = (feed) => (
   {
     type: 'MARK_LOADED',
