@@ -61,8 +61,9 @@ const StaticFormItem = ({ value, ...props }) => {
   );
 };
 
-const PhotoFormItem = ({ label, url, ratio, onChange }) => {
+const PhotoFormItem = ({ label, url, ratio, help, onChange }) => {
   const handleChange = (e) => onChange(e.target.files[0]);
+  const helpElement = help ? <p className="help-block">{help}</p> : null;
   return (
     <div className="form-group">
       <label>{label}</label>
@@ -76,12 +77,14 @@ const PhotoFormItem = ({ label, url, ratio, onChange }) => {
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
       </div>
+      {helpElement}
     </div>
   );
 };
 
-const IconFormItem = ({ label, url, onChange }) => {
+const IconFormItem = ({ label, url, help, onChange }) => {
   const handleChange = (e) => onChange(e.target.files[0]);
+  const helpElement = help ? <p className="help-block">{help}</p> : null;
   return (
     <div className="form-group">
       <label>{label}</label>
@@ -97,6 +100,7 @@ const IconFormItem = ({ label, url, onChange }) => {
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
       </div>
+      {helpElement}
     </div>
   );
 };
@@ -108,7 +112,7 @@ const TeamEditPanel = ({ team: { name, university, photo }, onFormChange, onPhot
         <form onSubmit={(e) => e.preventDefault()}>
           <StaticFormItem label="チーム名 (編集できません)" value={name} />
           <StaticFormItem label="大学名 (編集できません)" value={university} />
-          <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} onChange={onPhotoChange} />
+          <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} help="チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。" onChange={onPhotoChange} />
         </form>
       </div>
     </div>
@@ -171,8 +175,8 @@ const SubmitPanel = ({ password, onChange, onClick }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <form>
-        <StaticFormItem value="このフォームで送信されたプロフィール情報はすべて一般に公開されます。公開に同意してプロフィール情報を更新する場合は、プロフィール編集パスワードを以下に入力し「更新」を押して下さい。" />
-        <PasswordFormItem label="プロフィール編集パスワード" value={password} onChange={onChange} />
+        <StaticFormItem value="このフォームで送信されたプロフィール情報はすべて一般に公開されます。投稿されたプロフィール情報に関するすべての責任は投稿したチーム自身が負うこととします。公開に同意してプロフィール情報を更新する場合は、チーム情報編集パスワードを以下に入力し「更新」を押して下さい。" />
+        <PasswordFormItem label="チーム情報編集パスワード" value={password} onChange={onChange} />
         <div className="form-group">
           <button className="btn btn-primary btn-raised" onClick={onClick}>更新</button>
         </div>

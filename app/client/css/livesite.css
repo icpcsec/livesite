@@ -32,6 +32,11 @@ a.no-decoration {
   font-size: 18px;
 }
 
+/* Always show help message */
+.help-block {
+  display: block !important;
+}
+
 
 /*******************************************************************************
  *
