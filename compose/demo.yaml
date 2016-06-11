@@ -25,7 +25,7 @@ services:
 
   ratings:
     image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
+    command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
     volumes:

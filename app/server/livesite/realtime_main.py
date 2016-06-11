@@ -100,7 +100,7 @@ def poll_feeds():
 
 def main():
   global g_master
-  setup.setup()
+  setup.setup_common()
   g_master = Master()
   app = Application()
   server = tornado.httpserver.HTTPServer(app)

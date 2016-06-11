@@ -93,7 +93,7 @@ class RatingsJob(object):
 
 
 def main():
-  setup.setup()
+  setup.setup_common()
   # Suppress apscheduler logging spam.
   logging.getLogger('apscheduler.scheduler').setLevel(logging.WARNING)
   sched = apscheduler.scheduler.Scheduler(standalone=True)

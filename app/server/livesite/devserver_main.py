@@ -36,7 +36,8 @@ def watchify():
 
 
 def main():
-  setup.setup()
+  setup.setup_common()
+  setup.setup_database()
   with watchify():
     bottle.run(
         # wsgiref is unstable with reloader.
