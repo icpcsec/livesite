@@ -69,10 +69,11 @@ def api_ui_update_team_handler():
   for i in xrange(3):
     for profile_key, max_len in PROFILE_SCHEMA:
       request_key = 'members.%d.%s' % (i, profile_key)
-      value = bottle.request.forms.get(request_key)
+      value = bottle.request.forms.get(request_key).decode('utf-8')
       if value is not None:
         if len(value) > max_len:
-          return respond_with_json({'ok': False, 'message': '%s too long.' % key})
+          return respond_with_json(
+              {'ok': False, 'message': '%s too long.' % profile_key})
         entity_key = '%s.%s' % (teamId, request_key)
         update['$set'][entity_key] = value
 
