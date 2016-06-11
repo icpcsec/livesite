@@ -182,13 +182,14 @@ const SubmitPanel = ({ password, onChange, onClick }) => (
 );
 
 class TeamEdit extends React.Component {
-  resetState(newProps) {
-    this.setState({
-      team: newProps.team,
+  constructor(props) {
+    super(props);
+    this.state = {
+      team: props.team,
       teamPhotoFile: null,
       iconFiles: [null, null, null],
       password: '',
-    });
+    };
   }
 
   handlePasswordChange(password) {
@@ -289,17 +290,9 @@ class TeamEdit extends React.Component {
     });
   }
 
-  componentWillMount() {
-    this.resetState(this.props);
-  }
-
   componentDidMount() {
     // Install handlers to <input type=file>.
     $.material.input();
-  }
-
-  componentWillReceiveProps(newProps) {
-    this.resetState(newProps);
   }
 
   render() {
