@@ -5,7 +5,7 @@ services:
 
   app:
     image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run.sh, "--pyargv=--logtostderr --nologtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-demo/"]
+    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-demo/"]
     restart: always
     network_mode: host
     volumes:
@@ -15,7 +15,7 @@ services:
 
   realtime:
     image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run-realtime.sh, --logtostderr, --nologtosyslog]
+    command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
     volumes:
