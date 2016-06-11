@@ -1,5 +1,4 @@
 import React from 'react';
-import normalizeUrl from 'normalizeurl';
 
 const FixedRatioThumbnail = ({ url, ratio }) => {
   const paddingTop = 100 * ratio + '%';

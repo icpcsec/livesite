@@ -1,7 +1,8 @@
 import React from 'react';
 import GA from 'react-ga';
 import { Provider } from 'react-redux';
-import { IndexRoute, Router, Route, browserHistory } from 'react-router';
+import { IndexRoute, Router, Route, applyRouterMiddleware, browserHistory } from 'react-router';
+import useScroll from 'react-router-scroll';
 
 import LoadingCheckContainer from '../containers/LoadingCheckContainer';
 import AdminPage from './AdminPage';
@@ -26,7 +27,10 @@ class App extends React.Component {
     return (
       <Provider store={this.props.store}>
         <LoadingCheckContainer loading={<LoadingPage/>}>
-          <Router history={browserHistory} onUpdate={() => this.handlePageView()}>
+          <Router
+              history={browserHistory}
+              render={applyRouterMiddleware(useScroll())}
+              onUpdate={() => this.handlePageView()}>
             <Route path="/" component={Frame}>
               <IndexRoute component={FrontPage} />
               <Route path="/standings/" component={StandingsPage} />
