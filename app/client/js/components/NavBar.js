@@ -46,25 +46,34 @@ class Clock extends React.Component {
   }
 };
 
-const NavBar = ({ contest }) => (
-  <nav className="navbar navbar-inverse">
-    <div className="container">
-      <div className="navbar-header">
-        <Link className="navbar-brand" to="/">{ contest.title }</Link>
+const NavBar = ({ contest }) => {
+  const extraLinks = [];
+  if (contest.problemLink) {
+    extraLinks.push(
+      <NavLink to={contest.problemLink} target="_blank">問題</NavLink>
+    );
+  }
+  return (
+    <nav className="navbar navbar-inverse">
+      <div className="container">
+        <div className="navbar-header">
+          <Link className="navbar-brand" to="/">{ contest.title }</Link>
+        </div>
+        <div className="collapse navbar-collapse">
+          <ul className="nav navbar-nav">
+            <NavLink to="/standings/">順位表</NavLink>
+            <NavLink to="/team/">チーム一覧</NavLink>
+            { extraLinks }
+          </ul>
+          <ul className="nav navbar-nav navbar-right">
+            <li>
+              <Clock contest={contest} />
+            </li>
+          </ul>
+        </div>
       </div>
-      <div className="collapse navbar-collapse">
-        <ul className="nav navbar-nav">
-          <NavLink to="/standings/">順位表</NavLink>
-          <NavLink to="/team/">チーム一覧</NavLink>
-        </ul>
-        <ul className="nav navbar-nav navbar-right">
-          <li>
-            <Clock contest={contest} />
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-);
+    </nav>
+  );
+};
 
 export default NavBar;
