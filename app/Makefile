@@ -2,7 +2,7 @@ DEVSERVER_ARGS ?=
 BROWSERIFY_TRANSFORM_ARGS ?= [ babelify --presets [ es2015 react ] --plugins [ transform-object-assign transform-object-rest-spread ] ]
 DIST_MODULES := bootstrap bootstrap-material-design jquery snackbarjs
 
-.PHONY: default force clean distclean devserver dev prod watchify
+.PHONY: default force clean distclean devserver dev prod watchify apikey
 
 default: devserver
 
@@ -23,6 +23,9 @@ prod: build/prod/.stamp
 
 watchify:
 	cd client && node_modules/.bin/watchify js/index.js -t $(BROWSERIFY_TRANSFORM_ARGS) -d -o ../build/dev/.work/bundle.js -v
+
+apikey:
+	cd build/dev && PYTHONPATH=$$PWD .work/python/bin/python2 -m livesite.tools.print_api_key
 
 build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/demodata build/dev/requirements.txt
 	touch $@
