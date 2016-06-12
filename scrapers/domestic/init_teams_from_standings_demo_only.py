@@ -7,6 +7,7 @@ import sys
 
 import bs4
 import gflags
+from passlib.hash import sha256_crypt
 import requests
 
 FLAGS = gflags.FLAGS
@@ -68,18 +69,23 @@ def main(unused_argv):
     ]
   teams_map = {team['id']: team for team in teams}
 
+  password_hash = sha256_crypt.encrypt('hogehoge')
+  auth_map = {team['id']: password_hash for team in teams}
+
   print 'Replacing with %d teams.' % len(teams_map)
   if raw_input('Are you really sure? ').strip().lower() != 'yes':
     return 'aborted.'
 
-  update = {'$set': {'': teams_map}}
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
+  teams_update = {'$set': {'': teams_map}}
   response = requests.post(
     '%s/api/admin/update/teams' % FLAGS.livesite_url,
-    data=data)
+    data={'api_key': FLAGS.api_key, 'update': json.dumps(teams_update)})
+  response.raise_for_status()
+
+  auth_update = {'$set': {'': auth_map}}
+  response = requests.post(
+    '%s/api/admin/update/auth' % FLAGS.livesite_url,
+    data={'api_key': FLAGS.api_key, 'update': json.dumps(auth_update)})
   response.raise_for_status()
 
 
