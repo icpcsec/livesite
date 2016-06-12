@@ -87,6 +87,10 @@ const PhotoFormItem = ({ label, url, ratio, help, onChange }) => {
 };
 
 const IconFormItem = ({ label, url, help, onChange }) => {
+  // HACK: Firefox does not propagate click to <input>.
+  const handleClick = (e) => {
+    $(e.target).find('input[type=file]').click();
+  };
   const handleChange = (e) => onChange(e.target.files[0]);
   const helpElement = help ? <p className="help-block">{help}</p> : null;
   return (
@@ -99,7 +103,7 @@ const IconFormItem = ({ label, url, help, onChange }) => {
           </div>
         </div>
         <input type="text" readOnly={true} className="form-control" style={{display: 'none'}} />
-        <button className="btn btn-default btn-raised" style={{ position: 'relative', verticalAlign: 'middle', marginLeft: '12px' }}>
+        <button className="btn btn-default btn-raised" style={{ position: 'relative', verticalAlign: 'middle', marginLeft: '12px' }} onClick={handleClick}>
           アップロード
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
