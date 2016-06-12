@@ -149,15 +149,15 @@ a.no-decoration {
   display: inline-block;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell {
+.standings .team-row .team-table .team-cell {
   position: relative;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-fg {
+.standings .team-row .team-table .team-cell-fg {
   position: relative;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-bg {
+.standings .team-row .team-table .team-cell-bg {
   position: absolute;
   left: 0;
   right: 0;
@@ -170,20 +170,20 @@ a.no-decoration {
   to { opacity: 1; }
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-bg.solved {
+.standings .team-row .team-table .team-cell-bg.solved {
   background-color: #64DD17;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-bg.pending {
+.standings .team-row .team-table .team-cell-bg.pending {
   background-color: #FFD600;
   animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-bg.rejected {
+.standings .team-row .team-table .team-cell-bg.rejected {
   background-color: #FF5252;
 }
 
-.standings .team-row .team-table .team-problem .team-problem-cell-bg.unattempted {
+.standings .team-row .team-table .team-cell-bg.unattempted {
   background-color: inherit;
 }
 

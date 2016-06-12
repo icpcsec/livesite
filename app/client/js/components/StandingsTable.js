@@ -85,6 +85,22 @@ class TeamCol extends React.Component {
   }
 };
 
+const TeamSolvedCol = ({ solved, numProblems }) => {
+  // HACK: Assume 6 problems if there is no problem settings.
+  const actualNumProblems = numProblems || 6;
+  const backgroundColor =
+    solved == 0 ? 'transparent' :
+    `hsl(${(actualNumProblems - solved) / (actualNumProblems - 1) * 180}, 80%, 66%)`;
+  return (
+    <td className="team-solved">
+      <div className="team-cell">
+        <div className="team-cell-bg" style={{ backgroundColor }} />
+        <div className="team-cell-fg">{solved}</div>
+      </div>
+    </td>
+  );
+};
+
 const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
   let status;
   let content;
@@ -113,9 +129,9 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   }
   return (
     <td className="team-problem">
-      <div className="team-problem-cell">
-        <div className={`team-problem-cell-bg ${status}`} />
-        <div className="team-problem-cell-fg">{content}</div>
+      <div className="team-cell">
+        <div className={`team-cell-bg ${status}`} />
+        <div className="team-cell-fg">{content}</div>
       </div>
     </td>
   );
@@ -132,7 +148,7 @@ const TeamPinCol = ({ pinned, onClick }) => {
 };
 
 const TeamRowSimple = (props) => {
-  const { status, team, pinned, onClickPin, className = '', ...rest } = props;
+  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
   const { id, name, university } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -145,7 +161,7 @@ const TeamRowSimple = (props) => {
             <TeamCol className="team-rank" text={rank} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
             <TeamCol className="team-name" text={university} to={`/team/${id}`} />
-            <TeamCol className="team-solved" text={solved} />
+            <TeamSolvedCol solved={solved} numProblems={numProblems} />
             <TeamCol className="team-penalty" text={`(${penalty})`} />
             <td />
           </tr>
@@ -156,7 +172,7 @@ const TeamRowSimple = (props) => {
 };
 
 const TeamRowDetailed = (props) => {
-  const { status, team, pinned, onClickPin, className = '', ...rest } = this.props;
+  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = this.props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -316,6 +332,7 @@ class StandingsTable extends React.Component {
           key={status.teamId}
           status={status}
           team={team}
+          numProblems={problems.length}
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
         />
@@ -331,6 +348,7 @@ class StandingsTable extends React.Component {
           key={status.teamId}
           status={status}
           team={team}
+          numProblems={problems.length}
           pinned={true}
           onClickPin={() => this.handleClickPin(status.teamId)}
           className="sticky"
