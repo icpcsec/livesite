@@ -62,13 +62,3 @@ services:
       - /opt/livesite:/mnt
     logging:
       driver: syslog
-
-  demo:
-    image: asia.gcr.io/nya3jp/livesite-app
-    command: [python, -m, livesite.tools.play_demo, --demodata_dir=demodata/domestic]
-    restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-    logging:
-      driver: syslog
