@@ -42,8 +42,8 @@ class AdminFrontPageEditor extends React.Component {
   handleSubmitClick(e) {
     e.preventDefault();
     const form = new FormData();
-    form.set('api_key', this.state.apiKey);
-    form.set('update', JSON.stringify({
+    form.append('api_key', this.state.apiKey);
+    form.append('update', JSON.stringify({
       $set: {
         title: this.state.title,
         frontPageHtml: this.state.frontPageHtml,

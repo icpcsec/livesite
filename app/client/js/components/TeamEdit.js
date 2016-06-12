@@ -263,22 +263,22 @@ class TeamEdit extends React.Component {
   handleSubmitClick(e) {
     e.preventDefault();
     const form = new FormData();
-    form.set('id', this.state.team.id);
+    form.append('id', this.state.team.id);
     this.state.team.members.forEach((profile, i) => {
-      form.set(`members.${i}.name`, profile.name);
-      form.set(`members.${i}.topcoderId`, profile.topcoderId);
-      form.set(`members.${i}.codeforcesId`, profile.codeforcesId);
-      form.set(`members.${i}.twitterId`, profile.twitterId);
-      form.set(`members.${i}.githubId`, profile.githubId);
-      form.set(`members.${i}.comment`, profile.comment);
+      form.append(`members.${i}.name`, profile.name);
+      form.append(`members.${i}.topcoderId`, profile.topcoderId);
+      form.append(`members.${i}.codeforcesId`, profile.codeforcesId);
+      form.append(`members.${i}.twitterId`, profile.twitterId);
+      form.append(`members.${i}.githubId`, profile.githubId);
+      form.append(`members.${i}.comment`, profile.comment);
       if (this.state.iconFiles[i]) {
-        form.set(`members.${i}.iconFile`, this.state.iconFiles[i]);
+        form.append(`members.${i}.iconFile`, this.state.iconFiles[i]);
       }
     });
     if (this.state.teamPhotoFile) {
-      form.set('teamPhotoFile', this.state.teamPhotoFile);
+      form.append('teamPhotoFile', this.state.teamPhotoFile);
     }
-    form.set('password', this.state.password);
+    form.append('password', this.state.password);
     axios.post('/api/ui/update_team', form).then((response) => {
       if (response.data.ok) {
         $.snackbar({

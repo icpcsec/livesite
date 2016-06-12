@@ -1,3 +1,6 @@
+// Import this first to support old browsers.
+import 'babel-polyfill';
+
 import Perf from 'react-addons-perf';
 import React from 'react';
 import ReactDOM from 'react-dom';
