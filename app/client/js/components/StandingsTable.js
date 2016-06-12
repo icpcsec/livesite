@@ -33,10 +33,10 @@ const LegendRowSimple = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
+            <th className="team-solved">正答数</th>
+            <th className="team-penalty">時間</th>
             <th className="team-name">チーム</th>
             <th className="team-name">大学</th>
-            <th className="team-solved">正答数</th>
-            <th className="team-penalty">ペナルティ</th>
             <th />
           </tr>
         </tbody>
@@ -101,6 +101,12 @@ const TeamSolvedCol = ({ solved, numProblems }) => {
   );
 };
 
+const TeamPenaltyCol = ({ penalty }) => (
+  <td className="team-penalty">
+    <span style={{ fontSize: '8px' }}>({penalty})</span>
+  </td>
+);
+
 const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
   let status;
   let content;
@@ -159,10 +165,10 @@ const TeamRowSimple = (props) => {
           <tr>
             <TeamPinCol pinned={pinned} onClick={onClickPin} />
             <TeamCol className="team-rank" text={rank} />
+            <TeamSolvedCol solved={solved} numProblems={numProblems} />
+            <TeamPenaltyCol penalty={penalty} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
             <TeamCol className="team-name" text={university} to={`/team/${id}`} />
-            <TeamSolvedCol solved={solved} numProblems={numProblems} />
-            <TeamCol className="team-penalty" text={`(${penalty})`} />
             <td />
           </tr>
         </tbody>
