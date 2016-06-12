@@ -62,6 +62,10 @@ const StaticFormItem = ({ value, ...props }) => {
 };
 
 const PhotoFormItem = ({ label, url, ratio, help, onChange }) => {
+  // HACK: Firefox does not propagate click to <input>.
+  const handleClick = (e) => {
+    $(e.target).find('input[type=file]').click();
+  };
   const handleChange = (e) => onChange(e.target.files[0]);
   const helpElement = help ? <p className="help-block">{help}</p> : null;
   return (
@@ -72,7 +76,7 @@ const PhotoFormItem = ({ label, url, ratio, help, onChange }) => {
           <FixedRatioThumbnail url={url} ratio={ratio} />
         </div>
         <input type="text" readOnly={true} className="form-control" style={{display: 'none'}} />
-        <button className="btn btn-default btn-raised" style={{position: 'relative'}}>
+        <button className="btn btn-default btn-raised" style={{position: 'relative'}} onClick={handleClick}>
           アップロード
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
