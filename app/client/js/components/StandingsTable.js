@@ -328,6 +328,7 @@ class StandingsTable extends React.Component {
       return (
         <AnimatingTeamRow
           component={TeamRow}
+          key={status.teamId}
           status={status}
           team={team}
           pinned={true}
