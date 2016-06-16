@@ -25,7 +25,7 @@ def main(unused_argv):
   if raw_input('Are you really sure? ').strip().lower() != 'yes':
     return 'aborted.'
   with open(FLAGS.json_path) as f:
-    data = json.load(f)['data']
+    data = json.load(f)
   update = {'$set': {'': data}}
   postdata = {
       'api_key': FLAGS.api_key,
