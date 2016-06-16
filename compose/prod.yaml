@@ -24,7 +24,7 @@ services:
       driver: syslog
 
   ratings:
-    image: asia.gcr.io/nya3jp/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app
     command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
