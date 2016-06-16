@@ -183,7 +183,7 @@ const SubmitPanel = ({ password, onChange, onClick }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <form>
-        <StaticFormItem value="このフォームで送信されたプロフィール情報はすべて一般に公開されます。投稿されたプロフィール情報に関するすべての責任は投稿したチーム自身が負うこととします。公開に同意してプロフィール情報を更新する場合は、チーム情報編集パスワードを以下に入力し「更新」を押して下さい。" />
+        <StaticFormItem value="このフォームで送信されたプロフィール情報はすべて一般に公開されます。投稿されたプロフィール情報に関するすべての責任は投稿したチーム自身が負うこととします。公開に同意してプロフィール情報を更新する場合は、シャープ(#)から始まるチーム情報編集パスワードを以下に入力し「更新」を押して下さい。" />
         <PasswordFormItem label="チーム情報編集パスワード" value={password} onChange={onChange} />
         <div className="form-group">
           <button className="btn btn-primary btn-raised" onClick={onClick}>更新</button>
