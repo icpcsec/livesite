@@ -5,6 +5,12 @@ import applyPartialUpdate from 'react-addons-update';
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
+import * as constants from '../constants';
+
+const PREFECTURE_DROPDOWN_ITEMS = constants.PREFECTURES.map((caption, index) => (
+  { value: index, caption }
+));
+PREFECTURE_DROPDOWN_ITEMS.splice(0, 1);  // Do not show value=0
 
 function loadFileAsDataUrl(file) {
   return  new Promise((resolve, reject) => {
@@ -49,6 +55,24 @@ const PasswordFormItem = ({ value, onChange, ...props }) => {
   return (
     <GenericFormItem {...props}>
       <input className="form-control" style={{width: '25%'}} type="password" value={value} onChange={handleChange} />
+    </GenericFormItem>
+  );
+};
+
+const DropdownFormItem = ({ value, items, onChange, ...props }) => {
+  const handleChange = (e) => {
+    if (onChange) {
+      onChange(e.target.value);
+    }
+  };
+  const options = items.map(({ caption, value }) => (
+    <option value={value}>{caption}</option>
+  ));
+  return (
+    <GenericFormItem {...props}>
+      <select className="form-control" value={value} onChange={handleChange}>
+        {options}
+      </select>
     </GenericFormItem>
   );
 };
@@ -113,13 +137,17 @@ const IconFormItem = ({ label, url, help, onChange }) => {
   );
 };
 
-const TeamEditPanel = ({ team: { name, university, photo }, onFormChange, onPhotoChange }) => {
+const TeamEditPanel = ({ team: { name, university, prefecture, photo }, onFormChange, onPhotoChange }) => {
+  const handlePrefectureChange = (value) => {
+    onFormChange({team: {prefecture: {$set: parseInt(value)}}});
+  };
   return (
     <div className="panel panel-default">
       <div className="panel-body">
         <form onSubmit={(e) => e.preventDefault()}>
           <StaticFormItem label="チーム名 (編集できません)" value={name} />
           <StaticFormItem label="大学名 (編集できません)" value={university} />
+          <DropdownFormItem label="大学所在地" items={PREFECTURE_DROPDOWN_ITEMS} value={prefecture || 48} onChange={handlePrefectureChange} />
           <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} help="チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。" onChange={onPhotoChange} />
         </form>
       </div>
@@ -264,6 +292,7 @@ class TeamEdit extends React.Component {
     e.preventDefault();
     const form = new FormData();
     form.append('id', this.state.team.id);
+    form.append('prefecture', this.state.team.prefecture);
     this.state.team.members.forEach((profile, i) => {
       form.append(`members.${i}.name`, profile.name);
       form.append(`members.${i}.topcoderId`, profile.topcoderId);

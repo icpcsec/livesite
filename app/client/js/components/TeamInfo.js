@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
+import * as constants from '../constants';
 
 const getRating = (ratings, key, name) => {
   const nameHex = Buffer.from(name, 'utf8').toString('hex');
@@ -99,7 +100,11 @@ const TeamInfo = ({ team, ratings }) => {
         <h1>
           {team.name}
           <br />
-          <small>{team.university}</small>
+          <small>
+            {team.university}
+            {' '}
+            ({constants.PREFECTURES[team.prefecture || 48]})
+          </small>
         </h1>
       </div>
       <FixedRatioThumbnail url={team.photo} ratio={1 / 3} />

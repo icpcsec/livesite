@@ -66,6 +66,10 @@ def api_ui_update_team_handler():
 
   update = {'$set': {}}
 
+  prefecture = int(bottle.request.forms['prefecture'])
+  assert 1 <= prefecture <= 48
+  update['$set']['%s.prefecture' % teamId] = prefecture
+
   for i in xrange(3):
     for profile_key, max_len in PROFILE_SCHEMA:
       request_key = 'members.%d.%s' % (i, profile_key)

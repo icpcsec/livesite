@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
+import * as constants from '../constants';
 
 const TeamItem = ({ team: { id, name, university, photo, members } }) => (
   <div className="panel panel-default">
@@ -19,13 +20,28 @@ const TeamItem = ({ team: { id, name, university, photo, members } }) => (
 );
 
 const TeamList = ({ teams }) => {
-  const filteredTeams = teams.filter((team) => !team.hidden);
-  const items = filteredTeams.map((team) => <TeamItem key={team.id} team={team} />);
-  return (
-    <GridFlow cols={4}>
-      {items}
-    </GridFlow>
-  );
+  const teamsByPrefecture = {};
+  for (let i = 1; i <= 48; ++i) {
+    teamsByPrefecture[i] = [];
+  }
+  teams.forEach((team) => {
+    if (!teams.hidden) {
+      teamsByPrefecture[team.prefecture || 48].push(team);
+    }
+  });
+  const children = [];
+  for (let i = 1; i <= 48; ++i) {
+    const teamsInPrefecture = teamsByPrefecture[i];
+    const count = teamsInPrefecture.length;
+    if (count > 0) {
+      const items = teamsInPrefecture.map(
+        (team) => <TeamItem key={team.id} team={team} />);
+      const name = constants.PREFECTURES[i];
+      children.push(<h3 id={`pref${i}`}>{`${name} (${count})`}</h3>);
+      children.push(<GridFlow cols={4}>{items}</GridFlow>);
+    }
+  }
+  return <div>{children}</div>;
 };
 
 export default TeamList;
