@@ -15,6 +15,10 @@ class Persist {
   }
 
   start(store) {
+    if (!window.localStorage) {
+      console.log('Local storage is unavailable. Settings are not persisted.');
+      return;
+    }
     const serialized = localStorage.getItem('settings');
     if (serialized) {
       try {
@@ -29,7 +33,11 @@ class Persist {
     const settings = store.getState().settings;
     if (settings !== this._lastSettings) {
       const serialized = JSON.stringify(settings);
-      localStorage.setItem('settings', serialized);
+      try {
+        localStorage.setItem('settings', serialized);
+      } catch (e) {
+        console.log('Failed to save settings to local storage.');
+      }
       this._lastSettings = settings;
     }
   }
