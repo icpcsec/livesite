@@ -4,9 +4,12 @@ import NavBarContainer from '../containers/NavBarContainer';
 
 const Frame = ({ children }) => {
   return (
-    <div>
+    <div style={{width: '100%', minWidth: '1024px'}}>
       <NavBarContainer />
-      <div className="container">
+      <div className="container" style={{position: 'relative'}}>
+        <div style={{position: 'absolute', right: '15px'}}>
+          <div className="addthis_sharing_toolbox"></div>
+        </div>
         {children}
       </div>
     </div>
