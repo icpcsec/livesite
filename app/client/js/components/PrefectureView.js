@@ -46,7 +46,7 @@ class PrefectureView extends React.Component {
       onSelect: ({ code }) => {
         const $target = $(`#pref${code}`);
         if ($target.length > 0) {
-          $(document.body).animate({scrollTop: $target.offset().top}, 500);
+          $(document.documentElement).animate({scrollTop: $target.offset().top}, 500);
         }
       },
     });
