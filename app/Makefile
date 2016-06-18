@@ -39,6 +39,7 @@ build/dev/static/assets/.stamp: $(wildcard client/css/*.css) client/node_modules
 	rm -rf `dirname $@`
 	mkdir -p `dirname $@`
 	set -e; for i in $(DIST_MODULES); do mkdir -p build/dev/static/assets/$$i; ln -s ../../../../../client/node_modules/$$i/dist build/dev/static/assets/$$i/; done
+	ln -s ../../../../client/third_party/japan-map build/dev/static/assets/
 	mkdir -p build/dev/static/assets/livesite
 	set -e; for i in $(wildcard client/css/*.css); do ln -s ../../../../../$$i build/dev/static/assets/livesite/; done
 	ln -s ../../../.work/bundle.js build/dev/static/assets/livesite/
