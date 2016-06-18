@@ -33,10 +33,10 @@ class PrefectureView extends React.Component {
       width: 800,
       selection: 'area',
       areas: areas,
-      color: '#ccc',
-      lineColor: '#a0a0a0',
+      color: '#bdbdbd',
+      lineColor: '#bdbdbd',
       fontColor: '#000',
-      hoverColor: '#f00',
+      hoverColor: '#ff9100',
       lineWidth: 1,
       drawsBoxLine: true,
       showsPrefectureName: false,
@@ -44,14 +44,17 @@ class PrefectureView extends React.Component {
       movesIslands: true,
       fontSize: 11,
       onSelect: ({ code }) => {
-        window.location.hash = `#pref${code}`;
+        const $target = $(`#pref${code}`);
+        if ($target.length > 0) {
+          $(document.body).animate({scrollTop: $target.offset().top}, 1000);
+        }
       },
     });
   }
 
   render() {
     return (
-      <div style={{ textAlign: 'center', height: '596px' }}>
+      <div style={{ textAlign: 'center', height: '596px', marginBottom: '24px' }}>
         <div id="prefectures" />
       </div>
     );

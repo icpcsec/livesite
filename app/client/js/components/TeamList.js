@@ -32,6 +32,10 @@ const TeamList = ({ teams }) => {
   const children = [];
   for (let i = 1; i <= 48; ++i) {
     const teamsInPrefecture = teamsByPrefecture[i];
+    teamsInPrefecture.sort((a, b) => (
+      a.university.localeCompare(b.university) ||
+      a.name.localeCompare(b.name) ||
+      a.id.localeCompare(b.id)));
     const count = teamsInPrefecture.length;
     if (count > 0) {
       const items = teamsInPrefecture.map(
