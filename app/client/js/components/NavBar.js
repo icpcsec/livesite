@@ -61,6 +61,7 @@ const NavBar = ({ contest }) => {
         </div>
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
+            <NavLink to="/" onlyActiveOnIndex={true}>トップ</NavLink>
             <NavLink to="/standings/">順位表</NavLink>
             <NavLink to="/team/">チーム一覧</NavLink>
             { extraLinks }
