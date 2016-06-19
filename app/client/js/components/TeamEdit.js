@@ -292,7 +292,7 @@ class TeamEdit extends React.Component {
     e.preventDefault();
     const form = new FormData();
     form.append('id', this.state.team.id);
-    form.append('prefecture', this.state.team.prefecture);
+    form.append('prefecture', this.state.team.prefecture || 48);
     this.state.team.members.forEach((profile, i) => {
       form.append(`members.${i}.name`, profile.name);
       form.append(`members.${i}.topcoderId`, profile.topcoderId);
