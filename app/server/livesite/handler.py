@@ -19,11 +19,11 @@ gflags.DEFINE_string('gcs_bucket_path_prefix', '', '')
 
 PROFILE_SCHEMA = (
   # key, max_len
-  ('name', 64),
-  ('topcoderId', 32),
-  ('codeforcesId', 32),
-  ('twitterId', 32),
-  ('githubId', 32),
+  ('name', 32),
+  ('topcoderId', 16),
+  ('codeforcesId', 16),
+  ('twitterId', 16),
+  ('githubId', 16),
   ('comment', 40),
 )
 

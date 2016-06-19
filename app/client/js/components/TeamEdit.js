@@ -166,7 +166,7 @@ const MemberEditPanel = ({ index, profile, onFormChange, onIconChange }) => {
             label="名前"
             value={profile.name}
             help="本名でもニックネームでも構いません。"
-            onChange={(value) => onFormChange({name: {$set: value}})}
+            onChange={(value) => onFormChange({name: {$set: value.substr(0, 32)}})}
           />
           <IconFormItem
             label="アイコン"
@@ -177,22 +177,22 @@ const MemberEditPanel = ({ index, profile, onFormChange, onIconChange }) => {
             <TextFormItem
               label="TopCoder ID"
               value={profile.topcoderId}
-              onChange={(value) => onFormChange({topcoderId: {$set: value}})}
+              onChange={(value) => onFormChange({topcoderId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="CodeForces ID"
               value={profile.codeforcesId}
-              onChange={(value) => onFormChange({codeforcesId: {$set: value}})}
+              onChange={(value) => onFormChange({codeforcesId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="Twitter ID"
               value={profile.twitterId}
-              onChange={(value) => onFormChange({twitterId: {$set: value}})}
+              onChange={(value) => onFormChange({twitterId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="Github ID"
               value={profile.githubId}
-              onChange={(value) => onFormChange({githubId: {$set: value}})}
+              onChange={(value) => onFormChange({githubId: {$set: value.substr(0, 16)}})}
             />
           </GridFlow>
           <TextFormItem
