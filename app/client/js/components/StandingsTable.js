@@ -12,6 +12,32 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
+const computeUniversityRanks = (standings, teamsMap) => {
+  const universityToStatuses = {};
+  standings.forEach((status) => {
+    const team = teamsMap[status.teamId];
+    if (team) {
+      const { university } = team;
+      if (universityToStatuses[university] === undefined) {
+        universityToStatuses[university] = [];
+      }
+      universityToStatuses[university].push(status);
+    }
+  });
+  const universityRanks = {};
+  Object.keys(universityToStatuses).forEach((university) => {
+    const statuses = universityToStatuses[university];
+    statuses.forEach((status, index) => {
+      if (index > 0 && status.rank === statuses[index - 1].rank) {
+        universityRanks[status.teamId] = universityRanks[statuses[index - 1].teamId];
+      } else {
+        universityRanks[status.teamId] = `${index + 1}/${statuses.length}`;
+      }
+    });
+  });
+  return universityRanks;
+};
+
 const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
     <th className="team-problem">
@@ -154,7 +180,7 @@ const TeamPinCol = ({ pinned, onClick }) => {
 };
 
 const TeamRowSimple = (props) => {
-  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = props;
+  const { status, team, universityRank, numProblems, pinned, onClickPin, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
   const { id, name, university, members } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -167,6 +193,12 @@ const TeamRowSimple = (props) => {
       membersText += name;
     }
   });
+  const universityText = (
+    <span>
+      {university}
+      <small>{' '}[{universityRank || '???'}]</small>
+    </span>
+  );
   return (
     <li className={rewrittenClassName} {...rest}>
       <table className="team-table">
@@ -177,7 +209,7 @@ const TeamRowSimple = (props) => {
             <TeamSolvedCol solved={solved} numProblems={numProblems} />
             <TeamPenaltyCol penalty={penalty} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
-            <TeamCol className="team-name" text={university} to={`/team/${id}`} />
+            <TeamCol className="team-name" text={universityText} to={`/team/${id}`} />
             <TeamCol className="team-members" text={membersText} to={`/team/${id}`} />
           </tr>
         </tbody>
@@ -337,6 +369,7 @@ class StandingsTable extends React.Component {
   render() {
     const { standings, teamsMap, problems, detailed, pinnedTeamIds } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
+    const universityRanks = computeUniversityRanks(standings, teamsMap);
     const TeamRow = detailed ? TeamRowDetailed : TeamRowSimple;
     const LegendRow = detailed ? LegendRowDetailed : LegendRowSimple;
     const normalRows = standings.map((status) => {
@@ -348,6 +381,7 @@ class StandingsTable extends React.Component {
           status={status}
           team={team}
           numProblems={problems.length}
+          universityRank={universityRanks[status.teamId]}
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
         />
@@ -363,6 +397,7 @@ class StandingsTable extends React.Component {
           key={status.teamId}
           status={status}
           team={team}
+          universityRank={universityRanks[status.teamId]}
           numProblems={problems.length}
           pinned={true}
           onClickPin={() => this.handleClickPin(status.teamId)}
