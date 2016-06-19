@@ -37,7 +37,7 @@ const LegendRowSimple = ({ problems }) => {
             <th className="team-penalty">時間</th>
             <th className="team-name">チーム</th>
             <th className="team-name">大学</th>
-            <th />
+            <th className="team-members">メンバー</th>
           </tr>
         </tbody>
       </table>
@@ -156,8 +156,17 @@ const TeamPinCol = ({ pinned, onClick }) => {
 const TeamRowSimple = (props) => {
   const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
-  const { id, name, university } = team;
+  const { id, name, university, members } = team;
   const rewrittenClassName = 'team-row ' + className;
+  let membersText = '';
+  members.forEach(({ name }) => {
+    if (!/^メンバー\s*\d$/.test(name)) {
+      if (membersText.length > 0) {
+        membersText += ' / ';
+      }
+      membersText += name;
+    }
+  });
   return (
     <li className={rewrittenClassName} {...rest}>
       <table className="team-table">
@@ -169,7 +178,7 @@ const TeamRowSimple = (props) => {
             <TeamPenaltyCol penalty={penalty} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
             <TeamCol className="team-name" text={university} to={`/team/${id}`} />
-            <td />
+            <TeamCol className="team-members" text={membersText} to={`/team/${id}`} />
           </tr>
         </tbody>
       </table>

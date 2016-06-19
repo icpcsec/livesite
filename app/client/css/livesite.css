@@ -139,6 +139,13 @@ a.no-decoration {
   text-align: center;
 }
 
+.standings .team-row .team-table .team-members {
+  width: auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .standings .team-row .team-table .team-problem {
   width: auto;
   text-align: center;
