@@ -5,11 +5,17 @@ import { sprintf } from 'sprintf-js';
 class NavLink extends React.Component {
   render() {
     const { router } = this.context;
-    const { onlyActiveOnIndex = false, to, children, ...props } = this.props;
-    const isActive = router.isActive(to, onlyActiveOnIndex);
+    const { onlyActiveOnIndex = false, to, children } = this.props;
+    const disabled = !to || to.length == 0;
+    const external = !disabled && !to.startsWith('/');
+    const isActive = disabled || external ? false : router.isActive(to, onlyActiveOnIndex);
+    const link =
+      disabled ? <a href="javascript:void(0)">{children}</a> :
+      external ? <a target="_blank" href={to}>{children}</a> :
+      <Link to={to}>{children}</Link>;
     return (
-      <li className={isActive ? 'active' : ''}>
-        <Link to={to} {...props}>{children}</Link>
+      <li className={`${isActive ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
+        {link}
       </li>
     );
   }
@@ -47,12 +53,6 @@ class Clock extends React.Component {
 };
 
 const NavBar = ({ contest }) => {
-  const extraLinks = [];
-  if (contest.problemLink) {
-    extraLinks.push(
-      <NavLink to={contest.problemLink} target="_blank">問題</NavLink>
-    );
-  }
   return (
     <nav className="navbar navbar-inverse">
       <div className="container">
@@ -64,7 +64,7 @@ const NavBar = ({ contest }) => {
             <NavLink to="/" onlyActiveOnIndex={true}>トップ</NavLink>
             <NavLink to="/standings/">順位表</NavLink>
             <NavLink to="/team/">チーム一覧</NavLink>
-            { extraLinks }
+            <NavLink to={contest.problemLink}>問題</NavLink>
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li>
