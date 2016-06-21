@@ -5,7 +5,7 @@ services:
 
   app:
     image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-canary/"]
+    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-canary/ --slack_webhook_url=https://hooks.slack.com/services/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"]
     restart: always
     network_mode: host
     volumes:

@@ -5,7 +5,7 @@ services:
 
   app:
     image: asia.gcr.io/icpcsec/livesite-app
-    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/"]
+    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/ --slack_webhook_url=https://hooks.slack.com/services/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 --google_analytics_id=UA-51402415-4"]
     restart: always
     network_mode: host
     volumes:

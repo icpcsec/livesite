@@ -1,11 +1,13 @@
 import cStringIO
 import hashlib
+import logging
 
 import bottle
 import bson.timestamp
 import gflags
 from passlib.hash import sha256_crypt
 import PIL.Image
+import requests
 import ujson
 
 from livesite import model
@@ -15,6 +17,8 @@ FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('gcs_bucket_name', None, '')
 gflags.DEFINE_string('gcs_bucket_path_prefix', '', '')
+gflags.DEFINE_string('slack_webhook_url', None, '')
+gflags.DEFINE_string('google_analytics_id', None, '')
 
 
 PROFILE_SCHEMA = (
@@ -56,10 +60,10 @@ def api_generic_json_with_ts_handler(name, ts_time, ts_inc):
 
 @bottle.post('/api/ui/update_team')
 def api_ui_update_team_handler():
-  teamId = bottle.request.forms['id']
+  team_id = bottle.request.forms['id']
   password = bottle.request.forms['password']
 
-  hash = model.get_entity('auth')['data'].get(teamId)
+  hash = model.get_entity('auth')['data'].get(team_id)
   if not ((hash and sha256_crypt.verify(password, hash)) or
           password == model.get_api_key()):
     return respond_with_json({'ok': False, 'message': 'Wrong password.'})
@@ -68,7 +72,7 @@ def api_ui_update_team_handler():
 
   prefecture = int(bottle.request.forms['prefecture'])
   assert 1 <= prefecture <= 48
-  update['$set']['%s.prefecture' % teamId] = prefecture
+  update['$set']['%s.prefecture' % team_id] = prefecture
 
   for i in xrange(3):
     for profile_key, max_len in PROFILE_SCHEMA:
@@ -78,7 +82,7 @@ def api_ui_update_team_handler():
         if len(value) > max_len:
           return respond_with_json(
               {'ok': False, 'message': '%s too long.' % profile_key})
-        entity_key = '%s.%s' % (teamId, request_key)
+        entity_key = '%s.%s' % (team_id, request_key)
         update['$set'][entity_key] = value
 
   uploader = storage.Uploader()
@@ -101,7 +105,7 @@ def api_ui_update_team_handler():
     buf.seek(0)
 
     upload_path = '%simages/upload/%s.%s.%s.jpg' % (
-        FLAGS.gcs_bucket_path_prefix, teamId, upload_name,
+        FLAGS.gcs_bucket_path_prefix, team_id, upload_name,
         hashlib.md5(buf.getvalue()).hexdigest())
     uploader.upload(FLAGS.gcs_bucket_name, upload_path, buf, 'image/jpeg')
     update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
@@ -110,17 +114,30 @@ def api_ui_update_team_handler():
   process_photo_upload(
       'teamPhotoFile',
       'photo',
-      '%s.photo' % teamId,
+      '%s.photo' % team_id,
       max_size=1200)
 
   for i in xrange(3):
     process_photo_upload(
         'members.%d.iconFile' % i,
         'icon.%d' % i,
-        '%s.members.%d.icon' % (teamId, i),
+        '%s.members.%d.icon' % (team_id, i),
         max_size=120)
 
   model.update_entity('teams', update)
+
+  # TODO: Post to slack asynchronously.
+  if FLAGS.slack_webhook_url:
+    try:
+      team = model.get_entity('teams')['data'][team_id]
+      urlparts = bottle.request.urlparts
+      text = 'Team data update: <%s://%s/team/%s|%s / %s>' % (
+        urlparts.scheme, urlparts.netloc, team_id, team['name'], team['university'])
+      data = {'payload': ujson.dumps({'text': text})}
+      response = requests.post(FLAGS.slack_webhook_url, data=data, timeout=3)
+      response.raise_for_status()
+    except Exception:
+      logging.exception('An error occurred posting to slack')
 
   return respond_with_json({'ok': True, 'message': 'Successfully updated.'})
 
@@ -154,5 +171,8 @@ def not_found_handler(path=None):
 
 @bottle.get('<path:path>')
 def index_handler(path):
-  title = model.get_entity('contest').get('data', {}).get('title', 'LiveSite')
-  return bottle.template('index.html', title=title)
+  template_dict = {
+      'title': model.get_entity('contest').get('data', {}).get('title', 'LiveSite'),
+      'google_analytics_id': FLAGS.google_analytics_id or '',
+  }
+  return bottle.template('index.html', **template_dict)

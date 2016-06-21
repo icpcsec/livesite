@@ -14,8 +14,10 @@ import { createPersist } from './persist';
 import reducer from './reducers';
 import LiveLoader from './loaders/LiveLoader';
 
-// TODO: Avoid hardcoding Google Analytics ID.
-GA.initialize('UA-51402415-4');
+const gaElement = document.getElementById('google_analytics_id');
+if (gaElement && gaElement.textContent.length > 0) {
+  GA.initialize(gaElement.textContent);
+}
 
 const persist = createPersist();
 
