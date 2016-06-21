@@ -25,7 +25,7 @@ const TeamList = ({ teams }) => {
     teamsByPrefecture[i] = [];
   }
   teams.forEach((team) => {
-    if (!teams.hidden) {
+    if (!team.hidden) {
       teamsByPrefecture[team.prefecture || 48].push(team);
     }
   });

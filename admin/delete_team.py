@@ -7,8 +7,6 @@ import gflags
 from passlib.hash import sha256_crypt
 import requests
 
-from livesite import model
-
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('url', None, 'URL of livesite')

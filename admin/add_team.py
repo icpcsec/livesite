@@ -7,8 +7,6 @@ import gflags
 from passlib.hash import sha256_crypt
 import requests
 
-from livesite import model
-
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('url', None, 'URL of livesite')
@@ -38,6 +36,8 @@ def main(unused_argv):
               'name': FLAGS.name,
               'university': FLAGS.university,
               'photo': '/images/default-photo.png',
+              'prefecture': 48,
+              'hidden': FLAGS.hidden,
               'members': [{
                   'name': u'メンバー%d' % (i + 1),
                   'topcoderId': '',
