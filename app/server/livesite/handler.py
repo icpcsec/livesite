@@ -87,7 +87,12 @@ def api_ui_update_team_handler():
 
   uploader = storage.Uploader()
 
-  def process_photo_upload(request_key, upload_name, entity_key, max_size):
+  def process_photo_upload(
+      request_key, remove_key, upload_name, entity_key, default_url, max_size):
+    if remove_key in bottle.request.forms:
+      update['$set'][entity_key] = default_url
+      return
+
     upload_file = bottle.request.files.get(request_key)
     if not upload_file:
       return
@@ -113,15 +118,19 @@ def api_ui_update_team_handler():
 
   process_photo_upload(
       'teamPhotoFile',
+      'removePhoto',
       'photo',
       '%s.photo' % team_id,
+      '/images/default-photo.png',
       max_size=1200)
 
   for i in xrange(3):
     process_photo_upload(
         'members.%d.iconFile' % i,
+        'members.%d.removeIcon' % i,
         'icon.%d' % i,
         '%s.members.%d.icon' % (team_id, i),
+        '/images/default-icon.png',
         max_size=120)
 
   model.update_entity('teams', update)

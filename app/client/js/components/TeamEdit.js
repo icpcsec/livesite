@@ -46,6 +46,25 @@ const TextFormItem = ({ value, onChange, ...props }) => {
   );
 };
 
+const CheckBoxFormItem = ({ value, caption, onChange, ...props }) => {
+  const handleChange = (e) => {
+    if (onChange) {
+      onChange(e.target.checked);
+    }
+  };
+  return (
+    <GenericFormItem {...props}>
+      <div className="checkbox">
+        <label>
+          <input type="checkbox" checked={value} onChange={handleChange} />
+          {' '}
+          {caption}
+        </label>
+      </div>
+    </GenericFormItem>
+  );
+};
+
 const PasswordFormItem = ({ value, onChange, ...props }) => {
   const handleChange = (e) => {
     if (onChange) {
@@ -137,7 +156,7 @@ const IconFormItem = ({ label, url, help, onChange }) => {
   );
 };
 
-const TeamEditPanel = ({ team: { name, university, prefecture, photo }, onFormChange, onPhotoChange }) => {
+const TeamEditPanel = ({ team: { name, university, prefecture, photo }, removePhoto, onFormChange, onPhotoChange }) => {
   const handlePrefectureChange = (value) => {
     onFormChange({team: {prefecture: {$set: parseInt(value)}}});
   };
@@ -149,14 +168,20 @@ const TeamEditPanel = ({ team: { name, university, prefecture, photo }, onFormCh
           <StaticFormItem label="大学名 (編集できません)" value={university} />
           <DropdownFormItem label="大学所在地" items={PREFECTURE_DROPDOWN_ITEMS} value={prefecture || 48} onChange={handlePrefectureChange} />
           <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} help="チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。" onChange={onPhotoChange} />
+          <CheckBoxFormItem
+            caption="チーム写真を削除する"
+            value={removePhoto}
+            onChange={(value) => onFormChange({removePhoto: {$set: value}})}
+          />
         </form>
       </div>
     </div>
   );
 };
 
-const MemberEditPanel = ({ index, profile, onFormChange, onIconChange }) => {
+const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChange }) => {
   const handleIconChange = (file) => onIconChange(index, file);
+  const handleFormChangeForMember = (update) => onFormChange({team: {members: {[index]: update}}});
   return (
     <div className="panel panel-default">
       <div className="panel-body">
@@ -166,40 +191,45 @@ const MemberEditPanel = ({ index, profile, onFormChange, onIconChange }) => {
             label="名前"
             value={profile.name}
             help="本名でもニックネームでも構いません。"
-            onChange={(value) => onFormChange({name: {$set: value.substr(0, 32)}})}
+            onChange={(value) => handleFormChangeForMember({name: {$set: value.substr(0, 32)}})}
           />
           <IconFormItem
             label="アイコン"
             url={profile.icon}
             onChange={handleIconChange}
           />
+          <CheckBoxFormItem
+            caption="アイコンを削除する"
+            value={removeIcon}
+            onChange={(value) => onFormChange({removeIcon: {[index]: {$set: value}}})}
+          />
           <GridFlow cols={3}>
             <TextFormItem
               label="TopCoder ID"
               value={profile.topcoderId}
-              onChange={(value) => onFormChange({topcoderId: {$set: value.substr(0, 16)}})}
+              onChange={(value) => handleFormChangeForMember({topcoderId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="CodeForces ID"
               value={profile.codeforcesId}
-              onChange={(value) => onFormChange({codeforcesId: {$set: value.substr(0, 16)}})}
+              onChange={(value) => handleFormChangeForMember({codeforcesId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="Twitter ID"
               value={profile.twitterId}
-              onChange={(value) => onFormChange({twitterId: {$set: value.substr(0, 16)}})}
+              onChange={(value) => handleFormChangeForMember({twitterId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="Github ID"
               value={profile.githubId}
-              onChange={(value) => onFormChange({githubId: {$set: value.substr(0, 16)}})}
+              onChange={(value) => handleFormChangeForMember({githubId: {$set: value.substr(0, 16)}})}
             />
           </GridFlow>
           <TextFormItem
             label="ひとこと"
             value={profile.comment}
             help="40文字以内で好きなメッセージを入力してください。"
-            onChange={(value) => onFormChange({comment: {$set: value.substr(0, 40)}})}
+            onChange={(value) => handleFormChangeForMember({comment: {$set: value.substr(0, 40)}})}
           />
         </form>
       </div>
@@ -227,7 +257,9 @@ class TeamEdit extends React.Component {
     this.state = {
       team: props.team,
       teamPhotoFile: null,
+      removePhoto: false,
       iconFiles: [null, null, null],
+      removeIcon: [false, false, false],
       password: '',
     };
   }
@@ -237,6 +269,7 @@ class TeamEdit extends React.Component {
   }
 
   handleFormChange(update) {
+    console.log(applyPartialUpdate(this.state, update));
     this.setState(applyPartialUpdate(this.state, update));
   }
 
@@ -300,11 +333,15 @@ class TeamEdit extends React.Component {
       form.append(`members.${i}.twitterId`, profile.twitterId);
       form.append(`members.${i}.githubId`, profile.githubId);
       form.append(`members.${i}.comment`, profile.comment);
-      if (this.state.iconFiles[i]) {
+      if (this.state.removeIcon[i]) {
+        form.append(`members.${i}.removeIcon`, '1');
+      } else if (this.state.iconFiles[i]) {
         form.append(`members.${i}.iconFile`, this.state.iconFiles[i]);
       }
     });
-    if (this.state.teamPhotoFile) {
+    if (this.state.removePhoto) {
+      form.append('removePhoto', '1');
+    } else if (this.state.teamPhotoFile) {
       form.append('teamPhotoFile', this.state.teamPhotoFile);
     }
     form.append('password', this.state.password);
@@ -334,6 +371,8 @@ class TeamEdit extends React.Component {
   componentDidMount() {
     // Install handlers to <input type=file>.
     $.material.input();
+    // Install handlers to <input type=checkbox>.
+    $.material.checkbox();
   }
 
   render() {
@@ -341,13 +380,12 @@ class TeamEdit extends React.Component {
       return <ErrorMessage header="Team Not Found" />;
     }
     const memberElements = this.state.team.members.map((profile, index) => {
-      const handleFormChangeForMember = (update) => this.handleFormChange(
-        {team: {members: {[index]: update}}});
       return (
         <MemberEditPanel
           index={index}
           profile={profile}
-          onFormChange={handleFormChangeForMember}
+          removeIcon={this.state.removeIcon[index]}
+          onFormChange={this.handleFormChange.bind(this)}
           onIconChange={this.handleIconChange.bind(this)}
         />
       );
@@ -359,6 +397,7 @@ class TeamEdit extends React.Component {
         </div>
         <TeamEditPanel
           team={this.state.team}
+          removePhoto={this.state.removePhoto}
           onFormChange={this.handleFormChange.bind(this)}
           onPhotoChange={this.handlePhotoChange.bind(this)}
         />
