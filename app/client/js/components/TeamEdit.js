@@ -167,7 +167,7 @@ const TeamEditPanel = ({ team: { name, university, prefecture, photo }, removePh
           <StaticFormItem label="チーム名 (編集できません)" value={name} />
           <StaticFormItem label="大学名 (編集できません)" value={university} />
           <DropdownFormItem label="大学所在地" items={PREFECTURE_DROPDOWN_ITEMS} value={prefecture || 48} onChange={handlePrefectureChange} />
-          <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} help="チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。" onChange={onPhotoChange} />
+          <PhotoFormItem label="チーム写真" url={photo} ratio={1 / 3} help="チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。" onChange={onPhotoChange} />
           <CheckBoxFormItem
             caption="チーム写真を削除する"
             value={removePhoto}

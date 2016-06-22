@@ -5,10 +5,25 @@ import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
 import * as constants from '../constants';
 
+const TeamPhoto = ({ photo, members }) => {
+  if (photo.startsWith('/') &&
+      members.some((profile) => !profile.icon.startsWith('/'))) {
+    const children = members.map(({ icon }) => (
+      <div style={{ float: 'left', width: `${100 / 3}%` }}>
+        <FixedRatioThumbnail url={icon} ratio={1 / 1} />
+      </div>
+    ));
+    return <div style={{ overflow: 'hidden' }}>{children}</div>;
+  }
+  return <FixedRatioThumbnail url={photo} ratio={1 / 3} />
+};
+
 const TeamItem = ({ team: { id, name, university, photo, members } }) => (
   <div className="panel panel-default">
     <div className="panel-body">
-      <Link to={`/team/${id}`}><FixedRatioThumbnail url={photo} ratio={1 / 3} /></Link>
+      <Link to={`/team/${id}`}>
+        <TeamPhoto photo={photo} members={members} />
+      </Link>
       <h4 className="text-ellipsis">
         <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
       </h4>
