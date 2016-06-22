@@ -14,7 +14,7 @@ class Uploader(object):
     return self._service
 
   def upload(self, bucket_name, bucket_path, fileobj, mimetype):
-    request = self._get_service.objects().insert(
+    request = self._get_service().objects().insert(
         bucket=bucket_name,
         name=bucket_path,
         media_body=apiclient.http.MediaIoBaseUpload(
