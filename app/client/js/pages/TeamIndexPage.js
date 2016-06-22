@@ -8,6 +8,9 @@ const TeamIndexPage = () => (
     <h1 className="page-header">
       チーム一覧
     </h1>
+    <div className="alert alert-success" style={{ marginBottom: '24px' }}>
+      チーム情報は各チーム自身によって登録・編集されたものです。
+    </div>
     <PrefectureViewContainer />
     <TeamListContainer />
   </div>

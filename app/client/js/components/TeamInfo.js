@@ -109,6 +109,9 @@ const TeamInfo = ({ team, ratings }) => {
       </div>
       <FixedRatioThumbnail url={team.photo} ratio={1 / 3} />
       {memberElements}
+      <div className="alert alert-success" style={{ marginBottom: '0' }}>
+        チーム情報は各チーム自身によって登録・編集されたものです。
+      </div>
       <div>
         <Link to={`/team/${team.id}/edit`}>
           <button className="btn btn-primary btn-raised pull-right">編集</button>
