@@ -47,5 +47,5 @@ export const PREFECTURES = [
   '宮崎県',
   '鹿児島県',
   '沖縄県',
-  '不明',
+  'その他',
 ];
