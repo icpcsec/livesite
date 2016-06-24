@@ -65,7 +65,7 @@ class LiveLoader {
       ws.onclose = ws.onerror = (e) => {
         ws.onerror = ws.onclose = undefined;
         this._ws = null;
-        this.attemptWebSocket();
+        setTimeout(() => this.attemptWebSocket(), 10 * 1000);
       };
     };
     ws.onerror = (e) => {
