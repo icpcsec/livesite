@@ -20,6 +20,7 @@ FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('scoreboard_url', None, 'Real scoreboard URL.')
 gflags.DEFINE_string('livesite_url', None, 'Livesite URL.')
+gflags.DEFINE_string('team_id_map', None, 'The path to the team ID mapping file.')
 gflags.DEFINE_string('api_key', None, 'API key of livesite.')
 gflags.DEFINE_string('log_dir', None, 'The path to log data directory.')
 gflags.DEFINE_integer('sync_interval', None, 'Sync interval in seconds.')
@@ -27,6 +28,7 @@ gflags.DEFINE_bool('logtostderr', True, 'Log to stderr.')
 gflags.DEFINE_bool('logtosyslog', True, 'Log to syslog.')
 gflags.MarkFlagAsRequired('scoreboard_url')
 gflags.MarkFlagAsRequired('livesite_url')
+gflags.MarkFlagAsRequired('team_id_map')
 gflags.MarkFlagAsRequired('api_key')
 gflags.MarkFlagAsRequired('log_dir')
 gflags.MarkFlagAsRequired('sync_interval')
@@ -71,7 +73,7 @@ def fetch_standings():
   return response.text
 
 
-def parse_standings(html):
+def parse_standings(html, team_id_map):
   doc = bs4.BeautifulSoup(html, 'html5lib')
   teams = []
   mains = doc.select('.main')
@@ -85,7 +87,12 @@ def parse_standings(html):
         continue
       team = dict(zip(TEAM_COLUMNS, row))
       team.pop('', None)
-      teams.append(team)
+      real_team_id = team_id_map.get(team['teamId'])
+      if not real_team_id:
+        logging.warning('Dropping team %s', team['teamId'])
+      else:
+        team['teamId'] = real_team_id
+        teams.append(team)
   return teams
 
 
@@ -103,7 +110,8 @@ def upload_standings_json(teams):
 
 
 class SyncJob(object):
-  def __init__(self):
+  def __init__(self, team_id_map):
+    self._team_id_map = team_id_map
     self._last_hash = None
 
   def __call__(self):
@@ -112,7 +120,7 @@ class SyncJob(object):
     html = fetch_standings()
     with open(os.path.join(FLAGS.log_dir, 'standings.%d.html' % timestamp), 'w') as out:
       out.write(html.encode('utf-8'))
-    teams = parse_standings(html)
+    teams = parse_standings(html, self._team_id_map)
     if not teams:
       logging.error('Failed to parse the standings HTML!')
       return
@@ -134,9 +142,12 @@ def main(unused_argv):
   except OSError:
     pass
 
+  with open(FLAGS.team_id_map) as f:
+    team_id_map = json.load(f)
+
   sched = apscheduler.scheduler.Scheduler(standalone=True)
   sched.add_interval_job(
-    SyncJob(),
+    SyncJob(team_id_map),
     seconds=FLAGS.sync_interval,
     start_date=datetime.datetime.now() + datetime.timedelta(seconds=3))
   sched.start()
