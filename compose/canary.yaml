@@ -39,6 +39,7 @@ services:
     network_mode: host
     volumes:
       - /dev/log:/dev/log
+      - /var/cache/munin/www:/mnt
     logging:
       driver: syslog
 
