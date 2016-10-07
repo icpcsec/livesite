@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import { sprintf } from 'sprintf-js';
+import * as settings from '../settings';
 
 class NavLink extends React.Component {
   render() {
@@ -61,10 +62,14 @@ const NavBar = ({ contest }) => {
         </div>
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
-            <NavLink to="/" onlyActiveOnIndex={true}>トップ</NavLink>
-            <NavLink to="/standings/">順位表</NavLink>
-            <NavLink to="/team/">チーム一覧</NavLink>
-            <NavLink to={contest.problemLink}>問題</NavLink>
+            <NavLink to="/" onlyActiveOnIndex={true}>{settings.JA ? 'トップ' : 'Home'}</NavLink>
+            <NavLink to="/standings/">{settings.JA ? '順位表' : 'Standings'}</NavLink>
+            <NavLink to="/team/">{settings.JA ? 'チーム一覧' : 'Teams'}</NavLink>
+            {
+              contest.problemLink && contest.problemLink.length > 0 ?
+              <NavLink to={contest.problemLink}>{settings.JA ? '問題' : 'Problems'}</NavLink> :
+              null
+            }
           </ul>
           <ul className="nav navbar-nav navbar-right">
             <li>

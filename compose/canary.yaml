@@ -4,8 +4,8 @@ version: '2'
 services:
 
   app:
-    image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-canary/ --slack_webhook_url=https://hooks.slack.com/services/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"]
+    image: asia.gcr.io/icpcsec/livesite-app:canary
+    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=livesite-canary/ --slack_webhook_url=https://hooks.slack.com/services/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"]
     restart: always
     network_mode: host
     volumes:
@@ -14,7 +14,7 @@ services:
       driver: syslog
 
   realtime:
-    image: asia.gcr.io/nya3jp/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app:canary
     command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
@@ -23,18 +23,18 @@ services:
     logging:
       driver: syslog
 
-  ratings:
-    image: asia.gcr.io/nya3jp/livesite-app
-    command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
-    restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-    logging:
-      driver: syslog
+  # ratings:
+  #   image: asia.gcr.io/icpcsec/livesite-app:canary
+  #   command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
+  #   restart: always
+  #   network_mode: host
+  #   volumes:
+  #     - /dev/log:/dev/log
+  #   logging:
+  #     driver: syslog
 
   nginx:
-    image: asia.gcr.io/nya3jp/livesite-nginx
+    image: asia.gcr.io/icpcsec/livesite-nginx:canary
     restart: always
     network_mode: host
     volumes:

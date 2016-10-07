@@ -19,6 +19,8 @@ gflags.DEFINE_string('gcs_bucket_name', None, '')
 gflags.DEFINE_string('gcs_bucket_path_prefix', '', '')
 gflags.DEFINE_string('slack_webhook_url', None, '')
 gflags.DEFINE_string('google_analytics_id', None, '')
+gflags.DEFINE_bool('enable_photo_upload', False, '')
+gflags.DEFINE_bool('enable_prefecture', False, '')
 
 
 PROFILE_SCHEMA = (
@@ -28,7 +30,7 @@ PROFILE_SCHEMA = (
   ('codeforcesId', 16),
   ('twitterId', 16),
   ('githubId', 16),
-  ('comment', 40),
+  ('comment', 140),
 )
 
 
@@ -70,9 +72,10 @@ def api_ui_update_team_handler():
 
   update = {'$set': {}}
 
-  prefecture = int(bottle.request.forms['prefecture'])
-  assert 1 <= prefecture <= 48
-  update['$set']['%s.prefecture' % team_id] = prefecture
+  if FLAGS.enable_prefecture:
+    prefecture = int(bottle.request.forms['prefecture'])
+    assert 1 <= prefecture <= 48
+    update['$set']['%s.prefecture' % team_id] = prefecture
 
   for i in xrange(3):
     for profile_key, max_len in PROFILE_SCHEMA:
@@ -116,13 +119,14 @@ def api_ui_update_team_handler():
     update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
         FLAGS.gcs_bucket_name, upload_path)
 
-  process_photo_upload(
-      'teamPhotoFile',
-      'removePhoto',
-      'photo',
-      '%s.photo' % team_id,
-      '/images/default-photo.png',
-      max_size=1200)
+  if FLAGS.enable_photo_upload:
+    process_photo_upload(
+        'teamPhotoFile',
+        'removePhoto',
+        'photo',
+        '%s.photo' % team_id,
+        '/images/default-photo.png',
+        max_size=1200)
 
   for i in xrange(3):
     process_photo_upload(

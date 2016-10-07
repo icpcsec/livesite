@@ -2,16 +2,14 @@ import React from 'react';
 
 import TeamListContainer from '../containers/TeamListContainer';
 import PrefectureViewContainer from '../containers/PrefectureViewContainer';
+import * as settings from '../settings';
 
 const TeamIndexPage = () => (
   <div>
     <h1 className="page-header">
-      チーム一覧
+      {settings.JA ? 'チーム一覧' : 'Team List'}
     </h1>
-    <div className="alert alert-success" style={{ marginBottom: '24px' }}>
-      チーム情報は各チーム自身によって登録・編集されたものです。
-    </div>
-    <PrefectureViewContainer />
+    {settings.ENABLE_PREFECTURE ? <PrefectureViewContainer /> : null}
     <TeamListContainer />
   </div>
 );

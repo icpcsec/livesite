@@ -4,9 +4,11 @@ import { Link } from 'react-router';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
 import * as constants from '../constants';
+import * as settings from '../settings';
 
 const TeamPhoto = ({ photo, members }) => {
-  if (photo.startsWith('/') &&
+  if (settings.USE_ICONS_AS_PHOTO &&
+      photo.startsWith('/') &&
       members.some((profile) => !profile.icon.startsWith('/'))) {
     const children = members.map(({ icon }) => (
       <div style={{ float: 'left', width: `${100 / 3}%` }}>
@@ -18,7 +20,7 @@ const TeamPhoto = ({ photo, members }) => {
   return <FixedRatioThumbnail url={photo} ratio={1 / 3} />
 };
 
-const TeamItem = ({ team: { id, name, university, photo, members } }) => (
+const TeamItem = ({ team: { id, name, university, country, photo, members } }) => (
   <div className="panel panel-default">
     <div className="panel-body">
       <Link to={`/team/${id}`}>
@@ -28,13 +30,31 @@ const TeamItem = ({ team: { id, name, university, photo, members } }) => (
         <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
       </h4>
       <div className="text-ellipsis">
-        <Link to={`/team/${id}`} className="no-decoration">{university}</Link>
+        <Link to={`/team/${id}`} className="no-decoration">
+          {
+            settings.ENABLE_COUNTRY ?
+            <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
+            null
+          }
+          {university}
+        </Link>
       </div>
     </div>
   </div>
 );
 
-const TeamList = ({ teams }) => {
+const TeamListSimple = ({ teams }) => {
+  const sortedTeams = [...teams];
+  sortedTeams.sort((a, b) => (
+      a.university.localeCompare(b.university) ||
+      a.name.localeCompare(b.name) ||
+      a.id.localeCompare(b.id)));
+  const items = sortedTeams.map(
+      (team) => <TeamItem key={team.id} team={team} />);
+  return <GridFlow cols={4}>{items}</GridFlow>;
+};
+
+const TeamListWithPrefecture = ({ teams }) => {
   const teamsByPrefecture = {};
   for (let i = 1; i <= 48; ++i) {
     teamsByPrefecture[i] = [];
@@ -62,5 +82,8 @@ const TeamList = ({ teams }) => {
   }
   return <div>{children}</div>;
 };
+
+const TeamList =
+      settings.ENABLE_PREFECTURE ? TeamListWithPrefecture : TeamListSimple;
 
 export default TeamList;

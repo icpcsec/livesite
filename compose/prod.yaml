@@ -4,8 +4,8 @@ version: '2'
 services:
 
   app:
-    image: asia.gcr.io/icpcsec/livesite-app
-    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-domestic/ --slack_webhook_url=https://hooks.slack.com/services/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 --google_analytics_id=UA-51402415-4"]
+    image: asia.gcr.io/icpcsec/livesite-app:prod
+    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-regional/ --slack_webhook_url=https://hooks.slack.com/services/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 --google_analytics_id=UA-51402415-4"]
     restart: always
     network_mode: host
     volumes:
@@ -14,7 +14,7 @@ services:
       driver: syslog
 
   realtime:
-    image: asia.gcr.io/icpcsec/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app:prod
     command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
@@ -23,18 +23,18 @@ services:
     logging:
       driver: syslog
 
-  ratings:
-    image: asia.gcr.io/icpcsec/livesite-app
-    command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
-    restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-    logging:
-      driver: syslog
+  # ratings:
+  #   image: asia.gcr.io/icpcsec/livesite-app:prod
+  #   command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
+  #   restart: always
+  #   network_mode: host
+  #   volumes:
+  #     - /dev/log:/dev/log
+  #   logging:
+  #     driver: syslog
 
   nginx:
-    image: asia.gcr.io/icpcsec/livesite-nginx
+    image: asia.gcr.io/icpcsec/livesite-nginx:prod
     restart: always
     network_mode: host
     volumes:

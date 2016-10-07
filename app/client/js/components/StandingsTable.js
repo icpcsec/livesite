@@ -4,6 +4,7 @@ import { Link } from 'react-router';
 import shallowCompare from 'react-addons-shallow-compare';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
+import * as settings from '../settings';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -87,8 +88,8 @@ const LegendRowDetailed = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
-            <th className="team-name">チーム/大学</th>
-            <th className="team-solved">正答数</th>
+            <th className="team-name">{settings.JA ? 'チーム/大学' : 'Team/University'}</th>
+            <th className="team-solved">{settings.JA ? '正答数' : 'Solved'}</th>
             {problemCols}
           </tr>
         </tbody>
@@ -219,9 +220,9 @@ const TeamRowSimple = (props) => {
 };
 
 const TeamRowDetailed = (props) => {
-  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = this.props;
+  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
-  const { id, name, university } = team;
+  const { id, name, university, country } = team;
   const rewrittenClassName = 'team-row ' + className;
   const problemCols = [];
   if (problems.length > 0) {
@@ -231,6 +232,13 @@ const TeamRowDetailed = (props) => {
   } else {
     problemCols.push(<td />);
   }
+  const universityWithCountry =
+    settings.ENABLE_COUNTRY ?
+    <span>
+      <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} />
+      {university}
+    </span> :
+    university;
   return (
     <li className={rewrittenClassName} {...rest}>
       <table className="team-table">
@@ -238,7 +246,7 @@ const TeamRowDetailed = (props) => {
           <tr>
             <TeamPinCol pinned={pinned} onClick={onClickPin} />
             <TeamCol className="team-rank" text={rank} />
-            <TeamCol className="team-name" text={name} small={university} to={`/team/${id}`} />
+            <TeamCol className="team-name" text={name} small={universityWithCountry} to={`/team/${id}`} />
             <TeamCol className="team-solved" text={solved} small={`(${penalty})`} />
             {problemCols}
           </tr>

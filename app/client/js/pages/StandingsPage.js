@@ -1,11 +1,12 @@
 import React from 'react';
 
 import StandingsTableContainer from '../containers/StandingsTableContainer';
+import * as settings from '../settings';
 
 const StandingsPage = () => (
   <div>
     <h1 className="page-header">
-      順位表
+      {settings.JA ? '順位表' : 'Standings'}
     </h1>
     <StandingsTableContainer />
   </div>

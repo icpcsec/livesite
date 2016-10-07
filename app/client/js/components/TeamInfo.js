@@ -5,8 +5,12 @@ import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
+import * as settings from '../settings';
 
 const getRating = (ratings, key, name) => {
+  if (!ratings) {
+    return 0;
+  }
   const nameHex = Buffer.from(name, 'utf8').toString('hex');
   const rating = ((ratings[key] || {})[nameHex] || {}).rating;
   return ((rating && rating > 0) ? rating : 0);
@@ -21,7 +25,8 @@ const MemberProfile = ({ profile, ratings }) => {
       rating >= 1500 ? '#ddcc00' :
       rating >= 1200 ? '#6666ff' :
       rating >= 900 ? '#00a900' :
-      '#999999';
+      rating > 0 ? '#999999' :
+      null;
     contactsElements.push(
       'TopCoder: ',
       <a target="_blank"
@@ -41,7 +46,8 @@ const MemberProfile = ({ profile, ratings }) => {
       rating >= 1600 ? '#0000ff' :
       rating >= 1400 ? '#03a89e' :
       rating >= 1200 ? '#008000' :
-      '#808080';
+      rating > 0 ? '#808080' :
+      null;
     contactsElements.push(
       'CodeForces: ',
       <a target="_blank"
@@ -75,10 +81,14 @@ const MemberProfile = ({ profile, ratings }) => {
   return (
     <div className="profile panel panel-default">
       <div className="panel-body">
-        <div className="profile-icon">
-          <FixedRatioThumbnail url={profile.icon} ratio={1} />
-        </div>
-        <div className="profile-data">
+        {
+          settings.ENABLE_ICON ?
+          <div className="profile-icon">
+            <FixedRatioThumbnail url={profile.icon} ratio={1} />
+          </div> :
+          null
+        }
+        <div className="profile-data" style={{ marginLeft: settings.ENABLE_ICON ? null : '0' }}>
           <p className="profile-name">{profile.name}</p>
           <p className="profile-contacts">{contactsElements}</p>
           <p className="profile-comment">{profile.comment}</p>
@@ -102,19 +112,26 @@ const TeamInfo = ({ team, ratings }) => {
           <br />
           <small>
             {team.university}
-            {' '}
-            ({constants.PREFECTURES[team.prefecture || 48]})
+            {
+              settings.ENABLE_PREFECTURE ?
+              ` (${constants.PREFECTURES[team.prefecture || 48]})` :
+              null
+            }
+            {
+              settings.ENABLE_COUNTRY ?
+              ` - ${team.country}` :
+              null
+            }
           </small>
         </h1>
       </div>
       <FixedRatioThumbnail url={team.photo} ratio={1 / 3} />
       {memberElements}
-      <div className="alert alert-success" style={{ marginBottom: '0' }}>
-        チーム情報は各チーム自身によって登録・編集されたものです。
-      </div>
       <div>
         <Link to={`/team/${team.id}/edit`}>
-          <button className="btn btn-primary btn-raised pull-right">編集</button>
+          <button className="btn btn-primary btn-raised pull-right">
+            {settings.JA ? '編集' : 'Edit'}
+          </button>
         </Link>
       </div>
     </div>

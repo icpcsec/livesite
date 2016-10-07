@@ -4,7 +4,7 @@ version: '2'
 services:
 
   app:
-    image: asia.gcr.io/nya3jp/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app:demo
     command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=livesite-dev-nya --gcs_bucket_path_prefix=livesite-demo/"]
     restart: always
     network_mode: host
@@ -14,7 +14,7 @@ services:
       driver: syslog
 
   realtime:
-    image: asia.gcr.io/nya3jp/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app:demo
     command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
@@ -24,7 +24,7 @@ services:
       driver: syslog
 
   ratings:
-    image: asia.gcr.io/nya3jp/livesite-app
+    image: asia.gcr.io/icpcsec/livesite-app:demo
     command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
     restart: always
     network_mode: host
@@ -34,7 +34,7 @@ services:
       driver: syslog
 
   nginx:
-    image: asia.gcr.io/nya3jp/livesite-nginx
+    image: asia.gcr.io/icpcsec/livesite-nginx:demo
     restart: always
     network_mode: host
     volumes:
