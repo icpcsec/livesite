@@ -72,6 +72,9 @@ const NavBar = ({ contest }) => {
             }
           </ul>
           <ul className="nav navbar-nav navbar-right">
+            <NavLink to="/settings/">
+              <span className="glyphicon glyphicon-cog"></span>
+            </NavLink>
             <li>
               <Clock contest={contest} />
             </li>

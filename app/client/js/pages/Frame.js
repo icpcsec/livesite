@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBarContainer from '../containers/NavBarContainer';
+import ThemeContainer from '../containers/ThemeContainer';
 
 const Frame = ({ children }) => {
   return (
@@ -12,6 +13,7 @@ const Frame = ({ children }) => {
         </div>
         {children}
       </div>
+      <ThemeContainer />
     </div>
   );
 };

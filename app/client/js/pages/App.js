@@ -10,6 +10,7 @@ import AdminPage from './AdminPage';
 import Frame from './Frame';
 import FrontPage from './FrontPage';
 import LoadingPage from './LoadingPage';
+import SettingsPage from './SettingsPage';
 import StandingsPage from './StandingsPage';
 import TeamEditPage from './TeamEditPage';
 import TeamIndexPage from './TeamIndexPage';
@@ -41,6 +42,7 @@ class App extends React.Component {
                 <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
                 <Route path="/team/:requestedTeamId/edit" component={TeamEditPage} />
               </Route>
+              <Route path="/settings/" component={SettingsPage} />
               <Route path="/admin/" component={AdminPage} />
             </Route>
           </Router>

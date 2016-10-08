@@ -32,6 +32,7 @@
     "react-router": "^2.0.1",
     "react-router-scroll": "^0.1.0",
     "redux": "^3.3.1",
+    "redux-thunk": "^2.1.0",
     "snackbarjs": "^1.1.0",
     "sprintf-js": "^1.0.3",
     "uglifyify": "^3.0.1"

@@ -21,13 +21,23 @@ const updateSettings = (settings) => {
       }
     );
   }
+  if (settings.version < 2) {
+    settings = applyPartialUpdate(
+      settings,
+      {
+        version: {$set: 2},
+        invertColor: {$set: false},
+        autoscroll: {$set: false},
+      }
+    );
+  }
   return settings;
 };
 
 const settings = (settings = {}, action) => {
   settings = updateSettings(settings);
   if (action.type == 'UPDATE_SETTINGS') {
-    settings = applyPartialUpdate(settings, action.settings);
+    settings = applyPartialUpdate(settings, action.settingsUpdate);
   }
   return settings;
 };

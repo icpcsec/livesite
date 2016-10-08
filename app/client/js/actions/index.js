@@ -33,9 +33,15 @@ export const markLoaded = (feed) => (
   }
 );
 
-export const updateSettings = (settings) => (
+export const updateSettings = (settingsUpdate) => (
   {
     type: 'UPDATE_SETTINGS',
-    settings,
+    settingsUpdate,
   }
 );
+
+export const toggleSetting = (name) => (dispatch, getState) => {
+  const oldSettings = getState().settings;
+  const settingsUpdate = {[name]: {$set: !oldSettings[name]}};
+  dispatch(updateSettings(settingsUpdate));
+};

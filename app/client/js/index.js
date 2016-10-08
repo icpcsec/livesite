@@ -5,7 +5,8 @@ import Perf from 'react-addons-perf';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GA from 'react-ga';
-import { createStore, compose } from 'redux';
+import * as Redux from 'redux';
+import ReduxThunk from 'redux-thunk';
 
 import * as addthis from './addthis';
 import { printBanner } from './banner';
@@ -21,10 +22,13 @@ if (gaElement && gaElement.textContent.length > 0) {
 
 const persist = createPersist();
 
-const store = createStore(
+const composeEnhancersForDevTool =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+
+const store = Redux.createStore(
   persist.createReducer(reducer),
   {},
-  window.devToolsExtension ? window.devToolsExtension() : undefined);
+  composeEnhancersForDevTool(Redux.applyMiddleware(ReduxThunk)));
 
 persist.start(store);
 
