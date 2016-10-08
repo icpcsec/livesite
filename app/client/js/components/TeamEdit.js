@@ -5,6 +5,7 @@ import applyPartialUpdate from 'react-addons-update';
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
+import MaterialInit from './MaterialInit';
 import * as constants from '../constants';
 import * as siteconfig from '../siteconfig';
 
@@ -451,13 +452,6 @@ class TeamEdit extends React.Component {
     });
   }
 
-  componentDidMount() {
-    // Install handlers to <input type=file>.
-    $.material.input();
-    // Install handlers to <input type=checkbox>.
-    $.material.checkbox();
-  }
-
   render() {
     if (!this.state.team) {
       return <ErrorMessage header="Team Not Found" />;
@@ -475,7 +469,7 @@ class TeamEdit extends React.Component {
       );
     });
     return (
-      <div>
+      <MaterialInit>
         <div className="page-header">
           <h1>{siteconfig.JA ? 'チーム情報編集' : 'Edit Team Info'}</h1>
         </div>
@@ -493,7 +487,7 @@ class TeamEdit extends React.Component {
           onSubmit={this.handleSubmitClick.bind(this)}
           onAgree={this.handleToggleAgreed.bind(this)}
         />
-      </div>
+      </MaterialInit>
     );
   }
 };
