@@ -11,18 +11,26 @@ import * as settings from '../settings';
 const UPDATE_AGREEMENT =
   settings.JA ?
   (
-    <span>
-      <b>重要</b>: このフォームで送信されたプロフィール情報はすべて一般に公開されます。<br />
-      投稿されたプロフィール情報に関するすべての責任は投稿したチーム自身が負うこととします。<br />
-      不快な情報や虚偽の情報を投稿してはいけません。<br />
-      ウェブサイト運営者はいつでもプロフィールの公開を停止することがあります。
-    </span>
+    <div>
+      <b>重要</b>
+      <ul>
+        <li>このフォームで送信されたプロフィール情報はすべて一般に公開されます。</li>
+        <li>投稿されたプロフィール情報に関するすべての責任は投稿したチーム自身が負うこととします。</li>
+        <li>不快な情報や虚偽の情報を投稿してはいけません。</li>
+        <li>ウェブサイト運営者はいつでもプロフィールの公開を停止することがあります。</li>
+      </ul>
+    </div>
   ) : (
-    <span>
-      <b>IMPORTANT</b>: By submitting this form, all information entered here are published and become visible to the public.<br />
-      You are fully responsible for the submitted information; never post offensive or false information.<br />
-      The website owners may take down profiles any time.
-    </span>
+    <div>
+      <b>IMPORTANT</b>
+      <ul>
+        <li>By submitting this form, all information entered here are published and become visible to the public.</li>
+        <li>You are fully responsible for the submitted information.</li>
+        <li>Do not post offensive or false information.</li>
+        <li>The website owners may take down profiles any time.</li>
+        <li>A team photo taken during the event will be uploaded to the profile pages.</li>
+      </ul>
+    </div>
   );
 
 const PREFECTURE_DROPDOWN_ITEMS = constants.PREFECTURES.map((caption, index) => (
@@ -117,7 +125,7 @@ const DropdownFormItem = ({ value, items, onChange, ...props }) => {
 const StaticFormItem = ({ value, ...props }) => {
   return (
     <GenericFormItem {...props}>
-      <p className="form-control-static">{value}</p>
+      <div className="form-control-static">{value}</div>
     </GenericFormItem>
   );
 };
@@ -219,7 +227,9 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
                 onChange={(value) => onFormChange({removePhoto: {$set: value}})}
               />
             </div> :
-            null
+            <StaticFormItem
+              label={settings.JA ? 'チーム写真' : 'Team Photo'}
+              value={settings.JA ? 'イベント中に撮影された写真が使用されます' : 'Photos taken during the event will be uploaded'} />
           }
         </form>
       </div>
