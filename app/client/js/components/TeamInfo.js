@@ -5,7 +5,7 @@ import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
-import * as settings from '../settings';
+import * as siteconfig from '../siteconfig';
 
 const getRating = (ratings, key, name) => {
   if (!ratings) {
@@ -82,13 +82,13 @@ const MemberProfile = ({ profile, ratings }) => {
     <div className="profile panel panel-default">
       <div className="panel-body">
         {
-          settings.ENABLE_ICON ?
+          siteconfig.ENABLE_ICON ?
           <div className="profile-icon">
             <FixedRatioThumbnail url={profile.icon} ratio={1} />
           </div> :
           null
         }
-        <div className="profile-data" style={{ marginLeft: settings.ENABLE_ICON ? null : '0' }}>
+        <div className="profile-data" style={{ marginLeft: siteconfig.ENABLE_ICON ? null : '0' }}>
           <p className="profile-name">{profile.name}</p>
           <p className="profile-contacts">{contactsElements}</p>
           <p className="profile-comment">{profile.comment}</p>
@@ -113,12 +113,12 @@ const TeamInfo = ({ team, ratings }) => {
           <small>
             {team.university}
             {
-              settings.ENABLE_PREFECTURE ?
+              siteconfig.ENABLE_PREFECTURE ?
               ` (${constants.PREFECTURES[team.prefecture || 48]})` :
               null
             }
             {
-              settings.ENABLE_COUNTRY ?
+              siteconfig.ENABLE_COUNTRY ?
               ` - ${team.country}` :
               null
             }
@@ -130,7 +130,7 @@ const TeamInfo = ({ team, ratings }) => {
       <div>
         <Link to={`/team/${team.id}/edit`}>
           <button className="btn btn-primary btn-raised pull-right">
-            {settings.JA ? '編集' : 'Edit'}
+            {siteconfig.JA ? '編集' : 'Edit'}
           </button>
         </Link>
       </div>

@@ -4,10 +4,10 @@ import { Link } from 'react-router';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
 import * as constants from '../constants';
-import * as settings from '../settings';
+import * as siteconfig from '../siteconfig';
 
 const TeamPhoto = ({ photo, members }) => {
-  if (settings.USE_ICONS_AS_PHOTO &&
+  if (siteconfig.USE_ICONS_AS_PHOTO &&
       photo.startsWith('/') &&
       members.some((profile) => !profile.icon.startsWith('/'))) {
     const children = members.map(({ icon }) => (
@@ -32,7 +32,7 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
       <div className="text-ellipsis">
         <Link to={`/team/${id}`} className="no-decoration">
           {
-            settings.ENABLE_COUNTRY ?
+            siteconfig.ENABLE_COUNTRY ?
             <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
             null
           }
@@ -84,6 +84,6 @@ const TeamListWithPrefecture = ({ teams }) => {
 };
 
 const TeamList =
-      settings.ENABLE_PREFECTURE ? TeamListWithPrefecture : TeamListSimple;
+  siteconfig.ENABLE_PREFECTURE ? TeamListWithPrefecture : TeamListSimple;
 
 export default TeamList;

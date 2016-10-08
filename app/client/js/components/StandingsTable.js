@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import shallowCompare from 'react-addons-shallow-compare';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
-import * as settings from '../settings';
+import * as siteconfig from '../siteconfig';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -88,8 +88,8 @@ const LegendRowDetailed = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
-            <th className="team-name">{settings.JA ? 'チーム/大学' : 'Team/University'}</th>
-            <th className="team-solved">{settings.JA ? '正答数' : 'Solved'}</th>
+            <th className="team-name">{siteconfig.JA ? 'チーム/大学' : 'Team/University'}</th>
+            <th className="team-solved">{siteconfig.JA ? '正答数' : 'Solved'}</th>
             {problemCols}
           </tr>
         </tbody>
@@ -233,7 +233,7 @@ const TeamRowDetailed = (props) => {
     problemCols.push(<td />);
   }
   const universityWithCountry =
-    settings.ENABLE_COUNTRY ?
+    siteconfig.ENABLE_COUNTRY ?
     <span>
       <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} />
       {university}
