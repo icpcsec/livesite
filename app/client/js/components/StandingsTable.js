@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Link } from 'react-router';
 import shallowCompare from 'react-addons-shallow-compare';
 
@@ -180,8 +179,30 @@ const TeamPinCol = ({ pinned, onClick }) => {
   );
 };
 
+const TeamRevealStateCol = ({ revealState }) => (
+  <td className="team-mark">
+    <span className="glyphicon glyphicon-ok"
+          style={{ display: (revealState === 'finalized' ? null : 'none') }} />
+  </td>
+);
+
+const RevealMarker = () => (
+  // .reveal-marker is used to compute the marker position in StandingsRevealTable.
+  <div className="reveal-marker" style={{ position: 'relative' }}>
+    <div style={{ position: 'absolute', bottom: '1px', boxShadow: '0 0 0 5px red' }}>
+      <table className="team-table" style={{ background: 'transparent' }}>
+        <tbody>
+          <tr>
+            <TeamCol text="a" small="b" style={{ opacity: 0 }} />
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+);
+
 const TeamRowSimple = (props) => {
-  const { status, team, universityRank, numProblems, pinned, onClickPin, className = '', ...rest } = props;
+  const { status, team, universityRank, numProblems, pinned, onClickPin, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
   const { id, name, university, members } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -201,7 +222,7 @@ const TeamRowSimple = (props) => {
     </span>
   );
   return (
-    <li className={rewrittenClassName} {...rest}>
+    <li className={rewrittenClassName} style={{ zIndex }} {...rest}>
       <table className="team-table">
         <tbody>
           <tr>
@@ -220,7 +241,7 @@ const TeamRowSimple = (props) => {
 };
 
 const TeamRowDetailed = (props) => {
-  const { status, team, numProblems, pinned, onClickPin, className = '', ...rest } = props;
+  const { status, team, numProblems, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university, country } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -239,12 +260,17 @@ const TeamRowDetailed = (props) => {
       {university}
     </span> :
     university;
+  const markCol = revealState ?
+    <TeamRevealStateCol revealState={revealState} /> :
+    <TeamPinCol pinned={pinned} onClick={onClickPin} />;
+  const revealMarker = firstRevealFinalized && <RevealMarker />;
   return (
-    <li className={rewrittenClassName} {...rest}>
+    <li className={rewrittenClassName} style={{ zIndex }} {...rest}>
+      {revealMarker}
       <table className="team-table">
         <tbody>
           <tr>
-            <TeamPinCol pinned={pinned} onClick={onClickPin} />
+            {markCol}
             <TeamCol className="team-rank" text={rank} />
             <TeamCol className="team-name" text={name} small={universityWithCountry} to={`/team/${id}`} />
             <TeamCol className="team-solved" text={solved} small={`(${penalty})`} />
@@ -326,9 +352,6 @@ class AnimatingList extends React.Component {
 
   componentDidUpdate() {
     const liList = Array.from(this._dom.children);
-    liList.forEach((li, i) => {
-      li.style.zIndex = 9999 - i;
-    });
     const currentKeyToOffsetTop = new Map();
     liList.forEach((li, i) => {
       const child = this.props.children[i];
@@ -346,10 +369,9 @@ class AnimatingList extends React.Component {
       rels[child.key] = relativeOffsetTop;
       if (relativeOffsetTop != 0) {
         li.style.transform = `translate(0, ${relativeOffsetTop}px)`;
-        setTimeout(() => {
-          li.classList.add('animating');
-          li.style.transform = 'translate(0, 0)';
-        }, 1000);
+        setTimeout(() => { li.classList.add('animating') }, 0);
+        setTimeout(() => { li.style.transform = 'translate(0, 0)'; }, 1000);
+        setTimeout(() => { li.classList.remove('animating'); }, 1000 + 3000);
       }
     });
   }
@@ -366,22 +388,26 @@ class AnimatingList extends React.Component {
 };
 
 class StandingsTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   handleClickPin(teamId) {
     this.props.togglePin(teamId);
   }
 
   render() {
-    const { standings, teamsMap, problems, detailed, pinnedTeamIds } = this.props;
+    const { standings, teamsMap, problems, detailed, pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
     const universityRanks = computeUniversityRanks(standings, teamsMap);
     const TeamRow = detailed ? TeamRowDetailed : TeamRowSimple;
     const LegendRow = detailed ? LegendRowDetailed : LegendRowSimple;
-    const normalRows = standings.map((status) => {
+    let seenRevealFinalized = false;
+    const normalRows = standings.map((status, index) => {
       const team = teamsMap[status.teamId] || DEFAULT_TEAM;
+      const firstRevealFinalized =
+        status.revealState === 'finalized' && !seenRevealFinalized && index > 0;
+      if (status.revealState === 'finalized') {
+        seenRevealFinalized = true;
+      }
+      // Hack to place reveal marker frontmost.
+      const zIndex = status.revealState === 'finalized' ? 10000 : 9999 - index;
       return (
         <AnimatingTeamRow
           component={TeamRow}
@@ -392,9 +418,15 @@ class StandingsTable extends React.Component {
           universityRank={universityRanks[status.teamId]}
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
+          revealState={status.revealState}
+          firstRevealFinalized={firstRevealFinalized}
+          zIndex={zIndex}
         />
       );
     });
+    if (revealMode && !seenRevealFinalized) {
+      normalRows.push(<li className="team-row" style={{ zIndex: 10000 }}><RevealMarker /></li>);
+    }
     const pinnedStandings = standings.filter(
       (status) => pinnedTeamIdSet.has(status.teamId));
     const stickyRows = pinnedStandings.map((status) => {
@@ -409,6 +441,7 @@ class StandingsTable extends React.Component {
           numProblems={problems.length}
           pinned={true}
           onClickPin={() => this.handleClickPin(status.teamId)}
+          zIndex={0}
           className="sticky"
         />
       );

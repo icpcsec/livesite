@@ -55,7 +55,7 @@ class Clock extends React.Component {
 
 const NavBar = ({ contest }) => {
   return (
-    <nav className="navbar navbar-inverse navbar-fixed-top">
+    <nav className="navbar navbar-inverse navbar-fixed-top" style={{ zIndex: 1000000 }}>
       <div className="container">
         <div className="navbar-header">
           <Link className="navbar-brand" to="/">{ contest.title }</Link>
