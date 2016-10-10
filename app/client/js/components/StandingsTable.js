@@ -310,7 +310,7 @@ class AnimatingTeamRow extends React.Component {
     this.setState({ rankHidden: true, newSolved: true });
     this.setTimeout(() => {
       this.setState({ newSolved: false });
-    }, 9000);
+    }, this.props.revealMode ? 4000 : 9000);
     this.setTimeout(() => {
       this.setState({ rankHidden: false });
     }, 4000);
@@ -418,6 +418,7 @@ class StandingsTable extends React.Component {
           universityRank={universityRanks[status.teamId]}
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
+          revealMode={revealMode}
           revealState={status.revealState}
           firstRevealFinalized={firstRevealFinalized}
           zIndex={zIndex}
