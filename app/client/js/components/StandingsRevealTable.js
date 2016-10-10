@@ -51,6 +51,7 @@ class StandingsRevealTable extends React.Component {
       standingsIndex: 0,
     };
     this._keyDownListener = this.onKeyDown.bind(this);
+    this._scrolling = false;
   }
 
   componentDidMount() {
@@ -72,10 +73,12 @@ class StandingsRevealTable extends React.Component {
       $marker.offset().top - $(window).height() * 2 / 3 :
       1000000;
     $('body').animate({ scrollTop }, 500);
+    this._scrolling = true;
+    setTimeout(() => { this._scrolling = false; }, 500);
   }
 
   onKeyDown(e) {
-    if ($('.animating').length > 0) {
+    if (this._scrolling || $('.animating').length > 0) {
       return;
     }
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
