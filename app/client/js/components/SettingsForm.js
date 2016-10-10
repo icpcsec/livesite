@@ -16,14 +16,14 @@ const SettingsForm = ({ settings, toggleSetting }) => (
           </label>
         </div>
       </div>
-      <div className="form-group" style={{ display: 'none' }}>
+      <div className="form-group">
         <div className="togglebutton">
           <label>
             <input
               type="checkbox"
               checked={settings.autoscroll}
               onChange={() => toggleSetting('autoscroll')} />
-            Enable autoscrolling in standings page (not implemented yet)
+            Enable autoscrolling in standings page
           </label>
         </div>
       </div>
