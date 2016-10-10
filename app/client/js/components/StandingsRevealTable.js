@@ -33,10 +33,15 @@ class StandingsUploadForm extends React.Component {
     }
     return (
       <div>
-        Please select JSON files:
-        <input type="file"
-               multiple="multiple"
-               onChange={this.onChange.bind(this)} />
+        <p>
+          Please select reveal JSON files:
+          <input type="file"
+                 multiple="multiple"
+                 onChange={this.onChange.bind(this)} />
+        </p>
+        <p>
+          Use arrow keys to navigate (right arrow: forward, left arrow: backward).
+        </p>
       </div>
     );
   }
