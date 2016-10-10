@@ -14,6 +14,11 @@ const Frame = ({ children }) => {
         </div>
         {children}
       </div>
+      <footer>
+        <div className="container" style={{ textAlign: 'right' }}>
+          LiveSite by ICPC Secretaries
+        </div>
+      </footer>
       <ThemeContainer />
     </div>
   );
