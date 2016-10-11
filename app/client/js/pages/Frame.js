@@ -1,5 +1,6 @@
 import React from 'react';
 
+import FooterContainer from '../containers/FooterContainer';
 import NavBarContainer from '../containers/NavBarContainer';
 import StreamingHolderContainer from '../containers/StreamingHolderContainer';
 import ThemeContainer from '../containers/ThemeContainer';
@@ -16,11 +17,7 @@ const Frame = ({ children }) => {
         <StreamingHolderContainer />
         {children}
       </div>
-      <footer>
-        <div className="container" style={{ textAlign: 'right' }}>
-          LiveSite by ICPC Secretaries
-        </div>
-      </footer>
+      <FooterContainer />
       <ThemeContainer />
     </div>
   );
