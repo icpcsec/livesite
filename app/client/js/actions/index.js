@@ -45,3 +45,17 @@ export const toggleSetting = (name) => (dispatch, getState) => {
   const settingsUpdate = {[name]: {$set: !oldSettings[name]}};
   dispatch(updateSettings(settingsUpdate));
 };
+
+export const showStreaming = (x, y) => (
+  {
+    type: 'SHOW_STREAMING',
+    x,
+    y,
+  }
+);
+
+export const hideStreaming = () => (
+  {
+    type: 'HIDE_STREAMING',
+  }
+);

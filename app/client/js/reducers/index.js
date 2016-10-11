@@ -5,6 +5,7 @@ import loaded from './loaded';
 import ratings from './ratings';
 import settings from './settings';
 import standings from './standings';
+import streaming from './streaming';
 import teams from './teams';
 
 const reducer = combineReducers({
@@ -13,6 +14,7 @@ const reducer = combineReducers({
   ratings,
   settings,
   standings,
+  streaming,
   teams,
 });
 

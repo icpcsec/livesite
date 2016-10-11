@@ -13,6 +13,7 @@ import LoadingPage from './LoadingPage';
 import SettingsPage from './SettingsPage';
 import StandingsPage from './StandingsPage';
 import StandingsRevealPage from './StandingsRevealPage';
+import StreamingPage from './StreamingPage';
 import TeamEditPage from './TeamEditPage';
 import TeamIndexPage from './TeamIndexPage';
 import TeamInfoPage from './TeamInfoPage';
@@ -43,6 +44,7 @@ class App extends React.Component {
                 <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
                 <Route path="/team/:requestedTeamId/edit" component={TeamEditPage} />
               </Route>
+              <Route path="/streaming/" component={StreamingPage} />
               <Route path="/settings/" component={SettingsPage} />
               <Route path="/reveal/" component={StandingsRevealPage} />
               <Route path="/admin/" component={AdminPage} />

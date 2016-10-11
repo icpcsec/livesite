@@ -1,6 +1,7 @@
 import React from 'react';
 
 import NavBarContainer from '../containers/NavBarContainer';
+import StreamingHolderContainer from '../containers/StreamingHolderContainer';
 import ThemeContainer from '../containers/ThemeContainer';
 
 const Frame = ({ children }) => {
@@ -12,6 +13,7 @@ const Frame = ({ children }) => {
         <div style={{position: 'absolute', right: '15px'}}>
           <div className="addthis_sharing_toolbox"></div>
         </div>
+        <StreamingHolderContainer />
         {children}
       </div>
       <footer>
