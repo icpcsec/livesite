@@ -66,6 +66,11 @@ const NavBar = ({ contest }) => {
             <NavLink to="/standings/">{siteconfig.JA ? '順位表' : 'Standings'}</NavLink>
             <NavLink to="/team/">{siteconfig.JA ? 'チーム一覧' : 'Teams'}</NavLink>
             {
+              siteconfig.STREAMING_NICOLIVE_ID ?
+              <NavLink to="/streaming/">{siteconfig.JA ? '中継' : 'Streaming'}</NavLink> :
+              null
+            }
+            {
               contest.problemLink && contest.problemLink.length > 0 ?
               <NavLink to={contest.problemLink}>{siteconfig.JA ? '問題' : 'Problems'}</NavLink> :
               null

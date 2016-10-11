@@ -9,6 +9,11 @@ const StreamingPage = () => (
       {siteconfig.JA ? '中継' : 'Live Streaming'}
     </h1>
     <StreamingScreenContainer />
+    <div style={{ width: '800px', margin: '12px auto 0' }}>
+      <p>
+        Please use <a target="_blank" href={`http:\/\/live.nicovideo.jp/gate/${siteconfig.STREAMING_NICOLIVE_ID}`}>the official player</a> on niconico to post comments.
+      </p>
+    </div>
   </div>
 );
 

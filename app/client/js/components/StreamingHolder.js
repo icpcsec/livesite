@@ -2,7 +2,7 @@ import React from 'react';
 
 import * as siteconfig from '../siteconfig';
 
-const EMBED_SCRIPT_URL_BASE = 'http://ext.live.nicovideo.jp/generateembedtag?idType=v&width=800&height=450&v=4'
+const EMBED_SCRIPT_URL_BASE = 'http://ext.live.nicovideo.jp/generateembedtag?idType=v&width=800&height=450&v=4&autoLoad=1';
 
 class StreamingHolder extends React.Component {
   constructor(props) {
