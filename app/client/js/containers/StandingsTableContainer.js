@@ -9,7 +9,6 @@ const mapStateToProps = (state) => {
     standings: state.standings,
     teamsMap: state.teams,
     problems: state.contest.problems,
-    detailed: state.contest.detailedStandings,
     pinnedTeamIds: state.settings.pinnedTeamIds,
   };
 };

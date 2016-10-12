@@ -51,7 +51,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   );
 };
 
-const LegendRowSimple = ({ problems }) => {
+const LegendRowDomestic = ({ problems }) => {
   return (
     <li className="team-row legend">
       <table className="team-table">
@@ -59,11 +59,11 @@ const LegendRowSimple = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
-            <th className="team-solved">正答数</th>
-            <th className="team-penalty">時間</th>
-            <th className="team-name">チーム</th>
-            <th className="team-name">大学</th>
-            <th className="team-members">メンバー</th>
+            <th className="team-solved">{siteconfig.JA ? '正答数' : 'Solved'}</th>
+            <th className="team-penalty">{siteconfig.JA ? '時間' : 'Penalty'}</th>
+            <th className="team-name">{siteconfig.JA ? 'チーム' : 'Team'}</th>
+            <th className="team-name">{siteconfig.JA ? '大学' : 'University'}</th>
+            <th className="team-members">{siteconfig.JA ? 'メンバー' : 'Members'}</th>
           </tr>
         </tbody>
       </table>
@@ -71,7 +71,7 @@ const LegendRowSimple = ({ problems }) => {
   );
 };
 
-const LegendRowDetailed = ({ problems }) => {
+const LegendRowRegional = ({ problems }) => {
   const problemCols = [];
   if (problems.length > 0) {
     problems.forEach((problem) => {
@@ -201,7 +201,7 @@ const RevealMarker = () => (
   </div>
 );
 
-const TeamRowSimple = (props) => {
+const TeamRowDomestic = (props) => {
   const { status, team, universityRank, numProblems, pinned, onClickPin, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
   const { id, name, university, members } = team;
@@ -240,7 +240,7 @@ const TeamRowSimple = (props) => {
   );
 };
 
-const TeamRowDetailed = (props) => {
+const TeamRowRegional = (props) => {
   const { status, team, numProblems, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university, country } = team;
@@ -393,11 +393,11 @@ class StandingsTable extends React.Component {
   }
 
   render() {
-    const { standings, teamsMap, problems, detailed, pinnedTeamIds, revealMode = false } = this.props;
+    const { standings, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
     const universityRanks = computeUniversityRanks(standings, teamsMap);
-    const TeamRow = detailed ? TeamRowDetailed : TeamRowSimple;
-    const LegendRow = detailed ? LegendRowDetailed : LegendRowSimple;
+    const TeamRow = problems.length > 0 ? TeamRowRegional : TeamRowDomestic;
+    const LegendRow = problems.length > 0 ? LegendRowRegional : LegendRowDomestic;
     let seenRevealFinalized = false;
     const normalRows = standings.map((status, index) => {
       const team = teamsMap[status.teamId] || DEFAULT_TEAM;
