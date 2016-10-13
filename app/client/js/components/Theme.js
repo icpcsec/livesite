@@ -5,7 +5,8 @@ const DARK_STYLES = (
   '.navbar { background-color: #212121 !important; }' +
   '.panel { background-color: #424242 !important; }' +
   '.form-control { color: #e0e0e0 !important; }' +
-  'textarea { background-color: #303030 !important; }'
+  'textarea { background-color: #303030 !important; }' +
+  '.standings .team-row.sticky { background-color: #616161 !important; }'
 );
 
 const Theme = ({ settings }) => {
