@@ -46,7 +46,6 @@ def setup_database():
   if not model.get_entity('contest')['data']:
     contest = {
         'title': u'Example Contest',
-        'detailedStandings': False,
         'problems': [],
         'times': {
             'start': 1451574000,   # 2016-01-01

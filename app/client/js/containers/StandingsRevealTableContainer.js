@@ -7,7 +7,6 @@ const mapStateToProps = (state) => {
   return {
     teamsMap: state.teams,
     problems: state.contest.problems,
-    detailed: state.contest.detailedStandings,
     pinnedTeamIds: [],
     togglePin: (teamId) => {},
   };
