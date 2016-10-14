@@ -37,8 +37,9 @@ class AutoScrollerImpl extends React.Component {
       }, 100);
     };
     const scrollDone = () => {
+      $screen.stop();
       setTimeout(() => this.run(), postWaitSeconds * 1000);
-    }
+    };
     $screen.scrollTop($body.height());
     setTimeout(doScroll, preWaitSeconds * 1000);
   }
