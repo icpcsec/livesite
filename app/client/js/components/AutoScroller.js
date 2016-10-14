@@ -8,7 +8,8 @@ class AutoScrollerImpl extends React.Component {
 
   componentWillUnmount() {
     this._running = false;
-    $('body').stop();
+    const $screen = $('body,html');
+    $screen.stop();
   }
 
   run() {
@@ -18,13 +19,14 @@ class AutoScrollerImpl extends React.Component {
     const pixelsPerSecond = 100;
     const preWaitSeconds = 5;
     const postWaitSeconds = 20;
+    const $screen = $('body,html');
     const $body = $('body');
     const doScroll = () => {
       if (!this._running) {
         return;
       }
-      $body.scrollTop($body.height());
-      $body.animate(
+      $screen.scrollTop($body.height());
+      $screen.animate(
         { scrollTop: 0 },
         {
           duration: $body.height() / pixelsPerSecond * 1000,
@@ -35,7 +37,7 @@ class AutoScrollerImpl extends React.Component {
     const scrollDone = () => {
       setTimeout(() => this.run(), postWaitSeconds * 1000);
     }
-    $body.scrollTop($body.height());
+    $screen.scrollTop($body.height());
     setTimeout(doScroll, preWaitSeconds * 1000);
   }
 
