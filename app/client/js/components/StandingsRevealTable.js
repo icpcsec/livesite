@@ -20,9 +20,14 @@ class StandingsUploadForm extends React.Component {
       });
       return loader.then((text) => JSON.parse(text));
     });
-    Promise.all(promises).then((snapshotList) => {
-      snapshotList.sort((a, b) => (a.index - b.index));
-      const standingsList = snapshotList.map((snapshot) => snapshot.standings);
+    Promise.all(promises).then((jsonList) => {
+      let standingsList;
+      if (jsonList.length == 1 && jsonList[0].reveal) {
+        standingsList = jsonList[0].reveal;
+      } else {
+        jsonList.sort((a, b) => (a.index - b.index));
+        standingsList = jsonList.map((json) => json.standings);
+      }
       this.props.onLoaded(standingsList);
     });
   }
