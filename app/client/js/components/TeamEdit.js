@@ -219,8 +219,8 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
               <PhotoFormItem
                 label={siteconfig.JA ? 'チーム写真' : 'Team Photo'}
                 url={photo}
-                ratio={1 / 3}
-                help={siteconfig.JA ? 'チームメンバー全員が写った写真を投稿して下さい。自動的に 3:1 のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。' : 'TODO: TRANSLATE ME'}
+                ratio={siteconfig.PHOTO_ASPECT_RATIO}
+                help={siteconfig.JA ? 'チームメンバー全員が写った写真を投稿して下さい。自動的に固定のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。' : 'TODO: TRANSLATE ME'}
                 onChange={onPhotoChange} />
               <CheckBoxFormItem
                 caption={siteconfig.JA ? 'チーム写真を削除する' : 'Delete the current team photo'}

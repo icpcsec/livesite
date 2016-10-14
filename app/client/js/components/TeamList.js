@@ -17,7 +17,7 @@ const TeamPhoto = ({ photo, members }) => {
     ));
     return <div style={{ overflow: 'hidden' }}>{children}</div>;
   }
-  return <FixedRatioThumbnail url={photo} ratio={1 / 3} />
+  return <FixedRatioThumbnail url={photo} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
 };
 
 const TeamItem = ({ team: { id, name, university, country, photo, members } }) => (

@@ -2,10 +2,11 @@ import React from 'react';
 import { Link } from 'react-router';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
+import * as siteconfig from '../siteconfig';
 
 const SmallTeamPhoto = ({ url }) => (
   <div className="team-photo">
-    <FixedRatioThumbnail url={url} ratio={1 / 3} />
+    <FixedRatioThumbnail url={url} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
   </div>
 );
 

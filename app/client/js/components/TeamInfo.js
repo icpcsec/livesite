@@ -125,7 +125,7 @@ const TeamInfo = ({ team, ratings }) => {
           </small>
         </h1>
       </div>
-      <FixedRatioThumbnail url={team.photo} ratio={1 / 3} />
+      <FixedRatioThumbnail url={team.photo} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
       {memberElements}
       <div>
         <Link to={`/team/${team.id}/edit`}>
