@@ -1,0 +1,6 @@
+apscheduler==2.1.2
+beautifulsoup4==4.3.2
+colorlog==2.3.1
+html5lib==1.0b3
+python-gflags==2.0
+requests==2.3.0
