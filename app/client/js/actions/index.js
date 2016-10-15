@@ -59,3 +59,17 @@ export const hideStreaming = () => (
     type: 'HIDE_STREAMING',
   }
 );
+
+export const setRevealStandingsIndex = (index) => (
+  {
+    type: 'SET_REVEAL_STANDINGS_INDEX',
+    index,
+  }
+);
+
+export const setRevealStandingsList = (standingsList) => (
+  {
+    type: 'SET_REVEAL_STANDINGS_LIST',
+    standingsList,
+  }
+);

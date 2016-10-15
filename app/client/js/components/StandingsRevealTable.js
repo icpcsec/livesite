@@ -55,11 +55,6 @@ class StandingsUploadForm extends React.Component {
 class StandingsRevealTable extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      standingsList: [[]],
-      standings: [],
-      standingsIndex: 0,
-    };
     this._keyDownListener = this.onKeyDown.bind(this);
     this._scrolling = false;
   }
@@ -74,7 +69,7 @@ class StandingsRevealTable extends React.Component {
 
   componentDidUpdate() {
     // No reveal marker in the final state.
-    if (this.state.standingsIndex === this.state.standingsList.length - 1) {
+    if (this.props.standingsIndex === this.props.numStandings - 1) {
       return;
     }
     const $marker = $('.reveal-marker');
@@ -93,34 +88,23 @@ class StandingsRevealTable extends React.Component {
     }
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       if (e.keyCode == 39) {  // ArrowRight
-        this.setStandingsIndex(
-          Math.min(this.state.standingsIndex + 1, this.state.standingsList.length - 1));
+        this.props.setStandingsIndex(
+          Math.min(this.props.standingsIndex + 1, this.props.numStandings - 1));
       } else if (e.keyCode == 37) {  // ArrowLeft
-        this.setStandingsIndex(
-          Math.max(this.state.standingsIndex - 1, 0));
+        this.props.setStandingsIndex(
+          Math.max(this.props.standingsIndex - 1, 0));
       }
     }
   }
 
-  setStandingsIndex(standingsIndex) {
-    this.setState({
-      standingsIndex,
-      standings: this.state.standingsList[standingsIndex],
-    });
-  }
-
   onLoaded(standingsList) {
-    this.setState({
-      standingsList: standingsList,
-      standings: standingsList[0],
-      standingsIndex: 0,
-    });
+    this.props.setStandingsList(standingsList);
   }
 
   render() {
-    return this.state.standings.length == 0 ?
+    return this.props.standings.length == 0 ?
       <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} /> :
-      <StandingsTable revealMode={true} standings={this.state.standings} {...this.props} />;
+      <StandingsTable revealMode={true} standings={this.props.standings} {...this.props} />;
   }
 }
 
