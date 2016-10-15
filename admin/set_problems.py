@@ -23,17 +23,31 @@ def main(unused_argv):
             problem = {key: row[key] for key in ('color', 'label', 'name')}
             problems.append(problem)
 
-    update = {'$set': {'problems': problems}}
+    r = requests.get('%s/api/standings.json' % FLAGS.url)
+    r.raise_for_status()
+    standings = r.json()['data']
+    for status in standings:
+        status['problems'][:] = [
+            {'attempts': 0, 'penalty': 0, 'pendings': 0, 'solved': False}
+            for _ in problems]
 
-    json.dump(update, sys.stdout, indent=2)
+    contest_update = {'$set': {'problems': problems}}
+    standings_update = {'$set': {'': standings}}
+    json.dump(contest_update, sys.stdout, indent=2)
+    json.dump(standings_update, sys.stdout)
+
     print
     if raw_input('Are you really sure? ').strip().lower() != 'yes':
         return 'aborted.'
-    postdata = {
-        'api_key': FLAGS.api_key,
-        'update': json.dumps(update),
-    }
-    r = requests.post('%s/api/admin/update/contest' % FLAGS.url, data=postdata)
+
+    r = requests.post(
+        '%s/api/admin/update/contest' % FLAGS.url,
+        data={'api_key': FLAGS.api_key, 'update': json.dumps(contest_update)})
+    r.raise_for_status()
+
+    r = requests.post(
+        '%s/api/admin/update/standings' % FLAGS.url,
+        data={'api_key': FLAGS.api_key, 'update': json.dumps(standings_update)})
     r.raise_for_status()
 
 
