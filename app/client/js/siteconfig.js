@@ -9,4 +9,4 @@ export const USE_ICONS_AS_PHOTO = false;
 export const COMMENT_LIMIT_CHARS = 140;
 export const PHOTO_ASPECT_RATIO = 9 / 16;
 
-export const STREAMING_NICOLIVE_ID = 'lv278635123';
+export const STREAMING_NICOLIVE_ID = 'ch2525484';
