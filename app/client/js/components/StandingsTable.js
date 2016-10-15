@@ -188,7 +188,7 @@ const TeamRevealStateCol = ({ revealState }) => (
 
 const RevealMarker = () => (
   // .reveal-marker is used to compute the marker position in StandingsRevealTable.
-  <div className="reveal-marker" style={{ position: 'relative' }}>
+  <div className="reveal-marker" style={{ position: 'relative', pointerEvents: 'none' }}>
     <div style={{ position: 'absolute', bottom: '1px', boxShadow: '0 0 0 5px red' }}>
       <table className="team-table" style={{ background: 'transparent' }}>
         <tbody>
