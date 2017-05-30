@@ -11,9 +11,6 @@ from livesite import model
 
 FLAGS = gflags.FLAGS
 
-gflags.DEFINE_bool('logtostderr', True, 'Log to stderr.')
-gflags.DEFINE_bool('logtosyslog', True, 'Log to syslog.')
-
 
 def _setup_logging():
   root = logging.getLogger()
@@ -21,14 +18,9 @@ def _setup_logging():
   formatter = logging.Formatter(
       '%(asctime)-15s %(levelname)s [%(filename)s:%(lineno)d] %(message)s',
       datefmt='%Y-%m-%d %H:%M:%S')
-  if FLAGS.logtostderr:
-    handler = logging.StreamHandler(sys.stderr)
-    handler.setFormatter(formatter)
-    root.addHandler(handler)
-  if FLAGS.logtosyslog:
-    handler = logging.handlers.SysLogHandler('/dev/log')
-    handler.setFormatter(formatter)
-    root.addHandler(handler)
+  handler = logging.StreamHandler(sys.stderr)
+  handler.setFormatter(formatter)
+  root.addHandler(handler)
 
 
 def _setup_bottle():
@@ -43,6 +35,8 @@ def setup_common():
 
 
 def setup_database():
+  logging.info('Setting up database...')
+
   if not model.get_entity('contest')['data']:
     contest = {
         'title': u'Example Contest',

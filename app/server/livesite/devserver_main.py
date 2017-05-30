@@ -1,4 +1,5 @@
 import contextlib
+import logging
 import os
 import signal
 import subprocess
@@ -15,19 +16,26 @@ FLAGS = gflags.FLAGS
 
 gflags.DEFINE_integer('port', 8080, 'Port to listen on.')
 
+_BUNDLE_JS_PATH = 'static/assets/livesite/js/bundle.js'
+
 
 @contextlib.contextmanager
 def watchify():
   if os.environ.get('BOTTLE_CHILD'):
     yield
     return
+  logging.info('Building bundle.js...')
+  link_target = os.readlink(_BUNDLE_JS_PATH)
+  assert link_target.startswith('/'), 'bundle.js link must be absolute'
   try:
-    os.unlink('.work/bundle.js')
+    os.unlink(link_target)
   except OSError:
     pass
-  p = subprocess.Popen(['make', 'watchify'], cwd='../..', preexec_fn=os.setpgrp)
+  p = subprocess.Popen(
+      ['make', 'internal_watchify'],
+      cwd='../..', preexec_fn=os.setpgrp)
   try:
-    while not os.path.exists('.work/bundle.js'):
+    while not os.path.exists(_BUNDLE_JS_PATH):
       time.sleep(0.2)
     yield
   finally:

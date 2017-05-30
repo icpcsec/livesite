@@ -3,10 +3,10 @@ bottle==0.12.9
 google-api-python-client==1.5.0
 passlib==1.6.5
 paste==2.0.3
-pillow==3.2.0
-pymongo==3.2.2
+pillow==4.1.1
+pymongo==3.4.0
 python-gflags==3.0.4
-requests==2.10.0
+requests==2.17.3
 tornado==4.3
 ujson==1.35
 uwsgi==2.0.12

@@ -43,10 +43,15 @@ def respond_with_json(result):
   return ujson.dumps(result, sort_keys=True)
 
 
+def set_relative_redirect(path):
+  bottle.response.status = 303
+  bottle.response.set_header('Location', path)
+
+
 @bottle.get('/api/<name:re:(contest|teams|standings|ratings)>.json')
 def api_generic_json_redirect_handler(name):
   ts = model.get_entity_ts(name)
-  bottle.redirect('/api/%s.%d.%d.json' % (name, ts.time, ts.inc))
+  set_relative_redirect('/api/%s.%d.%d.json' % (name, ts.time, ts.inc))
 
 
 @bottle.get('/api/<name:re:(contest|teams|standings|ratings)>.<ts_time:int>.<ts_inc:int>.json')

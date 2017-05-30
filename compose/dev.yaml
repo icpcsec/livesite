@@ -1,0 +1,33 @@
+# docker-compose YAML definition
+version: '2'
+
+networks:
+  default:
+    driver: bridge
+
+services:
+  app:
+    image: asia.gcr.io/icpcsec/livesite-app:dev
+    command:
+      - "bin/run-dev.sh"
+      - "--port=8080"
+      - "--mongodb_url=mongodb://mongodb"
+    volumes:
+      - "..:/opt/livesite:ro"
+
+  realtime:
+    image: asia.gcr.io/icpcsec/livesite-app:dev
+    command:
+      - "bin/run-realtime.sh"
+      - "--port=8081"
+      - "--mongodb_url=mongodb://mongodb"
+    volumes:
+      - "..:/opt/livesite:ro"
+
+  nginx:
+    image: asia.gcr.io/icpcsec/livesite-nginx:dev
+    ports:
+      - "8888:80"
+
+  mongodb:
+    image: mongo:3.2.6

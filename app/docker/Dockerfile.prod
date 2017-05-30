@@ -1,0 +1,15 @@
+FROM python:2
+
+RUN apt-get update && apt-get install -y graphviz && apt-get clean
+
+COPY requirements.txt /tmp/
+RUN pip install --no-cache-dir -r /tmp/requirements.txt && rm /tmp/requirements.txt
+
+WORKDIR /opt/livesite/app/build/prod
+
+COPY . ./
+
+ENV PYTHONPATH=/opt/livesite/app/build/prod
+ENTRYPOINT ["/opt/livesite/app/build/prod/bin/dumb-init", "--"]
+
+CMD bin/run-prod.sh
