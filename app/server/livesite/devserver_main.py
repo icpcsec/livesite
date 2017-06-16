@@ -32,7 +32,7 @@ def watchify():
   except OSError:
     pass
   p = subprocess.Popen(
-      ['make', 'internal_watchify'],
+      ['make', '_watchify'],
       cwd='../..', preexec_fn=os.setpgrp)
   try:
     while not os.path.exists(_BUNDLE_JS_PATH):

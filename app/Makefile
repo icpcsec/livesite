@@ -2,9 +2,12 @@ DEVSERVER_ARGS ?=
 BROWSERIFY_TRANSFORM_ARGS ?= [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ]
 DIST_MODULES := bootstrap bootstrap-material-design jquery snackbarjs
 
-.PHONY: default clean distclean dev-image prod-image dev prod internal_watchify
+.PHONY: default help clean distclean dev-image prod-image dev prod _watchify
 
-default: devserver
+default: help
+
+help:
+	@echo "Please use Makefile in the parent directory."
 
 clean:
 	rm -rf build
@@ -20,7 +23,8 @@ dev: build/dev/.stamp
 
 prod: build/prod/.stamp
 
-internal_watchify:
+# Used by devserver_main.py.
+_watchify:
 	mkdir -p /tmp/livesite
 	cd client && node_modules/.bin/watchify js/index.js -t $(BROWSERIFY_TRANSFORM_ARGS) -d -o /tmp/livesite/bundle.js -v
 
