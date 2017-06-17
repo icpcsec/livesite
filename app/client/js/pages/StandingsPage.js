@@ -2,12 +2,12 @@ import React from 'react';
 
 import AutoScrollerContainer from '../containers/AutoScrollerContainer';
 import StandingsTableContainer from '../containers/StandingsTableContainer';
-import * as siteconfig from '../siteconfig';
+import { tr } from '../i18n';
 
 const StandingsPage = () => (
   <div>
     <h1 className="page-header">
-      {siteconfig.JA ? '順位表' : 'Standings'}
+      {tr('Standings', '順位表')}
     </h1>
     <StandingsTableContainer />
     <AutoScrollerContainer />

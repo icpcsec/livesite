@@ -5,6 +5,7 @@ import { Link } from 'react-router';
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
+import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 const getRating = (ratings, key, name) => {
@@ -130,7 +131,7 @@ const TeamInfo = ({ team, ratings }) => {
       <div>
         <Link to={`/team/${team.id}/edit`}>
           <button className="btn btn-primary btn-raised pull-right">
-            {siteconfig.JA ? '編集' : 'Edit'}
+            {tr('Edit', '編集')}
           </button>
         </Link>
       </div>

@@ -7,6 +7,7 @@ import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
 import MaterialInit from './MaterialInit';
 import * as constants from '../constants';
+import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 const UPDATE_AGREEMENT =
@@ -147,7 +148,7 @@ const PhotoFormItem = ({ label, url, ratio, help, onChange }) => {
         </div>
         <input type="text" readOnly={true} className="form-control" style={{display: 'none'}} />
         <button className="btn btn-default btn-raised" style={{position: 'relative'}} onClick={handleClick}>
-          {siteconfig.JA ? 'アップロード' : 'Upload'}
+          {tr('Upload', 'アップロード')}
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
       </div>
@@ -174,7 +175,7 @@ const IconFormItem = ({ label, url, help, onChange }) => {
         </div>
         <input type="text" readOnly={true} className="form-control" style={{display: 'none'}} />
         <button className="btn btn-default btn-raised" style={{ position: 'relative', verticalAlign: 'middle', marginLeft: '12px' }} onClick={handleClick}>
-          {siteconfig.JA ? 'アップロード' : 'Upload'}
+          {tr('Upload', 'アップロード')}
           <input type="file" accept="image/*" onChange={handleChange} />
         </button>
       </div>
@@ -192,15 +193,15 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
       <div className="panel-body">
         <form onSubmit={(e) => e.preventDefault()}>
           <StaticFormItem
-            label={siteconfig.JA ? 'チーム名 (編集できません)' : 'Team Name (not editable)'}
+            label={tr('Team Name (not editable)', 'チーム名 (編集できません)')}
             value={name} />
           <StaticFormItem
-            label={siteconfig.JA ? '大学名 (編集できません)' : 'University (not editable)'}
+            label={tr('University (not editable)', '大学名 (編集できません)')}
             value={university} />
           {
             siteconfig.ENABLE_PREFECTURE ?
             <DropdownFormItem
-              label={siteconfig.JA ? '大学所在地' : 'Prefecture'}
+              label={tr('Prefecture', '大学所在地')}
               items={PREFECTURE_DROPDOWN_ITEMS}
               value={prefecture || 48}
               onChange={handlePrefectureChange} /> :
@@ -209,7 +210,7 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
           {
             siteconfig.ENABLE_COUNTRY ?
             <StaticFormItem
-              label={siteconfig.JA ? '国 (編集できません)' : 'Country (not editable)'}
+              label={tr('Country (not editable)', '国 (編集できません)')}
               value={country} /> :
             null
           }
@@ -217,20 +218,20 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
             siteconfig.ENABLE_PHOTO_UPLOAD ?
             <div>
               <PhotoFormItem
-                label={siteconfig.JA ? 'チーム写真' : 'Team Photo'}
+                label={tr('Team Photo', 'チーム写真')}
                 url={photo}
                 ratio={siteconfig.PHOTO_ASPECT_RATIO}
-                help={siteconfig.JA ? 'チームメンバー全員が写った写真を投稿して下さい。自動的に固定のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。' : 'TODO: TRANSLATE ME'}
+                help={tr('TODO: TRANSLATE ME', 'チームメンバー全員が写った写真を投稿して下さい。自動的に固定のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。')}
                 onChange={onPhotoChange} />
               <CheckBoxFormItem
-                caption={siteconfig.JA ? 'チーム写真を削除する' : 'Delete the current team photo'}
+                caption={tr('Delete the current team photo', 'チーム写真を削除する')}
                 value={removePhoto}
                 onChange={(value) => onFormChange({removePhoto: {$set: value}})}
               />
             </div> :
             <StaticFormItem
-              label={siteconfig.JA ? 'チーム写真' : 'Team Photo'}
-              value={siteconfig.JA ? 'イベント中に撮影された写真が使用されます' : 'Photos taken during the event will be uploaded'} />
+              label={tr('Team Photo', 'チーム写真')}
+              value={tr('Photos taken during the event will be uploaded', 'イベント中に撮影された写真が使用されます')} />
           }
         </form>
       </div>
@@ -244,24 +245,24 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
   return (
     <div className="panel panel-default">
       <div className="panel-body">
-        <h3>{siteconfig.JA ? 'メンバー' : 'Member'} {index + 1}</h3>
+        <h3>{tr('Member', 'メンバー')} {index + 1}</h3>
         <form onSubmit={(e) => e.preventDefault()}>
           <TextFormItem
-            label={siteconfig.JA ? '名前' : 'Name'}
+            label={tr('Name', '名前')}
             value={profile.name}
-            help={siteconfig.JA ? '本名でもニックネームでも構いません。' : 'Both real name and nick name are fine.' }
+            help={tr('Both real name and nick name are fine.', '本名でもニックネームでも構いません。') }
             onChange={(value) => handleFormChangeForMember({name: {$set: value.substr(0, 32)}})}
           />
           {
             siteconfig.ENABLE_ICON ?
             <div>
               <IconFormItem
-                label={siteconfig.JA ? 'アイコン' : 'Icon'}
+                label={tr('Icon', 'アイコン')}
                 url={profile.icon}
                 onChange={handleIconChange}
               />
               <CheckBoxFormItem
-                caption={siteconfig.JA ? 'アイコンを削除する' : 'Delete the current icon'}
+                caption={tr('Delete the current icon', 'アイコンを削除する')}
                 value={removeIcon}
                 onChange={(value) => onFormChange({removeIcon: {[index]: {$set: value}}})}
               />
@@ -291,9 +292,9 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
             />
           </GridFlow>
           <TextFormItem
-            label={siteconfig.JA ? 'ひとこと' : 'Message'}
+            label={tr('Message', 'ひとこと')}
             value={profile.comment}
-            help={siteconfig.JA ? `${siteconfig.COMMENT_LIMIT_CHARS}文字以内で好きなメッセージを入力してください。` : `Message up to ${siteconfig.COMMENT_LIMIT_CHARS} characters.`}
+            help={tr(`Message up to ${siteconfig.COMMENT_LIMIT_CHARS} characters.`, `${siteconfig.COMMENT_LIMIT_CHARS}文字以内で好きなメッセージを入力してください。`)}
             onChange={(value) => handleFormChangeForMember({comment: {$set: value.substr(0, siteconfig.COMMENT_LIMIT_CHARS)}})}
           />
         </form>
@@ -309,16 +310,16 @@ const SubmitPanel = ({ agreed, password, onChange, onSubmit, onAgree }) => (
         <StaticFormItem value={UPDATE_AGREEMENT} />
         <GridFlow cols={3}>
           <CheckBoxFormItem
-            caption={siteconfig.JA ? '同意する' : 'I agree'}
+            caption={tr('I agree', '同意する')}
             value={agreed}
             onChange={onAgree}
           />
           <div />
-          <PasswordFormItem label={siteconfig.JA ? 'チーム情報編集パスワード' : 'Live website password'} value={password} onChange={onChange} />
+          <PasswordFormItem label={tr('Live website password', 'チーム情報編集パスワード')} value={password} onChange={onChange} />
           <div className="form-group">
             <fieldset disabled={!(agreed && password)}>
               <button className="btn btn-primary btn-raised" onClick={onSubmit}>
-                {siteconfig.JA ? '更新' : 'UPDATE'}
+                {tr('UPDATE', '更新')}
               </button>
             </fieldset>
           </div>
@@ -357,7 +358,7 @@ class TeamEdit extends React.Component {
     }
     if (file.size >= 4 * 1024 * 1024) {
       $.snackbar({
-        content: siteconfig.JA ? 'アップロードできるチーム写真ファイルの最大サイズは 4MB です。' : 'The maximum size of a team photo file is 4MB.',
+        content: tr('The maximum size of a team photo file is 4MB.', 'アップロードできるチーム写真ファイルの最大サイズは 4MB です。'),
         timeout: 5000,
       });
       return;
@@ -378,7 +379,7 @@ class TeamEdit extends React.Component {
     }
     if (file.size >= 256 * 1024) {
       $.snackbar({
-        content: siteconfig.JA ? 'アップロードできるアイコンファイルの最大サイズは 256KB です。' : 'The maximum size of an icon file is 256KB.',
+        content: tr('The maximum size of an icon file is 256KB.', 'アップロードできるアイコンファイルの最大サイズは 256KB です。'),
         timeout: 5000,
       });
       return;
@@ -432,7 +433,7 @@ class TeamEdit extends React.Component {
     axios.post('/api/ui/update_team', form).then((response) => {
       if (response.data.ok) {
         $.snackbar({
-          content: siteconfig.JA ? '正常に更新されました。' : 'Updated successfully.',
+          content: tr('Updated successfully.', '正常に更新されました。'),
           timeout: 5000,
         });
         this.context.loader.loadFeed('teams').then(() => {
@@ -440,13 +441,13 @@ class TeamEdit extends React.Component {
         });
       } else {
         $.snackbar({
-          content: (siteconfig.JA ? '更新に失敗しました: ' : 'Update failed: ') + response.data.message,
+          content: (tr('Update failed: ', '更新に失敗しました: ')) + response.data.message,
           timeout: 5000,
         });
       }
     }, (err) => {
       $.snackbar({
-        content: siteconfig.JA ? 'サーバーエラーが発生しました。時間を置いてやり直して下さい。' : 'Encountered a server error. Please try again after a minute.',
+        content: tr('Encountered a server error. Please try again after a minute.', 'サーバーエラーが発生しました。時間を置いてやり直して下さい。'),
         timeout: 5000,
       });
     });
@@ -471,7 +472,7 @@ class TeamEdit extends React.Component {
     return (
       <MaterialInit>
         <div className="page-header">
-          <h1>{siteconfig.JA ? 'チーム情報編集' : 'Edit Team Info'}</h1>
+          <h1>{tr('Edit Team Info', 'チーム情報編集')}</h1>
         </div>
         <TeamEditPanel
           team={this.state.team}

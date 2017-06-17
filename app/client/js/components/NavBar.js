@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import { sprintf } from 'sprintf-js';
+import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 class NavLink extends React.Component {
@@ -62,17 +63,17 @@ const NavBar = ({ contest }) => {
         </div>
         <div className="collapse navbar-collapse">
           <ul className="nav navbar-nav">
-            <NavLink to="/" onlyActiveOnIndex={true}>{siteconfig.JA ? 'トップ' : 'Home'}</NavLink>
-            <NavLink to="/standings/">{siteconfig.JA ? '順位表' : 'Standings'}</NavLink>
-            <NavLink to="/team/">{siteconfig.JA ? 'チーム一覧' : 'Teams'}</NavLink>
+            <NavLink to="/" onlyActiveOnIndex={true}>{tr('Home', 'ホーム')}</NavLink>
+            <NavLink to="/standings/">{tr('Standings', '順位表')}</NavLink>
+            <NavLink to="/team/">{tr('Teams', 'チーム一覧')}</NavLink>
             {
               siteconfig.STREAMING_NICOLIVE_ID ?
-              <NavLink to="/streaming/">{siteconfig.JA ? '中継' : 'Streaming'}</NavLink> :
+              <NavLink to="/streaming/">{tr('Streaming', '中継')}</NavLink> :
               null
             }
             {
               contest.problemLink && contest.problemLink.length > 0 ?
-              <NavLink to={contest.problemLink}>{siteconfig.JA ? '問題' : 'Problems'}</NavLink> :
+              <NavLink to={contest.problemLink}>{tr('Problems', '問題')}</NavLink> :
               null
             }
           </ul>

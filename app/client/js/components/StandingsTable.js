@@ -3,6 +3,7 @@ import { Link } from 'react-router';
 import shallowCompare from 'react-addons-shallow-compare';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
+import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 const DEFAULT_TEAM = {
@@ -59,11 +60,11 @@ const LegendRowDomestic = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
-            <th className="team-solved">{siteconfig.JA ? '正答数' : 'Solved'}</th>
-            <th className="team-penalty">{siteconfig.JA ? '時間' : 'Penalty'}</th>
-            <th className="team-name">{siteconfig.JA ? 'チーム' : 'Team'}</th>
-            <th className="team-name">{siteconfig.JA ? '大学' : 'University'}</th>
-            <th className="team-members">{siteconfig.JA ? 'メンバー' : 'Members'}</th>
+            <th className="team-solved">{tr('Solved', '正答数')}</th>
+            <th className="team-penalty">{tr('Penalty', '時間')}</th>
+            <th className="team-name">{tr('Team', 'チーム')}</th>
+            <th className="team-name">{tr('University', '大学')}</th>
+            <th className="team-members">{tr('Members', 'メンバー')}</th>
           </tr>
         </tbody>
       </table>
@@ -87,8 +88,8 @@ const LegendRowRegional = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
-            <th className="team-name">{siteconfig.JA ? 'チーム/大学' : 'Team/University'}</th>
-            <th className="team-solved">{siteconfig.JA ? '正答数' : 'Solved'}</th>
+            <th className="team-name">{tr('Team/University', 'チーム/大学')}</th>
+            <th className="team-solved">{tr('Solved', '正答数')}</th>
             {problemCols}
           </tr>
         </tbody>

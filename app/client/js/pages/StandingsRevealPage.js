@@ -1,12 +1,12 @@
 import React from 'react';
 
 import StandingsRevealTableContainer from '../containers/StandingsRevealTableContainer';
-import * as siteconfig from '../siteconfig';
+import { tr } from '../i18n';
 
 const StandingsRevealPage = () => (
   <div>
     <h1 className="page-header">
-      {siteconfig.JA ? '順位表' : 'Standings'}
+      {tr('Standings', '順位表')}
     </h1>
     <StandingsRevealTableContainer />
   </div>

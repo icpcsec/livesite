@@ -1,12 +1,13 @@
 import React from 'react';
 
 import StreamingScreenContainer from '../containers/StreamingScreenContainer';
+import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 const StreamingPage = () => (
   <div>
     <h1 className="page-header">
-      {siteconfig.JA ? '中継' : 'Live Streaming'}
+      {tr('Live Streaming', '中継')}
     </h1>
     <StreamingScreenContainer />
     <div style={{ width: '800px', margin: '12px auto 0' }}>
