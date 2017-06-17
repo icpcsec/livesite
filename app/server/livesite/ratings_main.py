@@ -6,17 +6,12 @@ import time
 import urllib
 
 import apscheduler.scheduler
-import gflags
 import requests
 import ujson
 
 from livesite import model
+from livesite import siteconfig
 from livesite import setup
-
-FLAGS = gflags.FLAGS
-
-gflags.DEFINE_integer('check_interval_in_seconds', 3, '')
-gflags.DEFINE_integer('rating_stale_seconds', 24 * 60 * 60, '')
 
 
 def query_topcoder(name):
@@ -77,7 +72,7 @@ class RatingsJob(object):
                         name_hex = binascii.hexlify(name.encode('utf-8'))
                         ts = ratings.get(key, {}).get(name_hex, {}).get('ts',
                                                                         0)
-                        if now - ts > FLAGS.rating_stale_seconds:
+                        if now - ts > siteconfig.data['rating']['rating_stale_seconds']:
                             logging.info('Query: %s %s', key, name)
                             rating = query(name)
                             model.update_entity('ratings', {
@@ -101,7 +96,7 @@ def main():
     sched = apscheduler.scheduler.Scheduler(standalone=True)
     sched.add_interval_job(
         RatingsJob(),
-        seconds=FLAGS.check_interval_in_seconds,
+        seconds=siteconfig.data['rating']['check_interval_in_seconds'],
         start_date=datetime.datetime.now() + datetime.timedelta(seconds=1))
     sched.start()
 

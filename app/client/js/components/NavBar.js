@@ -67,7 +67,7 @@ const NavBar = ({ contest }) => {
             <NavLink to="/standings/">{tr('Standings', '順位表')}</NavLink>
             <NavLink to="/team/">{tr('Teams', 'チーム一覧')}</NavLink>
             {
-              siteconfig.STREAMING_NICOLIVE_ID ?
+              siteconfig.ui.streaming_nicolive_id ?
               <NavLink to="/streaming/">{tr('Streaming', '中継')}</NavLink> :
               null
             }

@@ -1,0 +1,27 @@
+features:
+  country: false
+  prefecture: true
+  photo_upload: false
+  icon: false
+  use_icons_as_photo: false
+
+ui:
+  lang: ja
+  photo_aspect_ratio: "9/16"
+  comment_chars: 140
+  streaming_nicolive_id: null
+  google_analytics_id: null
+
+server:
+  mongodb_url: "mongodb://mongodb"
+  mongodb_db: livesite
+  gcs_bucket_name: null
+  gcs_bucket_path_prefix: null
+  slack_webhook_url: null
+
+ratings:
+  check_interval_in_seconds: 3
+  rating_stale_seconds: 86400
+
+realtime:
+  poll_interval_in_seconds: 1

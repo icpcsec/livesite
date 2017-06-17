@@ -5,8 +5,8 @@ exec uwsgi \
   --lazy-app \
   --logto=/dev/null \
   --logger=syslog:livesite-server \
-  --uwsgi-socket=:9000 \
-  --listen=10000 \
+  --http-socket=:8080 \
+  --listen=128 \
   --master \
   --workers=$(( $(nproc) * 2 )) \
   --threads=64 \

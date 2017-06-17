@@ -8,6 +8,7 @@ import gflags
 from passlib.hash import sha256_crypt
 
 from livesite import model
+from livesite import siteconfig
 
 FLAGS = gflags.FLAGS
 
@@ -34,6 +35,7 @@ def setup_common():
     FLAGS(sys.argv)
     _setup_logging()
     _setup_bottle()
+    siteconfig.load()
 
 
 def setup_database():

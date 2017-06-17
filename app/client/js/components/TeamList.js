@@ -7,7 +7,7 @@ import * as constants from '../constants';
 import * as siteconfig from '../siteconfig';
 
 const TeamPhoto = ({ photo, members }) => {
-  if (siteconfig.USE_ICONS_AS_PHOTO &&
+  if (siteconfig.features.use_icons_as_photo &&
       photo.startsWith('/') &&
       members.some((profile) => !profile.icon.startsWith('/'))) {
     const children = members.map(({ icon }) => (
@@ -17,7 +17,7 @@ const TeamPhoto = ({ photo, members }) => {
     ));
     return <div style={{ overflow: 'hidden' }}>{children}</div>;
   }
-  return <FixedRatioThumbnail url={photo} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
+  return <FixedRatioThumbnail url={photo} ratio={eval(siteconfig.photo_aspect_ratio)} />
 };
 
 const TeamItem = ({ team: { id, name, university, country, photo, members } }) => (
@@ -32,7 +32,7 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
       <div className="text-ellipsis">
         <Link to={`/team/${id}`} className="no-decoration">
           {
-            siteconfig.ENABLE_COUNTRY ?
+            siteconfig.features.country ?
             <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
             null
           }
@@ -84,6 +84,6 @@ const TeamListWithPrefecture = ({ teams }) => {
 };
 
 const TeamList =
-  siteconfig.ENABLE_PREFECTURE ? TeamListWithPrefecture : TeamListSimple;
+  siteconfig.features.prefecture ? TeamListWithPrefecture : TeamListSimple;
 
 export default TeamList;

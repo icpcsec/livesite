@@ -11,7 +11,7 @@ class StreamingHolder extends React.Component {
   }
 
   componentWillReceiveProps(newProps) {
-    if (newProps.y && siteconfig.STREAMING_NICOLIVE_ID && !this._loaded) {
+    if (newProps.y && siteconfig.ui.streaming_nicolive_id && !this._loaded) {
       document.write = (html) => {
         document.write = undefined;
         this._player.innerHTML = html;
@@ -19,7 +19,7 @@ class StreamingHolder extends React.Component {
       const script = document.createElement('script');
       script.setAttribute(
         'src',
-        EMBED_SCRIPT_URL_BASE + '&id=' + siteconfig.STREAMING_NICOLIVE_ID);
+        EMBED_SCRIPT_URL_BASE + '&id=' + siteconfig.ui.streaming_nicolive_id);
       this._player.appendChild(script);
       this._loaded = true;
     }

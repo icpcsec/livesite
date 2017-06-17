@@ -11,7 +11,7 @@ import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
 
 const UPDATE_AGREEMENT =
-  siteconfig.JA ?
+  siteconfig.ui.lang === 'ja' ?
   (
     <div>
       <b>重要</b>
@@ -199,7 +199,7 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
             label={tr('University (not editable)', '大学名 (編集できません)')}
             value={university} />
           {
-            siteconfig.ENABLE_PREFECTURE ?
+            siteconfig.features.prefecture ?
             <DropdownFormItem
               label={tr('Prefecture', '大学所在地')}
               items={PREFECTURE_DROPDOWN_ITEMS}
@@ -208,19 +208,19 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
             null
           }
           {
-            siteconfig.ENABLE_COUNTRY ?
+            siteconfig.features.country ?
             <StaticFormItem
               label={tr('Country (not editable)', '国 (編集できません)')}
               value={country} /> :
             null
           }
           {
-            siteconfig.ENABLE_PHOTO_UPLOAD ?
+            siteconfig.features.photo_upload ?
             <div>
               <PhotoFormItem
                 label={tr('Team Photo', 'チーム写真')}
                 url={photo}
-                ratio={siteconfig.PHOTO_ASPECT_RATIO}
+                ratio={eval(siteconfig.ui.photo_aspect_ratio)}
                 help={tr('TODO: TRANSLATE ME', 'チームメンバー全員が写った写真を投稿して下さい。自動的に固定のアスペクト比で切り抜かれます。チーム写真がない場合、代わりにメンバーのアイコン画像が用いられます。')}
                 onChange={onPhotoChange} />
               <CheckBoxFormItem
@@ -254,7 +254,7 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
             onChange={(value) => handleFormChangeForMember({name: {$set: value.substr(0, 32)}})}
           />
           {
-            siteconfig.ENABLE_ICON ?
+            siteconfig.features.icon ?
             <div>
               <IconFormItem
                 label={tr('Icon', 'アイコン')}
@@ -294,8 +294,8 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
           <TextFormItem
             label={tr('Message', 'ひとこと')}
             value={profile.comment}
-            help={tr(`Message up to ${siteconfig.COMMENT_LIMIT_CHARS} characters.`, `${siteconfig.COMMENT_LIMIT_CHARS}文字以内で好きなメッセージを入力してください。`)}
-            onChange={(value) => handleFormChangeForMember({comment: {$set: value.substr(0, siteconfig.COMMENT_LIMIT_CHARS)}})}
+            help={tr(`Message up to ${siteconfig.ui.comment_chars} characters.`, `${siteconfig.ui.comment_chars}文字以内で好きなメッセージを入力してください。`)}
+            onChange={(value) => handleFormChangeForMember({comment: {$set: value.substr(0, siteconfig.ui.comment_chars)}})}
           />
         </form>
       </div>

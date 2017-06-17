@@ -32,7 +32,7 @@ build/dev/.image.stamp: build/dev/.stamp
 	sudo docker build -t asia.gcr.io/icpcsec/livesite-app:dev build/dev
 	touch $@
 
-build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/bin build/dev/requirements.txt build/dev/Dockerfile
+build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/bin build/dev/requirements.txt build/dev/Dockerfile build/dev/siteconfig.yaml
 	touch $@
 
 build/dev/static/.stamp: build/dev/static/assets/.stamp build/dev/static/images
@@ -69,18 +69,26 @@ build/dev/Dockerfile: docker/Dockerfile.dev
 	mkdir -p `dirname $@`
 	cp $< $@
 
+build/dev/siteconfig.yaml:
+	mkdir -p `dirname $@`
+	ln -s ../../siteconfig/dev.yaml $@
+
 build/prod/.image.stamp: build/prod/.stamp
 	sudo docker build -t asia.gcr.io/icpcsec/livesite-app:latest build/prod
 	touch $@
 
-build/prod/.stamp: build/dev/.stamp build/prod/Dockerfile build/prod/static/assets/livesite/js/bundle.js
+build/prod/.stamp: build/dev/.stamp build/prod/Dockerfile build/prod/siteconfig.yaml build/prod/static/assets/livesite/js/bundle.js
 	mkdir -p `dirname $@`
-	rsync -rpLt --delete --exclude='.*' --exclude='*.pyc' --exclude='Dockerfile' --exclude='static/assets/livesite/js/bundle.js' build/dev/ build/prod/
+	rsync -rpLt --delete --exclude='.*' --exclude='*.pyc' --exclude='Dockerfile' --exclude='siteconfig.yaml' --exclude='static/assets/livesite/js/bundle.js' build/dev/ build/prod/
 	touch $@
 
 build/prod/Dockerfile: docker/Dockerfile.prod
 	mkdir -p `dirname $@`
 	cp $< $@
+
+build/prod/siteconfig.yaml:
+	mkdir -p `dirname $@`
+	ln -s ../../siteconfig/prod.yaml $@
 
 build/prod/static/assets/livesite/js/bundle.js: client/node_modules/.stamp $(shell find client/js -name '*.js')
 	mkdir -p `dirname $@`

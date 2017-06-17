@@ -4,32 +4,27 @@ import logging
 
 import bottle
 import bson.timestamp
-import gflags
 from passlib.hash import sha256_crypt
 import PIL.Image
 import requests
 import ujson
 
 from livesite import model
+from livesite import siteconfig
 from livesite import storage
 
-FLAGS = gflags.FLAGS
+UI_SITECONFIG_KEYS = ('ui', 'features')
 
-gflags.DEFINE_string('gcs_bucket_name', None, '')
-gflags.DEFINE_string('gcs_bucket_path_prefix', '', '')
-gflags.DEFINE_string('slack_webhook_url', None, '')
-gflags.DEFINE_string('google_analytics_id', None, '')
-gflags.DEFINE_bool('enable_photo_upload', False, '')
-gflags.DEFINE_bool('enable_prefecture', False, '')
 
-PROFILE_SCHEMA = (
-    # key, max_len
-    ('name', 32),
-    ('topcoderId', 16),
-    ('codeforcesId', 16),
-    ('twitterId', 16),
-    ('githubId', 16),
-    ('comment', 140))
+def get_profile_schema():
+    return (
+        # key, max_len
+        ('name', 32),
+        ('topcoderId', 16),
+        ('codeforcesId', 16),
+        ('twitterId', 16),
+        ('githubId', 16),
+        ('comment', siteconfig.data['ui']['comment_chars']))
 
 
 def stringify_ts(ts):
@@ -44,6 +39,13 @@ def respond_with_json(result):
 def set_relative_redirect(path):
     bottle.response.status = 303
     bottle.response.set_header('Location', path)
+
+
+@bottle.get('/api/siteconfig.js')
+def api_siteconfig_js_handler():
+    ui_siteconfig = {key: siteconfig.data[key] for key in UI_SITECONFIG_KEYS}
+    bottle.response.content_type = 'application/javascript'
+    return 'window.siteconfig = %s;\n' % ujson.dumps(ui_siteconfig)
 
 
 @bottle.get('/api/<name:re:(contest|teams|standings|ratings)>.json')
@@ -77,13 +79,13 @@ def api_ui_update_team_handler():
 
     update = {'$set': {}}
 
-    if FLAGS.enable_prefecture:
+    if siteconfig.data['features']['prefecture']:
         prefecture = int(bottle.request.forms['prefecture'])
         assert 1 <= prefecture <= 48
         update['$set']['%s.prefecture' % team_id] = prefecture
 
     for i in xrange(3):
-        for profile_key, max_len in PROFILE_SCHEMA:
+        for profile_key, max_len in get_profile_schema():
             request_key = 'members.%d.%s' % (i, profile_key)
             value = bottle.request.forms.get(request_key).decode('utf-8')
             if value is not None:
@@ -107,7 +109,7 @@ def api_ui_update_team_handler():
         if not upload_file:
             return
 
-        if not FLAGS.gcs_bucket_name:
+        if not siteconfig.data['server']['gcs_bucket_name']:
             raise bottle.HTTPResponse(
                 respond_with_json({
                     'ok': False,
@@ -123,13 +125,13 @@ def api_ui_update_team_handler():
         buf.seek(0)
 
         upload_path = '%simages/upload/%s.%s.%s.jpg' % (
-            FLAGS.gcs_bucket_path_prefix, team_id, upload_name,
+            siteconfig.data['server']['gcs_bucket_path_prefix'], team_id, upload_name,
             hashlib.md5(buf.getvalue()).hexdigest())
-        uploader.upload(FLAGS.gcs_bucket_name, upload_path, buf, 'image/jpeg')
+        uploader.upload(siteconfig.data['server']['gcs_bucket_name'], upload_path, buf, 'image/jpeg')
         update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
-            FLAGS.gcs_bucket_name, upload_path)
+            siteconfig.data['server']['gcs_bucket_name'], upload_path)
 
-    if FLAGS.enable_photo_upload:
+    if siteconfig.data['features']['photo_upload']:
         process_photo_upload(
             'teamPhotoFile',
             'removePhoto',
@@ -150,7 +152,7 @@ def api_ui_update_team_handler():
     model.update_entity('teams', update)
 
     # TODO: Post to slack asynchronously.
-    if FLAGS.slack_webhook_url:
+    if siteconfig.data['server']['slack_webhook_url']:
         try:
             team = model.get_entity('teams')['data'][team_id]
             urlparts = bottle.request.urlparts
@@ -159,7 +161,7 @@ def api_ui_update_team_handler():
                 team['university'])
             data = {'payload': ujson.dumps({'text': text})}
             response = requests.post(
-                FLAGS.slack_webhook_url, data=data, timeout=3)
+                siteconfig.data['server']['slack_webhook_url'], data=data, timeout=3)
             response.raise_for_status()
         except Exception:
             logging.exception('An error occurred posting to slack')
@@ -199,6 +201,6 @@ def index_handler(path):
     template_dict = {
         'title': model.get_entity('contest').get('data', {}).get('title',
                                                                  'LiveSite'),
-        'google_analytics_id': FLAGS.google_analytics_id or '',
+        'google_analytics_id': siteconfig.data['ui']['google_analytics_id'] or '',
     }
     return bottle.template('index.html', **template_dict)

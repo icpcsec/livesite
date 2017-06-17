@@ -10,7 +10,7 @@ const TeamIndexPage = () => (
     <h1 className="page-header">
       {tr('Team List', 'チーム一覧')}
     </h1>
-    {siteconfig.ENABLE_PREFECTURE ? <PrefectureViewContainer /> : null}
+    {siteconfig.features.prefecture ? <PrefectureViewContainer /> : null}
     <TeamListContainer />
   </div>
 );

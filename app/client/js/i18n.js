@@ -1,5 +1,5 @@
 import * as siteconfig from './siteconfig';
 
 export const tr = (en, ja) => {
-  return siteconfig.JA ? ja : en;
+  return siteconfig.ui.lang === 'ja' ? ja : en;
 };

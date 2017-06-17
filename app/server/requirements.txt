@@ -6,6 +6,7 @@ paste==2.0.3
 pillow==4.1.1
 pymongo==3.4.0
 python-gflags==3.0.4
+pyyaml==3.12
 requests==2.17.3
 tornado==4.3
 ujson==1.35

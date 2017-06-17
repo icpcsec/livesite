@@ -255,7 +255,7 @@ const TeamRowRegional = (props) => {
     problemCols.push(<td />);
   }
   const universityWithCountry =
-    siteconfig.ENABLE_COUNTRY ?
+    siteconfig.features.country ?
     <span>
       <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} />
       {university}

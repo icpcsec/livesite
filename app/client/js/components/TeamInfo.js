@@ -83,13 +83,13 @@ const MemberProfile = ({ profile, ratings }) => {
     <div className="profile panel panel-default">
       <div className="panel-body">
         {
-          siteconfig.ENABLE_ICON ?
+          siteconfig.features.icon ?
           <div className="profile-icon">
             <FixedRatioThumbnail url={profile.icon} ratio={1} />
           </div> :
           null
         }
-        <div className="profile-data" style={{ marginLeft: siteconfig.ENABLE_ICON ? null : '0' }}>
+        <div className="profile-data" style={{ marginLeft: siteconfig.features.icon ? null : '0' }}>
           <p className="profile-name">{profile.name}</p>
           <p className="profile-contacts">{contactsElements}</p>
           <p className="profile-comment">{profile.comment}</p>
@@ -114,19 +114,19 @@ const TeamInfo = ({ team, ratings }) => {
           <small>
             {team.university}
             {
-              siteconfig.ENABLE_PREFECTURE ?
+              siteconfig.features.prefecture ?
               ` (${constants.PREFECTURES[team.prefecture || 48]})` :
               null
             }
             {
-              siteconfig.ENABLE_COUNTRY ?
+              siteconfig.features.country ?
               ` - ${team.country}` :
               null
             }
           </small>
         </h1>
       </div>
-      <FixedRatioThumbnail url={team.photo} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
+      <FixedRatioThumbnail url={team.photo} ratio={eval(siteconfig.ui.photo_aspect_ratio)} />
       {memberElements}
       <div>
         <Link to={`/team/${team.id}/edit`}>

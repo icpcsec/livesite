@@ -11,6 +11,7 @@ import gflags
 
 from livesite import handler as handler_import_only
 from livesite import setup
+from livesite import siteconfig
 
 FLAGS = gflags.FLAGS
 
@@ -45,6 +46,7 @@ def watchify():
 def main():
     setup.setup_common()
     setup.setup_database()
+    siteconfig.watch_for_development()
     with watchify():
         bottle.run(
             # wsgiref is unstable with reloader.

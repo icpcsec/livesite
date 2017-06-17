@@ -1,3 +1,3 @@
 #!/bin/bash
 
-exec python livesite/realtime_main.py --port=9010 "$@"
+exec python2 livesite/realtime_main.py "$@"

@@ -9,13 +9,12 @@ import tornado.websocket
 import ujson
 
 from livesite import model
+from livesite import siteconfig
 from livesite import setup
 
 FLAGS = gflags.FLAGS
 
-gflags.DEFINE_integer('port', None, 'Port to listen on.')
-gflags.DEFINE_integer('poll_interval_in_seconds', 1, '')
-gflags.MarkFlagAsRequired('port')
+gflags.DEFINE_integer('port', 8081, 'Port to listen on.')
 
 
 class Master(object):
@@ -106,7 +105,7 @@ def main():
     server = tornado.httpserver.HTTPServer(app)
     server.listen(FLAGS.port)
     cron = tornado.ioloop.PeriodicCallback(
-        poll_feeds, FLAGS.poll_interval_in_seconds * 1000)
+        poll_feeds, siteconfig.data['realtime']['poll_interval_in_seconds'] * 1000)
     cron.start()
     logging.info('Listening at port %d', FLAGS.port)
     tornado.ioloop.IOLoop.instance().start()

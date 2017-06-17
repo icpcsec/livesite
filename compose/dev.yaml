@@ -10,24 +10,27 @@ services:
     image: asia.gcr.io/icpcsec/livesite-app:dev
     command:
       - "bin/run-dev.sh"
-      - "--port=8080"
-      - "--mongodb_url=mongodb://mongodb"
     volumes:
       - "..:/opt/livesite:ro"
+    depends_on:
+      - mongodb
 
   realtime:
     image: asia.gcr.io/icpcsec/livesite-app:dev
     command:
       - "bin/run-realtime.sh"
-      - "--port=8081"
-      - "--mongodb_url=mongodb://mongodb"
     volumes:
       - "..:/opt/livesite:ro"
+    depends_on:
+      - mongodb
 
   nginx:
     image: asia.gcr.io/icpcsec/livesite-nginx:dev
     ports:
       - "8888:80"
+    depends_on:
+      - app
+      - realtime
 
   mongodb:
     image: mongo:3.2.6

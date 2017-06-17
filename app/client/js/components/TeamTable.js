@@ -6,7 +6,7 @@ import * as siteconfig from '../siteconfig';
 
 const SmallTeamPhoto = ({ url }) => (
   <div className="team-photo">
-    <FixedRatioThumbnail url={url} ratio={siteconfig.PHOTO_ASPECT_RATIO} />
+    <FixedRatioThumbnail url={url} ratio={eval(siteconfig.photo_aspect_ratio)} />
   </div>
 );
 
