@@ -60,9 +60,7 @@ const TeamListWithPrefecture = ({ teams }) => {
     teamsByPrefecture[i] = [];
   }
   teams.forEach((team) => {
-    if (!team.hidden) {
-      teamsByPrefecture[team.prefecture || 48].push(team);
-    }
+    teamsByPrefecture[team.prefecture || 48].push(team);
   });
   const children = [];
   for (let i = 1; i <= 48; ++i) {

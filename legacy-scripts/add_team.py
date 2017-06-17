@@ -15,7 +15,6 @@ gflags.DEFINE_string('id', None, 'New team ID')
 gflags.DEFINE_string('name', None, 'New team name')
 gflags.DEFINE_string('university', None, 'New team university')
 gflags.DEFINE_string('password', None, 'New team password')
-gflags.DEFINE_boolean('hidden', False, 'Hide new team')
 gflags.MarkFlagAsRequired('url')
 gflags.MarkFlagAsRequired('api_key')
 gflags.MarkFlagAsRequired('id')
@@ -37,7 +36,6 @@ def main(unused_argv):
                 'university': FLAGS.university,
                 'photo': '/images/default-photo.png',
                 'prefecture': 48,
-                'hidden': FLAGS.hidden,
                 'members': [{
                     'name': u'メンバー%d' % (i + 1),
                     'topcoderId': '',

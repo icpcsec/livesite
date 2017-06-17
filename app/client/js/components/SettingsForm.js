@@ -1,6 +1,7 @@
 import React from 'react';
 
 import MaterialInit from './MaterialInit';
+import { tr } from '../i18n';
 
 const SettingsForm = ({ settings, toggleSetting }) => (
   <MaterialInit>
@@ -12,7 +13,7 @@ const SettingsForm = ({ settings, toggleSetting }) => (
               type="checkbox"
               checked={settings.invertColor}
               onChange={() => toggleSetting('invertColor')} />
-            Enable dark coloring (good for projecting)
+            {tr('Enable dark coloring (suitable for projecting)', '背景を黒くする(プロジェクター向き)')}
           </label>
         </div>
       </div>
@@ -23,7 +24,7 @@ const SettingsForm = ({ settings, toggleSetting }) => (
               type="checkbox"
               checked={settings.autoscroll}
               onChange={() => toggleSetting('autoscroll')} />
-            Enable autoscrolling in standings page
+            {tr('Enable autoscrolling in standings page', '順位表ページで自動的にスクロールする')}
           </label>
         </div>
       </div>

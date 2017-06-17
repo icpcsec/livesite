@@ -72,7 +72,6 @@ def setup_database():
                 'comment': '',
                 'icon': '/images/default-icon.png',
             } for i in xrange(3)],
-            'hidden': True,
         }
         model.replace_entity('teams', team_map)
 

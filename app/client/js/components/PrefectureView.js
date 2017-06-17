@@ -17,9 +17,7 @@ class PrefectureView extends React.Component {
       teamsByPrefecture[i] = [];
     }
     this.props.teams.forEach((team) => {
-      if (!team.hidden) {
-        teamsByPrefecture[team.prefecture || 48].push(team);
-      }
+      teamsByPrefecture[team.prefecture || 48].push(team);
     });
     const areas = [];
     for (let i = 1; i <= 47; ++i) {

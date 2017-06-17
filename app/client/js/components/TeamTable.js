@@ -31,8 +31,7 @@ const TeamRow = ({ team: { id, name, university, photo, members } }) => {
 };
 
 const TeamTable = ({ teams }) => {
-  const filteredTeams = teams.filter((team) => !team.hidden);
-  const rows = filteredTeams.map((team) => <TeamRow key={team.id} team={team} />);
+  const rows = teams.map((team) => <TeamRow key={team.id} team={team} />);
   return (
     <table className="table table-striped team-table">
       <thead>

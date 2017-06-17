@@ -41,6 +41,12 @@ def set_relative_redirect(path):
     bottle.response.set_header('Location', path)
 
 
+@bottle.get('/api/siteconfig.json')
+def api_siteconfig_json_handler():
+    ui_siteconfig = {key: siteconfig.data[key] for key in UI_SITECONFIG_KEYS}
+    return response_with_json(ui_siteconfig)
+
+
 @bottle.get('/api/siteconfig.js')
 def api_siteconfig_js_handler():
     ui_siteconfig = {key: siteconfig.data[key] for key in UI_SITECONFIG_KEYS}
