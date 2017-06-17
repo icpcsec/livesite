@@ -69,10 +69,17 @@ def replace_entity(name, entity):
     update_entity(name, {'$set': {'': entity}})
 
 
+def ensure_api_key():
+    try:
+        return get_api_key()
+    except ValueError:
+        api_key = hashlib.md5(os.urandom(64)).hexdigest()
+        update_entity('apiKey', {'$setOnInsert': {'': api_key}})
+        return api_key
+
+
 def get_api_key():
     api_key = get_entity('apiKey')['data']
     if not api_key:
-        api_key = hashlib.md5(os.urandom(64)).hexdigest()
-        update_entity('apiKey', {'$setOnInsert': {'': api_key}})
-        api_key = get_entity('apiKey')['data']
+        raise ValueError('API key not set')
     return api_key

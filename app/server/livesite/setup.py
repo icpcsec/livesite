@@ -39,6 +39,9 @@ def setup_common():
 def setup_database():
     logging.info('Setting up database...')
 
+    api_key = model.ensure_api_key()
+    logging.info('API key: %s', api_key)
+
     if not model.get_entity('contest')['data']:
         contest = {
             'title': u'Example Contest',
