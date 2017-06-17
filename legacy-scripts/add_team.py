@@ -25,48 +25,45 @@ gflags.MarkFlagAsRequired('password')
 
 
 def main(unused_argv):
-  teams_map = requests.get('%s/api/teams.json' % FLAGS.url).json()
-  if FLAGS.id in teams_map:
-    return 'Team ID "%s" conflicts with an existing team!' % FLAGS.id
+    teams_map = requests.get('%s/api/teams.json' % FLAGS.url).json()
+    if FLAGS.id in teams_map:
+        return 'Team ID "%s" conflicts with an existing team!' % FLAGS.id
 
-  update = {
-      '$set': {
-          FLAGS.id: {
-              'id': FLAGS.id,
-              'name': FLAGS.name,
-              'university': FLAGS.university,
-              'photo': '/images/default-photo.png',
-              'prefecture': 48,
-              'hidden': FLAGS.hidden,
-              'members': [{
-                  'name': u'メンバー%d' % (i + 1),
-                  'topcoderId': '',
-                  'codeforcesId': '',
-                  'twitterId': '',
-                  'githubId': '',
-                  'comment': '',
-                  'icon': '/images/default-icon.png',
-              } for i in xrange(3)],
-          },
-      },
-  }
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
-  response = requests.post('%s/api/admin/update/teams' % FLAGS.url, data=data)
+    update = {
+        '$set': {
+            FLAGS.id: {
+                'id': FLAGS.id,
+                'name': FLAGS.name,
+                'university': FLAGS.university,
+                'photo': '/images/default-photo.png',
+                'prefecture': 48,
+                'hidden': FLAGS.hidden,
+                'members': [{
+                    'name': u'メンバー%d' % (i + 1),
+                    'topcoderId': '',
+                    'codeforcesId': '',
+                    'twitterId': '',
+                    'githubId': '',
+                    'comment': '',
+                    'icon': '/images/default-icon.png',
+                } for i in xrange(3)],
+            },
+        },
+    }
+    data = {
+        'api_key': FLAGS.api_key,
+        'update': json.dumps(update),
+    }
+    response = requests.post(
+        '%s/api/admin/update/teams' % FLAGS.url, data=data)
 
-  update = {
-      '$set': {
-          FLAGS.id: sha256_crypt.encrypt(FLAGS.password),
-      },
-  }
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
-  response = requests.post('%s/api/admin/update/auth' % FLAGS.url, data=data)
+    update = {'$set': {FLAGS.id: sha256_crypt.encrypt(FLAGS.password), }, }
+    data = {
+        'api_key': FLAGS.api_key,
+        'update': json.dumps(update),
+    }
+    response = requests.post('%s/api/admin/update/auth' % FLAGS.url, data=data)
 
 
 if __name__ == '__main__':
-  sys.exit(main(FLAGS(sys.argv)))
+    sys.exit(main(FLAGS(sys.argv)))

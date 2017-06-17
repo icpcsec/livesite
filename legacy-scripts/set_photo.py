@@ -21,7 +21,8 @@ def main(unused_argv):
     update = {'$set': {('%s.photo' % FLAGS.team_id): FLAGS.photo_url}}
     r = requests.post(
         '%s/api/admin/update/teams' % FLAGS.livesite_url,
-        data={'api_key': FLAGS.api_key, 'update': json.dumps(update)})
+        data={'api_key': FLAGS.api_key,
+              'update': json.dumps(update)})
     r.raise_for_status()
 
 

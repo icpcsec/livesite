@@ -27,9 +27,12 @@ def main(unused_argv):
     r.raise_for_status()
     standings = r.json()['data']
     for status in standings:
-        status['problems'][:] = [
-            {'attempts': 0, 'penalty': 0, 'pendings': 0, 'solved': False}
-            for _ in problems]
+        status['problems'][:] = [{
+            'attempts': 0,
+            'penalty': 0,
+            'pendings': 0,
+            'solved': False
+        } for _ in problems]
 
     contest_update = {'$set': {'problems': problems}}
     standings_update = {'$set': {'': standings}}
@@ -42,12 +45,16 @@ def main(unused_argv):
 
     r = requests.post(
         '%s/api/admin/update/contest' % FLAGS.url,
-        data={'api_key': FLAGS.api_key, 'update': json.dumps(contest_update)})
+        data={'api_key': FLAGS.api_key,
+              'update': json.dumps(contest_update)})
     r.raise_for_status()
 
     r = requests.post(
         '%s/api/admin/update/standings' % FLAGS.url,
-        data={'api_key': FLAGS.api_key, 'update': json.dumps(standings_update)})
+        data={
+            'api_key': FLAGS.api_key,
+            'update': json.dumps(standings_update)
+        })
     r.raise_for_status()
 
 

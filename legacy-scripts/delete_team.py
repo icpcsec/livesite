@@ -18,28 +18,21 @@ gflags.MarkFlagAsRequired('id')
 
 
 def main(unused_argv):
-  update = {
-      '$unset': {
-          FLAGS.id: '',
-      },
-  }
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
-  response = requests.post('%s/api/admin/update/teams' % FLAGS.url, data=data)
+    update = {'$unset': {FLAGS.id: '', }, }
+    data = {
+        'api_key': FLAGS.api_key,
+        'update': json.dumps(update),
+    }
+    response = requests.post(
+        '%s/api/admin/update/teams' % FLAGS.url, data=data)
 
-  update = {
-      '$unset': {
-          FLAGS.id: '',
-      },
-  }
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
-  response = requests.post('%s/api/admin/update/auth' % FLAGS.url, data=data)
+    update = {'$unset': {FLAGS.id: '', }, }
+    data = {
+        'api_key': FLAGS.api_key,
+        'update': json.dumps(update),
+    }
+    response = requests.post('%s/api/admin/update/auth' % FLAGS.url, data=data)
 
 
 if __name__ == '__main__':
-  sys.exit(main(FLAGS(sys.argv)))
+    sys.exit(main(FLAGS(sys.argv)))

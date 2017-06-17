@@ -21,7 +21,10 @@ gflags.MarkFlagAsRequired('output_json')
 def recompute_standings(standings):
     for status in standings:
         status['solved'] = len([p for p in status['problems'] if p['solved']])
-        status['penalty'] = sum([p['penalty'] + 20 * (p['attempts'] - 1) for p in status['problems'] if p['solved']])
+        status['penalty'] = sum([
+            p['penalty'] + 20 * (p['attempts'] - 1) for p in status['problems']
+            if p['solved']
+        ])
     standings.sort(key=lambda status: (-status['solved'], status['penalty']))
     for i, status in enumerate(standings):
         status['rank'] = i + 1
@@ -81,9 +84,7 @@ def main(unused_argv):
 
     check_standings_equals(standings, standings_end)
 
-    data = {
-        'reveal': standings_list,
-    }
+    data = {'reveal': standings_list, }
 
     with open(FLAGS.output_json, 'w') as f:
         json.dump(data, f, sort_keys=True)

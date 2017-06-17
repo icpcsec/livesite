@@ -22,22 +22,23 @@ gflags.MarkFlagAsRequired('json_path')
 
 
 def main(unused_argv):
-  with open(FLAGS.json_path) as f:
-    data = json.load(f)
-  if isinstance(data, dict) and 'data' in data:
-    data = data['data']
-  update = {'$set': {'': data}}
-  json.dump(update, sys.stdout)
-  print
-  if raw_input('Are you really sure? ').strip().lower() != 'yes':
-    return 'aborted.'
-  postdata = {
-      'api_key': FLAGS.api_key,
-      'update': json.dumps(update),
-  }
-  response = requests.post('%s/api/admin/update/%s' % (FLAGS.url, FLAGS.feed), data=postdata)
-  assert response.status_code == 200, response.text
+    with open(FLAGS.json_path) as f:
+        data = json.load(f)
+    if isinstance(data, dict) and 'data' in data:
+        data = data['data']
+    update = {'$set': {'': data}}
+    json.dump(update, sys.stdout)
+    print
+    if raw_input('Are you really sure? ').strip().lower() != 'yes':
+        return 'aborted.'
+    postdata = {
+        'api_key': FLAGS.api_key,
+        'update': json.dumps(update),
+    }
+    response = requests.post(
+        '%s/api/admin/update/%s' % (FLAGS.url, FLAGS.feed), data=postdata)
+    assert response.status_code == 200, response.text
 
 
 if __name__ == '__main__':
-  sys.exit(main(FLAGS(sys.argv)))
+    sys.exit(main(FLAGS(sys.argv)))

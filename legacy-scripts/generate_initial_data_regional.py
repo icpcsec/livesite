@@ -71,18 +71,15 @@ def main(unused_argv):
             'name': team['name'],
             'university': team['university'],
             'country': team['country'],
-            'members': [
-                {
-                    'name': 'Member %d' % (i + 1),
-                    'icon': '/images/default-icon.png',
-                    'comment': '',
-                    'codeforcesId': '',
-                    'githubId': '',
-                    'topcoderId': '',
-                    'twitterId': '',
-                }
-                for i in xrange(3)
-            ],
+            'members': [{
+                'name': 'Member %d' % (i + 1),
+                'icon': '/images/default-icon.png',
+                'comment': '',
+                'codeforcesId': '',
+                'githubId': '',
+                'topcoderId': '',
+                'twitterId': '',
+            } for i in xrange(3)],
             'photo': '/images/default-photo-regional.png',
         }
         for team in teams
@@ -91,24 +88,18 @@ def main(unused_argv):
         json.dump(teams_data, f, indent=2, sort_keys=True)
 
     # standings.json
-    standings_data = [
-        {
-            'rank': 1,
-            'teamId': team['id'],
-            'solved': 0,
+    standings_data = [{
+        'rank': 1,
+        'teamId': team['id'],
+        'solved': 0,
+        'penalty': 0,
+        'problems': [{
+            'solved': False,
+            'attempts': 0,
+            'pendings': 0,
             'penalty': 0,
-            'problems': [
-                {
-                    'solved': False,
-                    'attempts': 0,
-                    'pendings': 0,
-                    'penalty': 0,
-                }
-                for _ in xrange(3)
-            ],
-        }
-        for team in sorted(teams, key=lambda t: (t['university'], t['name']))
-    ]
+        } for _ in xrange(3)],
+    } for team in sorted(teams, key=lambda t: (t['university'], t['name']))]
     with open(os.path.join(FLAGS.output_dir, 'standings.json'), 'w') as f:
         json.dump(standings_data, f, indent=2, sort_keys=True)
 
