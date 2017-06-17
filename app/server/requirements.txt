@@ -11,3 +11,4 @@ tornado==4.3
 ujson==1.35
 uwsgi==2.0.12
 wsgiprof==1.0.0
+yapf==0.15.2

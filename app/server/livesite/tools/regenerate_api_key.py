@@ -8,9 +8,9 @@ FLAGS = gflags.FLAGS
 
 
 def main(unused_argv):
-  model.update_entity('apiKey', {'$set': None});
-  print model.get_api_key()
+    model.update_entity('apiKey', {'$set': None})
+    print model.get_api_key()
 
 
 if __name__ == '__main__':
-  sys.exit(main(FLAGS(sys.argv)))
+    sys.exit(main(FLAGS(sys.argv)))

@@ -18,6 +18,5 @@ assert __name__ == 'livesite.wsgi_main'
 setup.setup_common()
 setup.setup_database()
 
-
 if FLAGS.profile:
-  app = wsgiprof.ProfileMiddleware(app)
+    app = wsgiprof.ProfileMiddleware(app)
