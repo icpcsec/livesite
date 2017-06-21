@@ -63,6 +63,8 @@ class RatingsJob(object):
         self._maybe_update(teams, ratings)
 
     def _maybe_update(self, teams, ratings):
+        rating_stale_seconds = siteconfig.data['rating'][
+            'rating_stale_seconds']
         now = time.time()
         for team in teams.itervalues():
             for member in team['members']:
@@ -72,7 +74,7 @@ class RatingsJob(object):
                         name_hex = binascii.hexlify(name.encode('utf-8'))
                         ts = ratings.get(key, {}).get(name_hex, {}).get('ts',
                                                                         0)
-                        if now - ts > siteconfig.data['rating']['rating_stale_seconds']:
+                        if now - ts > rating_stale_seconds:
                             logging.info('Query: %s %s', key, name)
                             rating = query(name)
                             model.update_entity('ratings', {

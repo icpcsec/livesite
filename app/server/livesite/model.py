@@ -13,7 +13,8 @@ _cached_client = None
 def open_client():
     global _cached_client
     if not _cached_client:
-        _cached_client = pymongo.MongoClient(siteconfig.data['server']['mongodb_url'])
+        _cached_client = pymongo.MongoClient(
+            siteconfig.data['server']['mongodb_url'])
     return _cached_client
 
 

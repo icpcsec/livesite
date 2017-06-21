@@ -5,8 +5,8 @@ import yaml
 
 FLAGS = gflags.FLAGS
 
-gflags.DEFINE_string('siteconfig_file', 'siteconfig.yaml', 'Path to siteconfig.yaml')
-
+gflags.DEFINE_string('siteconfig_file', 'siteconfig.yaml',
+                     'Path to siteconfig.yaml')
 
 data = None
 

@@ -131,9 +131,10 @@ def api_ui_update_team_handler():
         buf.seek(0)
 
         upload_path = '%simages/upload/%s.%s.%s.jpg' % (
-            siteconfig.data['server']['gcs_bucket_path_prefix'], team_id, upload_name,
-            hashlib.md5(buf.getvalue()).hexdigest())
-        uploader.upload(siteconfig.data['server']['gcs_bucket_name'], upload_path, buf, 'image/jpeg')
+            siteconfig.data['server']['gcs_bucket_path_prefix'], team_id,
+            upload_name, hashlib.md5(buf.getvalue()).hexdigest())
+        uploader.upload(siteconfig.data['server']['gcs_bucket_name'],
+                        upload_path, buf, 'image/jpeg')
         update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
             siteconfig.data['server']['gcs_bucket_name'], upload_path)
 
@@ -167,7 +168,9 @@ def api_ui_update_team_handler():
                 team['university'])
             data = {'payload': ujson.dumps({'text': text})}
             response = requests.post(
-                siteconfig.data['server']['slack_webhook_url'], data=data, timeout=3)
+                siteconfig.data['server']['slack_webhook_url'],
+                data=data,
+                timeout=3)
             response.raise_for_status()
         except Exception:
             logging.exception('An error occurred posting to slack')
@@ -204,9 +207,11 @@ def not_found_handler(path=None):
 
 @bottle.get('<path:path>')
 def index_handler(path):
+    title = model.get_entity('contest').get('data', {}).get('title',
+                                                            'LiveSite')
+    google_analytics_id = siteconfig.data['ui']['google_analytics_id']
     template_dict = {
-        'title': model.get_entity('contest').get('data', {}).get('title',
-                                                                 'LiveSite'),
-        'google_analytics_id': siteconfig.data['ui']['google_analytics_id'] or '',
+        'title': title,
+        'google_analytics_id': google_analytics_id or '',
     }
     return bottle.template('index.html', **template_dict)

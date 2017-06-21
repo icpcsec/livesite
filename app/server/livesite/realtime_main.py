@@ -105,7 +105,8 @@ def main():
     server = tornado.httpserver.HTTPServer(app)
     server.listen(FLAGS.port)
     cron = tornado.ioloop.PeriodicCallback(
-        poll_feeds, siteconfig.data['realtime']['poll_interval_in_seconds'] * 1000)
+        poll_feeds,
+        siteconfig.data['realtime']['poll_interval_in_seconds'] * 1000)
     cron.start()
     logging.info('Listening at port %d', FLAGS.port)
     tornado.ioloop.IOLoop.instance().start()
