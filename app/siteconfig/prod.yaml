@@ -1,3 +1,6 @@
+# Per-site configuration for the production server.
+
+# This section is exposed to users.
 features:
   country: false
   prefecture: true
@@ -6,6 +9,7 @@ features:
   icon: false
   use_icons_as_photo: false
 
+# This section is exposed to users.
 ui:
   lang: ja
   photo_aspect_ratio: "9/16"
@@ -19,10 +23,6 @@ server:
   gcs_bucket_name: null
   gcs_bucket_path_prefix: null
   slack_webhook_url: null
-
-ratings:
-  check_interval_in_seconds: 3
-  rating_stale_seconds: 86400
 
 realtime:
   poll_interval_in_seconds: 1

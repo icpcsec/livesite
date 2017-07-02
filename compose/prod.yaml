@@ -1,4 +1,4 @@
-# docker-compose YAML definition
+# This is a docker-compose configuration used for the production server.
 version: '2'
 
 networks:
@@ -34,6 +34,7 @@ services:
   mongodb:
     image: mongo:3.2.6
 
+  # Periodically backup the database.
   dump:
     image: mongo:3.2.6
     command:
