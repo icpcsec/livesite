@@ -37,7 +37,6 @@ def main(unused_argv):
     # contest.json
     contest_data = {
         'title': FLAGS.title.decode('utf-8'),
-        'detailedStandings': True,
         'times': {
             'start': FLAGS.start_time,
             'freeze': FLAGS.freeze_time,
