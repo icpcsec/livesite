@@ -113,11 +113,12 @@ class TeamCol extends React.Component {
 };
 
 const TeamSolvedCol = ({ solved, numProblems }) => {
-  // HACK: Assume 6 problems if there is no problem settings.
-  const actualNumProblems = numProblems || 6;
+  // HACK: Assume 8 problems if there is no problem settings.
+  const actualNumProblems = numProblems || 8;
+  // Range is 180...-90
+  const hue = 180 - solved / actualNumProblems * 270;
   const backgroundColor =
-    solved == 0 ? 'transparent' :
-    `hsl(${(actualNumProblems - solved) / (actualNumProblems - 1) * 180}, 80%, 66%)`;
+    solved == 0 ? 'transparent' : `hsl(${hue}, 80%, 66%)`;
   return (
     <td className="team-solved">
       <div className="team-cell">
