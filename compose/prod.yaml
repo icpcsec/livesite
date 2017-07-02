@@ -1,65 +1,47 @@
 # docker-compose YAML definition
 version: '2'
 
-services:
+networks:
+  default:
+    driver: bridge
 
+services:
   app:
-    image: asia.gcr.io/icpcsec/livesite-app:prod
-    command: [./run.sh, "--pyargv=--nologtostderr --logtosyslog --gcs_bucket_name=icpcsec --gcs_bucket_path_prefix=icpc2016-regional/ --slack_webhook_url=https://hooks.slack.com/services/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 --google_analytics_id=UA-51402415-4"]
+    image: asia.gcr.io/icpcsec/livesite-app:latest
+    command:
+      - "bin/run-prod.sh"
     restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-    logging:
-      driver: syslog
+    depends_on:
+      - mongodb
 
   realtime:
-    image: asia.gcr.io/icpcsec/livesite-app:prod
-    command: [./run-realtime.sh, --nologtostderr, --logtosyslog]
+    image: asia.gcr.io/icpcsec/livesite-app:latest
+    command:
+      - "bin/run-realtime.sh"
     restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-    logging:
-      driver: syslog
-
-  # ratings:
-  #   image: asia.gcr.io/icpcsec/livesite-app:prod
-  #   command: [./run-ratings.sh, --nologtostderr, --logtosyslog]
-  #   restart: always
-  #   network_mode: host
-  #   volumes:
-  #     - /dev/log:/dev/log
-  #   logging:
-  #     driver: syslog
+    depends_on:
+      - mongodb
 
   nginx:
-    image: asia.gcr.io/icpcsec/livesite-nginx:prod
+    image: asia.gcr.io/icpcsec/livesite-nginx:latest
+    ports:
+      - "80:80"
     restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-      - /var/cache/munin/www:/mnt
-    logging:
-      driver: syslog
+    depends_on:
+      - app
+      - realtime
 
   mongodb:
     image: mongo:3.2.6
-    restart: always
-    network_mode: host
-    volumes:
-      - /dev/log:/dev/log
-      - /opt/livesite/db:/data/db
-    logging:
-      driver: syslog
 
   dump:
     image: mongo:3.2.6
-    command: [bash, -c, "while :; do mongodump --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"]
-    restart: always
-    network_mode: host
+    command:
+      - "bash"
+      - "-c"
+      - "while :; do mongodump --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"
     volumes:
-      - /dev/log:/dev/log
       - /opt/livesite:/mnt
-    logging:
-      driver: syslog
+    restart: always
+    depends_on:
+      - mongodb

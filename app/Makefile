@@ -86,9 +86,9 @@ build/prod/Dockerfile: docker/Dockerfile.prod
 	mkdir -p `dirname $@`
 	cp $< $@
 
-build/prod/siteconfig.yaml:
+build/prod/siteconfig.yaml: siteconfig/prod.yaml
 	mkdir -p `dirname $@`
-	ln -s ../../siteconfig/prod.yaml $@
+	cp $< $@
 
 build/prod/static/assets/livesite/js/bundle.js: client/node_modules/.stamp $(shell find client/js -name '*.js')
 	mkdir -p `dirname $@`
