@@ -210,12 +210,11 @@ const TeamRowDomestic = (props) => {
   const rewrittenClassName = 'team-row ' + className;
   let membersText = '';
   members.forEach(({ name }) => {
-    if (!/^メンバー\s*\d$/.test(name)) {
-      if (membersText.length > 0) {
-        membersText += ' / ';
-      }
-      membersText += name;
+    const displayName = name.length > 0 ? name : '?';
+    if (membersText.length > 0) {
+      membersText += ' / ';
     }
+    membersText += displayName;
   });
   const universityText = (
     <span>

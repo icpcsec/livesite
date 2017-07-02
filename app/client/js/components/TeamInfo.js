@@ -17,7 +17,8 @@ const getRating = (ratings, key, name) => {
   return ((rating && rating > 0) ? rating : 0);
 };
 
-const MemberProfile = ({ profile, ratings }) => {
+const MemberProfile = ({ profile, ratings, index }) => {
+  const displayName = profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
   if (profile.topcoderId) {
     const rating = getRating(ratings, 'topcoderId', profile.topcoderId);
@@ -90,7 +91,7 @@ const MemberProfile = ({ profile, ratings }) => {
           null
         }
         <div className="profile-data" style={{ marginLeft: siteconfig.features.icon ? null : '0' }}>
-          <p className="profile-name">{profile.name}</p>
+          <p className="profile-name">{displayName}</p>
           <p className="profile-contacts">{contactsElements}</p>
           <p className="profile-comment">{profile.comment}</p>
         </div>
@@ -104,7 +105,7 @@ const TeamInfo = ({ team, ratings }) => {
     return <ErrorMessage header="Team Not Found" />;
   }
   const memberElements = team.members.map(
-    (profile) => <MemberProfile profile={profile} ratings={ratings} />);
+    (profile, index) => <MemberProfile profile={profile} ratings={ratings} index={index} />);
   return (
     <div className="teaminfo">
       <div className="page-header">
@@ -126,7 +127,11 @@ const TeamInfo = ({ team, ratings }) => {
           </small>
         </h1>
       </div>
-      <FixedRatioThumbnail url={team.photo} ratio={eval(siteconfig.ui.photo_aspect_ratio)} />
+      {
+        siteconfig.features.photo ?
+        <FixedRatioThumbnail url={team.photo} ratio={eval(siteconfig.ui.photo_aspect_ratio)} /> :
+        null
+      }
       {memberElements}
       <div>
         <Link to={`/team/${team.id}/edit`}>

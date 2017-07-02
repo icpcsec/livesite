@@ -20,28 +20,46 @@ const TeamPhoto = ({ photo, members }) => {
   return <FixedRatioThumbnail url={photo} ratio={eval(siteconfig.photo_aspect_ratio)} />
 };
 
-const TeamItem = ({ team: { id, name, university, country, photo, members } }) => (
-  <div className="panel panel-default">
-    <div className="panel-body">
-      <Link to={`/team/${id}`}>
-        <TeamPhoto photo={photo} members={members} />
-      </Link>
-      <h4 className="text-ellipsis">
-        <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
-      </h4>
-      <div className="text-ellipsis">
-        <Link to={`/team/${id}`} className="no-decoration">
-          {
-            siteconfig.features.country ?
-            <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
-            null
-          }
-          {university}
-        </Link>
+const TeamItem = ({ team: { id, name, university, country, photo, members } }) => {
+  const displayNames = [];
+  for (let profile of members) {
+    const { name } = profile;
+    const displayName = name.length > 0 ? name : '?';
+    displayNames.push(displayName);
+  }
+  const memberNames = displayNames.join(' / ');
+  return (
+    <div className="panel panel-default">
+      <div className="panel-body">
+        {
+          siteconfig.features.photo ?
+          <Link to={`/team/${id}`}>
+            <TeamPhoto photo={photo} members={members} />
+          </Link> :
+          null
+        }
+        <h4 className="text-ellipsis">
+          <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
+        </h4>
+        <div className="text-ellipsis">
+          <Link to={`/team/${id}`} className="no-decoration">
+            {
+              siteconfig.features.country ?
+              <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
+              null
+            }
+            {university}
+          </Link>
+        </div>
+        <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
+          <Link to={`/team/${id}`} className="no-decoration">
+            {memberNames}
+          </Link>
+        </div>
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const TeamListSimple = ({ teams }) => {
   const sortedTeams = [...teams];
