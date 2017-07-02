@@ -35,9 +35,6 @@ gflags.MarkFlagAsRequired('log_dir')
 gflags.MarkFlagAsRequired('sync_interval')
 
 
-TEAM_COLUMNS = ('rank', 'teamId', '', '', 'solved', 'penalty')
-
-
 def setup_logging():
   root = logging.getLogger()
   root.setLevel(logging.INFO)
@@ -77,23 +74,49 @@ def fetch_standings():
 def parse_standings(html, team_id_map):
   doc = bs4.BeautifulSoup(html, 'html5lib')
   teams = []
-  mains = doc.select('.main')
-  if not mains:
+  tables = doc.select('table')
+  if not tables:
     return []
-  table = mains[-1].table
+  table = tables[-1]
   if table:
     for tr in table.select('tr'):
       row = [td.get_text().strip() for td in tr.select('td')]
-      if row[0] == 'rank':
+      if not row or row[0] == 'rank':
         continue
-      team = dict(zip(TEAM_COLUMNS, row))
-      team.pop('', None)
-      real_team_id = team_id_map.get(team['teamId'])
-      if not real_team_id:
-        logging.warning('Dropping team %s', team['teamId'])
-      else:
-        team['teamId'] = real_team_id
-        teams.append(team)
+      private_team_id = row[2]
+      if int(private_team_id) < 0:
+        # skip internal teams
+        continue
+      public_team_id = team_id_map.get(private_team_id)
+      rank = row[0] if int(row[-2]) > 0 else '-'
+      problems = []
+      for c in row[5:-2]:
+        if c.endswith(')'):
+          l, r = c.rstrip(')').split('(')
+          attempts = int(r)
+          c = l.strip()
+        else:
+          attempts = 0
+        if c.startswith('-'):
+          penalty = 0
+          solved = False
+        else:
+          penalty = int(c)
+          solved = True
+        problems.append({
+          'attempts': attempts,
+          'pendings': 0,  # TODO: Maybe we can get this
+          'penalty': penalty,
+          'solved': solved,
+        })
+      team = {
+        'teamId': public_team_id,
+        'rank': rank,
+        'solved': int(row[-2]),
+        'penalty': int(row[-1]),
+        'problems': problems,
+      }
+      teams.append(team)
   return teams
 
 
