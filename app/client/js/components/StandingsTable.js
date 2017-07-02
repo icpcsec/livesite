@@ -173,7 +173,10 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     content = (
       <span>
         {time}
-        <br /><small>(+{ attempts })</small>
+        <br />
+        <small>
+          { attempts > 0 ? <span>(+{ attempts })</span> : '-' }
+        </small>
       </span>
     );
   } else {
@@ -184,17 +187,15 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     } else {
       status = 'unattempted';
     }
-    if (attempts > 0) {
-      content = (
-        <span>
-          -
-          <br />
-          <small>(+{attempts})</small>
-        </span>
-      );
-    } else {
-      content = '';
-    }
+    content = (
+      <span>
+        -
+        <br />
+        <small>
+          { attempts > 0 ? `(+${attempts})` : null }
+        </small>
+      </span>
+    );
   }
   return (
     <td className="team-problem">
