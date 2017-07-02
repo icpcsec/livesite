@@ -155,6 +155,11 @@ a.no-decoration {
   text-align: center;
 }
 
+.standings .team-row .team-table .team-score {
+  width: 64px;
+  text-align: center;
+}
+
 .standings .team-row .team-table .team-members {
   width: auto;
   white-space: nowrap;
@@ -178,6 +183,7 @@ a.no-decoration {
 
 .standings .team-row .team-table .team-cell-fg {
   position: relative;
+  color: #000 !important;
 }
 
 .standings .team-row .team-table .team-cell-bg {

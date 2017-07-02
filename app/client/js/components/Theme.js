@@ -1,5 +1,9 @@
 import React from 'react';
 
+const LIGHT_STYLES = (
+  'body { color: #000 !important }'
+);
+
 const DARK_STYLES = (
   'body { color: #fff !important; background-color: #303030 !important; }' +
   '.navbar { background-color: #212121 !important; }' +
@@ -11,11 +15,9 @@ const DARK_STYLES = (
 
 const Theme = ({ settings }) => {
   if (settings.invertColor) {
-    return (
-      <style>{DARK_STYLES}</style>
-    );
+    return <style>{DARK_STYLES}</style>;
   }
-  return <div />;
+  return <style>{LIGHT_STYLES}</style>;
 };
 
 export default Theme;

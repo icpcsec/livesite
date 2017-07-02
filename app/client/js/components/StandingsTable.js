@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import shallowCompare from 'react-addons-shallow-compare';
+import { sprintf } from 'sprintf-js';
 
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import { tr } from '../i18n';
@@ -88,8 +89,8 @@ const LegendRowRegional = ({ problems }) => {
           <tr>
             <th className="team-mark"></th>
             <th className="team-rank">#</th>
+            <th className="team-score">{tr('Solved', '正答数')}</th>
             <th className="team-name">{tr('Team/University', 'チーム/大学')}</th>
-            <th className="team-solved">{tr('Solved', '正答数')}</th>
             {problemCols}
           </tr>
         </tbody>
@@ -112,13 +113,20 @@ class TeamCol extends React.Component {
   }
 };
 
-const TeamSolvedCol = ({ solved, numProblems }) => {
+const achievementColor = (solved, numProblems) => {
   // HACK: Assume 8 problems if there is no problem settings.
   const actualNumProblems = numProblems || 8;
+
+  if (solved == 0) {
+    return 'transparent';
+  }
   // Range is 180...-90
-  const hue = 180 - solved / actualNumProblems * 270;
-  const backgroundColor =
-    solved == 0 ? 'transparent' : `hsl(${hue}, 80%, 66%)`;
+  const hue = 180 - (solved - 1) / (actualNumProblems - 1) * 270;
+  return `hsl(${hue}, 80%, 55%)`;
+};
+
+const TeamSolvedCol = ({ solved, numProblems }) => {
+  const backgroundColor = achievementColor(solved, numProblems);
   return (
     <td className="team-solved">
       <div className="team-cell">
@@ -135,15 +143,37 @@ const TeamPenaltyCol = ({ penalty }) => (
   </td>
 );
 
+const TeamScoreCol = ({ solved, penalty, numProblems }) => {
+  const backgroundColor = achievementColor(solved, numProblems);
+  return (
+    <td className="team-score">
+      <div className="team-cell">
+        <div className="team-cell-bg" style={{ backgroundColor }} />
+        <div className="team-cell-fg">
+          {solved}
+          <br/><small>({penalty})</small>
+        </div>
+      </div>
+    </td>
+  );
+};
+
 const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
   let status;
   let content;
   if (solved) {
     status = 'solved';
+    const hour = Math.floor(penalty / 60 / 60);
+    const minute = Math.floor(penalty / 60) % 60;
+    const second = Math.floor(penalty) % 60;
+    const time =
+      hour > 0 ?
+      sprintf('%d:%02d:%02d', hour, minute, second) :
+      sprintf('%d:%02d', minute, second);
     content = (
       <span>
-        {attempts}
-        <br /><small>({ penalty })</small>
+        {time}
+        <br /><small>(+{ attempts })</small>
       </span>
     );
   } else {
@@ -156,8 +186,11 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     }
     content = (
       <span>
-        {attempts}
-        <br /><small>&nbsp;</small>
+        -
+        <br />
+        <small>
+          { attempts > 0 ? `(+${attempts})` : null }
+        </small>
       </span>
     );
   }
@@ -242,7 +275,7 @@ const TeamRowDomestic = (props) => {
 };
 
 const TeamRowRegional = (props) => {
-  const { status, team, numProblems, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
+  const { status, team, universityRank, numProblems, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university, country } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -254,13 +287,17 @@ const TeamRowRegional = (props) => {
   } else {
     problemCols.push(<td />);
   }
-  const universityWithCountry =
-    siteconfig.features.country ?
+  const universityContent = (
     <span>
-      <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} />
+      {
+        siteconfig.features.country ?
+        <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} /> :
+        null
+      }
       {university}
-    </span> :
-    university;
+      <small>{' '}[{universityRank || '???'}]</small>
+    </span>
+  );
   const markCol = revealState ?
     <TeamRevealStateCol revealState={revealState} /> :
     <TeamPinCol pinned={pinned} onClick={onClickPin} />;
@@ -273,8 +310,8 @@ const TeamRowRegional = (props) => {
           <tr>
             {markCol}
             <TeamCol className="team-rank" text={rank} />
-            <TeamCol className="team-name" text={name} small={universityWithCountry} to={`/team/${id}`} />
-            <TeamCol className="team-solved" text={solved} small={`(${penalty})`} />
+            <TeamScoreCol className="team-score" solved={solved} penalty={penalty} numProblems={numProblems} />
+            <TeamCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
             {problemCols}
           </tr>
         </tbody>
