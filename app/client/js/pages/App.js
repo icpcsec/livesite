@@ -55,10 +55,6 @@ class App extends React.Component {
     );
   }
 };
-App.propTypes = {
-  loader: () => React.PropTypes.func.isRequired,
-  store: () => React.PropTypes.func.isRequired,
-};
 App.childContextTypes = {
   loader: () => React.PropTypes.func.isRequired,
 };

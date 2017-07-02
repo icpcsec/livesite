@@ -76,8 +76,8 @@ const LegendRowDomestic = ({ problems }) => {
 const LegendRowRegional = ({ problems }) => {
   const problemCols = [];
   if (problems.length > 0) {
-    problems.forEach((problem) => {
-      problemCols.push(<LegendProblemCol problem={problem} />);
+    problems.forEach((problem, i) => {
+      problemCols.push(<LegendProblemCol key={i} problem={problem} />);
     });
   } else {
     problemCols.push(<th />);
@@ -283,8 +283,8 @@ const TeamRowRegional = (props) => {
   const rewrittenClassName = 'team-row ' + className;
   const problemCols = [];
   if (problems.length > 0) {
-    problems.forEach((problem) => {
-      problemCols.push(<TeamProblemCol problem={problem} />);
+    problems.forEach((problem, i) => {
+      problemCols.push(<TeamProblemCol key={i} problem={problem} />);
     });
   } else {
     problemCols.push(<td />);
