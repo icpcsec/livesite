@@ -118,7 +118,7 @@ const achievementColor = (solved, numProblems) => {
   const actualNumProblems = numProblems || 8;
 
   if (solved == 0) {
-    return 'transparent';
+    return '#eee';
   }
   // Range is 180...-90
   const hue = 180 - (solved - 1) / (actualNumProblems - 1) * 270;
@@ -184,15 +184,17 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     } else {
       status = 'unattempted';
     }
-    content = (
-      <span>
-        -
-        <br />
-        <small>
-          { attempts > 0 ? `(+${attempts})` : null }
-        </small>
-      </span>
-    );
+    if (attempts > 0) {
+      content = (
+        <span>
+          -
+          <br />
+          <small>(+{attempts})</small>
+        </span>
+      );
+    } else {
+      content = '';
+    }
   }
   return (
     <td className="team-problem">
