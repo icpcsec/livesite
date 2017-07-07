@@ -11,7 +11,7 @@ make prod-image
 sudo third_party/google-cloud-sdk/bin/gcloud docker -- push asia.gcr.io/icpcsec/livesite-app:latest
 sudo third_party/google-cloud-sdk/bin/gcloud docker -- push asia.gcr.io/icpcsec/livesite-nginx:latest
 
-third_party/google-cloud-sdk/bin/gcloud compute ssh --project=icpcsec --zone=asia-northeast1-c livesite --command='
+third_party/google-cloud-sdk/bin/gcloud compute ssh --project=icpcsec --zone=asia-northeast1-c livesite-prod --command='
 set -ex
 cat > docker-compose.yml
 sudo gcloud docker -- pull asia.gcr.io/icpcsec/livesite-app:latest
