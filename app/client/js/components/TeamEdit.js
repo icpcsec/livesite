@@ -229,9 +229,11 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
                 onChange={(value) => onFormChange({removePhoto: {$set: value}})}
               />
             </div> :
+            siteconfig.features.photo ?
             <StaticFormItem
               label={tr('Team Photo', 'チーム写真')}
-              value={tr('Photos taken during the event will be uploaded', 'イベント中に撮影された写真が使用されます')} />
+              value={tr('Photos taken during the event will be uploaded', 'イベント中に撮影された写真が使用されます')} /> :
+            null
           }
         </form>
       </div>
