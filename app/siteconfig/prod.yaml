@@ -15,7 +15,7 @@ ui:
   photo_aspect_ratio: "9/16"
   comment_chars: 140
   streaming_nicolive_id: null
-  google_analytics_id: null
+  google_analytics_id: "UA-51402415-4"
 
 server:
   mongodb_url: "mongodb://mongodb"
