@@ -85,7 +85,7 @@ def main(unused_argv):
         for team in csv_in:
             for key in team:
                 team[key] = team[key].decode('utf-8')
-            if team['name']:
+            if team['status'] in ('PENDING', 'ACCEPTED'):
                 teams.append(team)
 
     # contest.json
