@@ -1,10 +1,12 @@
+import * as siteconfig from './siteconfig';
+
 window.addthis_share = window.addthis_share || {};
 const addthis_share = window.addthis_share;
 
 export const setup = () => {
   addthis_share.passthrough = addthis_share.passthrough || {};
   addthis_share.passthrough.twitter = {
-    via: 'icpc2016tsukuba',
+    via: siteconfig.ui.twitter_id,
   };
 };
 

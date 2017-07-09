@@ -16,6 +16,7 @@ ui:
   comment_chars: 140
   streaming_nicolive_id: null
   google_analytics_id: null
+  twitter_id: null
 
 server:
   mongodb_url: "mongodb://mongodb"

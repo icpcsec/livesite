@@ -16,6 +16,7 @@ ui:
   comment_chars: 140
   streaming_nicolive_id: null
   google_analytics_id: "UA-51402415-4"
+  twitter_id: "icpc2017tsukuba"
 
 server:
   mongodb_url: "mongodb://mongodb"
