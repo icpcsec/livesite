@@ -112,6 +112,7 @@ def main(unused_argv):
                 'name': '',
                 'icon': '/images/default-icon.png',
                 'comment': '',
+                'atcoderId': '',
                 'codeforcesId': '',
                 'githubId': '',
                 'topcoderId': '',

@@ -65,6 +65,7 @@ def setup_database():
             'photo': '/images/default-photo.png',
             'members': [{
                 'name': 'Member %d' % (i + 1),
+                'atcoderId': '',
                 'topcoderId': '',
                 'codeforcesId': '',
                 'twitterId': '',

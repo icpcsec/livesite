@@ -59,6 +59,19 @@ const MemberProfile = ({ profile, ratings, index }) => {
       </a>,
       ', ');
   }
+  if (profile.atcoderId) {
+    const rating = getRating(ratings, 'atcoderId', profile.atcoderId);
+    // TODO(nya): Implement
+    const color = null;
+    contactsElements.push(
+      'AtCoder: ',
+      <a target="_blank"
+         href={`https:\/\/atcoder.jp/user/${profile.atcoderId}/`}
+         style={{ color }}>
+        {profile.atcoderId}
+      </a>,
+      ', ');
+  }
   if (profile.twitterId) {
     contactsElements.push(
       'Twitter: ',

@@ -20,6 +20,7 @@ def get_profile_schema():
     return (
         # key, max_len
         ('name', 32),
+        ('atcoderId', 16),
         ('topcoderId', 16),
         ('codeforcesId', 16),
         ('twitterId', 16),

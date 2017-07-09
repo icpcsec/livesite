@@ -271,7 +271,7 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
             </div> :
             null
           }
-          <GridFlow cols={3}>
+          <GridFlow cols={2}>
             <TextFormItem
               label="TopCoder ID"
               value={profile.topcoderId}
@@ -281,6 +281,11 @@ const MemberEditPanel = ({ index, profile, removeIcon, onFormChange, onIconChang
               label="CodeForces ID"
               value={profile.codeforcesId}
               onChange={(value) => handleFormChangeForMember({codeforcesId: {$set: value.substr(0, 16)}})}
+            />
+            <TextFormItem
+              label="AtCoder ID"
+              value={profile.atcoderId}
+              onChange={(value) => handleFormChangeForMember({atcoderId: {$set: value.substr(0, 16)}})}
             />
             <TextFormItem
               label="Twitter ID"
@@ -417,6 +422,7 @@ class TeamEdit extends React.Component {
       form.append(`members.${i}.name`, profile.name);
       form.append(`members.${i}.topcoderId`, profile.topcoderId);
       form.append(`members.${i}.codeforcesId`, profile.codeforcesId);
+      form.append(`members.${i}.atcoderId`, profile.atcoderId);
       form.append(`members.${i}.twitterId`, profile.twitterId);
       form.append(`members.${i}.githubId`, profile.githubId);
       form.append(`members.${i}.comment`, profile.comment);

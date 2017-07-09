@@ -74,6 +74,7 @@ def main(unused_argv):
                 'name': 'Member %d' % (i + 1),
                 'icon': '/images/default-icon.png',
                 'comment': '',
+                'atcoderId': '',
                 'codeforcesId': '',
                 'githubId': '',
                 'topcoderId': '',
