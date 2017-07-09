@@ -5,7 +5,7 @@ import LoadingCheck from '../components/LoadingCheck';
 
 const mapStateToProps = (state, ownProps) => {
   const loaded = ['contest', 'teams', 'standings'].every(
-      (feed) => state.loaded.has(feed));
+      (feed) => state.loader.loaded.has(feed));
   return { loaded, ...ownProps };
 };
 

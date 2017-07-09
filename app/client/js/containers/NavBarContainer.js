@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import NavBar from '../components/NavBar';
 
-const mapStateToProps = ({ contest }) => ({ contest });
+const mapStateToProps = ({ contest, loader }) => ({ contest, realtime: loader.realtime });
 
 const mapDispatchToProps = (dispatch) => ({});
 

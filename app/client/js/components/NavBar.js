@@ -24,6 +24,17 @@ class NavLink extends React.Component {
 };
 NavLink.contextTypes = { router: () => React.PropTypes.func.isRequired };
 
+const RealtimeIndicator = ({ realtime }) => {
+  if (realtime === true || realtime === null) {
+    return <span />;
+  }
+  return (
+    <p className="navbar-text">
+      <span className="glyphicon glyphicon-flash" title="Real-time websocket connection is not available." />
+    </p>
+  );
+};
+
 class Clock extends React.Component {
   updateText() {
     const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
@@ -54,7 +65,7 @@ class Clock extends React.Component {
   }
 };
 
-const NavBar = ({ contest }) => {
+const NavBar = ({ contest, realtime }) => {
   return (
     <nav className="navbar navbar-inverse navbar-fixed-top" style={{ zIndex: 1000000 }}>
       <div className="container">
@@ -78,6 +89,7 @@ const NavBar = ({ contest }) => {
             }
           </ul>
           <ul className="nav navbar-nav navbar-right">
+            <RealtimeIndicator realtime={realtime} />
             <NavLink to="/settings/">
               <span className="glyphicon glyphicon-cog"></span>
             </NavLink>

@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 import contest from './contest';
-import loaded from './loaded';
+import loader from './loader';
 import ratings from './ratings';
 import reveal from './reveal';
 import settings from './settings';
@@ -11,7 +11,7 @@ import teams from './teams';
 
 const reducer = combineReducers({
   contest,
-  loaded,
+  loader,
   ratings,
   reveal,
   settings,
