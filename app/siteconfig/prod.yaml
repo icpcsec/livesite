@@ -22,7 +22,7 @@ server:
   mongodb_db: livesite
   gcs_bucket_name: null
   gcs_bucket_path_prefix: null
-  slack_webhook_url: null
+  slack_webhook_url: "https://hooks.slack.com/services/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"
 
 realtime:
   poll_interval_in_seconds: 1
