@@ -27,9 +27,10 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
     const displayName = name.length > 0 ? name : '?';
     displayNames.push(displayName);
   }
+  const hasInfo = members.some((profile) => profile.name.length > 0);
   const memberNames = displayNames.join(' / ');
   return (
-    <div className="panel panel-default">
+    <div className="panel panel-default" style={{ backgroundColor: (hasInfo ? null : 'inherit !important') }}>
       <div className="panel-body">
         {
           siteconfig.features.photo ?
