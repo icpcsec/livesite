@@ -1,6 +1,7 @@
 import cStringIO
 import hashlib
 import logging
+import time
 
 import bottle
 import bson.timestamp
@@ -85,6 +86,8 @@ def api_ui_update_team_handler():
         return respond_with_json({'ok': False, 'message': 'Wrong password.'})
 
     update = {'$set': {}}
+
+    update['$set']['%s.lastUpdate' % team_id] = time.time()
 
     if siteconfig.data['features']['prefecture']:
         prefecture = int(bottle.request.forms['prefecture'])
