@@ -244,14 +244,20 @@ const TeamRowDomestic = (props) => {
   const { rank, solved, penalty } = status;
   const { id, name, university, members } = team;
   const rewrittenClassName = 'team-row ' + className;
-  let membersText = '';
-  members.forEach(({ name }) => {
-    const displayName = name.length > 0 ? name : '?';
-    if (membersText.length > 0) {
-      membersText += ' / ';
-    }
-    membersText += displayName;
-  });
+  const anyName = members.some((profile) => profile.name.length > 0);
+  let membersText;
+  if (!anyName) {
+    membersText = '-';
+  } else {
+    membersText = '';
+    members.forEach(({ name }) => {
+      const displayName = name.length > 0 ? name : '?';
+      if (membersText.length > 0) {
+        membersText += ' / ';
+      }
+      membersText += displayName;
+    });
+  }
   const universityText = (
     <span>
       {university}
