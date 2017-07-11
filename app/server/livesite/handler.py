@@ -80,6 +80,11 @@ def api_ui_update_team_handler():
     team_id = bottle.request.forms['id']
     password = bottle.request.forms['password']
 
+    times = model.get_entity('contest')['data']['times']
+    now = time.time()
+    if times['start'] <= now <= times['end']:
+        return respond_with_json({'ok': False, 'message': 'Contest is running.'})
+
     hash = model.get_entity('auth')['data'].get(team_id)
     if not ((hash and sha256_crypt.verify(password, hash)) or
             password == model.get_api_key()):
