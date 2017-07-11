@@ -2,7 +2,7 @@ DEVSERVER_ARGS ?=
 BROWSERIFY_TRANSFORM_ARGS ?= [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ]
 DIST_MODULES := bootstrap bootstrap-material-design jquery snackbarjs
 
-.PHONY: default help clean distclean dev-image prod-image dev prod _watchify
+.PHONY: default help clean distclean lint dev-image prod-image dev prod _watchify
 
 default: help
 
@@ -14,6 +14,9 @@ clean:
 
 distclean: clean
 	rm -rf client/node_modules
+
+lint: client/node_modules/.stamp
+	cd client && node_modules/.bin/eslint js
 
 dev-image: build/dev/.image.stamp
 

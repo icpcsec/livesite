@@ -38,6 +38,8 @@
     "uglifyify": "^3.0.1"
   },
   "devDependencies": {
+    "eslint": "^4.2.0",
+    "eslint-plugin-react": "^7.1.0",
     "license-checker": "^5.1.2",
     "watchify": "^3.7.0"
   }
