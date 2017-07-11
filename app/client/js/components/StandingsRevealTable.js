@@ -50,7 +50,7 @@ class StandingsUploadForm extends React.Component {
       </div>
     );
   }
-};
+}
 
 class StandingsRevealTable extends React.Component {
   constructor(props) {
