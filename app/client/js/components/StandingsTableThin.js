@@ -23,8 +23,8 @@ export const LegendRowThin = ({ problems }) => {
   );
 };
 
-const TeamSolvedCol = ({ solved, numProblems }) => {
-  const backgroundColor = achievementColor(solved, numProblems);
+const TeamSolvedCol = ({ solved, problemSpecs }) => {
+  const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <td className="team-solved">
       <div className="team-cell">
@@ -42,7 +42,7 @@ const TeamPenaltyCol = ({ penalty }) => (
 );
 
 export const TeamRowThin = (props) => {
-  const { status, team, universityRank, numProblems, pinned, onClickPin, zIndex, className = '', ...rest } = props;
+  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty } = status;
   const { id, name, university, members } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -73,7 +73,7 @@ export const TeamRowThin = (props) => {
           <tr>
             <TeamPinCol pinned={pinned} onClick={onClickPin} />
             <TeamCol className="team-rank" text={rank} />
-            <TeamSolvedCol solved={solved} numProblems={numProblems} />
+            <TeamSolvedCol solved={solved} problemSpecs={problemSpecs} />
             <TeamPenaltyCol penalty={penalty} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
             <TeamCol className="team-name" text={universityText} to={`/team/${id}`} />

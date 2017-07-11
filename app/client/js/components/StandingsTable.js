@@ -181,7 +181,7 @@ class StandingsTable extends React.Component {
           key={status.teamId}
           status={status}
           team={team}
-          numProblems={problems.length}
+          problems={problems}
           universityRank={universityRanks[status.teamId]}
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
@@ -206,7 +206,7 @@ class StandingsTable extends React.Component {
           status={status}
           team={team}
           universityRank={universityRanks[status.teamId]}
-          numProblems={problems.length}
+          problems={problems}
           pinned={true}
           onClickPin={() => this.handleClickPin(status.teamId)}
           zIndex={0}

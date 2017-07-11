@@ -1,8 +1,6 @@
 import React from 'react';
-import { sprintf } from 'sprintf-js';
 
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
 import { achievementColor, TeamCol, TeamPinCol } from './StandingsTableCommon';
 
 const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
@@ -11,7 +9,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
       <span title={title}>
         {label}
       </span>
-      <span className="team-problem-flag">
+      <span className="team-problem-flag" style={{ display: 'none' }}>
         <span className="glyphicon glyphicon-flag" style={{ color }} />
       </span>
     </th>
@@ -46,8 +44,8 @@ export const LegendRowMedium = ({ problems }) => {
   );
 };
 
-const TeamSolvedCol = ({ solved, numProblems }) => {
-  const backgroundColor = achievementColor(solved, numProblems);
+const TeamSolvedCol = ({ solved, problemSpecs }) => {
+  const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <td className="team-solved">
       <div className="team-cell">
@@ -64,35 +62,31 @@ const TeamPenaltyCol = ({ penalty }) => (
   </td>
 );
 
-const TeamProblemCol = ({ problem: { solved } }) => {
-  let status;
+const TeamProblemCol = ({ problem: { solved }, problemSpec: { color } }) => {
   let content;
   if (solved) {
-    status = 'solved';
-    content = <span className="glyphicon glyphicon-ok" />;
+    content = <span className="glyphicon glyphicon-flag" style={{ color }} />;
   } else {
-    status = 'unattempted';
     content = '-';
   }
   return (
     <td className="team-problem">
       <div className="team-cell">
-        <div className={`team-cell-bg ${status}`} />
-        <div className="team-cell-fg">{content}</div>
+        { content }
       </div>
     </td>
   );
 };
 
 export const TeamRowMedium = (props) => {
-  const { status, team, universityRank, numProblems, pinned, onClickPin, zIndex, className = '', ...rest } = props;
+  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
-  const { id, name, university, country } = team;
+  const { id, name, university } = team;
   const rewrittenClassName = 'team-row ' + className;
   const problemCols = [];
   if (problems.length > 0) {
     problems.forEach((problem, i) => {
-      problemCols.push(<TeamProblemCol key={i} problem={problem} />);
+      problemCols.push(<TeamProblemCol key={i} problem={problem} problemSpec={problemSpecs[i]} />);
     });
   } else {
     problemCols.push(<td />);
@@ -110,7 +104,7 @@ export const TeamRowMedium = (props) => {
           <tr>
             <TeamPinCol pinned={pinned} onClick={onClickPin} />
             <TeamCol className="team-rank" text={rank} />
-            <TeamSolvedCol solved={solved} numProblems={numProblems} />
+            <TeamSolvedCol solved={solved} problemSpecs={problemSpecs} />
             <TeamPenaltyCol penalty={penalty} />
             <TeamCol className="team-name" text={name} to={`/team/${id}`} />
             <TeamCol className="team-name" text={universityText} to={`/team/${id}`} />

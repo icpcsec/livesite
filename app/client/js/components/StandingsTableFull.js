@@ -51,8 +51,8 @@ const TeamRevealStateCol = ({ revealState }) => (
   </td>
 );
 
-const TeamScoreCol = ({ solved, penalty, numProblems }) => {
-  const backgroundColor = achievementColor(solved, numProblems);
+const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
+  const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <td className="team-score">
       <div className="team-cell">
@@ -116,7 +116,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
 };
 
 export const TeamRowFull = (props) => {
-  const { status, team, universityRank, numProblems, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
+  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university, country } = team;
   const rewrittenClassName = 'team-row ' + className;
@@ -151,7 +151,7 @@ export const TeamRowFull = (props) => {
           <tr>
             {markCol}
             <TeamCol className="team-rank" text={rank} />
-            <TeamScoreCol className="team-score" solved={solved} penalty={penalty} numProblems={numProblems} />
+            <TeamScoreCol className="team-score" solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
             <TeamCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
             {problemCols}
           </tr>
