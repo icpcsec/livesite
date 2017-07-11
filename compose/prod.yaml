@@ -33,6 +33,9 @@ services:
 
   mongodb:
     image: mongo:3.2.6
+    restart: always
+    volumes:
+      - /opt/livesite/db:/data/db
 
   # Periodically backup the database.
   dump:
@@ -40,9 +43,9 @@ services:
     command:
       - "bash"
       - "-c"
-      - "while :; do mongodump --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"
+      - "mkdir -p /mnt/dump; while :; do mongodump --host mongodb --out /mnt/dump/$$(date +%Y%m%d-%H%M%S); sleep 1h; done"
     volumes:
-      - /opt/livesite:/mnt
+      - /opt/livesite/db:/mnt
     restart: always
     depends_on:
       - mongodb
