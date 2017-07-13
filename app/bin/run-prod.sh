@@ -8,4 +8,5 @@ exec uwsgi \
   --master \
   --workers=$(( $(nproc) * 2 )) \
   --threads=64 \
+  --http-auto-gzip \
   "$@"
