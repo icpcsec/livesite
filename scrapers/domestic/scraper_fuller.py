@@ -35,23 +35,6 @@ gflags.MarkFlagAsRequired('log_dir')
 gflags.MarkFlagAsRequired('sync_interval')
 
 
-TEAM_COLUMNS = ('rank', 'teamId', '', '', 'solved', 'penalty')
-
-COLORS = (
-    '#F44336',  # red
-    '#4CAF50',  # green
-    '#EAD61E',  # yellow
-    '#3F51B5',  # blue
-    '#F48FB1',  # pink
-    '#FF9800',  # orange
-    '#81D4FA',  # cyan
-    '#E040FB',  # purple
-    '#76FF03',  # light green
-    '#FFFFFF',  # white
-    '#000000',  # black
-)
-
-
 def setup_logging():
   root = logging.getLogger()
   root.setLevel(logging.INFO)
@@ -90,66 +73,51 @@ def fetch_standings():
 
 def parse_standings(html, team_id_map):
   doc = bs4.BeautifulSoup(html, 'html5lib')
-  problems = []
   teams = []
-  mains = doc.select('.main')
-  if not mains:
-    return [], []
-  table = mains[-1].table
+  tables = doc.select('table')
+  if not tables:
+    return []
+  table = tables[-1]
   if table:
     for tr in table.select('tr'):
       row = [td.get_text().strip() for td in tr.select('td')]
-      if row[0] == 'rank':
-        for label, color in zip(row[6:], COLORS):
-          problems.append({
-              'label': label,
-              'name': 'Problem %s' % label,
-              'color': color,
-          })
+      if not row or row[0] == 'rank':
         continue
-      team = dict(zip(TEAM_COLUMNS, row))
-      team.pop('', None)
-      ps = []
-      for col in row[6:]:
-        if '(' in col:
-          a, b = col.rstrip(')').split('(')
-          col = a.strip()
-          attempts = int(b)
+      private_team_id = row[2]
+      if int(private_team_id) < 0:
+        # skip internal teams
+        continue
+      public_team_id = team_id_map.get(private_team_id)
+      rank = row[0] if int(row[-2]) > 0 else '-'
+      problems = []
+      for c in row[5:-2]:
+        if c.endswith(')'):
+          l, r = c.rstrip(')').split('(')
+          attempts = int(r)
+          c = l.strip()
         else:
           attempts = 0
-        if col:
-          penalty = int(col)
-          solved = True
-        else:
+        if c.startswith('-'):
           penalty = 0
           solved = False
-        ps.append({
-          'solved': solved,
+        else:
+          penalty = int(c)
+          solved = True
+        problems.append({
           'attempts': attempts,
+          'pendings': 0,  # TODO: Maybe we can get this
           'penalty': penalty,
-          'pendings': 0,
+          'solved': solved,
         })
-      team['problems'] = ps
-      real_team_id = team_id_map.get(team['teamId'])
-      if not real_team_id:
-        logging.warning('Dropping team %s', team['teamId'])
-      else:
-        team['teamId'] = real_team_id
-        teams.append(team)
-  return problems, teams
-
-
-def upload_problems_json(problems):
-  logging.info('Uploading problems.json to %s', FLAGS.livesite_url)
-  data = {
-      'api_key': FLAGS.api_key,
-      'update': json_dump({'$set': {'problems': problems}}),
-  }
-  response = requests.post(
-      '%s/api/admin/update/contest' % FLAGS.livesite_url,
-      data=data,
-      timeout=10)
-  response.raise_for_status()
+      team = {
+        'teamId': public_team_id,
+        'rank': rank,
+        'solved': int(row[-2]),
+        'penalty': int(row[-1]),
+        'problems': problems,
+      }
+      teams.append(team)
+  return teams
 
 
 def upload_standings_json(teams):
@@ -169,7 +137,6 @@ class SyncJob(object):
   def __init__(self, team_id_map):
     self._team_id_map = team_id_map
     self._last_hash = None
-    self._last_problems = None
 
   def __call__(self):
     timestamp = int(time.time())
@@ -177,13 +144,10 @@ class SyncJob(object):
     html = fetch_standings()
     with open(os.path.join(FLAGS.log_dir, 'standings.%d.html' % timestamp), 'w') as out:
       out.write(html.encode('utf-8'))
-    problems, teams = parse_standings(html, self._team_id_map)
+    teams = parse_standings(html, self._team_id_map)
     if not teams:
       logging.error('Failed to parse the standings HTML!')
       return
-    if problems != self._last_problems:
-      upload_problems_json(problems)
-      self._last_problems = problems
     current_hash = hashlib.sha256(json_dump(teams)).hexdigest()
     with open(os.path.join(FLAGS.log_dir, 'standings.%d.json' % timestamp), 'w') as out:
       out.write(json_dump(teams))
