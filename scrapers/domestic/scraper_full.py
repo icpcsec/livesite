@@ -25,6 +25,7 @@ gflags.DEFINE_string('teams_csv', None, 'The path to teams.csv.')
 gflags.DEFINE_string('api_key', None, 'API key of livesite.')
 gflags.DEFINE_string('log_dir', None, 'The path to log data directory.')
 gflags.DEFINE_integer('sync_interval', None, 'Sync interval in seconds.')
+gflags.DEFINE_bool('allow_rehearsal', False, 'Allow rehearsal standings.')
 gflags.DEFINE_bool('logtostderr', True, 'Log to stderr.')
 gflags.DEFINE_bool('logtosyslog', True, 'Log to syslog.')
 gflags.MarkFlagAsRequired('scoreboard_url')
@@ -89,6 +90,9 @@ def fetch_standings():
 
 
 def parse_standings(html, team_id_map):
+  if 'rehearsal' in html and not FLAGS.allow_rehearsal:
+    logging.info('Contest has not started yet.')
+    return [], []
   doc = bs4.BeautifulSoup(html, 'html5lib')
   problems = []
   teams = []

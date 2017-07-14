@@ -128,12 +128,13 @@ def main(unused_argv):
 
     # standings.json
     standings_data = [{
-        'rank': 1,
+        'rank': '-',
         'teamId': team['public_id'],
         'solved': 0,
         'penalty': 0,
         'problems': [],
-    } for team in sorted(teams, key=lambda t: (t['university'], t['name']))]
+    } for team in teams]
+    standings_data.sort(key=lambda t: int(t['teamId']))
     with open(os.path.join(FLAGS.output_dir, 'standings.json'), 'w') as f:
         json.dump(standings_data, f, indent=2, sort_keys=True)
 
