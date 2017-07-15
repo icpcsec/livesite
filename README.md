@@ -14,12 +14,17 @@ Requirements
 ------------
 
 - GNU make
-- Docker
+- Docker (`sudo` is automatically used to run docker commands)
 
 How to run locally
 ------------------
 
+```
 $ make up
+```
+
+It takes a while to build JavaScript bundles. After the server is ready,
+you can access the local instance at `http://localhost:8888/`.
 
 `docker` is run with `sudo` to build a dev image and new containers will be
 brought up with `docker-compose`.
