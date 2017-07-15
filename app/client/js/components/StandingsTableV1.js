@@ -18,7 +18,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   );
 };
 
-export const LegendRowFull = ({ problems }) => {
+export const LegendRowV1 = ({ problems }) => {
   const problemCols = [];
   if (problems.length > 0) {
     problems.forEach((problem, i) => {
@@ -115,7 +115,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   );
 };
 
-export const TeamRowFull = (props) => {
+export const TeamRowV1 = (props) => {
   const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
   const { rank, solved, penalty, problems = [] } = status;
   const { id, name, university, country } = team;

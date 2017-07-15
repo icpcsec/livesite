@@ -1,8 +1,6 @@
 import React from 'react';
 
-import { LegendRowFull, TeamRowFull } from './StandingsTableFull';
-import { LegendRowMedium, TeamRowMedium } from './StandingsTableMedium';
-import { LegendRowThin, TeamRowThin } from './StandingsTableThin';
+import { LegendRowV1, TeamRowV1 } from './StandingsTableV1';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -143,16 +141,7 @@ class AnimatingList extends React.Component {
 }
 
 const selectRowClasses = (problems, standings) => {
-  if (problems.length > 0 &&
-      standings.length > 0 &&
-      Array.isArray(standings[0].problems) &&
-      standings[0].problems.length > 0) {
-    if (typeof standings[0].problems[0].attempts === 'number') {
-      return { LegendRow: LegendRowFull, TeamRow: TeamRowFull };
-    }
-    return { LegendRow: LegendRowMedium, TeamRow: TeamRowMedium };
-  }
-  return { LegendRow: LegendRowThin, TeamRow: TeamRowThin };
+  return { LegendRow: LegendRowV1, TeamRow: TeamRowV1 };
 };
 
 class StandingsTable extends React.Component {
