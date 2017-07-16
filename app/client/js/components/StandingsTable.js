@@ -13,7 +13,7 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-export const achievementColor = (solved, numProblems) => {
+const achievementColor = (solved, numProblems) => {
   // HACK: Assume 8 problems if there is no problem settings.
   const actualNumProblems = numProblems || 8;
 
@@ -25,103 +25,81 @@ export const achievementColor = (solved, numProblems) => {
   return `hsl(${hue}, 80%, 55%)`;
 };
 
-export class TeamCol extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return shallowCompare(this, nextProps, nextState);
-  }
-
-  render() {
-    const { text, small, to, ...rest } = this.props;
-    const content = <span>{text}<br /><small>{small}</small></span>;
-    const inner =
-        to ? <Link to={to} className="no-decoration">{content}</Link> : content;
-    return <td {...rest}>{inner}</td>;
-  }
-}
-
-export const TeamPinCol = ({ pinned, onClick }) => {
-  const className =
-    'glyphicon glyphicon-pushpin' + (pinned ? ' pinned' : '');
-  return (
-    <td className="team-mark">
-      <span className={className} onClick={onClick} />
-    </td>
-  );
+const GenericTeamCol = ({ text, small, to, className = '', ...rest }) => {
+  const rewrittenClassName = 'team-col ' + className;
+  const content = <span>{text}<br /><small>{small}</small></span>;
+  const inner =
+      to ? <Link to={to} className="no-decoration">{content}</Link> : content;
+  return <div className={rewrittenClassName} {...rest}>{inner}</div>;
 };
-
-export const RevealMarker = () => (
-  // .reveal-marker is used to compute the marker position in StandingsRevealTable.
-  <div className="reveal-marker" style={{ position: 'relative', pointerEvents: 'none' }}>
-    <div style={{ position: 'absolute', bottom: '1px', boxShadow: '0 0 0 5px red' }}>
-      <table className="team-table" style={{ background: 'transparent' }}>
-        <tbody>
-          <tr>
-            <TeamCol text="a" small="b" style={{ opacity: 0 }} />
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-);
 
 const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
-    <th className="team-problem">
+    <div className="team-col team-problem">
       <span title={title}>
         {label}
       </span>
       <span className="team-problem-flag">
         <span className="glyphicon glyphicon-flag" style={{ color }} />
       </span>
-    </th>
+    </div>
   );
 };
 
-export const LegendRow = ({ problems }) => {
-  const problemCols = [];
-  if (problems.length > 0) {
-    problems.forEach((problem, i) => {
-      problemCols.push(<LegendProblemCol key={i} problem={problem} />);
-    });
-  } else {
-    problemCols.push(<th />);
-  }
+const LegendProblemCols = ({ problems }) => {
+  const problemCols = problems.map((problem, i) => (
+    <LegendProblemCol key={i} problem={problem} />
+  ));
   return (
-    <li className="team-row legend">
-      <table className="team-table">
-        <tbody>
-          <tr>
-            <th className="team-mark"></th>
-            <th className="team-rank">#</th>
-            <th className="team-score">{tr('Solved', '正答数')}</th>
-            <th className="team-name">{tr('Team/University', 'チーム/大学')}</th>
-            {problemCols}
-          </tr>
-        </tbody>
-      </table>
-    </li>
+    <div className="team-problems">
+      { problemCols }
+    </div>
   );
 };
 
-const TeamRevealStateCol = ({ revealState }) => (
-  <td className="team-mark">
-    <span className="glyphicon glyphicon-ok"
-          style={{ display: (revealState === 'finalized' ? null : 'none') }} />
-  </td>
-);
+const LegendRow = ({ problems }) => {
+  return (
+    <div className="team-row legend">
+      <div className="team-col team-mark"></div>
+      <div className="team-col team-rank">#</div>
+      <div className="team-col team-score">{tr('Solved', '正答数')}</div>
+      <div className="team-col team-name">{tr('Team/University', 'チーム/大学')}</div>
+      <LegendProblemCols problems={problems} />
+    </div>
+  );
+};
+
+const TeamPinCol = ({ pinned, onClick, revealMode }) => {
+  if (revealMode) {
+    return <div />;
+  }
+  const className =
+    'glyphicon glyphicon-pushpin' + (pinned ? ' pinned' : '');
+  return (
+    <div className="team-col team-mark">
+      <span className={className} onClick={onClick} />
+    </div>
+  );
+};
+
+const TeamRevealStateCol = ({ revealMode, revealState }) => {
+  if (!revealMode) {
+    return <div />;
+  }
+  const mark = revealState === 'finalized' && <span className="glyphicon glyphicon-ok" />;
+  return <div className="team-col team-mark">{mark}</div>;
+};
 
 const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
   const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
-    <td className="team-score">
-      <div className="team-cell">
-        <div className="team-cell-bg" style={{ backgroundColor }} />
-        <div className="team-cell-fg">
-          {solved}
-          <br/><small>({penalty})</small>
-        </div>
+    <div className="team-col team-score">
+      <div className="team-col-bg" style={{ backgroundColor }} />
+      <div className="team-col-fg">
+        {solved}
+        <br/><small>({penalty})</small>
       </div>
-    </td>
+    </div>
   );
 };
 
@@ -165,28 +143,29 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     );
   }
   return (
-    <td className="team-problem">
-      <div className="team-cell">
-        <div className={`team-cell-bg ${status}`} />
-        <div className="team-cell-fg">{content}</div>
-      </div>
-    </td>
+    <div className="team-col team-problem">
+      <div className={`team-col-bg ${status}`} />
+      <div className="team-col-fg">{content}</div>
+    </div>
   );
 };
 
-export const TeamRow = (props) => {
-  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealState, firstRevealFinalized, zIndex, className = '', ...rest } = props;
-  const { rank, solved, penalty, problems = [] } = status;
+const TeamProblemCols = ({ problems }) => {
+  const problemCols = problems.map((problem, i) => (
+    <TeamProblemCol key={i} problem={problem} />
+  ));
+  return (
+    <div className="team-problems">
+      { problemCols }
+    </div>
+  );
+};
+
+const TeamRow = (props) => {
+  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '', ...rest } = props;
+  const { rank, solved, penalty, revealState, problems = [] } = status;
   const { id, name, university, country } = team;
   const rewrittenClassName = 'team-row ' + className;
-  const problemCols = [];
-  if (problems.length > 0) {
-    problems.forEach((problem, i) => {
-      problemCols.push(<TeamProblemCol key={i} problem={problem} />);
-    });
-  } else {
-    problemCols.push(<td />);
-  }
   const universityContent = (
     <span>
       {
@@ -198,27 +177,25 @@ export const TeamRow = (props) => {
       <small>{' '}[{universityRank || '???'}]</small>
     </span>
   );
-  const markCol = revealState ?
-    <TeamRevealStateCol revealState={revealState} /> :
-    <TeamPinCol pinned={pinned} onClick={onClickPin} />;
-  const revealMarker = firstRevealFinalized && <RevealMarker />;
   return (
-    <li className={rewrittenClassName} style={{ zIndex }} {...rest}>
-      {revealMarker}
-      <table className="team-table">
-        <tbody>
-          <tr>
-            {markCol}
-            <TeamCol className="team-rank" text={rank} />
-            <TeamScoreCol className="team-score" solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
-            <TeamCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
-            {problemCols}
-          </tr>
-        </tbody>
-      </table>
-    </li>
+    <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
+      <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
+      <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
+      <GenericTeamCol className="team-rank" text={rank} />
+      <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
+      <GenericTeamCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
+      <TeamProblemCols problems={problems} />
+    </div>
   );
 };
+
+const RevealRow = (props) => (
+  // .reveal-marker is used to compute the marker position in StandingsRevealTable.
+  <div className="reveal-row">
+    <TeamRow {...props} />
+    <div className="reveal-marker" />
+  </div>
+);
 
 const computeUniversityRanks = (standings, teamsMap) => {
   const universityToStatuses = {};
@@ -302,27 +279,27 @@ class AnimatingTeamRow extends React.Component {
 
 class AnimatingList extends React.Component {
   componentWillUpdate() {
-    const liList = Array.from(this._dom.children);
-    liList.forEach((li) => {
-      li.classList.remove('animating');
-      li.style.transform = undefined;
+    const rows = Array.from(this._dom.children);
+    rows.forEach((row) => {
+      row.classList.remove('animating');
+      row.style.transform = undefined;
     });
     this._lastKeyToOffsetTop = new Map();
-    liList.forEach((li, i) => {
+    rows.forEach((row, i) => {
       const child = this.props.children[i];
-      this._lastKeyToOffsetTop.set(child.key, li.offsetTop);
+      this._lastKeyToOffsetTop.set(child.key, row.offsetTop);
     });
   }
 
   componentDidUpdate() {
-    const liList = Array.from(this._dom.children);
+    const rows = Array.from(this._dom.children);
     const currentKeyToOffsetTop = new Map();
-    liList.forEach((li, i) => {
+    rows.forEach((row, i) => {
       const child = this.props.children[i];
-      currentKeyToOffsetTop.set(child.key, li.offsetTop);
+      currentKeyToOffsetTop.set(child.key, row.offsetTop);
     });
     const rels = new Map();
-    liList.forEach((li, i) => {
+    rows.forEach((row, i) => {
       const child = this.props.children[i];
       const currentOffsetTop = currentKeyToOffsetTop.get(child.key);
       const lastOffsetTop =
@@ -332,10 +309,16 @@ class AnimatingList extends React.Component {
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
       rels[child.key] = relativeOffsetTop;
       if (relativeOffsetTop != 0) {
-        li.style.transform = `translate(0, ${relativeOffsetTop}px)`;
-        setTimeout(() => { li.classList.add('animating'); }, 0);
-        setTimeout(() => { li.style.transform = 'translate(0, 0)'; }, 1000);
-        setTimeout(() => { li.classList.remove('animating'); }, 1000 + 3000);
+        row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
+        if (row.classList.contains('reveal-row')) {
+          setTimeout(() => { row.classList.add('animating'); }, 0);
+          setTimeout(() => { row.style.transform = 'translate(0, 0)'; }, 0);
+          setTimeout(() => { row.classList.remove('animating'); }, 500);
+        } else {
+          setTimeout(() => { row.classList.add('animating'); }, 0);
+          setTimeout(() => { row.style.transform = 'translate(0, 0)'; }, 1000);
+          setTimeout(() => { row.classList.remove('animating'); }, 1000 + 3000);
+        }
       }
     });
   }
@@ -344,9 +327,9 @@ class AnimatingList extends React.Component {
     const { children, style, ...rest } = this.props;
     const rewrittenStyle = Object.assign({}, style, {position: 'relative'});
     return (
-      <ul style={rewrittenStyle} {...rest} ref={(dom) => { this._dom = dom; }}>
+      <div style={rewrittenStyle} {...rest} ref={(dom) => { this._dom = dom; }}>
         {children}
-      </ul>
+      </div>
     );
   }
 }
@@ -360,17 +343,32 @@ class StandingsTable extends React.Component {
     const { standings, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
     const universityRanks = computeUniversityRanks(standings, teamsMap);
-    let seenRevealFinalized = false;
-    const normalRows = standings.map((status, index) => {
+    const normalRows = [];
+    for (let index = 0; index < standings.length; ++index) {
+      const status = standings[index];
       const team = teamsMap[status.teamId] || DEFAULT_TEAM;
-      const firstRevealFinalized =
-        status.revealState === 'finalized' && !seenRevealFinalized && index > 0;
-      if (status.revealState === 'finalized') {
-        seenRevealFinalized = true;
+      const revealCurrent =
+          revealMode &&
+          ((index + 1 < standings.length &&
+            status.revealState !== 'finalized' &&
+            standings[index + 1].revealState === 'finalized') ||
+           (index == standings.length - 1 &&
+            status.revealState !== 'finalized'));
+      if (revealCurrent) {
+        // FIXME: Reveal marker broken
+        normalRows.push(
+          <AnimatingTeamRow
+            component={RevealRow}
+            key={'__reveal_marker__'}
+            status={status}
+            team={team}
+            problems={problems}
+            universityRank={universityRanks[status.teamId]}
+            pinned={false}
+            revealMode={revealMode}
+          />);
       }
-      // Hack to place reveal marker frontmost.
-      const zIndex = status.revealState === 'finalized' ? 10000 : 9999 - index;
-      return (
+      normalRows.push(
         <AnimatingTeamRow
           component={TeamRow}
           key={status.teamId}
@@ -381,14 +379,9 @@ class StandingsTable extends React.Component {
           pinned={pinnedTeamIdSet.has(status.teamId)}
           onClickPin={() => this.handleClickPin(status.teamId)}
           revealMode={revealMode}
-          revealState={status.revealState}
-          firstRevealFinalized={firstRevealFinalized}
-          zIndex={zIndex}
+          zIndex={9999 - index}
         />
       );
-    });
-    if (revealMode && !seenRevealFinalized) {
-      normalRows.push(<li className="team-row" style={{ zIndex: 10000 }}><RevealMarker /></li>);
     }
     const pinnedStandings = standings.filter(
       (status) => pinnedTeamIdSet.has(status.teamId));
@@ -411,13 +404,13 @@ class StandingsTable extends React.Component {
     });
     return (
       <div className="standings">
-        <ul className="list-unstyled">
+        <div className="standings-section list-unstyled">
           <LegendRow problems={problems} />
-        </ul>
-        <ul className="list-unstyled">
+        </div>
+        <div className="standings-section list-unstyled">
           {stickyRows}
-        </ul>
-        <AnimatingList className="list-unstyled">
+        </div>
+        <AnimatingList className="standings-section list-unstyled">
           {normalRows}
         </AnimatingList>
       </div>
