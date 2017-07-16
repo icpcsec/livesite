@@ -223,29 +223,6 @@ a.no-decoration {
 
 /*******************************************************************************
  *
- *  Team Table
- *
- */
-
-.team-table .team-row > td {
-  vertical-align: middle;
-}
-
-.team-table .team-row .team-photo {
-  float: left;
-  width: 120px;
-  margin-right: 8px;
-}
-
-.team-table .team-row .team-member-icon {
-  float: left;
-  width: 40px;
-  margin-right: 8px;
-}
-
-
-/*******************************************************************************
- *
  *  Team Info
  *
  */
