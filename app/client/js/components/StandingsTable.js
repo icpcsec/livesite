@@ -5,6 +5,7 @@ import { sprintf } from 'sprintf-js';
 
 import { tr } from '../i18n';
 import * as siteconfig from '../siteconfig';
+import TimerSet from '../utils/TimerSet';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -241,32 +242,15 @@ class AnimatingTeamRow extends React.Component {
   constructor(props) {
     super(props);
     this.state = { rankHidden: false, newSolved: false };
-    this._timers = new Set();
-  }
-
-  setTimeout(callback, timeout) {
-    const timer = setTimeout(() => {
-      if (this._timers.has(timer)) {
-        this._timers.delete(timer);
-        callback();
-      }
-    }, timeout);
-    this._timers.add(timer);
-  }
-
-  clearTimeouts() {
-    this._timers.forEach((timer) => {
-      clearTimeout(timer);
-    });
-    this._timers.clear();
+    this._timers = new TimerSet();
   }
 
   animateForNewSolve() {
     this.setState({ rankHidden: true, newSolved: true });
-    this.setTimeout(() => {
+    this._timers.setTimeout(() => {
       this.setState({ newSolved: false });
     }, this.props.revealMode ? 4000 : 9000);
-    this.setTimeout(() => {
+    this._timers.setTimeout(() => {
       this.setState({ rankHidden: false });
     }, 4000);
   }
@@ -278,7 +262,7 @@ class AnimatingTeamRow extends React.Component {
   }
 
   componentWillUnmount() {
-    this.clearTimeouts();
+    this._timers.clearTimeouts();
   }
 
   render() {
@@ -292,12 +276,22 @@ class AnimatingTeamRow extends React.Component {
 }
 
 class AnimatingList extends React.Component {
+  constructor(props) {
+    super(props);
+    this._timers = new TimerSet();
+  }
+
   componentWillUpdate() {
     const rows = Array.from(this._dom.children);
+
+    // Cancel all animations.
+    this._timers.clearTimeouts();
     rows.forEach((row) => {
       row.classList.remove('animating');
-      row.style.transform = undefined;
+      row.style.transform = null;
     });
+
+    // Record the previous row positions.
     this._lastKeyToOffsetTop = new Map();
     rows.forEach((row, i) => {
       const child = this.props.children[i];
@@ -307,12 +301,15 @@ class AnimatingList extends React.Component {
 
   componentDidUpdate() {
     const rows = Array.from(this._dom.children);
+
+    // Currently all rows are in the final position. Record all positions.
     const currentKeyToOffsetTop = new Map();
     rows.forEach((row, i) => {
       const child = this.props.children[i];
       currentKeyToOffsetTop.set(child.key, row.offsetTop);
     });
-    const rels = new Map();
+
+    // Schedule animations.
     rows.forEach((row, i) => {
       const child = this.props.children[i];
       const currentOffsetTop = currentKeyToOffsetTop.get(child.key);
@@ -321,27 +318,25 @@ class AnimatingList extends React.Component {
         this._lastKeyToOffsetTop.get(child.key) :
         currentOffsetTop;
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
-      rels[child.key] = relativeOffsetTop;
-      if (relativeOffsetTop != 0) {
+      if (relativeOffsetTop !== 0) {
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
-        if (row.classList.contains('reveal-row')) {
-          setTimeout(() => { row.classList.add('animating'); }, 0);
-          setTimeout(() => { row.style.transform = 'translate(0, 0)'; }, 0);
-          setTimeout(() => { row.classList.remove('animating'); }, 500);
-        } else {
-          setTimeout(() => { row.classList.add('animating'); }, 0);
-          setTimeout(() => { row.style.transform = 'translate(0, 0)'; }, 1000);
-          setTimeout(() => { row.classList.remove('animating'); }, 1000 + 3000);
-        }
+        const animationDelay = row.classList.contains('reveal-row') ? 0 : 1000;
+        this._timers.setTimeout(() => {
+          row.classList.add('animating');
+          row.style.transform = 'translate(0, 0)';
+        }, animationDelay);
       }
     });
   }
 
+  componentWillUnmount() {
+    this._timers.clearTimeouts();
+  }
+
   render() {
-    const { children, style, ...rest } = this.props;
-    const rewrittenStyle = Object.assign({}, style, {position: 'relative'});
+    const { children, ...rest } = this.props;
     return (
-      <div style={rewrittenStyle} {...rest} ref={(dom) => { this._dom = dom; }}>
+      <div {...rest} ref={(dom) => { this._dom = dom; }}>
         {children}
       </div>
     );
