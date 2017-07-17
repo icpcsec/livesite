@@ -69,6 +69,7 @@ a.no-decoration {
 
 .standings {
   position: relative;
+  flex-grow: 1;
 }
 
 .standings .standings-section .reveal-row {
@@ -98,11 +99,11 @@ a.no-decoration {
 
 .standings .standings-section .team-row {
   position: relative;
-  transition: background-color 1s linear;
   display: flex;
-  align-items: center;
+  align-items: stretch;
   border-bottom: 1px solid #ddd;
   line-height: 1.3;
+  transition: background-color 1s linear;
 }
 
 .standings .standings-section .team-row:last-child {
@@ -130,7 +131,7 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-problems {
-  flex-grow: 1;
+  flex: 1 0 0;
   display: flex;
 }
 
@@ -140,7 +141,7 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-col.team-mark {
-  width: 20px;
+  flex: 0 0 20px;
   padding: 6px 2px 4px;
   text-align: center;
   user-select: none;
@@ -155,42 +156,41 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-col.team-rank {
-  width: 32px;
+  flex: 0 0 32px;
   text-align: center;
 }
 
 .standings .standings-section .team-row .team-col.team-name {
-  width: 240px;
+  flex: 0 1 240px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .standings .standings-section .team-row .team-col.team-solved {
-  width: 48px;
+  flex: 0 0 48px;
   text-align: center;
 }
 
 .standings .standings-section .team-row .team-col.team-penalty {
-  width: 48px;
+  flex: 0 0 48px;
   text-align: center;
 }
 
 .standings .standings-section .team-row .team-col.team-score {
-  width: 64px;
+  flex: 0 0 64px;
   text-align: center;
 }
 
 .standings .standings-section .team-row .team-col.team-members {
-  flex-grow: 1;
+  flex: 1 0 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .standings .standings-section .team-row .team-col.team-problem {
-  flex-basis: 0;
-  flex-grow: 1;
+  flex: 1 0 0;
   text-align: center;
 }
 
