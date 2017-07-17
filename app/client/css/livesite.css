@@ -136,6 +136,8 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-col {
+  display: flex;
+  align-items: center;
   padding: 5px 3px;
   position: relative;
 }
@@ -143,6 +145,7 @@ a.no-decoration {
 .standings .standings-section .team-row .team-col.team-mark {
   flex: 0 0 20px;
   padding: 6px 2px 4px;
+  justify-content: center;
   text-align: center;
   user-select: none;
 }
@@ -157,6 +160,7 @@ a.no-decoration {
 
 .standings .standings-section .team-row .team-col.team-rank {
   flex: 0 0 32px;
+  justify-content: center;
   text-align: center;
 }
 
@@ -169,16 +173,18 @@ a.no-decoration {
 
 .standings .standings-section .team-row .team-col.team-solved {
   flex: 0 0 48px;
-  text-align: center;
+  justify-content: center;
 }
 
 .standings .standings-section .team-row .team-col.team-penalty {
   flex: 0 0 48px;
+  justify-content: center;
   text-align: center;
 }
 
 .standings .standings-section .team-row .team-col.team-score {
   flex: 0 0 64px;
+  justify-content: center;
   text-align: center;
 }
 
@@ -191,6 +197,7 @@ a.no-decoration {
 
 .standings .standings-section .team-row .team-col.team-problem {
   flex: 1 0 0;
+  justify-content: center;
   text-align: center;
 }
 

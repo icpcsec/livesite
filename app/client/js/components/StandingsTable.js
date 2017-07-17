@@ -44,12 +44,14 @@ class TeamGenericCol extends React.Component {
 const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
     <div className="team-col team-problem">
-      <span title={title}>
-        {label}
-      </span>
-      <span className="team-problem-flag">
-        <span className="glyphicon glyphicon-flag" style={{ color }} />
-      </span>
+      <div>
+        <span title={title}>
+          {label}
+        </span>
+        <span className="team-problem-flag">
+          <span className="glyphicon glyphicon-flag" style={{ color }} />
+        </span>
+      </div>
     </div>
   );
 };
