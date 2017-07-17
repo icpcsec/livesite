@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import shallowCompare from 'react-addons-shallow-compare';
+import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
 
 import { tr } from '../i18n';
@@ -25,13 +25,20 @@ const achievementColor = (solved, numProblems) => {
   return `hsl(${hue}, 80%, 55%)`;
 };
 
-const GenericTeamCol = ({ text, small, to, className = '', ...rest }) => {
-  const rewrittenClassName = 'team-col ' + className;
-  const content = <span>{text}<br /><small>{small}</small></span>;
-  const inner =
-      to ? <Link to={to} className="no-decoration">{content}</Link> : content;
-  return <div className={rewrittenClassName} {...rest}>{inner}</div>;
-};
+class TeamGenericCol extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return deepCompare(this, nextProps, nextState);
+  }
+
+  render() {
+    const { text, small, to, className = '', ...rest } = this.props;
+    const rewrittenClassName = 'team-col ' + className;
+    const content = <span>{text}<br /><small>{small}</small></span>;
+    const inner =
+        to ? <Link to={to} className="no-decoration">{content}</Link> : content;
+    return <div className={rewrittenClassName} {...rest}>{inner}</div>;
+  }
+}
 
 const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   return (
@@ -46,16 +53,23 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
   );
 };
 
-const LegendProblemCols = ({ problems }) => {
-  const problemCols = problems.map((problem, i) => (
-    <LegendProblemCol key={i} problem={problem} />
-  ));
-  return (
-    <div className="team-problems">
-      { problemCols }
-    </div>
-  );
-};
+class LegendProblemCols extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return deepCompare(this, nextProps, nextState);
+  }
+
+  render() {
+    const { problems } = this.props;
+    const problemCols = problems.map((problem, i) => (
+      <LegendProblemCol key={i} problem={problem} />
+    ));
+    return (
+      <div className="team-problems">
+        { problemCols }
+      </div>
+    );
+  }
+}
 
 const LegendRow = ({ problems }) => {
   return (
@@ -181,9 +195,9 @@ const TeamRow = (props) => {
     <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
       <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
       <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
-      <GenericTeamCol className="team-rank" text={rank} />
+      <TeamGenericCol className="team-rank" text={rank} />
       <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
-      <GenericTeamCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
+      <TeamGenericCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
       <TeamProblemCols problems={problems} />
     </div>
   );
