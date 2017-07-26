@@ -131,7 +131,7 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-problems {
-  flex: 1 0 0;
+  flex: 1 0 0px;
   display: flex;
 }
 
@@ -189,14 +189,14 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-col.team-members {
-  flex: 1 0 0;
+  flex: 1 0 0px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .standings .standings-section .team-row .team-col.team-problem {
-  flex: 1 0 0;
+  flex: 1 0 0px;
   justify-content: center;
   text-align: center;
 }
