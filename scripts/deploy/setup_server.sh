@@ -19,6 +19,7 @@ if ! dpkg -l docker-engine > /dev/null 2>&1; then
   echo "deb https://apt.dockerproject.org/repo debian-jessie main" | sudo tee /etc/apt/sources.list.d/docker.list
   sudo apt-get update
   sudo apt-get install -y docker-engine < /dev/null
+  sudo gpasswd -a $USER docker
 fi
 
 if [[ ! -f /usr/local/bin/docker-compose ]]; then

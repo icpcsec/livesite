@@ -14,7 +14,9 @@ Requirements
 ------------
 
 - GNU make
-- Docker (`sudo` is automatically used to run docker commands)
+- Python 2.7
+- Docker (should be able to run docker commands as the current user)
+- docker-compose (install by: pip install --user docker-compose)
 
 How to run locally
 ------------------

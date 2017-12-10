@@ -12,12 +12,10 @@ distclean:
 	$(MAKE) -C app distclean
 
 up: dev-image
-	third_party/docker-compose/ensure_download.sh
-	sudo third_party/docker-compose/docker-compose -f compose/dev.yaml -p livesite up --remove-orphans
+	python -m compose -f compose/dev.yaml -p livesite up --remove-orphans
 
 down:
-	third_party/docker-compose/ensure_download.sh
-	sudo third_party/docker-compose/docker-compose -f compose/dev.yaml -p livesite down --remove-orphans --volumes
+	python -m compose -f compose/dev.yaml -p livesite down --remove-orphans --volumes
 
 dev-image:
 	$(MAKE) -C app dev-image

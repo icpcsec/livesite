@@ -32,7 +32,7 @@ _watchify:
 	cd client && node_modules/.bin/watchify js/index.js -t $(BROWSERIFY_TRANSFORM_ARGS) -d -o /tmp/livesite/bundle.js -v
 
 build/dev/.image.stamp: build/dev/.stamp
-	sudo docker build -t asia.gcr.io/icpcsec/livesite-app:dev build/dev
+	docker build -t asia.gcr.io/icpcsec/livesite-app:dev build/dev
 	touch $@
 
 build/dev/.stamp: build/dev/static/.stamp build/dev/livesite build/dev/bin build/dev/requirements.txt build/dev/Dockerfile build/dev/siteconfig.yaml
@@ -77,7 +77,7 @@ build/dev/siteconfig.yaml:
 	ln -s ../../siteconfig/dev.yaml $@
 
 build/prod/.image.stamp: build/prod/.stamp
-	sudo docker build -t asia.gcr.io/icpcsec/livesite-app:latest build/prod
+	docker build -t asia.gcr.io/icpcsec/livesite-app:latest build/prod
 	touch $@
 
 build/prod/.stamp: build/dev/.stamp build/prod/Dockerfile build/prod/siteconfig.yaml build/prod/static/assets/livesite/js/bundle.js
