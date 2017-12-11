@@ -146,13 +146,17 @@ const TeamInfo = ({ team, ratings }) => {
         null
       }
       {memberElements}
-      <div>
-        <Link to={`/team/${team.id}/edit`}>
-          <button className="btn btn-primary btn-raised pull-right">
-            {tr('Edit', '編集')}
-          </button>
-        </Link>
-      </div>
+      {
+        siteconfig.features.self_edit ?
+        <div>
+          <Link to={`/team/${team.id}/edit`}>
+            <button className="btn btn-primary btn-raised pull-right">
+              {tr('Edit', '編集')}
+            </button>
+          </Link>
+        </div> :
+        null
+      }
     </div>
   );
 };

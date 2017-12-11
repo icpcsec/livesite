@@ -77,6 +77,9 @@ def api_generic_json_with_ts_handler(name, ts_time, ts_inc):
 
 @bottle.post('/api/ui/update_team')
 def api_ui_update_team_handler():
+    if not siteconfig.data['features']['self_edit']:
+        return respond_with_json({'ok': False, 'message': 'Self edit disabled.'})
+
     team_id = bottle.request.forms['id']
     password = bottle.request.forms['password']
 
@@ -147,7 +150,7 @@ def api_ui_update_team_handler():
         update['$set'][entity_key] = 'https://%s.storage.googleapis.com/%s' % (
             siteconfig.data['server']['gcs_bucket_name'], upload_path)
 
-    if siteconfig.data['features']['photo_upload']:
+    if siteconfig.data['features']['self_photo_upload']:
         process_photo_upload(
             'teamPhotoFile',
             'removePhoto',

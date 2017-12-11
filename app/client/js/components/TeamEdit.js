@@ -215,7 +215,7 @@ const TeamEditPanel = ({ team: { name, university, country, prefecture, photo },
             null
           }
           {
-            siteconfig.features.photo_upload ?
+            siteconfig.features.self_photo_upload ?
             <div>
               <PhotoFormItem
                 label={tr('Team Photo', 'チーム写真')}

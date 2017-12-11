@@ -2,16 +2,17 @@
 
 # This section is exposed to users.
 features:
-  country: false
-  prefecture: true
-  photo: false
-  photo_upload: false
+  country: true
+  prefecture: false
+  photo: true
+  self_edit: false
+  self_photo_upload: false
   icon: false
   use_icons_as_photo: false
 
 # This section is exposed to users.
 ui:
-  lang: ja
+  lang: en
   photo_aspect_ratio: "9/16"
   comment_chars: 140
   streaming_nicolive_id: null

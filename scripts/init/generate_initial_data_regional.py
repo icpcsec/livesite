@@ -16,6 +16,7 @@ gflags.DEFINE_integer('freeze_time', None, '')
 gflags.DEFINE_integer('end_time', None, '')
 gflags.DEFINE_string('teams_csv', None, '')
 gflags.DEFINE_string('output_dir', None, '')
+gflags.DEFINE_bool('enable_members', False, '')
 gflags.MarkFlagAsRequired('title')
 gflags.MarkFlagAsRequired('start_time')
 gflags.MarkFlagAsRequired('freeze_time')
@@ -31,7 +32,7 @@ def main(unused_argv):
         for team in csv_in:
             for key in team:
                 team[key] = team[key].decode('utf-8')
-            if team['password_web'] not in ('', '-'):
+            if not FLAGS.enable_members or team['password_web'] not in ('', '-'):
                 teams.append(team)
 
     # contest.json
@@ -79,7 +80,7 @@ def main(unused_argv):
                 'githubId': '',
                 'topcoderId': '',
                 'twitterId': '',
-            } for i in xrange(3)],
+            } for i in xrange(3 if FLAGS.enable_members else 0)],
             'photo': '/images/default-photo-regional.png',
         }
         for team in teams
@@ -104,10 +105,13 @@ def main(unused_argv):
         json.dump(standings_data, f, indent=2, sort_keys=True)
 
     # auth.json
-    auth_data = {
-        team['id']: sha256_crypt.encrypt(team['password_web'], rounds=1000)
-        for team in teams
-    }
+    if not FLAGS.enable_members:
+        auth_data = {}
+    else:
+        auth_data = {
+            team['id']: sha256_crypt.encrypt(team['password_web'], rounds=1000)
+            for team in teams
+        }
     with open(os.path.join(FLAGS.output_dir, 'auth.json'), 'w') as f:
         json.dump(auth_data, f, indent=2, sort_keys=True)
 
