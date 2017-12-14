@@ -15,6 +15,7 @@ gflags.DEFINE_integer('start_time', None, '')
 gflags.DEFINE_integer('freeze_time', None, '')
 gflags.DEFINE_integer('end_time', None, '')
 gflags.DEFINE_string('teams_csv', None, '')
+gflags.DEFINE_string('problems_csv', None, '')
 gflags.DEFINE_string('output_dir', None, '')
 gflags.DEFINE_bool('enable_members', False, '')
 gflags.MarkFlagAsRequired('title')
@@ -22,6 +23,7 @@ gflags.MarkFlagAsRequired('start_time')
 gflags.MarkFlagAsRequired('freeze_time')
 gflags.MarkFlagAsRequired('end_time')
 gflags.MarkFlagAsRequired('teams_csv')
+gflags.MarkFlagAsRequired('problems_csv')
 gflags.MarkFlagAsRequired('output_dir')
 
 
@@ -35,6 +37,10 @@ def main(unused_argv):
             if not FLAGS.enable_members or team['password_web'] not in ('', '-'):
                 teams.append(team)
 
+    problems = []
+    with open(FLAGS.problems_csv) as raw_in:
+        problems = list(csv.DictReader(raw_in))
+
     # contest.json
     contest_data = {
         'title': FLAGS.title.decode('utf-8'),
@@ -43,23 +49,7 @@ def main(unused_argv):
             'freeze': FLAGS.freeze_time,
             'end': FLAGS.end_time,
         },
-        'problems': [
-            {
-                'color': '#ff0000',
-                'name': 'Problem A',
-                'label': 'A',
-            },
-            {
-                'color': '#00ff00',
-                'name': 'Problem B',
-                'label': 'B',
-            },
-            {
-                'color': '#0000ff',
-                'name': 'Problem C',
-                'label': 'C',
-            },
-        ],
+        'problems': problems,
     }
     with open(os.path.join(FLAGS.output_dir, 'contest.json'), 'w') as f:
         json.dump(contest_data, f, indent=2, sort_keys=True)
@@ -99,7 +89,7 @@ def main(unused_argv):
             'attempts': 0,
             'pendings': 0,
             'penalty': 0,
-        } for _ in xrange(3)],
+        } for _ in problems],
     } for team in sorted(teams, key=lambda t: (t['university'], t['name']))]
     with open(os.path.join(FLAGS.output_dir, 'standings.json'), 'w') as f:
         json.dump(standings_data, f, indent=2, sort_keys=True)
