@@ -19,21 +19,17 @@ import requests.exceptions
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('source_domjudge_url', None, '')
-gflags.DEFINE_integer('cid', None, '')
 gflags.DEFINE_string('livesite_url', None, 'Livesite URL')
 gflags.DEFINE_string('api_key', None, 'API key')
 gflags.DEFINE_string('history_dir', None, 'The path to historical data.')
 gflags.DEFINE_integer('sync_interval', None, 'Sync interval in seconds.')
-gflags.DEFINE_string('teams_csv', None, 'Path to teams.csv.')
 gflags.DEFINE_bool('logtostderr', True, 'Log to stderr.')
 gflags.DEFINE_bool('logtosyslog', True, 'Log to syslog.')
 gflags.MarkFlagAsRequired('source_domjudge_url')
-gflags.MarkFlagAsRequired('cid')
 gflags.MarkFlagAsRequired('livesite_url')
 gflags.MarkFlagAsRequired('api_key')
 gflags.MarkFlagAsRequired('history_dir')
 gflags.MarkFlagAsRequired('sync_interval')
-gflags.MarkFlagAsRequired('teams_csv')
 
 
 def setup_logging():
@@ -71,7 +67,7 @@ def fetch_standings():
     return response.text
 
 
-def parse_standings(html, team_map):
+def parse_standings(html):
     doc = bs4.BeautifulSoup(html, 'html5lib')
     scoreboard_elem = doc.select('table.scoreboard')[0]
     out_teams = []
@@ -108,10 +104,7 @@ def parse_standings(html, team_map):
         else:
             rank = last_rank
         name_university = team_elem.select('.scoretn')[0].get_text().strip()
-        tid, name, university = team_map.get(name_university, (None, None, None))
-        if tid is None:
-            print >>sys.stderr, 'unknown name_university: %s' % name_university
-            continue
+        tid = int(name_university.split(':', 1)[0], 10)
         solved = int(team_elem.select('.scorenc')[0].get_text().strip())
         penalty = int(team_elem.select('.scorett')[0].get_text().strip())
         out_teams.append({
@@ -138,8 +131,7 @@ def upload_standings_json(standings):
 
 
 class SyncJob(object):
-    def __init__(self, team_map):
-        self._team_map = team_map
+    def __init__(self):
         self._last_hash = None
 
     def __call__(self):
@@ -152,7 +144,7 @@ class SyncJob(object):
             return
         with open(os.path.join(FLAGS.history_dir, 'standings.%d.html' % timestamp), 'w') as out:
             out.write(html.encode('utf-8'))
-        standings = parse_standings(html, self._team_map)
+        standings = parse_standings(html)
         if not standings:
             logging.error('Failed to parse the standings HTML!')
             return
@@ -174,15 +166,9 @@ def main(unused_argv):
     except OSError:
         pass
 
-    team_map = {}
-    with open(FLAGS.teams_csv) as f:
-        for row in csv.DictReader(f):
-            team_map[(row['name'] + row['university'])] = (
-                int(row['id']), row['name'], row['university'])
-
     sched = apscheduler.scheduler.Scheduler(standalone=True)
     sched.add_interval_job(
-        SyncJob(team_map),
+        SyncJob(),
         seconds=FLAGS.sync_interval,
         start_date=datetime.datetime.now() + datetime.timedelta(seconds=3))
     sched.start()
