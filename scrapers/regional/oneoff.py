@@ -15,16 +15,14 @@ import gflags
 FLAGS = gflags.FLAGS
 
 gflags.DEFINE_string('standings_html', None, '')
-gflags.DEFINE_string('teams_csv', None, 'Path to teams.csv.')
 gflags.MarkFlagAsRequired('standings_html')
-gflags.MarkFlagAsRequired('teams_csv')
 
 
 def json_dump(data):
     return json.dumps(data, sort_keys=True, separators=(',', ':'))
 
 
-def parse_standings(html, team_map):
+def parse_standings(html):
     doc = bs4.BeautifulSoup(html, 'html5lib')
     scoreboard_elem = doc.select('table.scoreboard')[0]
     out_teams = []
@@ -61,10 +59,7 @@ def parse_standings(html, team_map):
         else:
             rank = last_rank
         name_university = team_elem.select('.scoretn')[0].get_text().strip()
-        tid, name, university = team_map.get(name_university, (None, None, None))
-        if tid is None:
-            print >>sys.stderr, 'unknown name_university: %s' % name_university
-            continue
+        tid = int(name_university.split(':', 1)[0], 10)
         solved = int(team_elem.select('.scorenc')[0].get_text().strip())
         penalty = int(team_elem.select('.scorett')[0].get_text().strip())
         out_teams.append({
@@ -78,15 +73,9 @@ def parse_standings(html, team_map):
 
 
 def main(unused_argv):
-    team_map = {}
-    with open(FLAGS.teams_csv) as f:
-        for row in csv.DictReader(f):
-            team_map[(row['name'] + row['university'])] = (
-                int(row['id']), row['name'], row['university'])
-
     with open(FLAGS.standings_html) as f:
         html = f.read()
-    standings = parse_standings(html, team_map)
+    standings = parse_standings(html)
     print json_dump(standings)
 
 
