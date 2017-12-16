@@ -77,13 +77,14 @@ class StandingsRevealTable extends React.Component {
       $marker.length > 0 ?
       $marker.offset().top - $(window).height() * 2 / 3 :
       1000000;
-    $('body').animate({ scrollTop }, 500);
     this._scrolling = true;
-    setTimeout(() => { this._scrolling = false; }, 500);
+    $('html, body').animate({ scrollTop }, 500, () => {
+      this._scrolling = false;
+    });
   }
 
   onKeyDown(e) {
-    if (this._scrolling || $('.animating').length > 0) {
+    if (this._scrolling) {
       return;
     }
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
