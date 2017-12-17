@@ -59,7 +59,12 @@ def parse_standings(html):
         else:
             rank = last_rank
         name_university = team_elem.select('.scoretn')[0].get_text().strip()
-        tid = int(name_university.split(':', 1)[0], 10)
+        try:
+            tid = int(name_university.split(':', 1)[0], 10)
+        except ValueError:
+            continue
+        if tid == 0:
+            continue
         solved = int(team_elem.select('.scorenc')[0].get_text().strip())
         penalty = int(team_elem.select('.scorett')[0].get_text().strip())
         out_teams.append({
