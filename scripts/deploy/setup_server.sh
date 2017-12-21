@@ -7,9 +7,7 @@ fi
 
 cd "$(dirname "$0")/../.."
 
-third_party/google-cloud-sdk/ensure_download.sh
-
-third_party/google-cloud-sdk/bin/gcloud compute ssh "$@" --command='
+gcloud compute ssh "$@" --command='
 set -ex
 
 if ! dpkg -l docker-ce > /dev/null 2>&1; then
