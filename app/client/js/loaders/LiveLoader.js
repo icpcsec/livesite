@@ -57,25 +57,30 @@ class LiveLoader {
       this._store.dispatch(updateRealtime(false));
       return;
     }
-    const ws = new WebSocket('ws://' + location.host + '/ws/realtime');
-    ws.onopen = (e) => {
-      this._ws = ws;
-      ws.onmessage = (e) => {
-        this.onRealtimeMessage(JSON.parse(e.data));
+    try {
+      const ws = new WebSocket('ws://' + location.host + '/ws/realtime');
+      ws.onopen = (e) => {
+        this._ws = ws;
+        ws.onmessage = (e) => {
+          this.onRealtimeMessage(JSON.parse(e.data));
+        };
+        ws.onclose = ws.onerror = (e) => {
+          ws.onerror = ws.onclose = undefined;
+          this._ws = null;
+          setTimeout(() => this.attemptWebSocket(), 10 * 1000);
+          this._store.dispatch(updateRealtime(false));
+        };
+        this._store.dispatch(updateRealtime(true));
       };
-      ws.onclose = ws.onerror = (e) => {
+      ws.onerror = (e) => {
         ws.onerror = ws.onclose = undefined;
-        this._ws = null;
-        setTimeout(() => this.attemptWebSocket(), 10 * 1000);
+        setTimeout(() => this.attemptWebSocket(), 3 * 60 * 1000);
         this._store.dispatch(updateRealtime(false));
       };
-      this._store.dispatch(updateRealtime(true));
-    };
-    ws.onerror = (e) => {
-      ws.onerror = ws.onclose = undefined;
-      setTimeout(() => this.attemptWebSocket(), 3 * 60 * 1000);
+    } catch (e) {
+      console.error(e);
       this._store.dispatch(updateRealtime(false));
-    };
+    }
   }
 
   onRealtimeMessage(data) {
