@@ -10,4 +10,32 @@ LiveSite
 \_____/_| \_/ \___\____/|_|\__\___|
 ```
 
-Documents to coming soon...
+
+Prerequisites
+-------------
+
+- Node.js
+
+
+How to run locally
+------------------
+
+Initial setup:
+
+```
+$ npm install  # install dependencies
+$ node_modules/.bin/firebase login  # optional; if write-access is needed
+```
+
+Build the JS bundle:
+
+```
+$ npm run build  # one-off production build, or
+$ npm run watch  # continuous debug build
+```
+
+Run the development server:
+
+```
+$ npm run serve
+```
