@@ -1,5 +1,5 @@
 const standings = (standings = [], action) => {
-  if (action.type == 'UPDATE_STANDINGS') {
+  if (action.type === 'UPDATE_STANDINGS') {
     return action.standings;
   }
   return standings;

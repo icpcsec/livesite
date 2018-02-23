@@ -26,6 +26,6 @@ class LoadingPage extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default LoadingPage;

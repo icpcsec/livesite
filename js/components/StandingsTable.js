@@ -18,7 +18,7 @@ const achievementColor = (solved, numProblems) => {
   // HACK: Assume 8 problems if there is no problem settings.
   const actualNumProblems = numProblems || 8;
 
-  if (solved == 0) {
+  if (solved === 0) {
     return '#eee';
   }
   // Range is 180...-90
@@ -258,7 +258,7 @@ class AnimatingTeamRow extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.status.solved != prevProps.status.solved) {
+    if (this.props.status.solved !== prevProps.status.solved) {
       this.animateForNewSolve();
     }
   }
@@ -363,7 +363,7 @@ class StandingsTable extends React.Component {
           ((index + 1 < standings.length &&
             status.revealState !== 'finalized' &&
             standings[index + 1].revealState === 'finalized') ||
-           (index == standings.length - 1 &&
+           (index === standings.length - 1 &&
             status.revealState !== 'finalized'));
       if (revealCurrent) {
         // FIXME: Reveal marker broken

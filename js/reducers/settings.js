@@ -6,7 +6,9 @@ const updateSettings = (settings) => {
     if (serialized) {
       try {
         settings = JSON.parse(serialized);
-      } catch (e) {}
+      } catch (e) {
+        // Ignore corrupted settings.
+      }
     }
     if (settings.version === undefined) {
       settings = { version: 0 };
@@ -36,7 +38,7 @@ const updateSettings = (settings) => {
 
 const settings = (settings = {}, action) => {
   settings = updateSettings(settings);
-  if (action.type == 'UPDATE_SETTINGS') {
+  if (action.type === 'UPDATE_SETTINGS') {
     settings = applyPartialUpdate(settings, action.settingsUpdate);
   }
   return settings;

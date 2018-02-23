@@ -23,8 +23,13 @@ class Persist {
     if (serialized) {
       try {
         const settings = JSON.parse(serialized);
-        store.dispatch({ type: 'LOAD', update: { settings: {$set: settings} } });
-      } catch(e) {}
+        store.dispatch({
+          type: 'LOAD',
+          update: { settings: { $set: settings } },
+        });
+      } catch(e) {
+        // Ignore corrupted settings.
+      }
     }
     store.subscribe(() => this.onStateChanged(store));
   }
@@ -41,7 +46,7 @@ class Persist {
       this._lastSettings = settings;
     }
   }
-};
+}
 
 const createPersist = () => new Persist();
 

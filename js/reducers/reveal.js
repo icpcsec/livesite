@@ -6,9 +6,9 @@ const DEFAULT_REVEAL = {
 };
 
 const reveal = (reveal = DEFAULT_REVEAL, action) => {
-  if (action.type == 'SET_REVEAL_STANDINGS_INDEX') {
+  if (action.type === 'SET_REVEAL_STANDINGS_INDEX') {
     return applyPartialUpdate(reveal, { standingsIndex: { $set: action.index }});
-  } else if (action.type == 'SET_REVEAL_STANDINGS_LIST') {
+  } else if (action.type === 'SET_REVEAL_STANDINGS_LIST') {
     return { standingsList: action.standingsList, standingsIndex: 0 };
   }
   return reveal;

@@ -22,7 +22,7 @@ class StandingsUploadForm extends React.Component {
     });
     Promise.all(promises).then((jsonList) => {
       let standingsList;
-      if (jsonList.length == 1 && jsonList[0].reveal) {
+      if (jsonList.length === 1 && jsonList[0].reveal) {
         standingsList = jsonList[0].reveal;
       } else {
         jsonList.sort((a, b) => (a.index - b.index));
@@ -88,10 +88,10 @@ class StandingsRevealTable extends React.Component {
       return;
     }
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-      if (e.keyCode == 39) {  // ArrowRight
+      if (e.keyCode === 39) {  // ArrowRight
         this.props.setStandingsIndex(
           Math.min(this.props.standingsIndex + 1, this.props.numStandings - 1));
-      } else if (e.keyCode == 37) {  // ArrowLeft
+      } else if (e.keyCode === 37) {  // ArrowLeft
         this.props.setStandingsIndex(
           Math.max(this.props.standingsIndex - 1, 0));
       }
@@ -103,7 +103,7 @@ class StandingsRevealTable extends React.Component {
   }
 
   render() {
-    return this.props.standings.length == 0 ?
+    return this.props.standings.length === 0 ?
       <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} /> :
       <StandingsTable revealMode={true} standings={this.props.standings} {...this.props} />;
   }

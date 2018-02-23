@@ -2,45 +2,23 @@ env:
   browser: true
   es6: true
   jquery: true
-  webextensions: true
-extends: 'eslint:recommended'
+plugins:
+  - react
+extends:
+  - 'eslint:recommended'
+  - 'plugin:react/recommended'
 parserOptions:
   ecmaFeatures:
     experimentalObjectRestSpread: true
     jsx: true
   sourceType: module
-plugins:
-  - react
 rules:
-  indent:
-    - error
-    - 2
-    - SwitchCase: 1
-  linebreak-style:
-    - error
-    - unix
-  quotes:
-    - error
-    - single
-  semi:
-    - error
-    - always
+  no-console:
+    - off
   no-unused-vars:
     - error
     - args: none
-  no-new-object:
-    - error
-  no-array-constructor:
-    - error
-  no-new-wrappers:
-    - error
-  no-multi-str:
-    - error
-  no-with:
-    - error
-  react/jsx-uses-react:
-    - error
-  react/jsx-uses-vars:
-    - error
-  no-console:
-    - off
+  react/prop-types:  # TODO: enable
+    - warn
+  react/no-deprecated:  # TODO: enable
+    - warn

@@ -1,14 +1,13 @@
 import React from 'react';
-import { Link, IndexLink } from 'react-router';
+import { Link } from 'react-router';
 import { sprintf } from 'sprintf-js';
 import { tr } from '../i18n';
-import siteconfig from '../siteconfig';
 
 class NavLink extends React.Component {
   render() {
     const { router } = this.context;
     const { onlyActiveOnIndex = false, to, children } = this.props;
-    const disabled = !to || to.length == 0;
+    const disabled = !to || to.length === 0;
     const external = !disabled && !to.startsWith('/');
     const isActive = disabled || external ? false : router.isActive(to, onlyActiveOnIndex);
     const link =
@@ -21,7 +20,8 @@ class NavLink extends React.Component {
       </li>
     );
   }
-};
+}
+
 NavLink.contextTypes = { router: () => React.PropTypes.func.isRequired };
 
 const RealtimeIndicator = ({ realtime }) => {
@@ -63,7 +63,7 @@ class Clock extends React.Component {
   render() {
     return <p className="navbar-text clock">{this.state.text}</p>;
   }
-};
+}
 
 const NavBar = ({ contest, realtime }) => {
   return (

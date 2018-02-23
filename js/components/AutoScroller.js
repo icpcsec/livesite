@@ -47,7 +47,7 @@ class AutoScrollerImpl extends React.Component {
   render() {
     return null;
   }
-};
+}
 
 const AutoScroller = ({ enabled }) => (
   enabled ? <AutoScrollerImpl /> : <div />

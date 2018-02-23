@@ -10,5 +10,4 @@ export const printBanner = () => {
     '  Authored by @nya3jp\n' +
     '  Presented by ICPC Secretaries'
   );
-  console.log('Tips: Interested in scraping the standings? Just periodically save /api/standings.json. Please make sure to (1) handle HTTP redirects (2) limit access rate to more than 10 seconds.');
 };

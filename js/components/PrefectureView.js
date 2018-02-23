@@ -1,7 +1,5 @@
 import React from 'react';
 
-import * as constants from '../constants';
-
 class PrefectureView extends React.Component {
   componentDidMount() {
     this.refresh();
@@ -57,6 +55,6 @@ class PrefectureView extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default PrefectureView;

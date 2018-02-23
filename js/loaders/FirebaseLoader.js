@@ -1,6 +1,6 @@
 import * as firebase from 'firebase';
 
-import { markLoaded, updateRealtime, updateContest, updateStandings, updateTeams } from '../actions';
+import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
 
 const FEEDS = ['contest', 'teams', 'standings'];
 const UPDATE_FUNCS = {

@@ -1,11 +1,8 @@
-import { Buffer } from 'buffer';
 import React from 'react';
-import { Link } from 'react-router';
 
 import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
-import { tr } from '../i18n';
 import siteconfig from '../siteconfig';
 
 const MemberProfile = ({ profile, index }) => {
@@ -15,7 +12,7 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.push(
       'TopCoder: ',
       <a target="_blank"
-         href={`https:\/\/www.topcoder.com/members/${profile.topcoderId}/`}>
+         href={`https://www.topcoder.com/members/${profile.topcoderId}/`}>
         {profile.topcoderId}
       </a>,
       ', ');
@@ -24,7 +21,7 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.push(
       'CodeForces: ',
       <a target="_blank"
-         href={`http:\/\/codeforces.com/profile/${profile.codeforcesId}/`}>
+         href={`http://codeforces.com/profile/${profile.codeforcesId}/`}>
         {profile.codeforcesId}
       </a>,
       ', ');
@@ -33,7 +30,7 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.push(
       'AtCoder: ',
       <a target="_blank"
-         href={`https:\/\/atcoder.jp/user/${profile.atcoderId}/`}>
+         href={`https://atcoder.jp/user/${profile.atcoderId}/`}>
         {profile.atcoderId}
       </a>,
       ', ');
@@ -42,7 +39,7 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.push(
       'Twitter: ',
       <a target="_blank"
-         href={`https:\/\/twitter.com/${profile.twitterId}/`}>
+         href={`https://twitter.com/${profile.twitterId}/`}>
         @{profile.twitterId}
       </a>,
       ', ');
@@ -51,7 +48,7 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.push(
       'GitHub: ',
       <a target="_blank"
-         href={`https:\/\/github.com/${profile.githubId}/`}>
+         href={`https://github.com/${profile.githubId}/`}>
         {profile.githubId}
       </a>,
       ', ');
@@ -85,7 +82,8 @@ const TeamInfo = ({ team }) => {
   }
   const members = team.members || [];
   const memberElements = members.map(
-    (profile, index) => <MemberProfile profile={profile} index={index} />);
+    (profile, index) =>
+        <MemberProfile key={index} profile={profile} index={index} />);
   return (
     <div className="teaminfo">
       <div className="page-header">

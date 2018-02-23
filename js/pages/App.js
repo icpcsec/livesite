@@ -48,7 +48,8 @@ class App extends React.Component {
       </Provider>
     );
   }
-};
+}
+
 App.childContextTypes = {
   loader: () => React.PropTypes.func.isRequired,
 };
