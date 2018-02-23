@@ -4,7 +4,10 @@
   "description": "",
   "main": "js/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "serve": "firebase serve",
+    "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ] -g envify -g uglifyify",
+    "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ es2015 react ] --plugins [ transform-object-rest-spread ] ]",
+    "lint": "eslint js"
   },
   "keywords": [],
   "author": "",
