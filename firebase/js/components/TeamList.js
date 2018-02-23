@@ -7,16 +7,6 @@ import * as constants from '../constants';
 import siteconfig from '../siteconfig';
 
 const TeamPhoto = ({ photo, members }) => {
-  if (siteconfig.features.use_icons_as_photo &&
-      photo.startsWith('/') &&
-      members.some((profile) => !profile.icon.startsWith('/'))) {
-    const children = members.map(({ icon }) => (
-      <div style={{ float: 'left', width: `${100 / 3}%` }}>
-        <FixedRatioThumbnail url={icon} ratio={1 / 1} />
-      </div>
-    ));
-    return <div style={{ overflow: 'hidden' }}>{children}</div>;
-  }
   return <FixedRatioThumbnail url={photo} ratio={eval(siteconfig.ui.photo_aspect_ratio)} />
 };
 
