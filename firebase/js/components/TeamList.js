@@ -10,7 +10,7 @@ const TeamPhoto = ({ photo, members }) => {
   return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photo_aspect_ratio} />
 };
 
-const TeamItem = ({ team: { id, name, university, country, photo, members } }) => {
+const TeamItem = ({ team: { id, name, university, country, photo, members = [] } }) => {
   const displayNames = [];
   for (let profile of members) {
     const { name } = profile;

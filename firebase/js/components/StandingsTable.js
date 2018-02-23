@@ -351,7 +351,7 @@ class StandingsTable extends React.Component {
   }
 
   render() {
-    const { standings, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
+    const { standings = [], teamsMap = {}, problems = [], pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
     const universityRanks = computeUniversityRanks(standings, teamsMap);
     const normalRows = [];

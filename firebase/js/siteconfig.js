@@ -7,7 +7,7 @@ export default {
   features: {
     country: true,
     prefecture: false,
-    photo: false,
+    photo: true,
     icon: false,
   },
 };

@@ -83,7 +83,8 @@ const TeamInfo = ({ team }) => {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
-  const memberElements = team.members.map(
+  const members = team.members || [];
+  const memberElements = members.map(
     (profile, index) => <MemberProfile profile={profile} index={index} />);
   return (
     <div className="teaminfo">
