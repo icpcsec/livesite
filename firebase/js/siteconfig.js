@@ -3,7 +3,7 @@ export default {
     lang: 'ja',
     twitter_id: 'icpc2017tsukuba',
     streaming_nicolive_id: null,
-    photo_aspect_ratio: '9/16',
+    photo_aspect_ratio: 9 / 16,
   },
   features: {
     country: true,

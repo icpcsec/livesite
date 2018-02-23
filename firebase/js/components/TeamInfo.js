@@ -142,7 +142,7 @@ const TeamInfo = ({ team, ratings }) => {
       </div>
       {
         siteconfig.features.photo ?
-        <FixedRatioThumbnail url={team.photo} ratio={eval(siteconfig.ui.photo_aspect_ratio)} /> :
+        <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photo_aspect_ratio} /> :
         null
       }
       {memberElements}
