@@ -4,9 +4,9 @@ import { connect } from 'react-redux';
 import TeamInfo from '../components/TeamInfo';
 
 const mapStateToProps = (state, ownProps) => {
-  const { teams, ratings } = state;
+  const { teams } = state;
   const team = teams[ownProps.params.requestedTeamId];
-  return { team, ratings };
+  return { team };
 };
 
 const mapDispatchToProps = (dispatch) => ({});

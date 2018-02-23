@@ -8,66 +8,32 @@ import * as constants from '../constants';
 import { tr } from '../i18n';
 import siteconfig from '../siteconfig';
 
-const getRating = (ratings, key, name) => {
-  if (!ratings) {
-    return 0;
-  }
-  const nameHex = Buffer.from(name, 'utf8').toString('hex');
-  const rating = ((ratings[key] || {})[nameHex] || {}).rating;
-  return ((rating && rating > 0) ? rating : 0);
-};
-
-const MemberProfile = ({ profile, ratings, index }) => {
+const MemberProfile = ({ profile, index }) => {
   const displayName = profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
   if (profile.topcoderId) {
-    const rating = getRating(ratings, 'topcoderId', profile.topcoderId);
-    const color =
-      rating >= 2200 ? '#ee0000' :
-      rating >= 1500 ? '#ddcc00' :
-      rating >= 1200 ? '#6666ff' :
-      rating >= 900 ? '#00a900' :
-      rating > 0 ? '#999999' :
-      null;
     contactsElements.push(
       'TopCoder: ',
       <a target="_blank"
-         href={`https:\/\/www.topcoder.com/members/${profile.topcoderId}/`}
-         style={{ color }}>
+         href={`https:\/\/www.topcoder.com/members/${profile.topcoderId}/`}>
         {profile.topcoderId}
       </a>,
       ', ');
   }
   if (profile.codeforcesId) {
-    // TODO: Support 2900+ black/red coloring
-    const rating = getRating(ratings, 'codeforcesId', profile.codeforcesId);
-    const color =
-      rating >= 2400 ? '#ff0000' :
-      rating >= 2200 ? '#ff8c00' :
-      rating >= 1900 ? '#aa00aa' :
-      rating >= 1600 ? '#0000ff' :
-      rating >= 1400 ? '#03a89e' :
-      rating >= 1200 ? '#008000' :
-      rating > 0 ? '#808080' :
-      null;
     contactsElements.push(
       'CodeForces: ',
       <a target="_blank"
-         href={`http:\/\/codeforces.com/profile/${profile.codeforcesId}/`}
-         style={{ color }}>
+         href={`http:\/\/codeforces.com/profile/${profile.codeforcesId}/`}>
         {profile.codeforcesId}
       </a>,
       ', ');
   }
   if (profile.atcoderId) {
-    const rating = getRating(ratings, 'atcoderId', profile.atcoderId);
-    // TODO(nya): Implement
-    const color = null;
     contactsElements.push(
       'AtCoder: ',
       <a target="_blank"
-         href={`https:\/\/atcoder.jp/user/${profile.atcoderId}/`}
-         style={{ color }}>
+         href={`https:\/\/atcoder.jp/user/${profile.atcoderId}/`}>
         {profile.atcoderId}
       </a>,
       ', ');
@@ -113,12 +79,12 @@ const MemberProfile = ({ profile, ratings, index }) => {
   );
 };
 
-const TeamInfo = ({ team, ratings }) => {
+const TeamInfo = ({ team }) => {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
   const memberElements = team.members.map(
-    (profile, index) => <MemberProfile profile={profile} ratings={ratings} index={index} />);
+    (profile, index) => <MemberProfile profile={profile} index={index} />);
   return (
     <div className="teaminfo">
       <div className="page-header">
