@@ -1,6 +1,6 @@
 import React from 'react';
 
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 const EMBED_SCRIPT_URL_BASE = 'http://ext.live.nicovideo.jp/generateembedtag?idType=ch&width=800&height=450&v=4&autoLoad=1';
 

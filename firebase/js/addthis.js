@@ -1,4 +1,4 @@
-import * as siteconfig from './siteconfig';
+import siteconfig from './siteconfig';
 
 window.addthis_share = window.addthis_share || {};
 const addthis_share = window.addthis_share;

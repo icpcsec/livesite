@@ -8,7 +8,7 @@ import GridFlow from './GridFlow';
 import MaterialInit from './MaterialInit';
 import * as constants from '../constants';
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 const UPDATE_AGREEMENT =
   siteconfig.ui.lang === 'ja' ?

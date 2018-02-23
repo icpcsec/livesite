@@ -4,7 +4,7 @@ import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
 
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 import TimerSet from '../utils/TimerSet';
 
 const DEFAULT_TEAM = {

@@ -13,7 +13,7 @@ import { printBanner } from './banner';
 import App from './pages/App';
 import { createPersist } from './persist';
 import reducer from './reducers';
-import LiveLoader from './loaders/LiveLoader';
+import FirebaseLoader from './loaders/FirebaseLoader';
 
 const gaElement = document.getElementById('google_analytics_id');
 if (gaElement && gaElement.textContent.length > 0) {
@@ -32,7 +32,7 @@ const store = Redux.createStore(
 
 persist.start(store);
 
-const loader = new LiveLoader(store);
+const loader = new FirebaseLoader(store);
 loader.start();
 
 ReactDOM.render(

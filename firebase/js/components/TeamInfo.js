@@ -6,7 +6,7 @@ import ErrorMessage from './ErrorMessage';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 const getRating = (ratings, key, name) => {
   if (!ratings) {

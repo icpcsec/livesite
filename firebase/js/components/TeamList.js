@@ -4,7 +4,7 @@ import { Link } from 'react-router';
 import FixedRatioThumbnail from './FixedRatioThumbnail';
 import GridFlow from './GridFlow';
 import * as constants from '../constants';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 const TeamPhoto = ({ photo, members }) => {
   if (siteconfig.features.use_icons_as_photo &&

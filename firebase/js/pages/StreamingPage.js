@@ -2,7 +2,7 @@ import React from 'react';
 
 import StreamingScreenContainer from '../containers/StreamingScreenContainer';
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 const StreamingPage = () => (
   <div>

@@ -2,7 +2,7 @@ import React from 'react';
 import { Link, IndexLink } from 'react-router';
 import { sprintf } from 'sprintf-js';
 import { tr } from '../i18n';
-import * as siteconfig from '../siteconfig';
+import siteconfig from '../siteconfig';
 
 class NavLink extends React.Component {
   render() {
