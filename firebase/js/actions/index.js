@@ -46,20 +46,6 @@ export const toggleSetting = (name) => (dispatch, getState) => {
   dispatch(updateSettings(settingsUpdate));
 };
 
-export const showStreaming = (x, y) => (
-  {
-    type: 'SHOW_STREAMING',
-    x,
-    y,
-  }
-);
-
-export const hideStreaming = () => (
-  {
-    type: 'HIDE_STREAMING',
-  }
-);
-
 export const setRevealStandingsIndex = (index) => (
   {
     type: 'SET_REVEAL_STANDINGS_INDEX',
