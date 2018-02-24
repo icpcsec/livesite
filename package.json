@@ -7,7 +7,8 @@
     "serve": "firebase serve",
     "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ env react ] ] -g envify -g uglifyify",
     "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ env react ] ]",
-    "lint": "eslint js"
+    "lint": "eslint js",
+    "deploy": "npm run build && firebase deploy"
   },
   "keywords": [],
   "author": "",
