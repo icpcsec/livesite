@@ -1,3 +1,4 @@
+import axios from 'axios';
 import * as firebase from 'firebase';
 
 import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
@@ -25,14 +26,17 @@ class FirebaseLoader {
 
   start() {
     for (let feed of FEEDS) {
-      this._db.ref(`/${feed}`).on('value', (snapshot) => this.onUpdate_(feed, snapshot.val()));
+      this._db.ref(`/feeds/${feed}`).on('value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
     }
   }
 
-  onUpdate_(feed, data) {
-    const updateFunc = UPDATE_FUNCS[feed];
-    this._store.dispatch(updateFunc(data));
-    this._store.dispatch(markLoaded(feed));
+  onUrlUpdate_(feed, url) {
+    return axios.get(url).then((response) => {
+      const data = response.data;
+      const updateFunc = UPDATE_FUNCS[feed];
+      this._store.dispatch(updateFunc(data));
+      this._store.dispatch(markLoaded(feed));
+    });
   }
 }
 
