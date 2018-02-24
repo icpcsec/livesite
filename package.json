@@ -33,6 +33,7 @@
     "react-addons-perf": "^0.14.8",
     "react-addons-shallow-compare": "^0.14.8",
     "react-addons-update": "^0.14.8",
+    "react-document-title": "^2.0.3",
     "react-dom": "^0.14.8",
     "react-ga": "^1.4.1",
     "react-redux": "^4.4.1",

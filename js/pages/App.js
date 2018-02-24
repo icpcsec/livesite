@@ -5,6 +5,7 @@ import { IndexRoute, Router, Route, applyRouterMiddleware, browserHistory } from
 import useScroll from 'react-router-scroll';
 
 import * as addthis from '../addthis';
+import DocumentTitleContainer  from '../containers/DocumentTitleContainer';
 import LoadingCheckContainer from '../containers/LoadingCheckContainer';
 import Frame from './Frame';
 import FrontPage from './FrontPage';
@@ -29,21 +30,23 @@ class App extends React.Component {
     return (
       <Provider store={this.props.store}>
         <LoadingCheckContainer loading={<LoadingPage/>}>
-          <Router
-              history={browserHistory}
-              render={applyRouterMiddleware(useScroll())}
-              onUpdate={() => this.handleNavigation()}>
-            <Route path="/" component={Frame}>
-              <IndexRoute component={FrontPage} />
-              <Route path="/standings/" component={StandingsPage} />
-              <Route path="/team/">
-                <IndexRoute component={TeamIndexPage} />
-                <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
+          <DocumentTitleContainer>
+            <Router
+                history={browserHistory}
+                render={applyRouterMiddleware(useScroll())}
+                onUpdate={() => this.handleNavigation()}>
+              <Route path="/" component={Frame}>
+                <IndexRoute component={FrontPage} />
+                <Route path="/standings/" component={StandingsPage} />
+                <Route path="/team/">
+                  <IndexRoute component={TeamIndexPage} />
+                  <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
+                </Route>
+                <Route path="/settings/" component={SettingsPage} />
+                <Route path="/reveal/" component={StandingsRevealPage} />
               </Route>
-              <Route path="/settings/" component={SettingsPage} />
-              <Route path="/reveal/" component={StandingsRevealPage} />
-            </Route>
-          </Router>
+            </Router>
+          </DocumentTitleContainer>
         </LoadingCheckContainer>
       </Provider>
     );
