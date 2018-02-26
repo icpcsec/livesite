@@ -49,7 +49,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
           {label}
         </span>
         <span className="team-problem-flag">
-          <span className="glyphicon glyphicon-flag" style={{ color }} />
+          <i className="fas fa-flag" style={{ color }} />
         </span>
       </div>
     </div>
@@ -91,10 +91,10 @@ const TeamPinCol = ({ pinned, onClick, revealMode }) => {
     return <div />;
   }
   const className =
-    'glyphicon glyphicon-pushpin' + (pinned ? ' pinned' : '');
+    'fas fa-thumbtack' + (pinned ? ' pinned' : '');
   return (
     <div className="team-col team-mark">
-      <span className={className} onClick={onClick} />
+      <i className={className} onClick={onClick} />
     </div>
   );
 };
@@ -103,7 +103,7 @@ const TeamRevealStateCol = ({ revealMode, revealState }) => {
   if (!revealMode) {
     return <div />;
   }
-  const mark = revealState === 'finalized' && <span className="glyphicon glyphicon-ok" />;
+  const mark = revealState === 'finalized' && <span className="fas fa-check" />;
   return <div className="team-col team-mark">{mark}</div>;
 };
 

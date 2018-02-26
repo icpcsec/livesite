@@ -2,11 +2,15 @@ import React from 'react';
 
 class MaterialInit extends React.Component {
   componentDidMount() {
-    $.material.init();
+    $(this._dom).bootstrapMaterialDesign();
   }
 
   render() {
-    return <div>{this.props.children}</div>
+    return (
+      <div ref={(dom) => { this._dom = dom; }}>
+        {this.props.children}
+      </div>
+    );
   }
 }
 

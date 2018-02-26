@@ -5,7 +5,7 @@ import { tr } from '../i18n';
 
 const SettingsPage = () => (
   <div>
-    <h1 className="page-header">
+    <h1 className="my-4">
       {tr('Settings', '設定')}
     </h1>
     <SettingsFormContainer />

@@ -7,7 +7,7 @@ const SettingsForm = ({ settings, toggleSetting }) => (
   <MaterialInit>
     <form onSubmit={(e) => e.preventDefault()}>
       <div className="form-group">
-        <div className="togglebutton">
+        <div className="switch">
           <label>
             <input
               type="checkbox"
@@ -16,9 +16,7 @@ const SettingsForm = ({ settings, toggleSetting }) => (
             {tr('Enable dark coloring (suitable for projecting)', '背景を黒くする(プロジェクター向き)')}
           </label>
         </div>
-      </div>
-      <div className="form-group">
-        <div className="togglebutton">
+        <div className="switch">
           <label>
             <input
               type="checkbox"

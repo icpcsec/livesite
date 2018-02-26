@@ -40,7 +40,7 @@ ReactDOM.render(
   document.getElementById('root')
 );
 
-$.material.init();
+$('body').bootstrapMaterialDesign();
 
 window.Perf = Perf;
 

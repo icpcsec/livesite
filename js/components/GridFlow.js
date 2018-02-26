@@ -1,9 +1,8 @@
 import React from 'react';
 
-const GridFlow = ({ cols, children }) => {
-  const colClassName = `col-xs-${cols}`;
+const GridFlow = ({ className, children }) => {
   const elements = children.map(
-      (e, i) => <div key={i} className={colClassName}>{e}</div>);
+      (e, i) => <div key={i} className={className}>{e}</div>);
   return (
     <div className="row">
       {elements}

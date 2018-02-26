@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = ({ contest }) => (
   <footer>
-    <div className="container" style={{ textAlign: 'right' }}>
+    <div className="container-fluid" style={{ textAlign: 'right' }}>
       {contest.title}
     </div>
   </footer>

@@ -20,8 +20,8 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
   const hasInfo = members.some((profile) => profile.name.length > 0);
   const memberNames = displayNames.join(' / ');
   return (
-    <div className="panel panel-default" style={{ backgroundColor: (hasInfo ? null : 'inherit !important') }}>
-      <div className="panel-body">
+    <div className="card mb-3" style={{ backgroundColor: (hasInfo ? null : 'inherit !important') }}>
+      <div className="card-body">
         {
           siteconfig.features.photo ?
           <Link to={`/team/${id}`}>
@@ -29,7 +29,7 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
           </Link> :
           null
         }
-        <h4 className="text-ellipsis">
+        <h4 className="my-3 text-ellipsis">
           <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
         </h4>
         <div className="text-ellipsis">
@@ -52,6 +52,12 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
   );
 };
 
+const TeamItemFlow = ({ children }) => (
+  <GridFlow className="col-md-6 col-lg-4">
+    {children}
+  </GridFlow>
+);
+
 const TeamListSimple = ({ teams }) => {
   const sortedTeams = [...teams];
   sortedTeams.sort((a, b) => (
@@ -60,7 +66,7 @@ const TeamListSimple = ({ teams }) => {
       a.id.localeCompare(b.id)));
   const items = sortedTeams.map(
       (team) => <TeamItem key={team.id} team={team} />);
-  return <GridFlow cols={4}>{items}</GridFlow>;
+  return <TeamItemFlow>{items}</TeamItemFlow>;
 };
 
 const TeamListWithPrefecture = ({ teams }) => {
@@ -83,8 +89,8 @@ const TeamListWithPrefecture = ({ teams }) => {
       const items = teamsInPrefecture.map(
         (team) => <TeamItem key={team.id} team={team} />);
       const name = constants.PREFECTURES[i];
-      children.push(<h3 id={`pref${i}`}>{`${name} (${count})`}</h3>);
-      children.push(<GridFlow cols={4}>{items}</GridFlow>);
+      children.push(<h3 id={`pref${i}`} className="my-3">{`${name} (${count})`}</h3>);
+      children.push(<TeamItemFlow>{items}</TeamItemFlow>);
     }
   }
   return <div>{children}</div>;

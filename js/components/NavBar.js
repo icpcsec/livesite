@@ -11,9 +11,9 @@ class NavLink extends React.Component {
     const external = !disabled && !to.startsWith('/');
     const isActive = disabled || external ? false : router.isActive(to, onlyActiveOnIndex);
     const link =
-      disabled ? <a href="javascript:void(0)">{children}</a> :
-      external ? <a target="_blank" href={to}>{children}</a> :
-      <Link to={to}>{children}</Link>;
+      disabled ? <a className="nav-link" href="javascript:void(0)">{children}</a> :
+      external ? <a className="nav-link" target="_blank" href={to}>{children}</a> :
+      <Link className="nav-link" to={to}>{children}</Link>;
     return (
       <li className={`${isActive ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
         {link}
@@ -30,7 +30,7 @@ const RealtimeIndicator = ({ realtime }) => {
   }
   return (
     <p className="navbar-text">
-      <span className="glyphicon glyphicon-flash" title="Real-time websocket connection is not available." />
+      <span className="fas fa-bolt" title="Real-time websocket connection is not available." />
     </p>
   );
 };
@@ -61,19 +61,21 @@ class Clock extends React.Component {
   }
 
   render() {
-    return <p className="navbar-text clock">{this.state.text}</p>;
+    return <span className="navbar-text clock">{this.state.text}</span>;
   }
 }
 
 const NavBar = ({ contest, realtime }) => {
   return (
-    <nav className="navbar navbar-inverse navbar-fixed-top" style={{ zIndex: 1000000 }}>
+    <nav className="navbar navbar-expand-md navbar-dark fixed-top" style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}>
       <div className="container">
-        <div className="navbar-header">
-          <Link className="navbar-brand" to="/">{ contest.title }</Link>
-        </div>
-        <div className="collapse navbar-collapse">
-          <ul className="nav navbar-nav">
+        <Link className="navbar-brand" to="/">{ contest.title }</Link>
+        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_collapse" aria-controls="navbar_collapse" aria-expanded="false" aria-label="Toggle navigation">
+          <span className="navbar-toggler-icon"></span>
+        </button>
+
+        <div id="navbar_collapse" className="collapse navbar-collapse">
+          <ul className="navbar-nav mr-auto">
             <NavLink to="/" onlyActiveOnIndex={true}>{tr('Home', 'ホーム')}</NavLink>
             <NavLink to="/standings/">{tr('Standings', '順位表')}</NavLink>
             <NavLink to="/team/">{tr('Teams', 'チーム一覧')}</NavLink>
@@ -83,15 +85,13 @@ const NavBar = ({ contest, realtime }) => {
               null
             }
           </ul>
-          <ul className="nav navbar-nav navbar-right">
-            <RealtimeIndicator realtime={realtime} />
+          <RealtimeIndicator realtime={realtime} />
+          <ul className="navbar-nav mr-2">
             <NavLink to="/settings/">
-              <span className="glyphicon glyphicon-cog"></span>
+              <i className="fas fa-cog"></i>
             </NavLink>
-            <li>
-              <Clock contest={contest} />
-            </li>
           </ul>
+          <Clock contest={contest} />
         </div>
       </div>
     </nav>

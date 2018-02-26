@@ -20,7 +20,7 @@ class LoadingPage extends React.Component {
     const message = 'Loading.' + '.'.repeat(this.state.seconds % 3);
     return (
       <div className="container">
-        <h1 className="page-header">
+        <h1 className="my-3">
           {message}
         </h1>
       </div>

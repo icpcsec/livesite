@@ -26,7 +26,7 @@ class PrefectureView extends React.Component {
       });
     }
     $('#prefectures').empty().japanMap({
-      width: 800,
+      width: 732,
       selection: 'area',
       areas: areas,
       color: '#bdbdbd',
@@ -42,15 +42,17 @@ class PrefectureView extends React.Component {
       onSelect: ({ code }) => {
         const $target = $(`#pref${code}`);
         if ($target.length > 0) {
-          $(document).scrollTop($target.offset().top);
+          $(document).scrollTop($target.offset().top - 80);
         }
       },
     });
   }
 
   render() {
+    // TODO: Support high-DPI devices.
+    // Until then, we can not show the map in narrow viewport.
     return (
-      <div style={{ textAlign: 'center', height: '596px', marginBottom: '24px' }}>
+      <div className="d-none d-md-block" style={{ textAlign: 'center', marginBottom: '24px' }}>
         <div id="prefectures" />
       </div>
     );

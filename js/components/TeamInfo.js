@@ -57,8 +57,8 @@ const MemberProfile = ({ profile, index }) => {
     contactsElements.pop();
   }
   return (
-    <div className="profile panel panel-default">
-      <div className="panel-body">
+    <div className="profile card">
+      <div className="card-body">
         {
           siteconfig.features.icon ?
           <div className="profile-icon">
@@ -85,25 +85,23 @@ const TeamInfo = ({ team }) => {
         <MemberProfile key={index} profile={profile} index={index} />);
   return (
     <div className="teaminfo">
-      <div className="page-header">
-        <h1>
-          {team.name}
-          <br />
-          <small>
-            {team.university}
-            {
-              siteconfig.features.prefecture ?
-              ` (${constants.PREFECTURES[team.prefecture || 48]})` :
-              null
-            }
-            {
-              siteconfig.features.country ?
-              ` - ${team.country}` :
-              null
-            }
-          </small>
-        </h1>
-      </div>
+      <h1 className="my-3">
+        {team.name}
+        <br />
+        <small>
+          {team.university}
+          {
+            siteconfig.features.prefecture ?
+            ` (${constants.PREFECTURES[team.prefecture || 48]})` :
+            null
+          }
+          {
+            siteconfig.features.country ?
+            ` - ${team.country}` :
+            null
+          }
+        </small>
+      </h1>
       {
         siteconfig.features.photo ?
         <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photo_aspect_ratio} /> :

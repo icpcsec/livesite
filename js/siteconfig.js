@@ -5,9 +5,9 @@ export default {
     photo_aspect_ratio: 9 / 16,
   },
   features: {
-    country: true,
-    prefecture: false,
+    country: false,
+    prefecture: true,
     photo: true,
-    icon: false,
+    icon: true,
   },
 };

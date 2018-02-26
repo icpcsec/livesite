@@ -14,18 +14,6 @@ footer {
   height: 32px;
 }
 
-.container {
-  width: 960px;
-}
-
-/* bugfix to bootstrap-material-design */
-@media (max-width: 1199px) {
-.navbar-text {
-  margin-top: 15px !important;
-  margin-bottom: 15px !important;
-}
-}
-
 .text-ellipsis {
   white-space: nowrap;
   overflow: hidden;
@@ -39,20 +27,6 @@ a.no-decoration {
 
 .popover {
   max-width: 100000px;
-}
-
-.navbar .clock {
-  margin-top: 10px !important;
-  margin-bottom: 10px !important;
-  line-height: 30px;
-  font-size: 18px;
-}
-
-@media (min-width: 1200px) {
-.navbar .clock {
-  margin-top: 15px !important;
-  margin-bottom: 15px !important;
-}
 }
 
 /* Always show help message */
@@ -150,11 +124,11 @@ a.no-decoration {
   user-select: none;
 }
 
-.standings .standings-section .team-row .team-col.team-mark .glyphicon-pushpin {
+.standings .standings-section .team-row .team-col.team-mark .fa-thumbtack {
   color: #BDBDBD;
 }
 
-.standings .standings-section .team-row .team-col.team-mark .glyphicon-pushpin.pinned {
+.standings .standings-section .team-row .team-col.team-mark .fa-thumbtack.pinned {
   color: #F44336;
 }
 

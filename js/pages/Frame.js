@@ -6,7 +6,7 @@ import ThemeContainer from '../containers/ThemeContainer';
 
 const Frame = ({ children }) => {
   return (
-    <div style={{width: '100%', minWidth: '1024px'}}>
+    <div style={{width: '100%'}}>
       <NavBarContainer />
       <div style={{ paddingTop: '70px' }} />
       <div className="container" style={{position: 'relative' }}>
