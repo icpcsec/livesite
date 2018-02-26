@@ -51,6 +51,11 @@ a.no-decoration {
   flex-grow: 1;
 }
 
+.standings .standings-section {
+  /* Need to be an offset parent to calculate offsets on animation */
+  position: relative;
+}
+
 .standings .standings-section .reveal-row {
   position: absolute;
   left: 0;
