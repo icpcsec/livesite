@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { sprintf } from 'sprintf-js';
+
+import ClockTextContainer from '../containers/ClockTextContainer';
 import { tr } from '../i18n';
 
 class NavLink extends React.Component {
@@ -35,36 +36,6 @@ const RealtimeIndicator = ({ realtime }) => {
   );
 };
 
-class Clock extends React.Component {
-  updateText() {
-    const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
-    const now = new Date().getTime() / 1000;
-    const delta = Math.max(end, now) - Math.max(start, now);
-    const deltaScaled = delta * scale;
-    const text = sprintf(
-      '%d:%02d:%02d',
-      Math.floor(deltaScaled / 60 / 60),
-      Math.floor(deltaScaled / 60) % 60,
-      Math.floor(deltaScaled) % 60);
-    this.setState({ text });
-  }
-
-  componentWillMount() {
-    this.updateText();
-    const { scale = 1 } = this.props.contest.times;
-    const updateInterval = Math.max(1000 / scale, 100);
-    this._timer = setInterval(() => this.updateText(), updateInterval);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this._timer);
-  }
-
-  render() {
-    return <span className="navbar-text clock">{this.state.text}</span>;
-  }
-}
-
 const NavBar = ({ contest, realtime }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top" style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}>
@@ -91,7 +62,9 @@ const NavBar = ({ contest, realtime }) => {
               <i className="fas fa-cog"></i>
             </NavLink>
           </ul>
-          <Clock contest={contest} />
+          <span className="navbar-text clock">
+            <ClockTextContainer />
+          </span>
         </div>
       </div>
     </nav>
