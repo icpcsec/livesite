@@ -115,8 +115,8 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-problems {
-  flex: 1 1 auto;
-  width: 400px;
+  flex: 1 0 auto;
+  width: auto;
   min-width: 0;
   display: flex;
 }
@@ -153,7 +153,7 @@ a.no-decoration {
 }
 
 .standings .standings-section .team-row .team-col.team-name {
-  flex: 0 1 auto;
+  flex: 0 10 auto;
   width: 240px;
   min-width: 0;
   white-space: nowrap;
@@ -192,10 +192,29 @@ a.no-decoration {
 
 .standings .standings-section .team-row .team-col.team-problem {
   flex: 1 0 auto;
-  width: 0;
+  width: 4rem;
   min-width: 0;
   justify-content: center;
   text-align: center;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .standings .standings-section .team-row .team-col.team-problem {
+    width: 3.2rem;
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 767px) {
+  .standings .standings-section .team-row .team-col.team-score {
+    width: 2rem;
+  }
+  .standings .standings-section .team-row .team-col.team-problem {
+    width: 1rem;
+  }
+  .standings .standings-section .team-row .team-col.team-problem .team-col-fg {
+    display: none;
+  }
 }
 
 .standings .standings-section .team-row .team-col.team-problem .team-problem-flag {

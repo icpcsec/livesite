@@ -49,7 +49,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
           {label}
         </span>
         <span className="team-problem-flag">
-          <i className="fas fa-flag" style={{ color }} />
+          <i className="fas fa-flag d-none d-md-inline" style={{ color }} />
         </span>
       </div>
     </div>
@@ -114,7 +114,7 @@ const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
       <div className="team-col-bg" style={{ backgroundColor }} />
       <div className="team-col-fg">
         {solved}
-        <br/><small>({penalty})</small>
+        <br/><small className="d-none d-md-inline">({penalty})</small>
       </div>
     </div>
   );
