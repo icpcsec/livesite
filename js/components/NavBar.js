@@ -62,7 +62,7 @@ const NavBar = ({ contest, realtime }) => {
               <i className="fas fa-cog"></i>
             </NavLink>
           </ul>
-          <span className="navbar-text clock">
+          <span className="navbar-brand clock">
             <ClockTextContainer />
           </span>
         </div>
