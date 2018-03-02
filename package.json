@@ -31,7 +31,6 @@
     "react": "^0.14.8",
     "react-addons-deep-compare": "0.0.1",
     "react-addons-perf": "^0.14.8",
-    "react-addons-shallow-compare": "^0.14.8",
     "react-addons-update": "^0.14.8",
     "react-document-title": "^2.0.3",
     "react-dom": "^0.14.8",
