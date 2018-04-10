@@ -17,10 +17,6 @@ import TeamIndexPage from './TeamIndexPage';
 import TeamInfoPage from './TeamInfoPage';
 
 class App extends React.Component {
-  getChildContext() {
-    return { loader: this.props.loader };
-  }
-
   handleNavigation() {
     GA.pageview(window.location.pathname);
     addthis.handleNavigation();
@@ -52,9 +48,5 @@ class App extends React.Component {
     );
   }
 }
-
-App.childContextTypes = {
-  loader: () => React.PropTypes.func.isRequired,
-};
 
 export default App;
