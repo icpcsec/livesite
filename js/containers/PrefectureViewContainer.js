@@ -7,9 +7,6 @@ const mapStateToProps = (state) => {
   return { teams };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
-
-const PrefectureViewContainer =
-  connect(mapStateToProps, mapDispatchToProps)(PrefectureView);
+const PrefectureViewContainer = connect(mapStateToProps)(PrefectureView);
 
 export default PrefectureViewContainer;

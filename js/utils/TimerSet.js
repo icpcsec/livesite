@@ -1,23 +1,23 @@
 class TimerSet {
   constructor() {
-    this._timers = new Set();
+    this.timers_ = new Set();
   }
 
   setTimeout(callback, timeout) {
     const timer = setTimeout(() => {
-      if (this._timers.has(timer)) {
-        this._timers.delete(timer);
+      if (this.timers_.has(timer)) {
+        this.timers_.delete(timer);
         callback();
       }
     }, timeout);
-    this._timers.add(timer);
+    this.timers_.add(timer);
   }
 
   clearTimeouts() {
-    this._timers.forEach((timer) => {
+    this.timers_.forEach((timer) => {
       clearTimeout(timer);
     });
-    this._timers.clear();
+    this.timers_.clear();
   }
 }
 

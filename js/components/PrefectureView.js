@@ -2,14 +2,14 @@ import React from 'react';
 
 class PrefectureView extends React.Component {
   componentDidMount() {
-    this.refresh();
+    this.refresh_();
   }
 
   componentDidUpdate() {
-    this.refresh();
+    this.refresh_();
   }
 
-  refresh() {
+  refresh_() {
     const teamsByPrefecture = {};
     for (let i = 1; i <= 48; ++i) {
       teamsByPrefecture[i] = [];

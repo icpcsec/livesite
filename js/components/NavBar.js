@@ -25,18 +25,7 @@ class NavLink extends React.Component {
 
 NavLink.contextTypes = { router: () => React.PropTypes.func.isRequired };
 
-const RealtimeIndicator = ({ realtime }) => {
-  if (realtime === true || realtime === null) {
-    return <span />;
-  }
-  return (
-    <p className="navbar-text">
-      <span className="fas fa-bolt" title="Real-time websocket connection is not available." />
-    </p>
-  );
-};
-
-const NavBar = ({ contest, realtime }) => {
+const NavBar = ({ contest }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top" style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}>
       <div className="container">
@@ -56,7 +45,6 @@ const NavBar = ({ contest, realtime }) => {
               null
             }
           </ul>
-          <RealtimeIndicator realtime={realtime} />
           <ul className="navbar-nav mr-2">
             <NavLink to="/settings/">
               <i className="fas fa-cog"></i>

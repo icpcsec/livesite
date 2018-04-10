@@ -4,9 +4,6 @@ import FrontContent from '../components/FrontContent';
 
 const mapStateToProps = ({ contest }) => ({ contest });
 
-const mapDispatchToProps = (dispatch) => ({});
-
-const FrontContentContainer =
-  connect(mapStateToProps, mapDispatchToProps)(FrontContent);
+const FrontContentContainer = connect(mapStateToProps)(FrontContent);
 
 export default FrontContentContainer;

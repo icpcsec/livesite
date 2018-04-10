@@ -8,9 +8,6 @@ const mapStateToProps = (state, ownProps) => {
   return { team };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
-
-const TeamInfoContainer =
-  connect(mapStateToProps, mapDispatchToProps)(TeamInfo);
+const TeamInfoContainer = connect(mapStateToProps)(TeamInfo);
 
 export default TeamInfoContainer;

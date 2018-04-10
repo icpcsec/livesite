@@ -2,7 +2,7 @@ import React from "react";
 import {sprintf} from "sprintf-js";
 
 class ClockText extends React.Component {
-  updateText() {
+  updateText_() {
     const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
     const now = new Date().getTime() / 1000;
     const delta = Math.max(end, now) - Math.max(start, now);
@@ -16,10 +16,10 @@ class ClockText extends React.Component {
   }
 
   componentWillMount() {
-    this.updateText();
+    this.updateText_();
     const { scale = 1 } = this.props.contest.times;
     const updateInterval = Math.max(1000 / scale, 100);
-    this._timer = setInterval(() => this.updateText(), updateInterval);
+    this._timer = setInterval(() => this.updateText_(), updateInterval);
   }
 
   componentWillUnmount() {

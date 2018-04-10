@@ -12,14 +12,14 @@ const UPDATE_FUNCS = {
 
 class FirebaseLoader {
   constructor(store) {
-    this._store = store;
-    this._app = firebase.initializeApp(siteconfig.firebase, 'loader');
-    this._db = firebase.database(this._app);
+    this.store_ = store;
+    this.app_ = firebase.initializeApp(siteconfig.firebase, 'loader');
+    this.db_ = firebase.database(this.app_);
   }
 
   start() {
-    for (let feed of UPDATE_FUNCS.keys()) {
-      this._db.ref(`/feeds/${feed}`).on(
+    for (let feed of Object.keys(UPDATE_FUNCS)) {
+      this.db_.ref(`/feeds/${feed}`).on(
           'value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
     }
   }
@@ -28,8 +28,8 @@ class FirebaseLoader {
     return axios.get(url).then((response) => {
       const data = response.data;
       const updateFunc = UPDATE_FUNCS[feed];
-      this._store.dispatch(updateFunc(data));
-      this._store.dispatch(markLoaded(feed));
+      this.store_.dispatch(updateFunc(data));
+      this.store_.dispatch(markLoaded(feed));
     });
   }
 }

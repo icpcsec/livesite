@@ -3,7 +3,7 @@ import React from 'react';
 class AutoScrollerImpl extends React.Component {
   componentDidMount() {
     this._running = true;
-    setTimeout(() => this.run(), 1000);
+    setTimeout(() => this.run_(), 1000);
   }
 
   componentWillUnmount() {
@@ -12,7 +12,7 @@ class AutoScrollerImpl extends React.Component {
     $screen.stop();
   }
 
-  run() {
+  run_() {
     if (!this._running) {
       return;
     }

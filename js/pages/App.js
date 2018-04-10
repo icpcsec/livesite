@@ -16,21 +16,22 @@ import StandingsRevealPage from './StandingsRevealPage';
 import TeamIndexPage from './TeamIndexPage';
 import TeamInfoPage from './TeamInfoPage';
 
-class App extends React.Component {
-  handleNavigation() {
-    GA.pageview(window.location.pathname);
-    addthis.handleNavigation();
-  }
+function handleNavigation() {
+  GA.pageview(window.location.pathname);
+  addthis.handleNavigation();
+}
 
+class App extends React.Component {
   render() {
+    const { store } = this.props;
     return (
-      <Provider store={this.props.store}>
+      <Provider store={store}>
         <LoadingCheckContainer loading={<LoadingPage/>}>
           <DocumentTitleContainer>
             <Router
                 history={browserHistory}
                 render={applyRouterMiddleware(useScroll())}
-                onUpdate={() => this.handleNavigation()}>
+                onUpdate={handleNavigation}>
               <Route path="/" component={Frame}>
                 <IndexRoute component={FrontPage} />
                 <Route path="/standings/" component={StandingsPage} />

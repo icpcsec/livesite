@@ -280,14 +280,14 @@ class AnimatingTeamRow extends React.Component {
 class AnimatingList extends React.Component {
   constructor(props) {
     super(props);
-    this._timers = new TimerSet();
+    this.timers_ = new TimerSet();
   }
 
   componentWillUpdate() {
     const rows = Array.from(this._dom.children);
 
     // Cancel all animations.
-    this._timers.clearTimeouts();
+    this.timers_.clearTimeouts();
     rows.forEach((row) => {
       row.classList.remove('animating');
       row.style.transform = null;
@@ -323,7 +323,7 @@ class AnimatingList extends React.Component {
       if (relativeOffsetTop !== 0) {
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
         const animationDelay = row.classList.contains('reveal-row') ? 0 : 1000;
-        this._timers.setTimeout(() => {
+        this.timers_.setTimeout(() => {
           row.classList.add('animating');
           row.style.transform = 'translate(0, 0)';
         }, animationDelay);
@@ -332,7 +332,7 @@ class AnimatingList extends React.Component {
   }
 
   componentWillUnmount() {
-    this._timers.clearTimeouts();
+    this.timers_.clearTimeouts();
   }
 
   render() {

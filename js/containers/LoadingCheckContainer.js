@@ -8,9 +8,6 @@ const mapStateToProps = (state, ownProps) => {
   return { loaded, ...ownProps };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
-
-const LoadingCheckContainer =
-  connect(mapStateToProps, mapDispatchToProps)(LoadingCheck);
+const LoadingCheckContainer = connect(mapStateToProps)(LoadingCheck);
 
 export default LoadingCheckContainer;

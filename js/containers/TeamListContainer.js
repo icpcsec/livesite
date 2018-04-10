@@ -7,9 +7,6 @@ const mapStateToProps = (state) => {
   return { teams };
 };
 
-const mapDispatchToProps = (dispatch) => ({});
-
-const TeamListContainer =
-  connect(mapStateToProps, mapDispatchToProps)(TeamList);
+const TeamListContainer = connect(mapStateToProps)(TeamList);
 
 export default TeamListContainer;

@@ -2,7 +2,7 @@ import applyPartialUpdate from 'react-addons-update';
 
 class Persist {
   constructor() {
-    this._lastSettings = undefined;
+    this.lastSettings_ = undefined;
   }
 
   createReducer(reducer) {
@@ -36,14 +36,14 @@ class Persist {
 
   onStateChanged(store) {
     const settings = store.getState().settings;
-    if (settings !== this._lastSettings) {
+    if (settings !== this.lastSettings_) {
       const serialized = JSON.stringify(settings);
       try {
         localStorage.setItem('settings', serialized);
       } catch (e) {
         console.log('Failed to save settings to local storage.');
       }
-      this._lastSettings = settings;
+      this.lastSettings_ = settings;
     }
   }
 }

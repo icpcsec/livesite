@@ -26,13 +26,6 @@ export const markLoaded = (feed) => (
   }
 );
 
-export const updateRealtime = (realtime) => (
-  {
-    type: 'UPDATE_REALTIME',
-    realtime,
-  }
-);
-
 export const updateSettings = (settingsUpdate) => (
   {
     type: 'UPDATE_SETTINGS',

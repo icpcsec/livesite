@@ -55,16 +55,16 @@ class StandingsUploadForm extends React.Component {
 class StandingsRevealTable extends React.Component {
   constructor(props) {
     super(props);
-    this._keyDownListener = this.onKeyDown.bind(this);
-    this._scrolling = false;
+    this.keyDownListener_ = this.onKeyDown.bind(this);
+    this.scrolling_ = false;
   }
 
   componentDidMount() {
-    document.addEventListener('keydown', this._keyDownListener);
+    document.addEventListener('keydown', this.keyDownListener_);
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keydown', this._keyDownListener);
+    document.removeEventListener('keydown', this.keyDownListener_);
   }
 
   componentDidUpdate() {
@@ -77,14 +77,14 @@ class StandingsRevealTable extends React.Component {
       $marker.length > 0 ?
       $marker.offset().top - $(window).height() * 2 / 3 :
       1000000;
-    this._scrolling = true;
+    this.scrolling_ = true;
     $('html, body').animate({ scrollTop }, 500, () => {
-      this._scrolling = false;
+      this.scrolling_ = false;
     });
   }
 
   onKeyDown(e) {
-    if (this._scrolling) {
+    if (this.scrolling_) {
       return;
     }
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
