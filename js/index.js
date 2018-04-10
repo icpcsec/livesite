@@ -13,11 +13,11 @@ import { printBanner } from './banner';
 import App from './pages/App';
 import { createPersist } from './persist';
 import reducer from './reducers';
+import siteconfig from './siteconfig';
 import FirebaseLoader from './loaders/FirebaseLoader';
 
-const gaElement = document.getElementById('google_analytics_id');
-if (gaElement && gaElement.textContent.length > 0) {
-  GA.initialize(gaElement.textContent);
+if (siteconfig.misc.google_analytics_id) {
+  GA.initialize(siteconfig.misc.google_analytics_id);
 }
 
 const persist = createPersist();

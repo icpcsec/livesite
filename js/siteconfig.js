@@ -1,4 +1,4 @@
-export default {
+const siteconfig = {
   ui: {
     lang: 'ja',
     twitter_id: 'icpc2017tsukuba',
@@ -7,7 +7,12 @@ export default {
   features: {
     country: false,
     prefecture: true,
-    photo: true,
+    photo: false,
     icon: true,
   },
+  misc: {
+    google_analytics_id: 'UA-51402415-4',
+  },
 };
+
+export default siteconfig;
