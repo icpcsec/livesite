@@ -7,7 +7,7 @@ import * as constants from '../constants';
 import siteconfig from '../siteconfig';
 
 const TeamPhoto = ({ photo }) => {
-  return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photo_aspect_ratio} />
+  return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
 };
 
 const TeamItem = ({ team: { id, name, university, country, photo, members } }) => {

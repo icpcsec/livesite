@@ -6,7 +6,7 @@ const addthis = window.addthis_share;
 export const setup = () => {
   addthis.passthrough = addthis.passthrough || {};
   addthis.passthrough.twitter = {
-    via: siteconfig.ui.twitter_id,
+    via: siteconfig.ui.twitterId,
   };
 };
 

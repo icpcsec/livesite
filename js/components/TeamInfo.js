@@ -104,7 +104,7 @@ const TeamInfo = ({ team }) => {
       </h1>
       {
         siteconfig.features.photo ?
-        <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photo_aspect_ratio} /> :
+        <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photoAspectRatio} /> :
         null
       }
       {memberElements}

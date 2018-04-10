@@ -16,8 +16,8 @@ import reducer from './reducers';
 import siteconfig from './siteconfig';
 import FirebaseLoader from './loaders/FirebaseLoader';
 
-if (siteconfig.misc.google_analytics_id) {
-  GA.initialize(siteconfig.misc.google_analytics_id);
+if (siteconfig.misc.googleAnalyticsId) {
+  GA.initialize(siteconfig.misc.googleAnalyticsId);
 }
 
 const persist = createPersist();

@@ -1,8 +1,8 @@
 const siteconfig = {
   ui: {
     lang: 'ja',
-    twitter_id: 'icpc2017tsukuba',
-    photo_aspect_ratio: 9 / 16,
+    twitterId: 'icpc2017tsukuba',
+    photoAspectRatio: 9 / 16,
   },
   features: {
     country: false,
@@ -11,7 +11,7 @@ const siteconfig = {
     icon: true,
   },
   misc: {
-    google_analytics_id: 'UA-51402415-4',
+    googleAnalyticsId: 'UA-51402415-4',
   },
 };
 
