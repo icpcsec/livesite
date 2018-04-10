@@ -2,8 +2,8 @@ import axios from 'axios';
 import * as firebase from 'firebase';
 
 import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
+import siteconfig from '../siteconfig';
 
-const FEEDS = ['contest', 'teams', 'standings'];
 const UPDATE_FUNCS = {
   contest: updateContest,
   teams: updateTeams,
@@ -13,20 +13,14 @@ const UPDATE_FUNCS = {
 class FirebaseLoader {
   constructor(store) {
     this._store = store;
-    this._app = firebase.initializeApp({
-      apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',
-      authDomain: 'icpcsec.firebaseapp.com',
-      databaseURL: 'https://icpcsec.firebaseio.com',
-      projectId: 'icpcsec',
-      storageBucket: 'icpcsec.appspot.com',
-      messagingSenderId: '880347634771',
-    }, 'loader');
+    this._app = firebase.initializeApp(siteconfig.firebase, 'loader');
     this._db = firebase.database(this._app);
   }
 
   start() {
-    for (let feed of FEEDS) {
-      this._db.ref(`/feeds/${feed}`).on('value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
+    for (let feed of UPDATE_FUNCS.keys()) {
+      this._db.ref(`/feeds/${feed}`).on(
+          'value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
     }
   }
 
