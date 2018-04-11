@@ -10,16 +10,24 @@ const UPDATE_FUNCS = {
   standings: updateStandings,
 };
 
+function getInstanceName() {
+  if (window.location.hostname === 'localhost') {
+    return 'dev';
+  }
+  return 'default';
+}
+
 class FirebaseLoader {
   constructor(store) {
     this.store_ = store;
     this.app_ = firebase.initializeApp(siteconfig.firebase, 'loader');
     this.db_ = firebase.database(this.app_);
+    this.ref_ = this.db_.ref(getInstanceName());
   }
 
   start() {
     for (let feed of Object.keys(UPDATE_FUNCS)) {
-      this.db_.ref(`/feeds/${feed}`).on(
+      this.ref_.child(`feeds/${feed}`).on(
           'value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
     }
   }
