@@ -1,0 +1,7 @@
+beautifulsoup4==4.6.0
+html5lib==1.0.1
+google-auth
+google-auth-oauthlib
+google-cloud-storage
+requests
+yapf
