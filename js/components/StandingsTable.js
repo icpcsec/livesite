@@ -179,18 +179,32 @@ const TeamProblemCols = ({ problems }) => {
   );
 };
 
-class TeamRow extends React.Component {
+class TeamRowLeft extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
-    const FIELDS = ['status', 'team', 'universityRank', 'problems', 'pinned', 'zIndex', 'className'];
+    const FIELDS = ['pinned', 'revealMode', 'revealState'];
     const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
     return !cached;
   }
 
   render() {
-    const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
-    const { rank, solved, penalty, revealState, problems = [] } = status;
+    const { pinned, revealMode, revealState, onClickPin } = this.props;
+    return (
+      <div className="team-left">
+        <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
+        <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
+      </div>
+    );
+  }
+}
+
+class TeamRowRight extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    return deepCompare(this, nextProps, nextState);
+  }
+
+  render() {
+    const { solved, penalty, problemSpecs, team, universityRank, problems } = this.props;
     const { id, name, university, country } = team;
-    const rewrittenClassName = 'team-row ' + className;
     const universityContent = (
       <span>
         {
@@ -203,13 +217,31 @@ class TeamRow extends React.Component {
       </span>
     );
     return (
-      <div className={rewrittenClassName} style={{ zIndex }}>
-        <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
-        <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
-        <TeamGenericCol className="team-rank" text={rank} />
+      <div className="team-right">
         <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
         <TeamGenericCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
         <TeamProblemCols problems={problems} />
+      </div>
+    );
+  }
+}
+
+class TeamRow extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    const FIELDS = ['status', 'team', 'universityRank', 'problems', 'pinned', 'zIndex', 'className'];
+    const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
+    return !cached;
+  }
+
+  render() {
+    const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
+    const { rank, solved, penalty, revealState, problems = [] } = status;
+    const rewrittenClassName = 'team-row ' + className;
+    return (
+      <div className={rewrittenClassName} style={{ zIndex }}>
+        <TeamRowLeft pinned={pinned} revealMode={revealMode} revealState={revealState} onClickPin={onClickPin} />
+        <TeamGenericCol className="team-rank" text={rank} />
+        <TeamRowRight solved={solved} penalty={penalty} problemSpecs={problemSpecs} team={team} universityRank={universityRank} problems={problems} />
       </div>
     );
   }
@@ -317,6 +349,7 @@ class AnimatingList extends React.Component {
     const currentKeyToOffsetTop = new Map();
     rows.forEach((row, i) => {
       const child = this.props.children[i];
+      // The following line will cause forced relayout, but it is expected.
       currentKeyToOffsetTop.set(child.key, row.offsetTop);
     });
 
