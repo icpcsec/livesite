@@ -1,3 +1,4 @@
+import deepEqual from 'deep-equal';
 import React from 'react';
 import { Link } from 'react-router';
 import deepCompare from 'react-addons-deep-compare';
@@ -178,33 +179,41 @@ const TeamProblemCols = ({ problems }) => {
   );
 };
 
-const TeamRow = (props) => {
-  const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '', ...rest } = props;
-  const { rank, solved, penalty, revealState, problems = [] } = status;
-  const { id, name, university, country } = team;
-  const rewrittenClassName = 'team-row ' + className;
-  const universityContent = (
-    <span>
-      {
-        siteconfig.features.country ?
-        <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} /> :
-        null
-      }
-      {university}
-      <small>{' '}[{universityRank || '???'}]</small>
-    </span>
-  );
-  return (
-    <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
-      <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
-      <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
-      <TeamGenericCol className="team-rank" text={rank} />
-      <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
-      <TeamGenericCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
-      <TeamProblemCols problems={problems} />
-    </div>
-  );
-};
+class TeamRow extends React.Component {
+  shouldComponentUpdate(nextProps, nextState) {
+    const FIELDS = ['status', 'team', 'universityRank', 'problems', 'pinned', 'zIndex', 'className'];
+    const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
+    return !cached;
+  }
+
+  render() {
+    const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
+    const { rank, solved, penalty, revealState, problems = [] } = status;
+    const { id, name, university, country } = team;
+    const rewrittenClassName = 'team-row ' + className;
+    const universityContent = (
+      <span>
+        {
+          siteconfig.features.country ?
+          <img src={`/images/${country}.png`} style={{ width: '19px', height: '12px', marginRight: '3px', marginBottom: '1px' }} /> :
+          null
+        }
+        {university}
+        <small>{' '}[{universityRank || '???'}]</small>
+      </span>
+    );
+    return (
+      <div className={rewrittenClassName} style={{ zIndex }}>
+        <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
+        <TeamPinCol revealMode={revealMode} pinned={pinned} onClick={onClickPin} />
+        <TeamGenericCol className="team-rank" text={rank} />
+        <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
+        <TeamGenericCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
+        <TeamProblemCols problems={problems} />
+      </div>
+    );
+  }
+}
 
 const RevealRow = (props) => (
   // .reveal-marker is used to compute the marker position in StandingsRevealTable.
