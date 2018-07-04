@@ -13,6 +13,8 @@ const UPDATE_FUNCS = {
 function getInstanceName() {
   if (window.location.hostname === 'localhost') {
     return 'dev';
+  } else if (window.location.hostname === 'livesite-dev.nya3.jp') {
+    return 'dev';
   }
   return 'default';
 }
