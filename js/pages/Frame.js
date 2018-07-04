@@ -10,9 +10,6 @@ const Frame = ({ children }) => {
       <NavBarContainer />
       <div style={{ paddingTop: '70px' }} />
       <div className="container" style={{position: 'relative' }}>
-        <div style={{position: 'absolute', right: '15px'}}>
-          <div className="addthis_sharing_toolbox" />
-        </div>
         {children}
       </div>
       <FooterContainer />

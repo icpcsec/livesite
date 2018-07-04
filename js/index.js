@@ -8,7 +8,6 @@ import GA from 'react-ga';
 import * as Redux from 'redux';
 import ReduxThunk from 'redux-thunk';
 
-import * as addthis from './addthis';
 import { printBanner } from './banner';
 import App from './pages/App';
 import { createPersist } from './persist';
@@ -43,7 +42,5 @@ ReactDOM.render(
 $('body').bootstrapMaterialDesign();
 
 window.Perf = Perf;
-
-addthis.setup();
 
 printBanner();

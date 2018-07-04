@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 import { IndexRoute, Router, Route, applyRouterMiddleware, browserHistory } from 'react-router';
 import useScroll from 'react-router-scroll';
 
-import * as addthis from '../addthis';
 import DocumentTitleContainer  from '../containers/DocumentTitleContainer';
 import LoadingCheckContainer from '../containers/LoadingCheckContainer';
 import Frame from './Frame';
@@ -18,7 +17,6 @@ import TeamInfoPage from './TeamInfoPage';
 
 function handleNavigation() {
   GA.pageview(window.location.pathname);
-  addthis.handleNavigation();
 }
 
 class App extends React.Component {
