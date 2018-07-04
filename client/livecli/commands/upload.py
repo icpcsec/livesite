@@ -21,6 +21,11 @@ def upload_main(options: argparse.Namespace) -> None:
         logging.error('Not a valid JSON file: %s', feed_path)
         sys.exit(1)
 
+    if isinstance(data, dict) and 'ts' in data:
+        logging.warning(
+            'Given JSON file is in legacy format. Converting automatically.')
+        data = data['data']
+
     client = clients.LiveClient(config)
 
     client.set_feeds(options.instance, {options.feed: data})
