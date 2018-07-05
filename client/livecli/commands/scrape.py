@@ -2,6 +2,7 @@ import argparse
 import json
 import logging
 import math
+import os
 import sys
 import time
 
@@ -43,6 +44,13 @@ def scrape_main(options: argparse.Namespace) -> None:
         print('error: --scoreboard-url is required', file=sys.stderr)
         sys.exit(1)
 
+    log_dir = options.log_dir
+    if not log_dir:
+        print('error: --log-dir is required', file=sys.stderr)
+        sys.exit(1)
+
+    os.makedirs(log_dir, exist_ok=True)
+
     config = types.Config.load(options.config_path)
 
     logging.info('Project: %s', config.project)
@@ -62,11 +70,17 @@ def scrape_main(options: argparse.Namespace) -> None:
     logging.info('OK.')
 
     while True:
+        _wait_next_tick(options.interval_seconds)
         try:
+            timestamp = int(time.time())
             r = requests.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
+            with open(os.path.join(log_dir, 'standings.%d.html' % timestamp), 'wb') as f:
+                f.write(r.content)
             r.raise_for_status()
             html = r.text
             problems, standings = scraper.scrape(html)
+            with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
+                json.dump(standings, f, separators=(',', ':'))
             updates = {}
             if problems is not None and problems != last_problems:
                 logging.warning('Problems changed. Updating contest...')
@@ -85,4 +99,3 @@ def scrape_main(options: argparse.Namespace) -> None:
                 logging.info('No update.')
         except Exception:
             logging.exception('Unhandled exception')
-        _wait_next_tick(options.interval_seconds)

@@ -51,6 +51,8 @@ def make_parser() -> argparse.ArgumentParser:
     scrape_common_parser.add_argument(
         '--interval-seconds', type=int, default=10, help='Interval to scrape in seconds')
     scrape_common_parser.add_argument(
+        '--log-dir', help='Path to log output dir')
+    scrape_common_parser.add_argument(
         '--test-with-local-file', help='Scrape from a file and exit without uploading')
 
     scrape_parser = root_subparsers.add_parser('scrape', parents=[global_parser])
