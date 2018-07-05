@@ -5,6 +5,12 @@ import FixedRatioThumbnail from './FixedRatioThumbnail';
 import * as constants from '../constants';
 import siteconfig from '../siteconfig';
 
+const TeamComment = ({ comment }) => (
+  <div className="alert alert-secondary" style={{ textAlign: 'center' }}>
+    {comment}
+  </div>
+);
+
 const MemberProfile = ({ profile, index }) => {
   const displayName = profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
@@ -15,7 +21,7 @@ const MemberProfile = ({ profile, index }) => {
          href={`https://www.topcoder.com/members/${profile.topcoderId}/`}>
         {profile.topcoderId}
       </a>,
-      ', ');
+      <br />);
   }
   if (profile.codeforcesId) {
     contactsElements.push(
@@ -24,7 +30,7 @@ const MemberProfile = ({ profile, index }) => {
          href={`http://codeforces.com/profile/${profile.codeforcesId}/`}>
         {profile.codeforcesId}
       </a>,
-      ', ');
+      <br />);
   }
   if (profile.atcoderId) {
     contactsElements.push(
@@ -33,7 +39,7 @@ const MemberProfile = ({ profile, index }) => {
          href={`https://atcoder.jp/user/${profile.atcoderId}/`}>
         {profile.atcoderId}
       </a>,
-      ', ');
+      <br />);
   }
   if (profile.twitterId) {
     contactsElements.push(
@@ -42,7 +48,7 @@ const MemberProfile = ({ profile, index }) => {
          href={`https://twitter.com/${profile.twitterId}/`}>
         @{profile.twitterId}
       </a>,
-      ', ');
+      <br />);
   }
   if (profile.githubId) {
     contactsElements.push(
@@ -51,25 +57,27 @@ const MemberProfile = ({ profile, index }) => {
          href={`https://github.com/${profile.githubId}/`}>
         {profile.githubId}
       </a>,
-      ', ');
+      <br />);
   }
   if (contactsElements.length > 0) {
     contactsElements.pop();
   }
   return (
-    <div className="profile card">
-      <div className="card-body">
-        {
-          siteconfig.features.icon ?
-          <div className="profile-icon">
-            <FixedRatioThumbnail url={profile.icon} ratio={1} />
-          </div> :
-          null
-        }
-        <div className="profile-data" style={{ marginLeft: siteconfig.features.icon ? null : '0' }}>
-          <p className="profile-name">{displayName}</p>
-          <p className="profile-contacts">{contactsElements}</p>
-          <p className="profile-comment">{profile.comment}</p>
+    <div className="col-lg-4">
+      <div className="profile card">
+        <div className="card-body">
+          {
+            siteconfig.features.icon ?
+            <div className="profile-icon">
+              <FixedRatioThumbnail url={profile.icon} ratio={1} />
+            </div> :
+            null
+          }
+          <div className="profile-data" style={{ marginLeft: siteconfig.features.icon ? null : '0' }}>
+            <p className="profile-name">{displayName}</p>
+            <p className="profile-contacts">{contactsElements}</p>
+            <p className="profile-comment">{profile.comment}</p>
+          </div>
         </div>
       </div>
     </div>
@@ -103,11 +111,16 @@ const TeamInfo = ({ team }) => {
         </small>
       </h1>
       {
+        team.comment ? <TeamComment comment={team.comment} /> : null
+      }
+      {
         siteconfig.features.photo ?
         <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photoAspectRatio} /> :
         null
       }
-      {memberElements}
+      <div className="row">
+        {memberElements}
+      </div>
     </div>
   );
 };
