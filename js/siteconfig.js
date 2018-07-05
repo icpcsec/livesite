@@ -8,7 +8,7 @@ const siteconfig = {
     country: false,
     prefecture: true,
     photo: false,
-    icon: true,
+    icon: false,
   },
   firebase: {
     apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',
