@@ -78,6 +78,8 @@ class DomesticScraper(base.Scraper):
                 continue
 
             team = dict(zip(_TEAM_COLUMNS, row))
+            team['solved'] = int(team['solved'])
+            team['penalty'] = int(team['penalty'])
             del team[None]
 
             team['problems'] = [_parse_problem_status(col) for col in row[6:]]
