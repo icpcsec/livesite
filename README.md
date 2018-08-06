@@ -1,20 +1,14 @@
 LiveSite
 ========
 
-```
- _     _           _____ _ _
-| |   (_)         /  ___(_) |
-| |    ___   _____\ `--. _| |_ ___
-| |   | \ \ / / _ \`--. \ | __/ _ \
-| |___| |\ V /  __/\__/ / | ||  __/
-\_____/_| \_/ \___\____/|_|\__\___|
-```
+Live Website for Programming Contests
 
 
 Prerequisites
 -------------
 
 - Node.js
+- Python 3.6+
 
 
 How to run locally
@@ -23,8 +17,9 @@ How to run locally
 Initial setup:
 
 ```
-$ npm install  # install dependencies
-$ node_modules/.bin/firebase login  # optional; if write-access is needed
+$ npm install
+$ node_modules/.bin/firebase login
+$ node_modules/.bin/firebase use --add
 ```
 
 Build the JS bundle:
