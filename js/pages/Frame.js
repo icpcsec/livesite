@@ -7,12 +7,14 @@ import ThemeContainer from '../containers/ThemeContainer';
 const Frame = ({ children }) => {
   return (
     <div style={{width: '100%'}}>
+      { /*
       <NavBarContainer />
       <div style={{ paddingTop: '70px' }} />
-      <div className="container" style={{position: 'relative' }}>
+      */ }
+      <div className="container-fluid" style={{position: 'relative' }}>
         {children}
       </div>
-      <FooterContainer />
+      { /* <FooterContainer /> */ }
       <ThemeContainer />
     </div>
   );
