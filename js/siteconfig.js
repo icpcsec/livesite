@@ -1,7 +1,6 @@
 const siteconfig = {
   ui: {
     lang: 'ja',
-    twitterId: 'icpc2017tsukuba',
     photoAspectRatio: 9 / 16,
   },
   features: {
