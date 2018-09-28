@@ -10,21 +10,26 @@ const UPDATE_FUNCS = {
   standings: updateStandings,
 };
 
-function getInstanceName() {
-  if (window.location.hostname === 'localhost') {
-    return 'dev';
-  } else if (window.location.hostname === 'livesite-dev.nya3.jp') {
-    return 'dev';
+function initializeApp() {
+  const options = Object.assign({}, siteconfig.firebase);
+  const hostname = window.location.hostname;
+  if (hostname === 'localhost') {
+    options.databaseURL = 'ws://localhost:5001';
+  } else if (hostname.endsWith('.firebaseapp.com')) {
+    const appName = hostname.split(".")[0];
+    options.databaseURL = 'https://' + appName + '.firebaseio.com';
+  } else {
+    throw new Error('Unsupported host: ' + hostname);
   }
-  return 'default';
+  return firebase.initializeApp(options, 'loader');
 }
 
 class FirebaseLoader {
   constructor(store) {
     this.store_ = store;
-    this.app_ = firebase.initializeApp(siteconfig.firebase, 'loader');
+    this.app_ = initializeApp();
     this.db_ = firebase.database(this.app_);
-    this.ref_ = this.db_.ref(getInstanceName());
+    this.ref_ = this.db_.ref('default');
   }
 
   start() {

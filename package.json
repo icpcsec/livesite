@@ -4,7 +4,7 @@
   "description": "",
   "main": "js/index.js",
   "scripts": {
-    "serve": "firebase serve",
+    "serve": "node devserver/devserver.js",
     "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ env react ] ] -g envify -g uglifyify",
     "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ env react ] ]",
     "lint": "eslint js",
@@ -47,6 +47,8 @@
   "devDependencies": {
     "eslint": "^4.18.1",
     "eslint-plugin-react": "^7.7.0",
+    "express": "^4.16.3",
+    "firebase-server": "^1.0.0",
     "firebase-tools": "^3.17.4",
     "license-checker": "^16.0.0",
     "watchify": "^3.10.0"

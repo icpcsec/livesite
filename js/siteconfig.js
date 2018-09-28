@@ -11,11 +11,8 @@ const siteconfig = {
   },
   firebase: {
     apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',
-    authDomain: 'icpcsec.firebaseapp.com',
-    databaseURL: 'https://icpcsec.firebaseio.com',
-    projectId: 'icpcsec',
-    storageBucket: 'icpcsec.appspot.com',
     messagingSenderId: '880347634771',
+    databaseURL: null,  // Inferred in FirebaseLoader.js
   },
   misc: {
     googleAnalyticsId: 'UA-51402415-4',
