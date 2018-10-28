@@ -7,6 +7,18 @@
     <meta property="og:image" content="http://icpc.iisf.or.jp/wp-content/uploads/2013/11/copy-acm_logo.png">
     <title>LiveSite</title>
 
+    <script>
+      window.broadcastMode = (location.pathname.indexOf('/broadcast') === 0);
+      if (window.broadcastMode) {
+        document.documentElement.classList.add('broadcast-mode');
+      }
+      if (window.obsstudio) {
+        document.documentElement.classList.add('obs-true');
+      } else {
+        document.documentElement.classList.add('obs-false');
+      }
+    </script>
+
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
     <link rel="stylesheet" type="text/css" href="/assets/livesite/css/livesite.css">

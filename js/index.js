@@ -35,7 +35,7 @@ const loader = new FirebaseLoader(store);
 loader.start();
 
 ReactDOM.render(
-  <App store={store} />,
+  <App store={store} broadcastMode={window.broadcastMode} />,
   document.getElementById('root')
 );
 
