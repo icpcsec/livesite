@@ -335,3 +335,21 @@ html.broadcast-mode #root {
 html.broadcast-mode.obs-false #root {
   background-color: blue;
 }
+
+.broadcast-card {
+  margin-bottom: 1px;
+  font-size: inherit;
+  background-color: rgba(245, 245, 245, 0.9);
+}
+
+.broadcast-card .card-body {
+  padding: 2px;
+}
+
+.card-event-accept .mark {
+  background-color: #64DD17;
+}
+
+.card-event-reject .mark {
+  background-color: #FF5252;
+}

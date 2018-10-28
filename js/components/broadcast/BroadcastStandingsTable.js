@@ -16,16 +16,16 @@ const TeamRow = ({ status: { rank, solved, problems }, team: { name, universityS
     return <div style={{ width: '6px', margin: '0 1px 0 0', height: '18px', borderRadius: '2px', backgroundColor: color }} />;
   });
   return (
-      <div className="card" style={{zIndex, marginBottom: '1px', fontSize: 'inherit', backgroundColor: 'rgba(245, 245, 245, 0.9)'}}>
-        <div className="card-body" style={{padding: '2px'}}>
+      <div className="card broadcast-card" style={{zIndex}}>
+        <div className="card-body">
           <div style={{display: 'flex'}}>
             <div style={{flex: '0 0 auto', margin: '0 4px', width: '20px', textAlign: 'right'}}>
               {rank}
             </div>
-            <div style={{flex: '0 0 auto', margin: '0 4px', width: '102px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+            <div className="text-ellipsis" style={{flex: '0 0 auto', margin: '0 4px', width: '102px'}}>
               {universityShort}
             </div>
-            <div style={{flex: '1 1 auto', margin: '0 4px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis'}}>
+            <div className="text-ellipsis" style={{flex: '1 1 auto', margin: '0 4px'}}>
               {name}
             </div>
             <div style={{flex: '0 0 auto', margin: '0 4px', width: '20px', textAlign: 'right'}}>
