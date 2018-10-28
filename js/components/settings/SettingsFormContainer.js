@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
-import SettingsForm from '../components/SettingsForm';
+import * as actions from '../../actions/index';
+import SettingsForm from './SettingsForm';
 
 const mapStateToProps = ({ settings }) => ({ settings });
 

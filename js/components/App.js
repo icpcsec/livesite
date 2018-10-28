@@ -4,16 +4,16 @@ import { Provider } from 'react-redux';
 import { IndexRoute, Router, Route, applyRouterMiddleware, browserHistory } from 'react-router';
 import useScroll from 'react-router-scroll';
 
-import DocumentTitleContainer  from '../containers/DocumentTitleContainer';
-import LoadingCheckContainer from '../containers/LoadingCheckContainer';
+import DocumentTitleContainer  from './common/DocumentTitleContainer';
+import LoadingCheckContainer from './common/LoadingCheckContainer';
 import Frame from './Frame';
-import FrontPage from './FrontPage';
+import FrontPage from './front/FrontPage';
 import LoadingPage from './LoadingPage';
-import SettingsPage from './SettingsPage';
-import StandingsPage from './StandingsPage';
-import StandingsRevealPage from './StandingsRevealPage';
-import TeamIndexPage from './TeamIndexPage';
-import TeamInfoPage from './TeamInfoPage';
+import SettingsPage from './settings/SettingsPage';
+import StandingsPage from './standings/StandingsPage';
+import StandingsRevealPage from './standings/StandingsRevealPage';
+import TeamIndexPage from './teams/TeamIndexPage';
+import TeamInfoPage from './teams/TeamInfoPage';
 
 function handleNavigation() {
   GA.pageview(window.location.pathname);

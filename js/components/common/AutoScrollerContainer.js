@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import AutoScroller from '../components/AutoScroller';
+import AutoScroller from './AutoScroller';
 
 const mapStateToProps = ({ settings }) => ({ enabled: settings.autoscroll });
 

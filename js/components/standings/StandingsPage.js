@@ -1,8 +1,8 @@
 import React from 'react';
 
-import AutoScrollerContainer from '../containers/AutoScrollerContainer';
-import StandingsTableContainer from '../containers/StandingsTableContainer';
-import { tr } from '../i18n';
+import AutoScrollerContainer from '../common/AutoScrollerContainer';
+import StandingsTableContainer from './StandingsTableContainer';
+import { tr } from '../../i18n';
 
 const StandingsPage = () => (
   <div>

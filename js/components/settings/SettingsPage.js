@@ -1,7 +1,7 @@
 import React from 'react';
 
-import SettingsFormContainer from '../containers/SettingsFormContainer';
-import { tr } from '../i18n';
+import SettingsFormContainer from './SettingsFormContainer';
+import { tr } from '../../i18n';
 
 const SettingsPage = () => (
   <div>

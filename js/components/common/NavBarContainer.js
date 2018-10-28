@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import NavBar from '../components/NavBar';
+import NavBar from './NavBar';
 
 const mapStateToProps = ({ contest }) => ({ contest });
 

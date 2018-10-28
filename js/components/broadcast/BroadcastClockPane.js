@@ -1,6 +1,6 @@
 import React from 'react';
 
-import ClockTextContainer from '../containers/ClockTextContainer';
+import ClockTextContainer from '../common/ClockTextContainer';
 
 const BroadcastClockPane = ({ contest }) => (
   <div style={{ position: 'absolute', right: '40px', top: '20px' }}>

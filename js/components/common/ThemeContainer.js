@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Theme from '../components/Theme';
+import Theme from './Theme';
 
 const mapStateToProps = ({ settings }) => ({ settings });
 

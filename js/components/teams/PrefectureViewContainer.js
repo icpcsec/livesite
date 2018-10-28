@@ -1,12 +1,12 @@
 import { connect } from 'react-redux';
 
-import TeamList from '../components/TeamList';
+import PrefectureView from './PrefectureView';
 
 const mapStateToProps = (state) => {
   const teams = Object.keys(state.teams).map((key) => state.teams[key]);
   return { teams };
 };
 
-const TeamListContainer = connect(mapStateToProps)(TeamList);
+const PrefectureViewContainer = connect(mapStateToProps)(PrefectureView);
 
-export default TeamListContainer;
+export default PrefectureViewContainer;

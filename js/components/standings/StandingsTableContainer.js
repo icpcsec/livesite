@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import { updateSettings } from '../actions';
-import StandingsTable from '../components/StandingsTable';
+import { updateSettings } from '../../actions/index';
+import StandingsTable from './StandingsTable';
 
 const mapStateToProps = (state) => {
   return {

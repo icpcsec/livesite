@@ -1,9 +1,9 @@
 import React from 'react';
 
-import ErrorMessage from './ErrorMessage';
-import FixedRatioThumbnail from './FixedRatioThumbnail';
-import * as constants from '../constants';
-import siteconfig from '../siteconfig';
+import ErrorMessage from '../common/ErrorMessage';
+import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
+import * as constants from '../../constants';
+import siteconfig from '../../siteconfig';
 
 const TeamComment = ({ comment }) => (
   <div className="alert alert-secondary" style={{ textAlign: 'center' }}>

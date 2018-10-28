@@ -4,9 +4,9 @@ import { Link } from 'react-router';
 import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
 
-import { tr } from '../i18n';
-import siteconfig from '../siteconfig';
-import TimerSet from '../utils/TimerSet';
+import { tr } from '../../i18n';
+import siteconfig from '../../siteconfig';
+import TimerSet from '../../utils/TimerSet';
 
 const DEFAULT_TEAM = {
   id: 'null',

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
-import * as actions from '../actions';
-import StandingsRevealTable from '../components/StandingsRevealTable';
+import * as actions from '../../actions/index';
+import StandingsRevealTable from './StandingsRevealTable';
 
 const mapStateToProps = (state) => {
   return {

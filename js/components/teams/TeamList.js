@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import FixedRatioThumbnail from './FixedRatioThumbnail';
-import GridFlow from './GridFlow';
-import * as constants from '../constants';
-import siteconfig from '../siteconfig';
+import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
+import GridFlow from '../common/GridFlow';
+import * as constants from '../../constants';
+import siteconfig from '../../siteconfig';
 
 const TeamPhoto = ({ photo }) => {
   return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />

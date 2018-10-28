@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import TeamInfo from '../components/TeamInfo';
+import TeamInfo from './TeamInfo';
 
 const mapStateToProps = (state, ownProps) => {
   const { teams } = state;

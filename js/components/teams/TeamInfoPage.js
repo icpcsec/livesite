@@ -1,6 +1,6 @@
 import React from 'react';
 
-import TeamInfoContainer from '../containers/TeamInfoContainer';
+import TeamInfoContainer from './TeamInfoContainer';
 
 const TeamInfoPage = ({ params }) => <TeamInfoContainer params={params} />;
 

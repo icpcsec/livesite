@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import LoadingCheck from '../components/LoadingCheck';
+import LoadingCheck from './LoadingCheck';
 
 const mapStateToProps = (state, ownProps) => {
   const loaded = ['contest', 'teams', 'standings'].every(

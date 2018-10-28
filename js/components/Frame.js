@@ -1,8 +1,8 @@
 import React from 'react';
 
-import FooterContainer from '../containers/FooterContainer';
-import NavBarContainer from '../containers/NavBarContainer';
-import ThemeContainer from '../containers/ThemeContainer';
+import FooterContainer from './common/FooterContainer';
+import NavBarContainer from './common/NavBarContainer';
+import ThemeContainer from './common/ThemeContainer';
 
 const Frame = ({ children }) => {
   return (

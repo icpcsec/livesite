@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import FrontContent from '../components/FrontContent';
+import FrontContent from './FrontContent';
 
 const mapStateToProps = ({ contest }) => ({ contest });
 

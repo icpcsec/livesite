@@ -9,7 +9,7 @@ import * as Redux from 'redux';
 import ReduxThunk from 'redux-thunk';
 
 import { printBanner } from './banner';
-import App from './pages/App';
+import App from './components/App';
 import { createPersist } from './persist';
 import reducer from './reducers';
 import siteconfig from './siteconfig';

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import MaterialInit from './MaterialInit';
-import { tr } from '../i18n';
+import MaterialInit from '../common/MaterialInit';
+import { tr } from '../../i18n';
 
 const SettingsForm = ({ settings, toggleSetting }) => (
   <MaterialInit>

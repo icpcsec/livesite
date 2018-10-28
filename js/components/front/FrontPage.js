@@ -1,6 +1,6 @@
 import React from 'react';
 
-import FrontContentContainer from '../containers/FrontContentContainer';
+import FrontContentContainer from './FrontContentContainer';
 
 const FrontPage = () => <FrontContentContainer />;
 

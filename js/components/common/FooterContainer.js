@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import Footer from '../components/Footer';
+import Footer from './Footer';
 
 const mapStateToProps = ({ contest }) => ({ contest });
 

@@ -1,7 +1,7 @@
 import React from 'react';
 
-import StandingsRevealTableContainer from '../containers/StandingsRevealTableContainer';
-import { tr } from '../i18n';
+import StandingsRevealTableContainer from './StandingsRevealTableContainer';
+import { tr } from '../../i18n';
 
 const StandingsRevealPage = () => (
   <div>

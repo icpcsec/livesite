@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import ClockText from '../components/ClockText';
+import ClockText from './ClockText';
 
 const mapStateToProps = ({ contest }) => ({ contest });
 

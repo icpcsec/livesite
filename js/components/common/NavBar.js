@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router';
 
-import ClockTextContainer from '../containers/ClockTextContainer';
-import { tr } from '../i18n';
+import ClockTextContainer from './ClockTextContainer';
+import { tr } from '../../i18n';
 
 class NavLink extends React.Component {
   render() {
