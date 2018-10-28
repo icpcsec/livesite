@@ -18,6 +18,10 @@ def make_parser() -> argparse.ArgumentParser:
         '--config-path',
         default=constants.DEFAULT_CONFIG_PATH,
         help='Path to the config file')
+    global_parser.add_argument(
+        '--local',
+        action='store_true',
+        help='Operate on the local development server')
 
     root_parser = argparse.ArgumentParser(parents=[global_parser])
     root_parser.set_defaults(handler=None)

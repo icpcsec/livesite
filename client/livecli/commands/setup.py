@@ -7,6 +7,7 @@ import urllib.parse
 import google_auth_oauthlib.flow
 
 from livecli.commands import verify_credentials
+from livecli import clients
 from livecli import constants
 from livecli import types
 
@@ -35,8 +36,9 @@ def setup_main(options: argparse.Namespace) -> None:
 
     new_config = types.Config(
         project=project, gs_url_prefix=gs_url_prefix, user_info=user_info)
+    new_client = clients.ProdClient(new_config)
 
-    verify_credentials.verify_credentials(new_config)
+    verify_credentials.verify_credentials(new_client)
 
     new_config.save(options.config_path)
     logging.info('Configs saved to %s', options.config_path)

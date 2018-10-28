@@ -3,12 +3,9 @@ import logging
 import sys
 
 from livecli import clients
-from livecli import types
 
 
-def verify_credentials(config: types.Config) -> None:
-    client = clients.LiveClient(config)
-
+def verify_credentials(client: clients.Client) -> None:
     email = client.get_email()
     if not email:
         sys.exit(1)
@@ -24,5 +21,5 @@ def verify_credentials(config: types.Config) -> None:
 
 
 def verify_credentials_main(options: argparse.Namespace) -> None:
-    config = types.Config.load(options.config_path)
-    verify_credentials(config)
+    client = clients.create_client(options)
+    verify_credentials(client)

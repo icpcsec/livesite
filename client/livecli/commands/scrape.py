@@ -51,13 +51,10 @@ def scrape_main(options: argparse.Namespace) -> None:
 
     os.makedirs(log_dir, exist_ok=True)
 
-    config = types.Config.load(options.config_path)
+    client = clients.create_client(options)
+    client.print_configs()
 
-    logging.info('Project: %s', config.project)
     logging.info('Instance: %s', options.instance)
-    logging.info('GCS URL: %s', config.gs_url_prefix)
-
-    client = clients.LiveClient(config)
 
     email = client.get_email()
     logging.info('Logged in as: %s', email)

@@ -1,7 +1,10 @@
+import abc
+import argparse
 import logging
 import gzip
 import io
 import json
+import os
 import time
 from typing import Any, BinaryIO, Dict, Generator, List, Optional
 import urllib.parse
@@ -70,13 +73,114 @@ def _get_gs_public_url(gs_url: str) -> str:
                                                     parsed_gs_url.path)
 
 
-class LiveClient:
+class FirebaseClient:
+    def __init__(self, session: requests.Session, origin: str, instance: str):
+        self._session = session
+        self._origin = origin
+        self._instance = instance
+
+    def set_feeds(self, feed_urls: Dict[types.FeedType, str]) -> None:
+        logging.info('Updating Firebase realtime database')
+        for feed_type, public_url in feed_urls.items():
+            db_url = '%s/%s/feeds/%s.json' % (self._origin, self._instance, feed_type)
+            r = self._session.put(db_url, json=public_url)
+            r.raise_for_status()
+
+    def get_feeds(self) -> Dict[types.FeedType, str]:
+        feeds_url = '%s/%s/feeds.json' % (self._origin, self._instance)
+        r = self._session.get(feeds_url)
+        r.raise_for_status()
+        result = r.json()
+        if not result:
+            raise ValueError('Instance %s is uninitialized' % self._instance)
+        feed_urls = {}
+        for feed_type in types.FeedType:
+            url = result.get(str(feed_type))
+            if not url:
+                raise ValueError('Instance %s is missing feed %s' % (self._instance, feed_type))
+            feed_urls[feed_type] = url
+        return feed_urls
+
+
+class Client(abc.ABC):
+    @abc.abstractmethod
+    def print_configs(self) -> None:
+        ...
+
+    @abc.abstractmethod
+    def get_email(self) -> Optional[str]:
+        ...
+
+    @abc.abstractmethod
+    def verify_database_permission(self) -> bool:
+        ...
+
+    @abc.abstractmethod
+    def verify_storage_permission(self) -> bool:
+        ...
+
+    @abc.abstractmethod
+    def set_feeds(self, instance: str, feeds: Dict[types.FeedType, Any]) -> None:
+        ...
+
+    @abc.abstractmethod
+    def get_feeds(self, instance: str) -> Dict[types.FeedType, Any]:
+        ...
+
+
+class DevClient(Client):
+    DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../public/demodata')
+
+    def __init__(self):
+        self._session = requests.Session()
+
+    def print_configs(self) -> None:
+        logging.info('Using development client.')
+
+    def get_email(self) -> Optional[str]:
+        return 'dev@localhost'
+
+    def verify_database_permission(self) -> bool:
+        return True
+
+    def verify_storage_permission(self) -> bool:
+        return True
+
+    def set_feeds(self, instance: str, feeds: Dict[types.FeedType, Any]) -> None:
+        feed_urls = {}
+        for feed_type, data in feeds.items():
+            name = '%s.%.6f.json' % (feed_type, time.time())
+            with open(os.path.join(DevClient.DEMODATA_DIR, name), 'wb') as f:
+                json.dump(data, f, indent=2, sort_keys=True)
+            feed_urls[feed_type] = '/demodata/%s' % name
+
+        client = FirebaseClient(self._session, 'localhost:5000', instance)
+        client.set_feeds(feed_urls)
+
+    def get_feeds(self, instance: str) -> Dict[types.FeedType, Any]:
+        client = FirebaseClient(self._session, 'localhost:5000', instance)
+        feed_urls = client.get_feeds()
+        feeds = {}
+        for feed_type, feed_url in feed_urls.items():
+            assert feed_url.startswith('/demodata/')
+            rel_path = feed_url.split('/', 2)[2]
+            with open(os.path.join(DevClient.DEMODATA_DIR, rel_path), 'rb') as f:
+                feeds[feed_type] = json.load(f)
+        return feeds
+
+
+class ProdClient(Client):
     def __init__(self, config: types.Config):
         self._config = config
         self._session = google_auth_requests.AuthorizedSession(
             google_credentials.Credentials.from_authorized_user_info(
                 config.user_info, scopes=constants.SCOPES))
         self._storage = storage_client.Client(project=config.project, _http=self._session)
+
+    def print_configs(self) -> None:
+        logging.info('Using production client.')
+        logging.info('  Project: %s', self._config.project)
+        logging.info('  GCS URL: %s', self._config.gs_url_prefix)
 
     def get_email(self) -> Optional[str]:
         r = self._session.get('https://www.googleapis.com/oauth2/v1/userinfo?alt=json')
@@ -168,3 +272,12 @@ class LiveClient:
                 data = r.json()
             feeds[feed_type] = data
         return feeds
+
+
+
+def create_client(options: argparse.Namespace) -> Client:
+    if options.local:
+        return DevClient()
+
+    config = types.Config.load(options.config_path)
+    return ProdClient(config)

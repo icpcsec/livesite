@@ -4,11 +4,11 @@ import logging
 import sys
 
 from livecli import clients
-from livecli import types
 
 
 def upload_main(options: argparse.Namespace) -> None:
-    config = types.Config.load(options.config_path)
+    client = clients.create_client(options)
+
     feed_path = options.path[0]
 
     try:
@@ -25,8 +25,6 @@ def upload_main(options: argparse.Namespace) -> None:
         logging.warning(
             'Given JSON file is in legacy format. Converting automatically.')
         data = data['data']
-
-    client = clients.LiveClient(config)
 
     client.set_feeds(options.instance, {options.feed: data})
 
