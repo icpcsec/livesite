@@ -1,12 +1,12 @@
 const siteconfig = {
   ui: {
-    lang: 'ja',
+    lang: 'en',
     photoAspectRatio: 9 / 16,
   },
   features: {
-    country: false,
-    prefecture: true,
-    photo: false,
+    country: true,
+    prefecture: false,
+    photo: true,
     icon: false,
   },
   firebase: {
