@@ -1,4 +1,4 @@
-import applyPartialUpdate from 'react-addons-update';
+import applyPartialUpdate from 'immutability-helper';
 
 const DEFAULT_REVEAL = {
   standingsList: [[]],

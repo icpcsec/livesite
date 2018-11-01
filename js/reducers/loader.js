@@ -1,4 +1,4 @@
-import applyPartialUpdate from 'react-addons-update';
+import applyPartialUpdate from 'immutability-helper';
 
 const INIT_STATE = {
   loaded: new Set(),

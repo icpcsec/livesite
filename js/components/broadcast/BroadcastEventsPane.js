@@ -1,6 +1,6 @@
 import deepEqual from 'deep-equal';
 import React from 'react';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 const EVENT_TIMEOUT_SECONDS = 30;
 
@@ -47,6 +47,7 @@ class EventTable extends React.Component {
         newEvents.push(e);
       }
     }
+    newEvents.reverse();
 
     if (!deepEqual(this.state.events, newEvents)) {
       this.setState({
@@ -64,14 +65,16 @@ class EventTable extends React.Component {
       const team = teams[teamId];
       const problem = problems[problemIndex];
       rows.push(
-          <EventRow key={eventId} type={type} team={team} problem={problem} oldRank={oldRank} newRank={newRank} />
+          <CSSTransition key={eventId} timeout={{ enter: 500, exit: 300 }} classNames="event-animation">
+            <EventRow key={eventId} type={type} team={team} problem={problem} oldRank={oldRank} newRank={newRank} />
+          </CSSTransition>
       );
     }
     return (
       <div style={{display: 'flex', flexDirection: 'column-reverse', width: '100%', height: '100%' }}>
-        <ReactCSSTransitionGroup transitionName="event-animation" transitionEnterTimeout={500} transitionLeaveTimeout={300}>
+        <TransitionGroup component={null}>
           {rows}
-        </ReactCSSTransitionGroup>
+        </TransitionGroup>
       </div>
     );
   }

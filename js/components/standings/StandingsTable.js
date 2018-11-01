@@ -1,6 +1,6 @@
 import deepEqual from 'deep-equal';
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
 
@@ -235,11 +235,11 @@ class TeamRow extends React.Component {
   }
 
   render() {
-    const { status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
+    const { animationKey, status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
     const { rank, solved, penalty, revealState, problems = [] } = status;
     const rewrittenClassName = 'team-row ' + className;
     return (
-      <div className={rewrittenClassName} style={{ zIndex }}>
+      <div data-key={animationKey} className={rewrittenClassName} style={{ zIndex }}>
         <TeamRowLeft pinned={pinned} revealMode={revealMode} revealState={revealState} onClickPin={onClickPin} />
         <TeamGenericCol className="team-rank" text={rank} />
         <TeamRowRight solved={solved} penalty={penalty} problemSpecs={problemSpecs} team={team} universityRank={universityRank} problems={problems} />
@@ -310,12 +310,12 @@ class AnimatingTeamRow extends React.Component {
   }
 
   render() {
-    const { component: Component, className = '', status, ...rest } = this.props;
+    const { animationKey, component: Component, className = '', status, ...rest } = this.props;
     const rewrittenClassName =
       this.state.newSolved ? className + ' new-solved' : className;
     const rewrittenStatus = Object.assign(
       {}, status, this.state.rankHidden ? {rank: '...'} : {});
-    return <Component className={rewrittenClassName} status={rewrittenStatus} {...rest} />;
+    return <Component animationKey={animationKey} className={rewrittenClassName} status={rewrittenStatus} {...rest} />;
   }
 }
 
@@ -345,6 +345,7 @@ class StandingsTable extends React.Component {
           <AnimatingTeamRow
             component={RevealRow}
             key={'__reveal_marker__'}
+            animationKey={'__reveal_marker__'}
             status={status}
             team={team}
             problems={problems}
@@ -357,6 +358,7 @@ class StandingsTable extends React.Component {
         <AnimatingTeamRow
           component={TeamRow}
           key={status.teamId}
+          animationKey={status.teamId}
           status={status}
           team={team}
           problems={problems}

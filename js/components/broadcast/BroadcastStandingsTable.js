@@ -1,7 +1,6 @@
 import React from 'react';
 
 import AnimatingList from '../common/AnimatingList';
-import TimerSet from '../../utils/TimerSet';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -10,13 +9,13 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const TeamRow = ({ status: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
-  const cols = problems.map(({ solved, attempts }) => {
+const TeamRow = ({ animationKey, status: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
+  const cols = problems.map(({ solved, attempts }, index) => {
     const color = solved ? '#64DD17' : attempts > 0 ? '#FF5252' : 'transparent';
-    return <div style={{ width: '6px', margin: '0 1px 0 0', height: '18px', borderRadius: '2px', backgroundColor: color }} />;
+    return <div key={index} style={{ width: '6px', margin: '0 1px 0 0', height: '18px', borderRadius: '2px', backgroundColor: color }} />;
   });
   return (
-      <div className="card broadcast-card" style={{zIndex}}>
+      <div data-key={animationKey} className="card broadcast-card" style={{zIndex}}>
         <div className="card-body">
           <div style={{display: 'flex'}}>
             <div style={{flex: '0 0 auto', margin: '0 4px', width: '20px', textAlign: 'right'}}>
@@ -52,6 +51,7 @@ class BroadcastStandingsTable extends React.Component {
       rows.push(
           <TeamRow
               key={status.teamId}
+              animationKey={status.teamId}
               status={status}
               team={team}
               zIndex={9999 - index}

@@ -1,29 +1,33 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link, Route, Switch } from 'react-router-dom';
 
 import ClockTextContainer from './ClockTextContainer';
 import { tr } from '../../i18n';
 
 class NavLink extends React.Component {
   render() {
-    const { router } = this.context;
-    const { onlyActiveOnIndex = false, to, children } = this.props;
-    const disabled = !to || to.length === 0;
-    const external = !disabled && !to.startsWith('/');
-    const isActive = disabled || external ? false : router.isActive(to, onlyActiveOnIndex);
-    const link =
-      disabled ? <a className="nav-link" href="javascript:void(0)">{children}</a> :
-      external ? <a className="nav-link" target="_blank" href={to}>{children}</a> :
-      <Link className="nav-link" to={to}>{children}</Link>;
+    const { exact, to, children } = this.props;
+    const external = !to.startsWith('/');
+    if (external) {
+      return (
+          <li>
+            <a className="nav-link" target="_blank" href={to}>{children}</a>
+          </li>
+      );
+    }
+    const link = <Link className="nav-link" to={to}>{children}</Link>;
     return (
-      <li className={`${isActive ? 'active' : ''} ${disabled ? 'disabled' : ''}`}>
-        {link}
-      </li>
+        <Switch>
+          <Route exact={exact} path={to}>
+            <li className="active">{link}</li>
+          </Route>
+          <Route>
+            <li>{link}</li>
+          </Route>
+        </Switch>
     );
   }
 }
-
-NavLink.contextTypes = { router: () => React.PropTypes.func.isRequired };
 
 const NavBar = ({ contest }) => {
   return (
@@ -36,7 +40,7 @@ const NavBar = ({ contest }) => {
 
         <div id="navbar_collapse" className="collapse navbar-collapse">
           <ul className="navbar-nav mr-auto">
-            <NavLink to="/" onlyActiveOnIndex={true}>{tr('Home', 'ホーム')}</NavLink>
+            <NavLink exact to="/">{tr('Home', 'ホーム')}</NavLink>
             <NavLink to="/standings/">{tr('Standings', '順位表')}</NavLink>
             <NavLink to="/team/">{tr('Teams', 'チーム一覧')}</NavLink>
             {

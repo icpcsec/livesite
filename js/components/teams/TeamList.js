@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router';
+import { Link } from 'react-router-dom';
 
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import GridFlow from '../common/GridFlow';
@@ -89,8 +89,8 @@ const TeamListWithPrefecture = ({ teams }) => {
       const items = teamsInPrefecture.map(
         (team) => <TeamItem key={team.id} team={team} />);
       const name = constants.PREFECTURES[i];
-      children.push(<h3 id={`pref${i}`} className="my-3">{`${name} (${count})`}</h3>);
-      children.push(<TeamItemFlow>{items}</TeamItemFlow>);
+      children.push(<h3 key={`pref${i}.h`} id={`pref${i}`} className="my-3">{`${name} (${count})`}</h3>);
+      children.push(<TeamItemFlow key={`pref${i}.s`}>{items}</TeamItemFlow>);
     }
   }
   return <div>{children}</div>;

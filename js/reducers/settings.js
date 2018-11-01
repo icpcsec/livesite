@@ -1,4 +1,4 @@
-import applyPartialUpdate from 'react-addons-update';
+import applyPartialUpdate from 'immutability-helper';
 
 const updateSettings = (settings) => {
   if (settings.version === undefined) {

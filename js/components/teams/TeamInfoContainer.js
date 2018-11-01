@@ -4,7 +4,7 @@ import TeamInfo from './TeamInfo';
 
 const mapStateToProps = (state, ownProps) => {
   const { teams } = state;
-  const team = teams[ownProps.params.requestedTeamId];
+  const team = teams[ownProps.requestedTeamId];
   return { team };
 };
 

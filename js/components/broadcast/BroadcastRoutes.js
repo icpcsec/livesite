@@ -1,14 +1,16 @@
 import React from 'react';
-import { browserHistory, Route, Router } from 'react-router';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import NormalScene from './NormalScene';
 import StandingsScene from './StandingsScene';
 
 const BroadcastRoutes = () => (
-    <Router history={browserHistory}>
-      <Route path="/broadcast/normal" component={NormalScene} />
-      <Route path="/broadcast/standings" component={StandingsScene} />
-    </Router>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/broadcast/normal" component={NormalScene} />
+        <Route path="/broadcast/standings" component={StandingsScene} />
+      </Switch>
+    </BrowserRouter>
 );
 
 export default BroadcastRoutes;

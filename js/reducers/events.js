@@ -58,7 +58,9 @@ const computeEvents = (newStandings, oldStandings, teams, events = []) => {
 };
 
 export const deriveEvents = (reducer) => (state, action) => {
-  const newState = reducer(state, action);
+  const midState = Object.assign({}, state);
+  delete midState.events;
+  const newState = reducer(midState, action);
   return Object.assign(
       {},
       newState,
