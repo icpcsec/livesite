@@ -350,14 +350,6 @@ html.broadcast-mode.obs-false #root {
   padding: 2px;
 }
 
-.card-event-accept .mark {
-  background-color: #64DD17;
-}
-
-.card-event-reject .mark {
-  background-color: #FF5252;
-}
-
 .event-animation-enter {
   opacity: 0;
 }

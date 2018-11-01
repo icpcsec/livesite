@@ -5,15 +5,21 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 const EVENT_TIMEOUT_SECONDS = 30;
 
 const EventRow = ({type, team, problem, oldRank, newRank}) => {
+  const rankCol =
+      type === 'solved' ?
+      <div style={{ flex: '0 0 auto', marginLeft: '12px' }}>
+        {oldRank} &#x21D2; {newRank}
+      </div> : null;
   return (
     <div className="card broadcast-card">
-      <div className={`card-body card-event-${type} text-ellipsis`}>
-        <span className="mark" style={{ marginRight: '4px' }}>
-          <span style={{ display: 'inline-block', width: '12px', textAlign: 'center' }}>
-            {problem.label}
-          </span>
-        </span>
-        {team.universityShort} {team.name}
+      <div className="card-body" style={{ display: 'flex' }}>
+        <div className={`bg-${type}`} style={{ flex: '0 0 auto', width: '18px', marginRight: '4px', textAlign: 'center' }}>
+          {problem.label}
+        </div>
+        <div className="text-ellipsis" style={{ flex: '1 1 auto' }}>
+          {team.universityShort} {team.name}
+        </div>
+        {rankCol}
       </div>
     </div>
   );
@@ -82,7 +88,7 @@ class EventTable extends React.Component {
 
 const BroadcastEventsPane = ({ events, teams, problems }) => {
   return (
-      <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '240px' }}>
+      <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
         <EventTable events={events} teams={teams} problems={problems} />
       </div>
   );

@@ -34,7 +34,7 @@ const computeEvents = (newStandings, oldStandings, teams, events = []) => {
           newEvents.push({
             eventId: `${now}.${teamId}.${problemIndex}.accept`,
             time: now,
-            type: 'accept',
+            type: 'solved',
             teamId,
             problemIndex: problemIndex,
             oldRank,
@@ -46,7 +46,16 @@ const computeEvents = (newStandings, oldStandings, teams, events = []) => {
           newEvents.push({
             eventId: `${now}.${teamId}.${problemIndex}.reject.${attemptIndex}`,
             time: now,
-            type: 'reject',
+            type: 'rejected',
+            teamId,
+            problemIndex: problemIndex,
+          });
+        }
+        for (let pendingIndex = oldProblem.pendings; pendingIndex < newProblem.pendings; ++pendingIndex) {
+          newEvents.push({
+            eventId: `${now}.${teamId}.${problemIndex}.pending.${pendingIndex}`,
+            time: now,
+            type: 'pending',
             teamId,
             problemIndex: problemIndex,
           });
