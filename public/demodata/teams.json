@@ -1,1 +1,452 @@
-{}
+{
+  "1": {
+    "country": "Japan",
+    "id": "1",
+    "members": [],
+    "name": "Paltry Son",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Bear River College",
+    "universityShort": "Bear River College"
+  },
+  "10": {
+    "country": "Japan",
+    "id": "10",
+    "members": [],
+    "name": "General Bikes",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Central Institute",
+    "universityShort": "Central Institute"
+  },
+  "11": {
+    "country": "Japan",
+    "id": "11",
+    "members": [],
+    "name": "Jumpy Word",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Vista Elementary",
+    "universityShort": "Vista Elementary"
+  },
+  "12": {
+    "country": "Japan",
+    "id": "12",
+    "members": [],
+    "name": "Shy Spring",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Greenlands College",
+    "universityShort": "Greenlands College"
+  },
+  "13": {
+    "country": "Japan",
+    "id": "13",
+    "members": [],
+    "name": "Steep Person",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Greenfield School of Fine Arts",
+    "universityShort": "Greenfield School of Fine Arts"
+  },
+  "14": {
+    "country": "Japan",
+    "id": "14",
+    "members": [],
+    "name": "Talented Book",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Apple Valley Elementary",
+    "universityShort": "Apple Valley Elementary"
+  },
+  "15": {
+    "country": "Japan",
+    "id": "15",
+    "members": [],
+    "name": "Resolute Summer",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Tranquillity Secondary School",
+    "universityShort": "Tranquillity Secondary School"
+  },
+  "16": {
+    "country": "Japan",
+    "id": "16",
+    "members": [],
+    "name": "Tart Holiday",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Sunshine Technical School",
+    "universityShort": "Sunshine Technical School"
+  },
+  "17": {
+    "country": "Japan",
+    "id": "17",
+    "members": [],
+    "name": "Average Guide",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Ocean View Elementary",
+    "universityShort": "Ocean View Elementary"
+  },
+  "18": {
+    "country": "Japan",
+    "id": "18",
+    "members": [],
+    "name": "Spotless Donkey",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Greenlands Middle School",
+    "universityShort": "Greenlands Middle School"
+  },
+  "19": {
+    "country": "Japan",
+    "id": "19",
+    "members": [],
+    "name": "Ordinary Decision",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Blue River Middle School",
+    "universityShort": "Blue River Middle School"
+  },
+  "2": {
+    "country": "Japan",
+    "id": "2",
+    "members": [],
+    "name": "Voiceless Distribution",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Springfield Secondary School",
+    "universityShort": "Springfield Secondary School"
+  },
+  "20": {
+    "country": "Japan",
+    "id": "20",
+    "members": [],
+    "name": "Open Girl",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Upper Lake School",
+    "universityShort": "Upper Lake School"
+  },
+  "21": {
+    "country": "Japan",
+    "id": "21",
+    "members": [],
+    "name": "Careful Invention",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Northview Charter School",
+    "universityShort": "Northview Charter School"
+  },
+  "22": {
+    "country": "Japan",
+    "id": "22",
+    "members": [],
+    "name": "Nonstop Thought",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Meadows College",
+    "universityShort": "Meadows College"
+  },
+  "23": {
+    "country": "Japan",
+    "id": "23",
+    "members": [],
+    "name": "Defiant Umbrella",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Seaside Middle School",
+    "universityShort": "Seaside Middle School"
+  },
+  "24": {
+    "country": "Japan",
+    "id": "24",
+    "members": [],
+    "name": "Freezing Skirt",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Winterville School for Girls",
+    "universityShort": "Winterville School for Girls"
+  },
+  "25": {
+    "country": "Japan",
+    "id": "25",
+    "members": [],
+    "name": "Brash Chalk",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Mountain Oak Kindergarten",
+    "universityShort": "Mountain Oak Kindergarten"
+  },
+  "26": {
+    "country": "Japan",
+    "id": "26",
+    "members": [],
+    "name": "Paltry Learning",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Southview Conservatory",
+    "universityShort": "Southview Conservatory"
+  },
+  "27": {
+    "country": "Japan",
+    "id": "27",
+    "members": [],
+    "name": "Quick Fairies",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Panorama College",
+    "universityShort": "Panorama College"
+  },
+  "28": {
+    "country": "Japan",
+    "id": "28",
+    "members": [],
+    "name": "Assorted Behavior",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Copper Cove Academy",
+    "universityShort": "Copper Cove Academy"
+  },
+  "29": {
+    "country": "Japan",
+    "id": "29",
+    "members": [],
+    "name": "Racial Question",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Einstein Academy",
+    "universityShort": "Einstein Academy"
+  },
+  "3": {
+    "country": "Japan",
+    "id": "3",
+    "members": [],
+    "name": "Damp Ocean",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Cypress Grammar School",
+    "universityShort": "Cypress Grammar School"
+  },
+  "30": {
+    "country": "Japan",
+    "id": "30",
+    "members": [],
+    "name": "Sneaky Thought",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Einstein Kindergarten",
+    "universityShort": "Einstein Kindergarten"
+  },
+  "31": {
+    "country": "Japan",
+    "id": "31",
+    "members": [],
+    "name": "Nervous Join",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Oakwood School of Fine Arts",
+    "universityShort": "Oakwood School of Fine Arts"
+  },
+  "32": {
+    "country": "Japan",
+    "id": "32",
+    "members": [],
+    "name": "Thirsty Whip",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Pleasant Grove Elementary",
+    "universityShort": "Pleasant Grove Elementary"
+  },
+  "33": {
+    "country": "Japan",
+    "id": "33",
+    "members": [],
+    "name": "Tiny Territory",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Summit Conservatory",
+    "universityShort": "Summit Conservatory"
+  },
+  "34": {
+    "country": "Japan",
+    "id": "34",
+    "members": [],
+    "name": "Coherent Plantation",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Laguna Beach High",
+    "universityShort": "Laguna Beach High"
+  },
+  "35": {
+    "country": "Japan",
+    "id": "35",
+    "members": [],
+    "name": "Insidious Hot",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Whale Gulch High School",
+    "universityShort": "Whale Gulch High School"
+  },
+  "36": {
+    "country": "Japan",
+    "id": "36",
+    "members": [],
+    "name": "Kindhearted Canvas",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Tranquillity College",
+    "universityShort": "Tranquillity College"
+  },
+  "37": {
+    "country": "Japan",
+    "id": "37",
+    "members": [],
+    "name": "Acceptable Grandmother",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Columbus Technical School",
+    "universityShort": "Columbus Technical School"
+  },
+  "38": {
+    "country": "Japan",
+    "id": "38",
+    "members": [],
+    "name": "Vivacious Match",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Eagle Mountain Grammar School",
+    "universityShort": "Eagle Mountain Grammar School"
+  },
+  "39": {
+    "country": "Japan",
+    "id": "39",
+    "members": [],
+    "name": "Near Slope",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Pioneer Middle School",
+    "universityShort": "Pioneer Middle School"
+  },
+  "4": {
+    "country": "Japan",
+    "id": "4",
+    "members": [],
+    "name": "Dashing Window",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Littlewood Academy",
+    "universityShort": "Littlewood Academy"
+  },
+  "40": {
+    "country": "Japan",
+    "id": "40",
+    "members": [],
+    "name": "Mature Flavor",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Hawking Charter School",
+    "universityShort": "Hawking Charter School"
+  },
+  "41": {
+    "country": "Japan",
+    "id": "41",
+    "members": [],
+    "name": "Neighborly Stove",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Ridgeview Middle School",
+    "universityShort": "Ridgeview Middle School"
+  },
+  "42": {
+    "country": "Japan",
+    "id": "42",
+    "members": [],
+    "name": "Like Birds",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Green Meadows Academy",
+    "universityShort": "Green Meadows Academy"
+  },
+  "43": {
+    "country": "Japan",
+    "id": "43",
+    "members": [],
+    "name": "Noxious Cows",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Sandalwood School",
+    "universityShort": "Sandalwood School"
+  },
+  "44": {
+    "country": "Japan",
+    "id": "44",
+    "members": [],
+    "name": "High Increase",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Elk Valley College",
+    "universityShort": "Elk Valley College"
+  },
+  "45": {
+    "country": "Japan",
+    "id": "45",
+    "members": [],
+    "name": "Unsuitable Comb",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Summers School for Girls",
+    "universityShort": "Summers School for Girls"
+  },
+  "46": {
+    "country": "Japan",
+    "id": "46",
+    "members": [],
+    "name": "Draconian Hospital",
+    "photo": "/images/default-photo-regional.png",
+    "university": "South Fork Grammar School",
+    "universityShort": "South Fork Grammar School"
+  },
+  "47": {
+    "country": "Japan",
+    "id": "47",
+    "members": [],
+    "name": "Rich Treatment",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Skyline Institute",
+    "universityShort": "Skyline Institute"
+  },
+  "48": {
+    "country": "Japan",
+    "id": "48",
+    "members": [],
+    "name": "Waiting Invention",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Independence Middle School",
+    "universityShort": "Independence Middle School"
+  },
+  "49": {
+    "country": "Japan",
+    "id": "49",
+    "members": [],
+    "name": "Joyous Ring",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Faraday Secondary School",
+    "universityShort": "Faraday Secondary School"
+  },
+  "5": {
+    "country": "Japan",
+    "id": "5",
+    "members": [],
+    "name": "Little Balance",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Faraday Academy",
+    "universityShort": "Faraday Academy"
+  },
+  "50": {
+    "country": "Japan",
+    "id": "50",
+    "members": [],
+    "name": "Resolute Sticks",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Hercules University",
+    "universityShort": "Hercules University"
+  },
+  "6": {
+    "country": "Japan",
+    "id": "6",
+    "members": [],
+    "name": "Fine Cast",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Green Meadows Middle School",
+    "universityShort": "Green Meadows Middle School"
+  },
+  "7": {
+    "country": "Japan",
+    "id": "7",
+    "members": [],
+    "name": "Flaky Language",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Promise High School",
+    "universityShort": "Promise High School"
+  },
+  "8": {
+    "country": "Japan",
+    "id": "8",
+    "members": [],
+    "name": "Average Twig",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Littlewood University",
+    "universityShort": "Littlewood University"
+  },
+  "9": {
+    "country": "Japan",
+    "id": "9",
+    "members": [],
+    "name": "Hurt Nose",
+    "photo": "/images/default-photo-regional.png",
+    "university": "Faraday Conservatory",
+    "universityShort": "Faraday Conservatory"
+  }
+}
