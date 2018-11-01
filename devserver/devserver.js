@@ -1,3 +1,4 @@
+const childProcess = require('child_process');
 const express = require('express');
 const fbserver = require('firebase-server');
 
@@ -25,3 +26,5 @@ app.listen(5000, () => {
 });
 
 new fbserver({port: 5001, rest: true}, 'localhost', db);
+
+childProcess.spawn('npm', ['run', 'watch'], {stdio: 'inherit'});
