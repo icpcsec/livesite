@@ -1,5 +1,6 @@
 import axios from 'axios';
-import * as firebase from 'firebase';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 import { markLoaded, updateContest, updateStandings, updateTeams } from '../actions';
 import siteconfig from '../siteconfig';

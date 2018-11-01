@@ -5,8 +5,8 @@
   "main": "js/index.js",
   "scripts": {
     "serve": "node devserver/devserver.js",
-    "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ env react ] ] -g envify -g uglifyify",
-    "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ env react ] ]",
+    "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -g envify -g uglifyify",
+    "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ]",
     "lint": "eslint js",
     "deploy": "npm run build && firebase deploy"
   },
@@ -14,22 +14,22 @@
   "author": "",
   "license": "Apache-2.0",
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.0.0",
+    "@babel/polyfill": "^7.0.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "axios": "^0.18.0",
-    "babel-core": "^6.26.0",
-    "babel-plugin-transform-object-rest-spread": "^6.26.0",
-    "babel-polyfill": "^6.26.0",
-    "babel-preset-env": "^1.6.1",
-    "babel-preset-react": "^6.24.1",
-    "babelify": "^8.0.0",
+    "babelify": "^10.0.0",
     "bootstrap-material-design": "^4.1.1",
-    "browserify": "^16.1.0",
+    "browserify": "^16.2.3",
     "deep-equal": "^1.0.1",
     "envify": "^4.1.0",
-    "firebase": "^4.10.1",
+    "firebase": "^5.5.6",
     "immutability-helper": "^2.8.1",
     "jquery": "^3.3.1",
-    "moment": "^2.20.1",
-    "popper.js": "^1.12.9",
+    "moment": "^2.22.2",
+    "popper.js": "^1.14.4",
     "react": "^16.6.0",
     "react-addons-deep-compare": "0.0.1",
     "react-document-title": "^2.0.3",
@@ -41,15 +41,15 @@
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
     "sprintf-js": "^1.1.1",
-    "uglifyify": "^4.0.5"
+    "uglifyify": "^5.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.18.1",
-    "eslint-plugin-react": "^7.7.0",
+    "eslint": "^5.8.0",
+    "eslint-plugin-react": "^7.11.1",
     "express": "^4.16.3",
     "firebase-server": "^1.0.0",
     "firebase-tools": "^6.0.0",
-    "license-checker": "^16.0.0",
-    "watchify": "^3.10.0"
+    "license-checker": "^24.0.1",
+    "watchify": "^3.11.0"
   }
 }
