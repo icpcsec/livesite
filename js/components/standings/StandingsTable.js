@@ -163,7 +163,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   }
   return (
     <div className="team-col team-problem">
-      <div className={`team-col-bg ${status}`} />
+      <div className={`team-col-bg bg-${status}`} />
       <div className="team-col-fg">{content}</div>
     </div>
   );

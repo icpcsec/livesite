@@ -10,30 +10,28 @@ const DEFAULT_TEAM = {
 };
 
 const TeamRow = ({ animationKey, status: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
-  const cols = problems.map(({ solved, attempts }, index) => {
-    const color = solved ? '#64DD17' : attempts > 0 ? '#FF5252' : 'transparent';
-    return <div key={index} style={{ width: '6px', margin: '0 1px 0 0', height: '18px', borderRadius: '2px', backgroundColor: color }} />;
+  const cols = problems.map(({ solved, attempts, pendings }, index) => {
+    const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattempted';
+    return <div key={index} className={`team-problem bg-${status}`} />
   });
   return (
       <div data-key={animationKey} className="card broadcast-card" style={{zIndex}}>
         <div className="card-body">
-          <div style={{display: 'flex'}}>
-            <div style={{flex: '0 0 auto', margin: '0 4px', width: '20px', textAlign: 'right'}}>
+          <div className="team-row">
+            <div className="team-rank">
               {rank}
             </div>
-            <div className="text-ellipsis" style={{flex: '0 0 auto', margin: '0 4px', width: '102px'}}>
+            <div className="team-univ text-ellipsis">
               {universityShort}
             </div>
-            <div className="text-ellipsis" style={{flex: '1 1 auto', margin: '0 4px'}}>
+            <div className="team-name text-ellipsis">
               {name}
             </div>
-            <div style={{flex: '0 0 auto', margin: '0 4px', width: '20px', textAlign: 'right'}}>
+            <div className="team-solved">
               {solved}
             </div>
-            <div style={{flex: '0 0 auto'}}>
-              <div style={{width: '100%', display: 'flex', marginTop: '3px' }}>
-                {cols}
-              </div>
+            <div className="team-problems">
+              {cols}
             </div>
           </div>
         </div>

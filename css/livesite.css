@@ -255,21 +255,24 @@ a.no-decoration {
   to { opacity: 1; }
 }
 
-.standings .standings-section .team-row .team-col .team-col-bg.solved {
+.bg-solved {
   background-color: #64DD17;
 }
 
-.standings .standings-section .team-row .team-col .team-col-bg.pending {
+.bg-pending {
   background-color: #FFD600;
-  animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
-.standings .standings-section .team-row .team-col .team-col-bg.rejected {
+.bg-rejected {
   background-color: #FF5252;
 }
 
-.standings .standings-section .team-row .team-col .team-col-bg.unattempted {
+.bg-unattempted {
   background-color: inherit;
+}
+
+.standings .bg-pending {
+  animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
 
@@ -371,4 +374,46 @@ html.broadcast-mode.obs-false #root {
 .event-animation-leave.event-animation-leave-active {
   opacity: 0;
   transition: opacity 300ms ease-in;
+}
+
+.broadcast-standings .team-row {
+  display: flex;
+}
+
+.broadcast-standings .team-row .team-rank {
+  flex: 0 0 auto;
+  margin: 0 4px;
+  width: 20px;
+  text-align: right;
+}
+
+.broadcast-standings .team-row .team-univ {
+  flex: 0 0 auto;
+  margin: 0 4px;
+  width: 102px;
+}
+
+.broadcast-standings .team-row .team-name {
+  flex: 1 1 auto;
+  margin: 0 4px;
+}
+
+.broadcast-standings .team-row .team-solved {
+  flex: 0 0 auto;
+  margin: 0 4px;
+  width: 20px;
+  text-align: right;
+}
+
+.broadcast-standings .team-row .team-problems {
+  flex: 0 0 auto;
+  display: flex;
+  padding-top: 3px;
+}
+
+.broadcast-standings .team-row .team-problems .team-problem {
+  width: 6px;
+  margin: 0 1px 0 0;
+  height: 18px;
+  border-radius: 2px;
 }
