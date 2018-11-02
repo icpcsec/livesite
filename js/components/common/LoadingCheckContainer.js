@@ -8,6 +8,6 @@ const mapStateToProps = (state, ownProps) => {
   return { loaded, ...ownProps };
 };
 
-const LoadingCheckContainer = connect(mapStateToProps)(LoadingCheck);
+const LoadingCheckContainer = connect(mapStateToProps, undefined, undefined, {pure: false})(LoadingCheck);
 
 export default LoadingCheckContainer;

@@ -12,7 +12,6 @@ import App from './components/App';
 import { createPersist } from './persist';
 import reducer from './reducers';
 import siteconfig from './siteconfig';
-import FirebaseLoader from './loaders/FirebaseLoader';
 
 if (siteconfig.misc.googleAnalyticsId) {
   GA.initialize(siteconfig.misc.googleAnalyticsId);
@@ -30,11 +29,8 @@ const store = Redux.createStore(
 
 persist.start(store);
 
-const loader = new FirebaseLoader(store);
-loader.start();
-
 ReactDOM.render(
-  <App store={store} broadcastMode={window.broadcastMode} />,
+  <App store={store} />,
   document.getElementById('root')
 );
 
