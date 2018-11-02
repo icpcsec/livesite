@@ -74,30 +74,29 @@ def _get_gs_public_url(gs_url: str) -> str:
 
 
 class FirebaseClient:
-    def __init__(self, session: requests.Session, origin: str, instance: str):
+    def __init__(self, session: requests.Session, origin: str):
         self._session = session
         self._origin = origin
-        self._instance = instance
 
     def set_feeds(self, feed_urls: Dict[types.FeedType, str]) -> None:
         logging.info('Updating Firebase realtime database')
         for feed_type, public_url in feed_urls.items():
-            db_url = '%s/%s/feeds/%s.json' % (self._origin, self._instance, feed_type)
+            db_url = '%s/feeds/%s.json' % (self._origin, feed_type)
             r = self._session.put(db_url, json=public_url)
             r.raise_for_status()
 
     def get_feeds(self) -> Dict[types.FeedType, str]:
-        feeds_url = '%s/%s/feeds.json' % (self._origin, self._instance)
+        feeds_url = '%s/feeds.json' % self._origin
         r = self._session.get(feeds_url)
         r.raise_for_status()
         result = r.json()
         if not result:
-            raise ValueError('Instance %s is uninitialized' % self._instance)
+            raise ValueError('Instance is uninitialized')
         feed_urls = {}
         for feed_type in types.FeedType:
             url = result.get(str(feed_type))
             if not url:
-                raise ValueError('Instance %s is missing feed %s' % (self._instance, feed_type))
+                raise ValueError('Instance is missing feed %s' % feed_type)
             feed_urls[feed_type] = url
         return feed_urls
 
@@ -120,11 +119,11 @@ class Client(abc.ABC):
         ...
 
     @abc.abstractmethod
-    def set_feeds(self, instance: str, feeds: Dict[types.FeedType, Any]) -> None:
+    def set_feeds(self, feeds: Dict[types.FeedType, Any]) -> None:
         ...
 
     @abc.abstractmethod
-    def get_feeds(self, instance: str) -> Dict[types.FeedType, Any]:
+    def get_feeds(self) -> Dict[types.FeedType, Any]:
         ...
 
 
@@ -146,7 +145,7 @@ class DevClient(Client):
     def verify_storage_permission(self) -> bool:
         return True
 
-    def set_feeds(self, instance: str, feeds: Dict[types.FeedType, Any]) -> None:
+    def set_feeds(self, feeds: Dict[types.FeedType, Any]) -> None:
         feed_urls = {}
         for feed_type, data in feeds.items():
             name = '%s.%.6f.json' % (feed_type, time.time())
@@ -154,11 +153,11 @@ class DevClient(Client):
                 json.dump(data, f, indent=2, sort_keys=True)
             feed_urls[feed_type] = '/demodata/%s' % name
 
-        client = FirebaseClient(self._session, 'localhost:5000', instance)
+        client = FirebaseClient(self._session, 'localhost:5000')
         client.set_feeds(feed_urls)
 
-    def get_feeds(self, instance: str) -> Dict[types.FeedType, Any]:
-        client = FirebaseClient(self._session, 'localhost:5000', instance)
+    def get_feeds(self) -> Dict[types.FeedType, Any]:
+        client = FirebaseClient(self._session, 'localhost:5000')
         feed_urls = client.get_feeds()
         feeds = {}
         for feed_type, feed_url in feed_urls.items():
@@ -232,18 +231,19 @@ class ProdClient(Client):
         blob.content_encoding = 'gzip'
         blob.upload_from_file(binary_buffer, content_type='application/json')
 
-    def _update_database(self, instance: str, feed_urls: Dict[types.FeedType, str]) -> None:
+    def _update_database(self, feed_urls: Dict[types.FeedType, str]) -> None:
         for feed_type, public_url in feed_urls.items():
-            db_url = 'https://%s.firebaseio.com/%s/feeds/%s.json' % (
-                self._config.project, instance, feed_type)
+            db_url = 'https://%s.firebaseio.com/feeds/%s.json' % (
+                self._config.project, feed_type)
             r = self._session.put(db_url, json=public_url)
             r.raise_for_status()
 
-    def set_feeds(self, instance: str, feeds: Dict[types.FeedType, Any]) -> None:
+    def set_feeds(self, feeds: Dict[types.FeedType, Any]) -> None:
         public_urls = {}
         for feed_type, data in feeds.items():
-            gs_url = '%s/%s/%s.%d.json' % (
-                self._config.gs_url_prefix.rstrip('/'), instance, feed_type,
+            gs_url = '%s/%s.%d.json' % (
+                self._config.gs_url_prefix.rstrip('/'),
+                feed_type,
                 int(time.time() * 1000))
 
             logging.info('Uploading to %s', gs_url)
@@ -251,28 +251,26 @@ class ProdClient(Client):
             public_urls[feed_type] = _get_gs_public_url(gs_url)
 
         logging.info('Updating Firebase realtime database')
-        self._update_database(instance, public_urls)
+        self._update_database(public_urls)
 
-    def get_feeds(self, instance: str) -> Dict[types.FeedType, Any]:
-        feeds_url = 'https://%s.firebaseio.com/%s/feeds.json' % (
-                self._config.project, instance)
+    def get_feeds(self) -> Dict[types.FeedType, Any]:
+        feeds_url = 'https://%s.firebaseio.com/feeds.json' % self._config.project
         r = self._session.get(feeds_url)
         r.raise_for_status()
         result = r.json()
         if not result:
-            raise ValueError('Instance %s is uninitialized' % instance)
+            raise ValueError('Instance is uninitialized')
         feeds = {}
         for feed_type in types.FeedType:
             url = result.get(str(feed_type))
             if not url:
-                raise ValueError('Instance %s is missing feed %s' % (instance, feed_type))
+                raise ValueError('Instance is missing feed %s' % feed_type)
             else:
                 r = self._session.get(url)
                 r.raise_for_status()
                 data = r.json()
             feeds[feed_type] = data
         return feeds
-
 
 
 def create_client(options: argparse.Namespace) -> Client:

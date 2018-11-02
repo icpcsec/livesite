@@ -31,11 +31,9 @@ export class FeedsLoader {
     this.app_ = initializeApp();
     this.db_ = firebase.database(this.app_);
 
-    // TODO: Remove instance name.
-    const ref = this.db_.ref('default');
+    const feeds = this.db_.ref('feeds');
     for (const feed of Object.keys(UPDATE_FUNCS)) {
-      ref.child(`feeds/${feed}`).on(
-          'value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
+      feeds.child(feed).on('value', (snapshot) => this.onUrlUpdate_(feed, snapshot.val()));
     }
   }
 

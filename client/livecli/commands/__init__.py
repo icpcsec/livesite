@@ -38,8 +38,6 @@ def make_parser() -> argparse.ArgumentParser:
         'upload', parents=[global_parser])
     upload_parser.set_defaults(handler=upload.upload_main)
     upload_parser.add_argument(
-        '--instance', required=True, help='Instance name')
-    upload_parser.add_argument(
         '--feed',
         type=types.FeedType,
         choices=list(types.FeedType),
@@ -48,8 +46,6 @@ def make_parser() -> argparse.ArgumentParser:
     upload_parser.add_argument('path', nargs=1, help='Path to the feed file')
 
     scrape_common_parser = argparse.ArgumentParser(add_help=False)
-    scrape_common_parser.add_argument(
-        '--instance', required=True, help='Instance name')
     scrape_common_parser.add_argument(
         '--scoreboard-url', help='Scoreboard URL')
     scrape_common_parser.add_argument(

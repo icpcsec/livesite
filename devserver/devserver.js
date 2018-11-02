@@ -5,12 +5,10 @@ const fbserver = require('firebase-server');
 const app = express();
 
 const db = {
-  default: {
-    feeds: {
-      contest: "/demodata/contest.json",
-      standings: "/demodata/standings.json",
-      teams: "/demodata/teams.json",
-    },
+  feeds: {
+    contest: "/demodata/contest.json",
+    standings: "/demodata/standings.json",
+    teams: "/demodata/teams.json",
   },
 };
 

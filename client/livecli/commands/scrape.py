@@ -54,13 +54,11 @@ def scrape_main(options: argparse.Namespace) -> None:
     client = clients.create_client(options)
     client.print_configs()
 
-    logging.info('Instance: %s', options.instance)
-
     email = client.get_email()
     logging.info('Logged in as: %s', email)
 
     logging.debug('Getting the initial feeds...')
-    init_feeds = client.get_feeds(options.instance)
+    init_feeds = client.get_feeds()
     last_problems = init_feeds[types.FeedType.CONTEST]['problems']
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
@@ -81,7 +79,7 @@ def scrape_main(options: argparse.Namespace) -> None:
             updates = {}
             if problems is not None and problems != last_problems:
                 logging.warning('Problems changed. Updating contest...')
-                contest = client.get_feeds(options.instance)[types.FeedType.CONTEST]
+                contest = client.get_feeds()[types.FeedType.CONTEST]
                 contest['problems'] = problems
                 updates[types.FeedType.CONTEST] = contest
                 last_problems = problems
@@ -90,7 +88,7 @@ def scrape_main(options: argparse.Namespace) -> None:
                 last_standings = standings
             if updates:
                 logging.info('Updating the feeds...')
-                client.set_feeds(options.instance, updates)
+                client.set_feeds(updates)
                 logging.info('Success.')
             else:
                 logging.info('No update.')

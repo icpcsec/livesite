@@ -26,6 +26,6 @@ def upload_main(options: argparse.Namespace) -> None:
             'Given JSON file is in legacy format. Converting automatically.')
         data = data['data']
 
-    client.set_feeds(options.instance, {options.feed: data})
+    client.set_feeds({options.feed: data})
 
     logging.info('OK.')
