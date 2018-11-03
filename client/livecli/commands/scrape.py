@@ -59,7 +59,6 @@ def scrape_main(options: argparse.Namespace) -> None:
 
     logging.debug('Getting the initial feeds...')
     init_feeds = client.get_feeds()
-    last_problems = init_feeds[types.FeedType.CONTEST]['problems']
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
     logging.info('OK.')
@@ -73,23 +72,13 @@ def scrape_main(options: argparse.Namespace) -> None:
                 f.write(r.content)
             r.raise_for_status()
             html = r.text
-            problems, standings = scraper.scrape(html)
+            standings = scraper.scrape(html)
             with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
-                json.dump(standings, f, separators=(',', ':'))
-            updates = {}
-            if problems is not None and problems != last_problems:
-                logging.warning('Problems changed. Updating contest...')
-                contest = client.get_feeds()[types.FeedType.CONTEST]
-                contest['problems'] = problems
-                updates[types.FeedType.CONTEST] = contest
-                last_problems = problems
+                json.dump(standings, f, separators=(',', ':'), sort_keys=True)
             if standings is not None and standings != last_standings:
-                updates[types.FeedType.STANDINGS] = standings
-                last_standings = standings
-            if updates:
                 logging.info('Updating the feeds...')
-                client.set_feeds(updates)
-                logging.info('Success.')
+                client.set_feeds({types.FeedType.STANDINGS: standings})
+                last_standings = standings
             else:
                 logging.info('No update.')
         except Exception:

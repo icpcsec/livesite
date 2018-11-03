@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 
 import BroadcastStandingsTable from './BroadcastStandingsTable';
 
-const mapStateToProps = ({ standings, teams }) => ({ standings, teams });
+const mapStateToProps = ({ standings: { entries }, teams }) => ({ entries, teams });
 
 const BroadcastStandingsTableContainer =
     connect(mapStateToProps)(BroadcastStandingsTable);

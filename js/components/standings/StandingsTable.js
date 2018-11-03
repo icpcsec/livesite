@@ -229,14 +229,14 @@ class TeamRowRight extends React.Component {
 
 class TeamRow extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
-    const FIELDS = ['status', 'team', 'universityRank', 'problems', 'pinned', 'zIndex', 'className'];
+    const FIELDS = ['entry', 'team', 'universityRank', 'problems', 'pinned', 'zIndex', 'className'];
     const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
     return !cached;
   }
 
   render() {
-    const { animationKey, status, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
-    const { rank, solved, penalty, revealState, problems = [] } = status;
+    const { animationKey, entry, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
+    const { rank, solved, penalty, revealState, problems = [] } = entry;
     const rewrittenClassName = 'team-row ' + className;
     return (
       <div data-key={animationKey} className={rewrittenClassName} style={{ zIndex }}>
@@ -256,26 +256,26 @@ const RevealRow = (props) => (
   </div>
 );
 
-const computeUniversityRanks = (standings, teamsMap) => {
-  const universityToStatuses = {};
-  standings.forEach((status) => {
-    const team = teamsMap[status.teamId];
+const computeUniversityRanks = (entries, teamsMap) => {
+  const universityToEntries = {};
+  entries.forEach((entry) => {
+    const team = teamsMap[entry.teamId];
     if (team) {
       const { university } = team;
-      if (universityToStatuses[university] === undefined) {
-        universityToStatuses[university] = [];
+      if (universityToEntries[university] === undefined) {
+        universityToEntries[university] = [];
       }
-      universityToStatuses[university].push(status);
+      universityToEntries[university].push(entry);
     }
   });
   const universityRanks = {};
-  Object.keys(universityToStatuses).forEach((university) => {
-    const statuses = universityToStatuses[university];
-    statuses.forEach((status, index) => {
-      if (index > 0 && status.rank === statuses[index - 1].rank) {
-        universityRanks[status.teamId] = universityRanks[statuses[index - 1].teamId];
+  Object.keys(universityToEntries).forEach((university) => {
+    const entries = universityToEntries[university];
+    entries.forEach((entry, index) => {
+      if (index > 0 && entry.rank === entries[index - 1].rank) {
+        universityRanks[entry.teamId] = universityRanks[entries[index - 1].teamId];
       } else {
-        universityRanks[status.teamId] = `${index + 1}/${statuses.length}`;
+        universityRanks[entry.teamId] = `${index + 1}/${entries.length}`;
       }
     });
   });
@@ -300,7 +300,7 @@ class AnimatingTeamRow extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.status.solved !== prevProps.status.solved) {
+    if (this.props.entry.solved !== prevProps.entry.solved) {
       this.animateForNewSolve();
     }
   }
@@ -310,12 +310,12 @@ class AnimatingTeamRow extends React.Component {
   }
 
   render() {
-    const { animationKey, component: Component, className = '', status, ...rest } = this.props;
+    const { animationKey, component: Component, className = '', entry, ...rest } = this.props;
     const rewrittenClassName =
       this.state.newSolved ? className + ' new-solved' : className;
-    const rewrittenStatus = Object.assign(
-      {}, status, this.state.rankHidden ? {rank: '...'} : {});
-    return <Component animationKey={animationKey} className={rewrittenClassName} status={rewrittenStatus} {...rest} />;
+    const rewrittenEntry = Object.assign(
+      {}, entry, this.state.rankHidden ? {rank: '...'} : {});
+    return <Component animationKey={animationKey} className={rewrittenClassName} entry={rewrittenEntry} {...rest} />;
   }
 }
 
@@ -325,20 +325,20 @@ class StandingsTable extends React.Component {
   }
 
   render() {
-    const { standings, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
+    const { entries, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
-    const universityRanks = computeUniversityRanks(standings, teamsMap);
+    const universityRanks = computeUniversityRanks(entries, teamsMap);
     const normalRows = [];
-    for (let index = 0; index < standings.length; ++index) {
-      const status = standings[index];
-      const team = teamsMap[status.teamId] || DEFAULT_TEAM;
+    for (let index = 0; index < entries.length; ++index) {
+      const entry = entries[index];
+      const team = teamsMap[entry.teamId] || DEFAULT_TEAM;
       const revealCurrent =
           revealMode &&
-          ((index + 1 < standings.length &&
-            status.revealState !== 'finalized' &&
-            standings[index + 1].revealState === 'finalized') ||
-           (index === standings.length - 1 &&
-            status.revealState !== 'finalized'));
+          ((index + 1 < entries.length &&
+            entry.revealState !== 'finalized' &&
+            entries[index + 1].revealState === 'finalized') ||
+           (index === entries.length - 1 &&
+            entry.revealState !== 'finalized'));
       if (revealCurrent) {
         // FIXME: Reveal marker broken
         normalRows.push(
@@ -346,10 +346,10 @@ class StandingsTable extends React.Component {
             component={RevealRow}
             key={'__reveal_marker__'}
             animationKey={'__reveal_marker__'}
-            status={status}
+            entry={entry}
             team={team}
             problems={problems}
-            universityRank={universityRanks[status.teamId]}
+            universityRank={universityRanks[entry.teamId]}
             pinned={false}
             revealMode={revealMode}
           />);
@@ -357,33 +357,33 @@ class StandingsTable extends React.Component {
       normalRows.push(
         <AnimatingTeamRow
           component={TeamRow}
-          key={status.teamId}
-          animationKey={status.teamId}
-          status={status}
+          key={entry.teamId}
+          animationKey={entry.teamId}
+          entry={entry}
           team={team}
           problems={problems}
-          universityRank={universityRanks[status.teamId]}
-          pinned={pinnedTeamIdSet.has(status.teamId)}
-          onClickPin={() => this.handleClickPin(status.teamId)}
+          universityRank={universityRanks[entry.teamId]}
+          pinned={pinnedTeamIdSet.has(entry.teamId)}
+          onClickPin={() => this.handleClickPin(entry.teamId)}
           revealMode={revealMode}
           zIndex={9999 - index}
         />
       );
     }
-    const pinnedStandings = standings.filter(
-      (status) => pinnedTeamIdSet.has(status.teamId));
-    const stickyRows = pinnedStandings.map((status) => {
-      const team = teamsMap[status.teamId] || DEFAULT_TEAM;
+    const pinnedEntries = entries.filter(
+      (entry) => pinnedTeamIdSet.has(entry.teamId));
+    const stickyRows = pinnedEntries.map((entry) => {
+      const team = teamsMap[entry.teamId] || DEFAULT_TEAM;
       return (
         <AnimatingTeamRow
           component={TeamRow}
-          key={status.teamId}
-          status={status}
+          key={entry.teamId}
+          entry={entry}
           team={team}
-          universityRank={universityRanks[status.teamId]}
+          universityRank={universityRanks[entry.teamId]}
           problems={problems}
           pinned={true}
-          onClickPin={() => this.handleClickPin(status.teamId)}
+          onClickPin={() => this.handleClickPin(entry.teamId)}
           zIndex={0}
           className="sticky"
         />

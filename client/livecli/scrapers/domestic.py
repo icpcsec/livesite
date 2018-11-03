@@ -1,6 +1,5 @@
 import argparse
 import logging
-from typing import Tuple
 
 import bs4
 
@@ -48,21 +47,20 @@ class DomesticScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, html: str) -> Tuple[list, list]:
-        problems = []
-        standings = []
+    def scrape_impl(self, html: str) -> dict:
+        standings = {'problems': [], 'entries': []}
         if 'rehearsal' in html and not self._options.allow_rehearsal:
             logging.info('Contest has not started yet.')
-            return problems, standings
+            return standings
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
         mains = doc.select('.main')
         if not mains:
-            return problems, standings
+            return standings
 
         table = mains[-1].table
         if not table:
-            return problems, standings
+            return standings
 
         for tr in table.select('tr'):
             row = [td.get_text().strip() for td in tr.select('td')]
@@ -70,19 +68,19 @@ class DomesticScraper(base.Scraper):
             if row[0] == 'rank':
                 # Header row: scrape problems.
                 for label, color in zip(row[6:], _PROBLEM_COLORS):
-                    problems.append({
+                    standings['problems'].append({
                         'label': label,
                         'name': 'Problem %s' % label,
                         'color': color,
                     })
                 continue
 
-            team = dict(zip(_TEAM_COLUMNS, row))
-            team['solved'] = int(team['solved'])
-            team['penalty'] = int(team['penalty'])
-            del team[None]
+            entry = dict(zip(_TEAM_COLUMNS, row))
+            entry['solved'] = int(entry['solved'])
+            entry['penalty'] = int(entry['penalty'])
+            del entry[None]
 
-            team['problems'] = [_parse_problem_status(col) for col in row[6:]]
-            standings.append(team)
+            entry['problems'] = [_parse_problem_status(col) for col in row[6:]]
+            standings['entries'].append(entry)
 
-        return problems, standings
+        return standings

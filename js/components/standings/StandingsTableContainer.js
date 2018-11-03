@@ -5,9 +5,9 @@ import StandingsTable from './StandingsTable';
 
 const mapStateToProps = (state) => {
   return {
-    standings: state.standings,
+    entries: state.standings.entries,
     teamsMap: state.teams,
-    problems: state.contest.problems,
+    problems: state.standings.problems,
     pinnedTeamIds: state.settings.pinnedTeamIds,
   };
 };

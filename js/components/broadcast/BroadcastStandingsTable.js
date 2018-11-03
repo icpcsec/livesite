@@ -9,7 +9,7 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const TeamRow = ({ animationKey, status: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
+const TeamRow = ({ animationKey, entry: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
   const cols = problems.map(({ solved, attempts, pendings }, index) => {
     const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattempted';
     return <div key={index} className={`team-problem bg-${status}`} />
@@ -41,16 +41,16 @@ const TeamRow = ({ animationKey, status: { rank, solved, problems }, team: { nam
 
 class BroadcastStandingsTable extends React.Component {
   render() {
-    const { standings, teams, numRows = 20, offsetRows = 0 } = this.props;
+    const { entries, teams, numRows = 20, offsetRows = 0 } = this.props;
     const rows = [];
-    for (let index = 0; index < standings.length; ++index) {
-      const status = standings[index];
-      const team = teams[status.teamId] || DEFAULT_TEAM;
+    for (let index = 0; index < entries.length; ++index) {
+      const entry = entries[index];
+      const team = teams[entry.teamId] || DEFAULT_TEAM;
       rows.push(
           <TeamRow
-              key={status.teamId}
-              animationKey={status.teamId}
-              status={status}
+              key={entry.teamId}
+              animationKey={entry.teamId}
+              entry={entry}
               team={team}
               zIndex={9999 - index}
           />

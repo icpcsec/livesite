@@ -1,5 +1,4 @@
 import abc
-from typing import Tuple
 
 
 _DEFAULT_PROBLEMS = [
@@ -29,14 +28,14 @@ _INIT_PROBLEM_STATUS = {
 
 
 class Scraper(abc.ABC):
-    def scrape(self, html: str) -> Tuple[list, list]:
-        problems, standings = self.scrape_impl(html)
-        if not problems:
-            problems = _DEFAULT_PROBLEMS
-            for team in standings:
-                team['problems'] = [_INIT_PROBLEM_STATUS for _ in problems]
-        return problems, standings
+    def scrape(self, html: str) -> dict:
+        standings = self.scrape_impl(html)
+        if not standings['problems']:
+            standings['problems'] = _DEFAULT_PROBLEMS
+            for entry in standings['entries']:
+                entry['problems'] = [_INIT_PROBLEM_STATUS for _ in _DEFAULT_PROBLEMS]
+        return standings
 
     @abc.abstractmethod
-    def scrape_impl(self, html: str) -> Tuple[list, list]:
+    def scrape_impl(self, html: str) -> dict:
         ...

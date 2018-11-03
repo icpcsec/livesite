@@ -39,14 +39,14 @@ export const toggleSetting = (name) => (dispatch, getState) => {
   dispatch(updateSettings(settingsUpdate));
 };
 
-export const setRevealStandingsIndex = (index) => (
+export const setRevealEntriesIndex = (index) => (
   {
     type: 'SET_REVEAL_STANDINGS_INDEX',
     index,
   }
 );
 
-export const setRevealStandingsList = (standingsList) => (
+export const setRevealEntriesList = (standingsList) => (
   {
     type: 'SET_REVEAL_STANDINGS_LIST',
     standingsList,

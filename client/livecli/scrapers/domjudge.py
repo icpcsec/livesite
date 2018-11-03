@@ -1,6 +1,5 @@
 import argparse
 import re
-from typing import Tuple
 
 import bs4
 
@@ -11,9 +10,8 @@ class DomjudgeScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, html: str) -> Tuple[list, list]:
-        problems = []
-        standings = []
+    def scrape_impl(self, html: str) -> dict:
+        standings = {'problems': [], 'entries': []}
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
         scoreheader_elem = doc.select('.scoreheader')[0]
@@ -27,7 +25,7 @@ class DomjudgeScraper(base.Scraper):
             style = problem_elem.select('.circle')[0].attrs.get('style', '')
             m = re.search(r'background:\s*([^\s;]+)\s*;', style)
             color = m.group(1) if m else ''
-            problems.append({
+            standings['problems'].append({
                 'label': label,
                 'name': name,
                 'color': color,
@@ -73,11 +71,11 @@ class DomjudgeScraper(base.Scraper):
                 continue
             solved = int(team_elem.select('.scorenc')[0].get_text().strip())
             penalty = int(team_elem.select('.scorett')[0].get_text().strip())
-            standings.append({
+            standings['entries'].append({
                 'teamId': tid,
                 'rank': rank,
                 'solved': solved,
                 'penalty': penalty,
                 'problems': team_problems,
             })
-        return problems, standings
+        return standings

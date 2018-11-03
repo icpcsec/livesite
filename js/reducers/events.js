@@ -1,13 +1,13 @@
-const makeStatusMap = (standings) => {
-  const statusMap = {};
-  for (const status of standings) {
-    statusMap[status.teamId] = status;
+const makeEntryMap = (entries) => {
+  const entryMap = {};
+  for (const entry of entries) {
+    entryMap[entry.teamId] = entry;
   }
-  return statusMap;
+  return entryMap;
 };
 
-const computeEvents = (newStandings, oldStandings, teams, events = []) => {
-  if (teams.length === 0 || oldStandings.length === 0 || newStandings.length === 0) {
+const computeEvents = (newEntries, oldEntries, teams, events = []) => {
+  if (teams.length === 0 || oldEntries.length === 0 || newEntries.length === 0) {
     return events;
   }
 
@@ -15,14 +15,14 @@ const computeEvents = (newStandings, oldStandings, teams, events = []) => {
 
   const newEvents = [];
 
-  const oldStatusMap = makeStatusMap(oldStandings);
-  const newStatusMap = makeStatusMap(newStandings);
-  for (const teamId in newStatusMap) {
-    if (!(teamId in oldStatusMap)) {
+  const oldEntrymap = makeEntryMap(oldEntries);
+  const newEntryMap = makeEntryMap(newEntries);
+  for (const teamId in newEntryMap) {
+    if (!(teamId in oldEntrymap)) {
       continue;
     }
-    const { problems: newProblems, rank: newRank } = newStatusMap[teamId];
-    const { problems: oldProblems, rank: oldRank } = oldStatusMap[teamId];
+    const { problems: newProblems, rank: newRank } = newEntryMap[teamId];
+    const { problems: oldProblems, rank: oldRank } = oldEntrymap[teamId];
     if (oldProblems.length !== newProblems.length) {
       continue;
     }
@@ -70,8 +70,10 @@ export const deriveEvents = (reducer) => (state, action) => {
   const midState = Object.assign({}, state);
   delete midState.events;
   const newState = reducer(midState, action);
+  const oldEntries = (state.standings || {entries: []}).entries;
+  const newEntries = newState.standings.entries;
   return Object.assign(
       {},
       newState,
-      {events: computeEvents(newState.standings, state.standings, newState.teams, state.events)});
+      {events: computeEvents(newEntries, oldEntries, newState.teams, state.events)});
 };

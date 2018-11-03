@@ -4,14 +4,16 @@ import * as actions from '../../actions/index';
 import StandingsRevealTable from './StandingsRevealTable';
 
 const mapStateToProps = (state) => {
+  const { standingsList, standingsIndex } = state.reveal;
+  const standings = standingsList[standingsIndex];
   return {
     teamsMap: state.teams,
-    problems: state.contest.problems,
     pinnedTeamIds: [],
     togglePin: (teamId) => {},
-    standings: state.reveal.standingsList[state.reveal.standingsIndex],
-    standingsIndex: state.reveal.standingsIndex,
-    numStandings: state.reveal.standingsList.length,
+    entries: standings.entries,
+    problems: standings.problems,
+    standingsIndex: standingsIndex,
+    numStandings: standingsList.length,
   };
 };
 
