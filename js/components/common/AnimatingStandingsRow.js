@@ -1,5 +1,6 @@
 import React from 'react';
-import TimerSet from '../../utils/TimerSet';
+
+import {TimerSet} from '../../utils';
 
 class AnimatingStandingsRow extends React.Component {
   constructor(props) {

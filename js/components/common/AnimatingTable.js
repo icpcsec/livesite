@@ -1,7 +1,6 @@
 import React from 'react';
 
-import CancelableCallbacks from '../../utils/CancelableCallbacks';
-import TimerSet from '../../utils/TimerSet';
+import {CancelableCallbacks, TimerSet} from '../../utils';
 
 class AnimatingTable extends React.Component {
   constructor(props) {
