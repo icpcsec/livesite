@@ -255,6 +255,10 @@ a.no-decoration {
   to { opacity: 1; }
 }
 
+.fg-unattempted {
+  color: inherit;
+}
+
 .bg-solved {
   background-color: #64DD17;
 }
@@ -377,40 +381,28 @@ html.broadcast-mode.obs-false #root {
   display: flex;
 }
 
+.broadcast-standings .team-row > * {
+  margin: 0 4px;
+}
+
 .broadcast-standings .team-row .team-rank {
   flex: 0 0 auto;
-  margin: 0 4px;
   width: 20px;
   text-align: right;
 }
 
 .broadcast-standings .team-row .team-univ {
   flex: 0 0 auto;
-  margin: 0 4px;
   width: 102px;
 }
 
 .broadcast-standings .team-row .team-name {
   flex: 1 1 auto;
-  margin: 0 4px;
 }
 
-.broadcast-standings .team-row .team-solved {
+.broadcast-standings .team-row .team-stats {
   flex: 0 0 auto;
-  margin: 0 4px;
-  width: 20px;
+  width: 80px;
   text-align: right;
-}
-
-.broadcast-standings .team-row .team-problems {
-  flex: 0 0 auto;
-  display: flex;
-  padding-top: 3px;
-}
-
-.broadcast-standings .team-row .team-problems .team-problem {
-  width: 6px;
-  margin: 0 1px 0 0;
-  height: 18px;
-  border-radius: 2px;
+  color: #bbb;
 }
