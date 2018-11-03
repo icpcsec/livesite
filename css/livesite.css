@@ -46,7 +46,7 @@ a.no-decoration {
  *
  */
 
-.animating {
+.animate-active {
   transition: transform 3s ease !important;
 }
 
@@ -68,7 +68,7 @@ a.no-decoration {
   pointer-events: none;
 }
 
-.standings .standings-section .reveal-row.animating {
+.standings .standings-section .reveal-row.animate-active {
   transition: transform 0.5s ease;
 }
 

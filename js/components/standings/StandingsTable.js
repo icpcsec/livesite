@@ -6,7 +6,7 @@ import { sprintf } from 'sprintf-js';
 
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
-import AnimatingList from '../common/AnimatingList';
+import AnimatingTable from '../common/AnimatingTable';
 import TimerSet from '../../utils/TimerSet';
 
 const DEFAULT_TEAM = {
@@ -391,15 +391,15 @@ class StandingsTable extends React.Component {
     });
     return (
       <div className="standings">
-        <div className="standings-section list-unstyled">
+        <div className="standings-section">
           <LegendRow problems={problems} />
         </div>
-        <div className="standings-section list-unstyled">
+        <div className="standings-section">
           {stickyRows}
         </div>
-        <AnimatingList className="standings-section list-unstyled">
+        <AnimatingTable className="standings-section">
           {normalRows}
-        </AnimatingList>
+        </AnimatingTable>
       </div>
     );
   }

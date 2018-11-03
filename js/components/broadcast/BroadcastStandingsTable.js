@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AnimatingList from '../common/AnimatingList';
+import AnimatingTable from '../common/AnimatingTable';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -62,9 +62,9 @@ class BroadcastStandingsTable extends React.Component {
     return (
       <div className="broadcast-standings" style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
         <div style={{ position: 'relative', top: `${tableOffset}px` }}>
-          <AnimatingList>
+          <AnimatingTable>
             {rows}
-          </AnimatingList>
+          </AnimatingTable>
         </div>
       </div>
     );

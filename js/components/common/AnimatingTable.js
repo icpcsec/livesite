@@ -1,12 +1,14 @@
 import React from 'react';
 
+import CancelableCallbacks from '../../utils/CancelableCallbacks';
 import TimerSet from '../../utils/TimerSet';
 
-class AnimatingList extends React.Component {
+class AnimatingTable extends React.Component {
   constructor(props) {
     super(props);
     this.ref_ = React.createRef();
     this.timers_ = new TimerSet();
+    this.callbacks_ = new CancelableCallbacks();
   }
 
   getSnapshotBeforeUpdate() {
@@ -14,8 +16,9 @@ class AnimatingList extends React.Component {
 
     // Cancel all animations.
     this.timers_.clearTimeouts();
+    this.callbacks_.cancelAll();
     rows.forEach((row) => {
-      row.classList.remove('animating');
+      row.classList.remove('animate-start', 'animate-active');
       row.style.transform = null;
     });
 
@@ -28,6 +31,7 @@ class AnimatingList extends React.Component {
   }
 
   componentDidUpdate(prevProps, prevState, lastKeyToOffsetTop) {
+    const { delay = 1000 } = this.props;
     const rows = Array.from(this.ref_.current.children);
 
     // Currently all rows are in the final position. Record all positions.
@@ -47,12 +51,15 @@ class AnimatingList extends React.Component {
           currentOffsetTop;
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
       if (relativeOffsetTop !== 0) {
+        row.classList.add('animate-start');
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
-        const animationDelay = row.classList.contains('no-animation') ? 0 : 1000;
         this.timers_.setTimeout(() => {
-          row.classList.add('animating');
+          row.classList.add('animate-active');
           row.style.transform = 'translate(0, 0)';
-        }, animationDelay);
+          row.addEventListener('transitionend', this.callbacks_.wrap(() => {
+            row.classList.remove('animate-start', 'animate-active');
+          }), {once: true})
+        }, delay);
       }
     }
   }
@@ -62,7 +69,7 @@ class AnimatingList extends React.Component {
   }
 
   render() {
-    const { children, ...rest } = this.props;
+    const { children, delay, ...rest } = this.props;
     return (
         <div {...rest} ref={this.ref_}>
           {children}
@@ -71,4 +78,4 @@ class AnimatingList extends React.Component {
   }
 }
 
-export default AnimatingList;
+export default AnimatingTable;
