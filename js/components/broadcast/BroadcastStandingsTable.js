@@ -1,6 +1,7 @@
 import React from 'react';
 
 import AnimatingTable from '../common/AnimatingTable';
+import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -9,13 +10,14 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const TeamRow = ({ animationKey, entry: { rank, solved, problems }, team: { name, universityShort }, zIndex }) => {
+const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universityShort }, zIndex, className, ...rest }) => {
   const cols = problems.map(({ solved, attempts, pendings }, index) => {
     const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattempted';
     return <div key={index} className={`team-problem bg-${status}`} />
   });
+  const rewrittenClassName = `${className} card broadcast-card`;
   return (
-      <div data-key={animationKey} className="card broadcast-card" style={{zIndex}}>
+      <div className={rewrittenClassName} style={{zIndex}} {...rest}>
         <div className="card-body">
           <div className="team-row">
             <div className="team-rank">
@@ -47,9 +49,9 @@ class BroadcastStandingsTable extends React.Component {
       const entry = entries[index];
       const team = teams[entry.teamId] || DEFAULT_TEAM;
       rows.push(
-          <TeamRow
+          <AnimatingStandingsRow
               key={entry.teamId}
-              animationKey={entry.teamId}
+              component={TeamRow}
               entry={entry}
               team={team}
               zIndex={9999 - index}

@@ -7,7 +7,7 @@ import { sprintf } from 'sprintf-js';
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
 import AnimatingTable from '../common/AnimatingTable';
-import TimerSet from '../../utils/TimerSet';
+import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -235,11 +235,11 @@ class TeamRow extends React.Component {
   }
 
   render() {
-    const { animationKey, entry, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '' } = this.props;
+    const { entry, team, universityRank, problems: problemSpecs, pinned, onClickPin, revealMode, zIndex, className = '', ...rest } = this.props;
     const { rank, solved, penalty, revealState, problems = [] } = entry;
     const rewrittenClassName = 'team-row ' + className;
     return (
-      <div data-key={animationKey} className={rewrittenClassName} style={{ zIndex }}>
+      <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
         <TeamRowLeft pinned={pinned} revealMode={revealMode} revealState={revealState} onClickPin={onClickPin} />
         <TeamGenericCol className="team-rank" text={rank} />
         <TeamRowRight solved={solved} penalty={penalty} problemSpecs={problemSpecs} team={team} universityRank={universityRank} problems={problems} />
@@ -282,43 +282,6 @@ const computeUniversityRanks = (entries, teamsMap) => {
   return universityRanks;
 };
 
-class AnimatingTeamRow extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { rankHidden: false, newSolved: false };
-    this._timers = new TimerSet();
-  }
-
-  animateForNewSolve() {
-    this.setState({ rankHidden: true, newSolved: true });
-    this._timers.setTimeout(() => {
-      this.setState({ newSolved: false });
-    }, this.props.revealMode ? 4000 : 9000);
-    this._timers.setTimeout(() => {
-      this.setState({ rankHidden: false });
-    }, 4000);
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props.entry.solved !== prevProps.entry.solved) {
-      this.animateForNewSolve();
-    }
-  }
-
-  componentWillUnmount() {
-    this._timers.clearTimeouts();
-  }
-
-  render() {
-    const { animationKey, component: Component, className = '', entry, ...rest } = this.props;
-    const rewrittenClassName =
-      this.state.newSolved ? className + ' new-solved' : className;
-    const rewrittenEntry = Object.assign(
-      {}, entry, this.state.rankHidden ? {rank: '...'} : {});
-    return <Component animationKey={animationKey} className={rewrittenClassName} entry={rewrittenEntry} {...rest} />;
-  }
-}
-
 class StandingsTable extends React.Component {
   handleClickPin(teamId) {
     this.props.togglePin(teamId);
@@ -342,10 +305,8 @@ class StandingsTable extends React.Component {
       if (revealCurrent) {
         // FIXME: Reveal marker broken
         normalRows.push(
-          <AnimatingTeamRow
-            component={RevealRow}
+          <RevealRow
             key={'__reveal_marker__'}
-            animationKey={'__reveal_marker__'}
             entry={entry}
             team={team}
             problems={problems}
@@ -355,10 +316,9 @@ class StandingsTable extends React.Component {
           />);
       }
       normalRows.push(
-        <AnimatingTeamRow
+        <AnimatingStandingsRow
           component={TeamRow}
           key={entry.teamId}
-          animationKey={entry.teamId}
           entry={entry}
           team={team}
           problems={problems}
@@ -375,7 +335,7 @@ class StandingsTable extends React.Component {
     const stickyRows = pinnedEntries.map((entry) => {
       const team = teamsMap[entry.teamId] || DEFAULT_TEAM;
       return (
-        <AnimatingTeamRow
+        <AnimatingStandingsRow
           component={TeamRow}
           key={entry.teamId}
           entry={entry}
