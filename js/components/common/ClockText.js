@@ -1,7 +1,8 @@
-import React from "react";
-import {sprintf} from "sprintf-js";
+import React from 'react';
+import {connect} from 'react-redux';
+import {sprintf} from 'sprintf-js';
 
-class ClockText extends React.Component {
+class ClockTextImpl extends React.Component {
   updateText_() {
     const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
     const now = new Date().getTime() / 1000;
@@ -30,5 +31,9 @@ class ClockText extends React.Component {
     return <span>{this.state.text}</span>;
   }
 }
+
+const mapStateToProps = ({ contest }) => ({ contest });
+
+const ClockText = connect(mapStateToProps)(ClockTextImpl);
 
 export default ClockText;

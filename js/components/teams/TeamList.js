@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
@@ -96,7 +97,14 @@ const TeamListWithPrefecture = ({ teams }) => {
   return <div>{children}</div>;
 };
 
-const TeamList =
+const TeamListImpl =
   siteconfig.features.prefecture ? TeamListWithPrefecture : TeamListSimple;
+
+const mapStateToProps = (state) => {
+  const teams = Object.keys(state.teams).map((key) => state.teams[key]);
+  return { teams };
+};
+
+const TeamList = connect(mapStateToProps)(TeamListImpl);
 
 export default TeamList;

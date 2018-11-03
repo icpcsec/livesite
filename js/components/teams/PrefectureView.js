@@ -1,6 +1,7 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
-class PrefectureView extends React.Component {
+class PrefectureViewImpl extends React.Component {
   componentDidMount() {
     this.refresh_();
   }
@@ -58,5 +59,12 @@ class PrefectureView extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  const teams = Object.keys(state.teams).map((key) => state.teams[key]);
+  return { teams };
+};
+
+const PrefectureView = connect(mapStateToProps)(PrefectureViewImpl);
 
 export default PrefectureView;

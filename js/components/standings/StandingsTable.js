@@ -3,7 +3,9 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
+import { connect } from 'react-redux';
 
+import { updateSettings } from '../../actions/index';
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
 import AnimatingTable from '../common/AnimatingTable';
@@ -282,7 +284,7 @@ const computeUniversityRanks = (entries, teamsMap) => {
   return universityRanks;
 };
 
-class StandingsTable extends React.Component {
+class StandingsTableImpl extends React.Component {
   handleClickPin(teamId) {
     this.props.togglePin(teamId);
   }
@@ -364,5 +366,42 @@ class StandingsTable extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    entries: state.standings.entries,
+    teamsMap: state.teams,
+    problems: state.standings.problems,
+    pinnedTeamIds: state.settings.pinnedTeamIds,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  const setPinnedTeamIds = (teamIds) => {
+    dispatch(updateSettings({pinnedTeamIds: {$set: Array.from(teamIds)}}));
+  };
+  return { setPinnedTeamIds };
+};
+
+const mergeProps = (stateProps, dispatchProps, ownProps) => {
+  const togglePin = (teamId) => {
+    const { pinnedTeamIds } = stateProps;
+    const { setPinnedTeamIds } = dispatchProps;
+    const pos = pinnedTeamIds.indexOf(teamId);
+    if (pos < 0) {
+      const newPinnedTeamIds = pinnedTeamIds.concat([teamId]);
+      setPinnedTeamIds(newPinnedTeamIds);
+    } else {
+      const newPinnedTeamIds = pinnedTeamIds.slice();
+      newPinnedTeamIds.splice(pos, 1);
+      setPinnedTeamIds(newPinnedTeamIds);
+    }
+  };
+  const extraProps = { togglePin };
+  return Object.assign({}, ownProps, stateProps, dispatchProps, extraProps);
+};
+
+const StandingsTable =
+    connect(mapStateToProps, mapDispatchToProps, mergeProps)(StandingsTableImpl);
 
 export default StandingsTable;

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class AutoScrollerImpl extends React.Component {
   componentDidMount() {
@@ -49,8 +50,12 @@ class AutoScrollerImpl extends React.Component {
   }
 }
 
-const AutoScroller = ({ enabled }) => (
+const AutoScrollerSelector = ({ enabled }) => (
   enabled ? <AutoScrollerImpl /> : <div />
 );
+
+const mapStateToProps = ({ settings }) => ({ enabled: settings.autoscroll });
+
+const AutoScroller = connect(mapStateToProps)(AutoScrollerSelector);
 
 export default AutoScroller;

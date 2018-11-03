@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 const LIGHT_STYLES = (
   'body { color: #000 !important }'
@@ -13,11 +14,15 @@ const DARK_STYLES = (
   '.standings .team-row.sticky { background-color: #616161 !important; }'
 );
 
-const Theme = ({ settings }) => {
+const ThemeImpl = ({ settings }) => {
   if (settings.invertColor) {
     return <style>{DARK_STYLES}</style>;
   }
   return <style>{LIGHT_STYLES}</style>;
 };
+
+const mapStateToProps = ({ settings }) => ({ settings });
+
+const Theme = connect(mapStateToProps)(ThemeImpl);
 
 export default Theme;

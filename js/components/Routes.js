@@ -8,23 +8,23 @@ import TeamIndexPage from './teams/TeamIndexPage';
 import TeamInfoPage from './teams/TeamInfoPage';
 import SettingsPage from './settings/SettingsPage';
 import StandingsRevealPage from './standings/StandingsRevealPage';
-import GAContainer from './common/GAContainer';
+import GA from './common/GA';
 import NormalScene from './broadcast/NormalScene';
 import StandingsScene from './broadcast/StandingsScene';
-import LoadingCheckContainer from './common/LoadingCheckContainer';
+import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 
 const Routes = () => (
   <BrowserRouter>
     <Switch>
       <Route path="/broadcast/">
-        <LoadingCheckContainer loading={null}>
+        <LoadingCheck loading={null}>
           <Route path="/broadcast/normal" component={NormalScene} />
           <Route path="/broadcast/standings" component={StandingsScene} />
-        </LoadingCheckContainer>
+        </LoadingCheck>
       </Route>
       <Route>
-        <LoadingCheckContainer loading={<LoadingPage />}>
+        <LoadingCheck loading={<LoadingPage />}>
           <Frame>
             <Switch>
               <Route exact path="/" component={FrontPage} />
@@ -35,8 +35,8 @@ const Routes = () => (
               <Route path="/reveal/" component={StandingsRevealPage} />
             </Switch>
           </Frame>
-          <GAContainer />
-        </LoadingCheckContainer>
+          <GA />
+        </LoadingCheck>
       </Route>
     </Switch>
   </BrowserRouter>

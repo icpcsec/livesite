@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactGA from 'react-ga';
+import {withRouter} from 'react-router-dom';
 
-class GA extends React.Component {
+class GAImpl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
@@ -28,5 +29,7 @@ class GA extends React.Component {
     return null;
   }
 }
+
+const GA = withRouter(GAImpl);
 
 export default GA;

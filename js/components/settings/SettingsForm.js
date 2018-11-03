@@ -1,9 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import * as actions from '../../actions/index';
 import MaterialInit from '../common/MaterialInit';
 import { tr } from '../../i18n';
 
-const SettingsForm = ({ settings, toggleSetting }) => (
+const SettingsFormImpl = ({ settings, toggleSetting }) => (
   <MaterialInit>
     <form onSubmit={(e) => e.preventDefault()}>
       <div className="form-group">
@@ -29,5 +31,16 @@ const SettingsForm = ({ settings, toggleSetting }) => (
     </form>
   </MaterialInit>
 );
+
+const mapStateToProps = ({ settings }) => ({ settings });
+
+const mapDispatchToProps = (dispatch) => ({
+  toggleSetting(name) {
+    dispatch(actions.toggleSetting(name));
+  },
+});
+
+const SettingsForm =
+    connect(mapStateToProps, mapDispatchToProps)(SettingsFormImpl);
 
 export default SettingsForm;

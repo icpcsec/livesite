@@ -1,7 +1,8 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
 
-import ClockTextContainer from './ClockTextContainer';
+import ClockText from './ClockText';
 import { tr } from '../../i18n';
 
 class NavLink extends React.Component {
@@ -29,13 +30,13 @@ class NavLink extends React.Component {
   }
 }
 
-const NavBar = ({ contest }) => {
+const NavBarImpl = ({ contest }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top" style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}>
       <div className="container">
         <Link className="navbar-brand" to="/">{ contest.title }</Link>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbar_collapse" aria-controls="navbar_collapse" aria-expanded="false" aria-label="Toggle navigation">
-          <span className="navbar-toggler-icon"></span>
+          <span className="navbar-toggler-icon" />
         </button>
 
         <div id="navbar_collapse" className="collapse navbar-collapse">
@@ -51,16 +52,21 @@ const NavBar = ({ contest }) => {
           </ul>
           <ul className="navbar-nav mr-2">
             <NavLink to="/settings/">
-              <i className="fas fa-cog"></i>
+              <i className="fas fa-cog" />
             </NavLink>
           </ul>
           <span className="navbar-brand clock">
-            <ClockTextContainer />
+            <ClockText />
           </span>
         </div>
       </div>
     </nav>
   );
 };
+
+const mapStateToProps = ({ contest }) => ({ contest });
+
+const NavBar =
+    connect(mapStateToProps, undefined, undefined, { pure: false })(NavBarImpl);
 
 export default NavBar;

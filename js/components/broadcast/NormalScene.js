@@ -1,20 +1,20 @@
 import React from 'react';
 
-import BroadcastClockPaneContainer from './BroadcastClockPaneContainer';
-import BroadcastStandingsTableContainer from './BroadcastStandingsTableContainer';
-import BroadcastEventsPaneContainer from './BroadcastEventsPaneContainer';
+import BroadcastClockPane from './BroadcastClockPane';
+import BroadcastStandingsTable from './BroadcastStandingsTable';
+import BroadcastEventsPane from './BroadcastEventsPane';
 
 const BroadcastStandingsPane = () => (
     <div style={{ position: 'absolute', right: '20px', top: '120px', width: '380px' }}>
-      <BroadcastStandingsTableContainer />
+      <BroadcastStandingsTable />
     </div>
 );
 
 const NormalScene = () => (
   <div>
-    <BroadcastClockPaneContainer />
+    <BroadcastClockPane />
     <BroadcastStandingsPane />
-    <BroadcastEventsPaneContainer />
+    <BroadcastEventsPane />
   </div>
 );
 

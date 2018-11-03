@@ -1,5 +1,6 @@
 import deepEqual from 'deep-equal';
 import React from 'react';
+import {connect} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 const EVENT_TIMEOUT_SECONDS = 30;
@@ -86,12 +87,16 @@ class EventTable extends React.Component {
   }
 }
 
-const BroadcastEventsPane = ({ events, teams, problems }) => {
+const BroadcastEventsPaneImpl = ({ events, teams, problems }) => {
   return (
       <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
         <EventTable events={events} teams={teams} problems={problems} />
       </div>
   );
 };
+
+const mapStateToProps = ({ events, teams, standings: { problems } }) => ({ events, teams, problems });
+
+const BroadcastEventsPane = connect(mapStateToProps)(BroadcastEventsPaneImpl);
 
 export default BroadcastEventsPane;

@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 import AnimatingTable from '../common/AnimatingTable';
 import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
@@ -55,7 +56,7 @@ const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universitySh
   );
 };
 
-class BroadcastStandingsTable extends React.Component {
+class BroadcastStandingsTableImpl extends React.Component {
   render() {
     const { entries, teams, numRows = 20, offsetRows = 0 } = this.props;
     const rows = [];
@@ -86,5 +87,10 @@ class BroadcastStandingsTable extends React.Component {
     );
   }
 }
+
+const mapStateToProps = ({ standings: { entries }, teams }) => ({ entries, teams });
+
+const BroadcastStandingsTable =
+    connect(mapStateToProps)(BroadcastStandingsTableImpl);
 
 export default BroadcastStandingsTable;

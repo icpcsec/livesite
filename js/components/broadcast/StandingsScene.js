@@ -1,11 +1,11 @@
 import React from 'react';
 
-import BroadcastClockPaneContainer from './BroadcastClockPaneContainer';
-import BroadcastStandingsTableContainer from './BroadcastStandingsTableContainer';
+import BroadcastClockPane from './BroadcastClockPane';
+import BroadcastStandingsTable from './BroadcastStandingsTable';
 
 const Page = ({page}) => (
     <div style={{ width: '380px', flex: '0 0 auto' }}>
-      <BroadcastStandingsTableContainer numRows={20} offsetRows={20 * page} />
+      <BroadcastStandingsTable numRows={20} offsetRows={20 * page} />
     </div>
 );
 
@@ -19,7 +19,7 @@ const BroadcastStandingsPane = () => (
 
 const StandingsScene = () => (
     <div>
-      <BroadcastClockPaneContainer />
+      <BroadcastClockPane />
       <BroadcastStandingsPane />
     </div>
 );

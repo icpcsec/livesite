@@ -1,7 +1,8 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import {sprintf} from "sprintf-js";
 
-import ClockTextContainer from '../common/ClockTextContainer';
+import ClockText from '../common/ClockText';
 
 const Clock = () => (
     <div style={{
@@ -10,7 +11,7 @@ const Clock = () => (
       color: '#f5f5f5',
       WebkitTextStroke: '1.5px black'
     }}>
-      <ClockTextContainer/>
+      <ClockText/>
     </div>
 );
 
@@ -48,7 +49,7 @@ class ProgressBar extends React.Component {
   }
 }
 
-const BroadcastClockPane = ({ times }) => {
+const BroadcastClockPaneImpl = ({ times }) => {
   return (
       <div style={{position: 'absolute', right: '40px', top: '20px'}}>
         <Clock />
@@ -58,5 +59,10 @@ const BroadcastClockPane = ({ times }) => {
       </div>
   );
 };
+
+const mapStateToProps = ({ contest: { times } }) => ({ times });
+
+const BroadcastClockPane =
+    connect(mapStateToProps, undefined, undefined, { pure: false })(BroadcastClockPaneImpl);
 
 export default BroadcastClockPane;

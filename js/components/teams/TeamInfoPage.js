@@ -1,7 +1,7 @@
 import React from 'react';
 
-import TeamInfoContainer from './TeamInfoContainer';
+import TeamInfo from './TeamInfo';
 
-const TeamInfoPage = ({ match }) => <TeamInfoContainer requestedTeamId={match.params.requestedTeamId} />;
+const TeamInfoPage = ({ match }) => <TeamInfo requestedTeamId={match.params.requestedTeamId} />;
 
 export default TeamInfoPage;

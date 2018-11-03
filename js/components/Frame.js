@@ -1,19 +1,19 @@
 import React from 'react';
 
-import FooterContainer from './common/FooterContainer';
-import NavBarContainer from './common/NavBarContainer';
-import ThemeContainer from './common/ThemeContainer';
+import Footer from './common/Footer';
+import NavBar from './common/NavBar';
+import Theme from './common/Theme';
 
 const Frame = ({ children }) => {
   return (
     <div style={{width: '100%'}}>
-      <NavBarContainer />
+      <NavBar />
       <div style={{ paddingTop: '70px' }} />
       <div className="container" style={{position: 'relative' }}>
         {children}
       </div>
-      <FooterContainer />
-      <ThemeContainer />
+      <Footer />
+      <Theme />
     </div>
   );
 };

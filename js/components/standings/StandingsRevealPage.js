@@ -1,6 +1,6 @@
 import React from 'react';
 
-import StandingsRevealTableContainer from './StandingsRevealTableContainer';
+import StandingsRevealTable from './StandingsRevealTable';
 import { tr } from '../../i18n';
 
 const StandingsRevealPage = () => (
@@ -8,7 +8,7 @@ const StandingsRevealPage = () => (
     <h1 className="my-4">
       {tr('Standings', '順位表')}
     </h1>
-    <StandingsRevealTableContainer />
+    <StandingsRevealTable />
   </div>
 );
 

@@ -1,5 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
+import * as actions from '../../actions/index';
 import StandingsTable from './StandingsTable';
 
 class StandingsUploadForm extends React.Component {
@@ -46,7 +48,7 @@ class StandingsUploadForm extends React.Component {
   }
 }
 
-class StandingsRevealTable extends React.Component {
+class StandingsRevealTableImpl extends React.Component {
   constructor(props) {
     super(props);
     this.keyDownListener_ = this.onKeyDown.bind(this);
@@ -102,5 +104,32 @@ class StandingsRevealTable extends React.Component {
       <StandingsTable revealMode={true} entries={this.props.entries} {...this.props} />;
   }
 }
+
+const mapStateToProps = (state) => {
+  const { standingsList, standingsIndex } = state.reveal;
+  const standings = standingsList[standingsIndex];
+  return {
+    teamsMap: state.teams,
+    pinnedTeamIds: [],
+    togglePin: (teamId) => {},
+    entries: standings.entries,
+    problems: standings.problems,
+    standingsIndex: standingsIndex,
+    numStandings: standingsList.length,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => ({
+  setStandingsIndex(index) {
+    dispatch(actions.setRevealStandingsIndex(index));
+  },
+
+  setStandingsList(standingsList) {
+    dispatch(actions.setRevealStandingsList(standingsList));
+  },
+});
+
+const StandingsRevealTable =
+    connect(mapStateToProps, mapDispatchToProps)(StandingsRevealTableImpl);
 
 export default StandingsRevealTable;

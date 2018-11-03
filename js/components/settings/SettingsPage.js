@@ -1,6 +1,6 @@
 import React from 'react';
 
-import SettingsFormContainer from './SettingsFormContainer';
+import SettingsForm from './SettingsForm';
 import { tr } from '../../i18n';
 
 const SettingsPage = () => (
@@ -8,7 +8,7 @@ const SettingsPage = () => (
     <h1 className="my-4">
       {tr('Settings', '設定')}
     </h1>
-    <SettingsFormContainer />
+    <SettingsForm />
   </div>
 );
 

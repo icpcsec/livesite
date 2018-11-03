@@ -1,7 +1,7 @@
 import React from 'react';
 
-import FrontContentContainer from './FrontContentContainer';
+import FrontContent from './FrontContent';
 
-const FrontPage = () => <FrontContentContainer />;
+const FrontPage = () => <FrontContent />;
 
 export default FrontPage;

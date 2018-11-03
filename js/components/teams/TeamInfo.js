@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import ErrorMessage from '../common/ErrorMessage';
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
@@ -84,7 +85,7 @@ const MemberProfile = ({ profile, index }) => {
   );
 };
 
-const TeamInfo = ({ team }) => {
+const TeamInfoImpl = ({ team }) => {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
@@ -124,5 +125,13 @@ const TeamInfo = ({ team }) => {
     </div>
   );
 };
+
+const mapStateToProps = (state, ownProps) => {
+  const { teams } = state;
+  const team = teams[ownProps.requestedTeamId];
+  return { team };
+};
+
+const TeamInfo = connect(mapStateToProps)(TeamInfoImpl);
 
 export default TeamInfo;
