@@ -344,6 +344,7 @@ html.broadcast-mode.obs-false #root {
   font-size: inherit;
   background-color: rgba(245, 245, 245, 0.9);
   flex: 0 0 auto;
+  transition: background-color 1s linear;
 }
 
 .broadcast-card .card-body {
@@ -366,6 +367,10 @@ html.broadcast-mode.obs-false #root {
 .event-animation-leave.event-animation-leave-active {
   opacity: 0;
   transition: opacity 300ms ease-in;
+}
+
+.broadcast-standings .broadcast-card.new-solved {
+  background-color: rgba(255, 214, 0, 0.9);
 }
 
 .broadcast-standings .team-row {
