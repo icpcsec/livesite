@@ -1,15 +1,26 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const ProblemRow = ({ problem: { label, accepts, rejects } }) => (
+const Box = ({ children }) => (
+    <span style={{ display: 'inline-block', minWidth: '2ex', textAlign: 'right' }}>
+      {children}
+    </span>
+);
+
+const ProblemRow = ({ problem: { label, color, accepts, rejects } }) => (
     <div className="card broadcast-card">
       <div className="card-body">
         <div className="problem-row">
           <div className="problem-label">
-            {label}:
+            {label}
+          </div>
+          <div className="problem-flag">
+            <i className="fas fa-flag" style={{ color }} />
           </div>
           <div className="problem-stats">
-            {accepts} / {accepts + rejects}
+            <Box>{accepts}</Box>
+            {' / '}
+            <Box>{accepts + rejects}</Box>
           </div>
         </div>
       </div>

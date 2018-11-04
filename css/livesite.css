@@ -425,10 +425,18 @@ html.broadcast-mode.obs-false .broadcast-frame {
 
 .broadcast-problems .problem-row .problem-label {
   flex: 0 0 auto;
+  width: 1em;
+  text-align: center;
+  margin-right: 0;
+}
+
+.broadcast-problems .problem-row .problem-flag {
+  flex: 0 0 auto;
 }
 
 .broadcast-problems .problem-row .problem-stats {
   flex: 1 1 auto;
+  text-align: right;
 }
 
 .broadcast-config button {

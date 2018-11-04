@@ -39,7 +39,7 @@ const FullStandingsPane = () => {
 };
 
 const ProblemsPane = () => (
-    <div style={{ position: 'absolute', right: '40px', bottom: '20px', width: '160px' }}>
+    <div style={{ position: 'absolute', right: '40px', bottom: '20px', width: '120px' }}>
       <ProblemsTable />
     </div>
 );
@@ -104,7 +104,7 @@ class BroadcastPage extends React.Component {
         panes.push(<FullStandingsPane key="standings_full" />);
         break;
       case 'problems':
-        panes.push(<ProblemsPane key="problems" />);
+        panes.push(<ProblemsPane key="problems" />, <EventsPane key="events" />);
         break;
     }
     return (
