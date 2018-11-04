@@ -46,9 +46,9 @@ const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universitySh
             <div className="team-stats">
               <Count count={numSolved} color="#0c0" />
               /
-              <Count count={numRejected} color="red" />
-              /
               <Count count={numPending} color="yellow" />
+              /
+              <Count count={numRejected} color="red" />
             </div>
           </div>
         </div>
