@@ -1,10 +1,48 @@
 import React from 'react';
 
-import ClockPane from './ClockPane';
-import StandingsPane from './StandingsPane';
-import FullStandingsPane from './FullStandingsPane';
-import EventsPane from './EventsPane';
-import ProblemsPane from './ProblemsPane';
+import Clock from './Clock';
+import EventsTable from './EventsTable';
+import ProblemsTable from './ProblemsTable';
+import StandingsTable from './StandingsTable';
+
+const ClockPane = () => (
+    <div style={{position: 'absolute', right: '40px', top: '20px'}}>
+      <Clock />
+    </div>
+);
+
+const EventsPane = () => (
+    <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
+      <EventsTable />
+    </div>
+);
+
+const RightStandingsPane = () => (
+    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '380px' }}>
+      <StandingsTable />
+    </div>
+);
+
+const FullStandingsPane = () => {
+  const Page = ({page}) => (
+      <div style={{ width: '380px', flex: '0 0 auto' }}>
+        <StandingsTable numRows={20} offsetRows={20 * page} />
+      </div>
+  );
+  return (
+      <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', display: 'flex', justifyContent: 'space-around' }}>
+        <Page page={0} />
+        <Page page={1} />
+        <Page page={2} />
+      </div>
+  );
+};
+
+const ProblemsPane = () => (
+    <div style={{ position: 'absolute', right: '40px', bottom: '20px', width: '160px' }}>
+      <ProblemsTable />
+    </div>
+);
 
 const ConfigButtons = ({ state: { view }, setState }) => (
     <div className="card broadcast-card broadcast-config" style={{ display: 'inline-block' }}>
@@ -60,7 +98,7 @@ class BroadcastPage extends React.Component {
     const panes = [<ClockPane key="clock" />];
     switch (view) {
       case 'normal':
-        panes.push(<StandingsPane key="standings_right" />, <EventsPane key="events" />);
+        panes.push(<RightStandingsPane key="standings_right" />, <EventsPane key="events" />);
         break;
       case 'standings':
         panes.push(<FullStandingsPane key="standings_full" />);
@@ -71,7 +109,9 @@ class BroadcastPage extends React.Component {
     }
     return (
         <div>
-          <Frame>{panes}</Frame>,
+          <Frame>
+            {panes}
+          </Frame>
           <ConfigPane state={this.state} setState={(update) => this.setState(update)} />,
         </div>
     );

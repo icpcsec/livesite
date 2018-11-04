@@ -406,7 +406,7 @@ html.broadcast-mode.obs-false .broadcast-frame {
 
 .broadcast-standings .team-row .team-stats {
   flex: 0 0 auto;
-  width: 80px;
+  width: 56px;
   text-align: right;
   color: #bbb;
 }

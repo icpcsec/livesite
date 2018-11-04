@@ -4,17 +4,6 @@ import {sprintf} from "sprintf-js";
 
 import ClockText from '../common/ClockText';
 
-const Clock = () => (
-    <div style={{
-      fontSize: '48px',
-      fontWeight: 'bold',
-      color: '#f5f5f5',
-      WebkitTextStroke: '1.5px black'
-    }}>
-      <ClockText/>
-    </div>
-);
-
 class ProgressBar extends React.Component {
   updateState_() {
     const { times: { start = 1, end = 0 } } = this.props;
@@ -49,10 +38,17 @@ class ProgressBar extends React.Component {
   }
 }
 
-const ClockPaneImpl = ({ times }) => {
+const ClockImpl = ({ times }) => {
   return (
-      <div style={{position: 'absolute', right: '40px', top: '20px'}}>
-        <Clock />
+      <div>
+        <div style={{
+          fontSize: '48px',
+          fontWeight: 'bold',
+          color: '#f5f5f5',
+          WebkitTextStroke: '1.5px black'
+        }}>
+          <ClockText />
+        </div>
         <div style={{marginTop: '-12px'}}>
           <ProgressBar times={times} />
         </div>
@@ -62,7 +58,7 @@ const ClockPaneImpl = ({ times }) => {
 
 const mapStateToProps = ({ contest: { times } }) => ({ times });
 
-const ClockPane =
-    connect(mapStateToProps, undefined, undefined, { pure: false })(ClockPaneImpl);
+const Clock =
+    connect(mapStateToProps, undefined, undefined, { pure: false })(ClockImpl);
 
-export default ClockPane;
+export default Clock;

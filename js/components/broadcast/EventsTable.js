@@ -26,7 +26,7 @@ const EventRow = ({type, team, problem, oldRank, newRank}) => {
   );
 };
 
-class EventTable extends React.Component {
+class EventsTableImpl extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -87,16 +87,8 @@ class EventTable extends React.Component {
   }
 }
 
-const EventsPaneImpl = ({ events, teams, problems }) => {
-  return (
-      <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
-        <EventTable events={events} teams={teams} problems={problems} />
-      </div>
-  );
-};
-
 const mapStateToProps = ({ events, teams, standings: { problems } }) => ({ events, teams, problems });
 
-const EventsPane = connect(mapStateToProps)(EventsPaneImpl);
+const EventsTable = connect(mapStateToProps)(EventsTableImpl);
 
-export default EventsPane;
+export default EventsTable;
