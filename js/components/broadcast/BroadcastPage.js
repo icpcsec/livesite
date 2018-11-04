@@ -4,6 +4,7 @@ import ClockPane from './ClockPane';
 import StandingsPane from './StandingsPane';
 import FullStandingsPane from './FullStandingsPane';
 import EventsPane from './EventsPane';
+import ProblemsPane from './ProblemsPane';
 
 const ConfigButtons = ({ state: { view }, setState }) => (
     <div className="card broadcast-card broadcast-config" style={{ display: 'inline-block' }}>
@@ -23,6 +24,11 @@ const ConfigButtons = ({ state: { view }, setState }) => (
               className={`btn btn-sm btn-${view === 'standings' ? 'danger': 'secondary'}`}
               onClick={() => setState({ view: 'standings' })}>
             Standings
+          </button>
+          <button
+              className={`btn btn-sm btn-${view === 'problems' ? 'danger': 'secondary'}`}
+              onClick={() => setState({ view: 'problems' })}>
+            Problems
           </button>
         </div>
       </div>
@@ -58,6 +64,9 @@ class BroadcastPage extends React.Component {
         break;
       case 'standings':
         panes.push(<FullStandingsPane key="standings_full" />);
+        break;
+      case 'problems':
+        panes.push(<ProblemsPane key="problems" />);
         break;
     }
     return (

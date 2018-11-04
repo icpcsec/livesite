@@ -77,7 +77,7 @@ class StandingsTableImpl extends React.Component {
     const tableHeight = rowHeight * numRows;
     const tableOffset = -rowHeight * offsetRows;
     return (
-      <div className="broadcast-standings" style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
+      <div className="broadcast-standings" style={{ height: `${tableHeight}px` }}>
         <div style={{ position: 'relative', top: `${tableOffset}px` }}>
           <AnimatingTable>
             {rows}

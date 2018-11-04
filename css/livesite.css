@@ -373,6 +373,10 @@ html.broadcast-mode.obs-false .broadcast-frame {
   transition: opacity 300ms ease-in;
 }
 
+.broadcast-standings {
+  overflow: hidden;
+}
+
 .broadcast-standings .broadcast-card.new-solved {
   background-color: rgba(255, 214, 0, 0.9);
 }
@@ -405,6 +409,26 @@ html.broadcast-mode.obs-false .broadcast-frame {
   width: 80px;
   text-align: right;
   color: #bbb;
+}
+
+.broadcast-problems .broadcast-card.new-solved {
+  background-color: rgba(255, 214, 0, 0.9);
+}
+
+.broadcast-problems .problem-row {
+  display: flex;
+}
+
+.broadcast-problems .problem-row > * {
+  margin: 0 4px;
+}
+
+.broadcast-problems .problem-row .problem-label {
+  flex: 0 0 auto;
+}
+
+.broadcast-problems .problem-row .problem-stats {
+  flex: 1 1 auto;
 }
 
 .broadcast-config button {
