@@ -330,7 +330,7 @@ html.broadcast-mode > body {
   background-color: transparent;
 }
 
-html.broadcast-mode #root {
+.broadcast-frame {
   position: absolute;
   left: 0;
   top: 0;
@@ -339,7 +339,7 @@ html.broadcast-mode #root {
   overflow: hidden;
 }
 
-html.broadcast-mode.obs-false #root {
+html.broadcast-mode.obs-false .broadcast-frame {
   background-color: blue;
 }
 
@@ -405,4 +405,13 @@ html.broadcast-mode.obs-false #root {
   width: 80px;
   text-align: right;
   color: #bbb;
+}
+
+.broadcast-config button {
+  margin-bottom: 0;
+}
+
+.broadcast-config .btn-group {
+  margin-top: 0;
+  margin-bottom: 0;
 }
