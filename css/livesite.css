@@ -25,124 +25,82 @@ a.no-decoration {
   color: inherit !important;
 }
 
-.popover {
-  max-width: 100000px;
-}
-
-/* Always show help message */
-.help-block {
-  display: block !important;
-}
-
 /* Workaround bootstrap-material-design color issue */
 .switch > label {
-    color: inherit !important;
+  color: inherit !important;
 }
 
 
 /*******************************************************************************
  *
- *  Standings
+ *  Standard standings
  *
  */
 
-.animate-active {
-  transition: transform 3s ease !important;
-}
-
-.standings {
-  position: relative;
-  flex-grow: 1;
-}
-
-.standings .standings-section {
-  /* Need to be an offset parent to calculate offsets on animation */
+.standings-section {
   position: relative;
 }
 
-.standings .standings-section .reveal-row {
-  position: absolute;
-  left: 0;
-  right: 0;
-  z-index: 1000000;
-  pointer-events: none;
+.standard-standings {
+  line-height: 1.3;
 }
 
-.standings .standings-section .reveal-row.animate-active {
-  transition: transform 0.5s ease;
-}
-
-.standings .standings-section .reveal-row .team-row {
-  opacity: 0;
-}
-
-.standings .standings-section .reveal-row .reveal-marker {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  box-shadow: 0 0 0 5px red;
-}
-
-.standings .standings-section .team-row {
+.standard-standings .team-row {
   position: relative;
   display: flex;
-  align-items: stretch;
   border-bottom: 1px solid #ddd;
-  line-height: 1.3;
   transition: background-color 1s linear;
 }
 
-.standings .standings-section .team-row:last-child {
+.standard-standings .team-row:last-child {
   border-bottom: 1px solid #888;
 }
 
-.standings .standings-section:last-child .team-row:last-child {
+.standings-section:last-child .team-row:last-child {
   border-bottom: 1px solid #ddd;
 }
 
-.standings .standings-section .team-row.legend {
+.standard-standings .team-row.legend {
   font-weight: bold;
 }
 
-.standings .standings-section .team-row.sticky {
+.standard-standings .team-row.sticky {
   background-color: #BDBDBD;
 }
 
-.standings .standings-section .team-row.new-solved {
+.standard-standings .team-row.new-solved {
   background-color: #FFD600;
 }
 
-.standings .standings-section .team-row .team-left {
+.standard-standings .team-row .team-left {
   flex: 0 0 auto;
   width: auto;
   min-width: 0;
   display: flex;
 }
 
-.standings .standings-section .team-row .team-right {
+.standard-standings .team-row .team-right {
   flex: 1 0 auto;
   width: 0;
   min-width: 0;
   display: flex;
 }
 
-.standings .standings-section .team-row .team-problems {
+.standard-standings .team-row .team-problems {
   flex: 1 0 auto;
   width: auto;
   min-width: 0;
   display: flex;
 }
 
-.standings .standings-section .team-row .team-col {
+.standard-standings .team-row .team-col {
   display: flex;
   align-items: center;
-  padding: 5px 3px;
+  margin: 4px 2px;
   position: relative;
 }
 
-.standings .standings-section .team-row .team-col.team-mark {
+.standard-standings .team-row .team-mark {
   flex: 0 0 auto;
   width: 20px;
   padding: 6px 2px 4px;
@@ -151,112 +109,143 @@ a.no-decoration {
   user-select: none;
 }
 
-.standings .standings-section .team-row .team-col.team-mark .fa-thumbtack {
+.standard-standings .team-row .team-mark .fa-thumbtack {
   color: #BDBDBD;
 }
 
-.standings .standings-section .team-row .team-col.team-mark .fa-thumbtack.pinned {
+.standard-standings .team-row .team-mark .fa-thumbtack.pinned {
   color: #F44336;
 }
 
-.standings .standings-section .team-row .team-col.team-rank {
+.standard-standings .team-row .team-rank {
   flex: 0 0 auto;
   width: 32px;
   justify-content: center;
   text-align: center;
 }
 
-.standings .standings-section .team-row .team-col.team-name {
-  flex: 0 10 auto;
+.standard-standings .team-row .team-score {
+  flex: 0 0 auto;
+  width: 56px;
+  justify-content: center;
+  text-align: center;
+}
+
+.standard-standings .team-row .team-name {
+  flex: 0 0 auto;
   width: 240px;
-  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.standings .standings-section .team-row .team-col.team-solved {
-  flex: 0 0 auto;
-  width: 48px;
-  justify-content: center;
+.standard-standings .team-row .team-problems {
+  flex: 1 1 auto;
+  width: 0;
+  display: flex;
 }
 
-.standings .standings-section .team-row .team-col.team-penalty {
-  flex: 0 0 auto;
-  width: 48px;
-  justify-content: center;
-  text-align: center;
-}
-
-.standings .standings-section .team-row .team-col.team-score {
-  flex: 0 0 auto;
-  width: 64px;
-  justify-content: center;
-  text-align: center;
-}
-
-.standings .standings-section .team-row .team-col.team-members {
+.standard-standings .team-row .team-problems .team-problem {
   flex: 1 0 auto;
   width: 0;
-  min-width: 0;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.standings .standings-section .team-row .team-col.team-problem {
-  flex: 1 0 auto;
-  width: 4rem;
-  min-width: 0;
   justify-content: center;
   text-align: center;
 }
 
-@media (min-width: 768px) and (max-width: 991px) {
-  .standings .standings-section .team-row .team-col.team-problem {
-    width: 3.2rem;
-    font-size: 0.8rem;
-  }
-}
-
-@media (max-width: 767px) {
-  .standings .standings-section .team-row .team-col.team-score {
-    width: 2rem;
-  }
-  .standings .standings-section .team-row .team-col.team-problem {
-    width: 1rem;
-  }
-  .standings .standings-section .team-row .team-col.team-problem .team-col-fg {
-    display: none;
-  }
-}
-
-.standings .standings-section .team-row .team-col.team-problem .team-problem-flag {
+.standard-standings .team-row .team-problem .team-problem-flag {
   position: absolute;
   display: inline-block;
 }
 
-.standings .standings-section .team-row .team-col .team-col-fg {
-  position: relative;
-  color: #000 !important;
+@media (min-width: 768px) and (max-width: 991px) {
+  .standard-standings {
+    font-size: 0.8rem;
+  }
+  .standard-standings .team-row .team-name {
+    width: 180px;
+  }
 }
 
-.standings .standings-section .team-row .team-col .team-col-bg {
+@media (max-width: 767px) {
+  .standard-standings {
+    font-size: 0.8rem;
+  }
+  .standard-standings .team-row .team-col {
+    margin: 4px 1px;
+  }
+  .standard-standings .team-row .team-mark {
+    width: 1rem;
+  }
+  .standard-standings .team-row .team-rank {
+    width: 1.4rem;
+  }
+  .standard-standings .team-row .team-score {
+    width: 1.4rem;
+  }
+  .standard-standings .team-row .team-name {
+    flex: 1 1 auto;
+  }
+  .standard-standings .team-row .team-problems {
+    flex: 0 0 auto;
+    width: 180px;
+  }
+  .standard-standings .team-row .team-problem .team-colored-col-fg {
+    display: none;
+  }
+}
+
+@media (max-width: 420px) {
+  .standard-standings .team-row .team-problems {
+    width: 120px;
+  }
+}
+
+
+/*******************************************************************************
+ *
+ *  Standard standings (reveal)
+ *
+ */
+
+.standard-standings .reveal-row {
   position: absolute;
   left: 0;
   right: 0;
-  top: 0;
-  bottom: 0;
-  margin: 4px 2px;
+  z-index: 1000000;
+  pointer-events: none;
 }
 
-@keyframes standings-blink {
+.standard-standings .reveal-row.animate-table-active {
+  transition: transform 0.5s ease;
+}
+
+.standard-standings .reveal-row .team-row {
+  opacity: 0;
+}
+
+.standard-standings .reveal-row .reveal-marker {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  box-shadow: 0 0 0 5px red;
+}
+
+
+/*******************************************************************************
+ *
+ *  Standings common
+ *
+ */
+
+.animate-table-active {
+  transition: transform 3s ease !important;
+}
+
+@keyframes pending-blink {
   from { opacity: 0; }
   to { opacity: 1; }
-}
-
-.fg-unattempted {
-  color: inherit;
 }
 
 .bg-solved {
@@ -265,6 +254,7 @@ a.no-decoration {
 
 .bg-pending {
   background-color: #FFD600;
+  animation: pending-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
 .bg-rejected {
@@ -275,14 +265,23 @@ a.no-decoration {
   background-color: inherit;
 }
 
-.standings .bg-pending {
-  animation: standings-blink 1s ease 0s infinite alternate-reverse none running;
+.team-colored-col-fg {
+  position: relative;
+  color: #000 !important;
+}
+
+.team-colored-col-bg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
 }
 
 
 /*******************************************************************************
  *
- *  Team Info
+ *  Team info
  *
  */
 
@@ -322,11 +321,11 @@ a.no-decoration {
 
 /*******************************************************************************
  *
- *  Broadcast Mode
+ *  Broadcast common
  *
  */
 
-html.broadcast-mode > body {
+.broadcast-mode body {
   background-color: transparent;
 }
 
@@ -339,11 +338,11 @@ html.broadcast-mode > body {
   overflow: hidden;
 }
 
-html.broadcast-mode.obs-false .broadcast-frame {
+.broadcast-mode.obs-false .broadcast-frame {
   background-color: blue;
 }
 
-.broadcast-card {
+.broadcast-mode .card {
   margin-bottom: 1px;
   font-size: inherit;
   background-color: rgba(245, 245, 245, 0.9);
@@ -351,9 +350,20 @@ html.broadcast-mode.obs-false .broadcast-frame {
   transition: background-color 1s linear;
 }
 
-.broadcast-card .card-body {
+.broadcast-mode .card .card-body {
   padding: 2px;
 }
+
+.broadcast-mode .team-row.new-solved {
+  background-color: rgba(255, 214, 0, 0.9);
+}
+
+
+/*******************************************************************************
+ *
+ *  Broadcast events
+ *
+ */
 
 .event-animation-enter {
   opacity: 0;
@@ -373,47 +383,99 @@ html.broadcast-mode.obs-false .broadcast-frame {
   transition: opacity 300ms ease-in;
 }
 
-.broadcast-standings {
-  overflow: hidden;
-}
 
-.broadcast-standings .broadcast-card.new-solved {
-  background-color: rgba(255, 214, 0, 0.9);
-}
+/*******************************************************************************
+ *
+ *  Broadcast standings table (compact)
+ *
+ */
 
-.broadcast-standings .team-row {
+.broadcast-compact-standings .team-row {
   display: flex;
 }
 
-.broadcast-standings .team-row > * {
+.broadcast-compact-standings .team-row > * {
   margin: 0 4px;
 }
 
-.broadcast-standings .team-row .team-rank {
+.broadcast-compact-standings .team-row .team-rank {
   flex: 0 0 auto;
   width: 20px;
   text-align: right;
 }
 
-.broadcast-standings .team-row .team-univ {
+.broadcast-compact-standings .team-row .team-univ {
   flex: 0 0 auto;
   width: 102px;
 }
 
-.broadcast-standings .team-row .team-name {
+.broadcast-compact-standings .team-row .team-name {
   flex: 1 1 auto;
 }
 
-.broadcast-standings .team-row .team-stats {
+.broadcast-compact-standings .team-row .team-stats {
   flex: 0 0 auto;
   width: 56px;
   text-align: right;
   color: #bbb;
 }
 
-.broadcast-problems .broadcast-card.new-solved {
-  background-color: rgba(255, 214, 0, 0.9);
+
+/*******************************************************************************
+ *
+ *  Broadcast standings table (detailed)
+ *
+ */
+
+.broadcast-detailed-standings .team-row {
+  display: flex;
+  align-items: center;
+  line-height: 1.2;
+  padding: 2px 0;
 }
+
+.broadcast-detailed-standings .team-row > * {
+  flex: 0 0 auto;
+}
+
+.broadcast-detailed-standings .team-row .team-rank {
+  width: 32px;
+  text-align: center;
+}
+
+.broadcast-detailed-standings .team-row .team-solved {
+  width: 64px;
+  text-align: center;
+}
+
+.broadcast-detailed-standings .team-row .team-name-univ {
+  width: 200px;
+}
+
+.broadcast-detailed-standings .team-row .team-problems {
+  display: flex;
+  width: 560px;
+  text-align: center;
+}
+
+.broadcast-detailed-standings .team-row .team-problems .team-problem {
+  flex: 1 0 auto;
+  width: 0;
+  margin: 0 2px;
+  position: relative;
+}
+
+.broadcast-detailed-standings .team-row .team-problems .team-problem .team-problem-flag {
+  position: absolute;
+  font-size: 80%;
+}
+
+
+/*******************************************************************************
+ *
+ *  Broadcast problems table
+ *
+ */
 
 .broadcast-problems .problem-row {
   display: flex;
@@ -438,6 +500,13 @@ html.broadcast-mode.obs-false .broadcast-frame {
   flex: 1 1 auto;
   text-align: right;
 }
+
+
+/*******************************************************************************
+ *
+ *  Broadcast configs
+ *
+ */
 
 .broadcast-config button {
   margin-bottom: 0;

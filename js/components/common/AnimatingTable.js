@@ -17,7 +17,7 @@ class AnimatingTable extends React.Component {
     this.timers_.clearTimeouts();
     this.callbacks_.cancelAll();
     rows.forEach((row) => {
-      row.classList.remove('animate-start', 'animate-active');
+      row.classList.remove('animate-table-start', 'animate-table-active');
       row.style.transform = null;
     });
 
@@ -50,13 +50,13 @@ class AnimatingTable extends React.Component {
           currentOffsetTop;
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
       if (relativeOffsetTop !== 0) {
-        row.classList.add('animate-start');
+        row.classList.add('animate-table-start');
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
         this.timers_.setTimeout(() => {
-          row.classList.add('animate-active');
+          row.classList.add('animate-table-active');
           row.style.transform = 'translate(0, 0)';
           row.addEventListener('transitionend', this.callbacks_.wrap(() => {
-            row.classList.remove('animate-start', 'animate-active');
+            row.classList.remove('animate-table-start', 'animate-table-active');
           }), {once: true})
         }, delay);
       }

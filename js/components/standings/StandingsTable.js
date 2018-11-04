@@ -115,8 +115,8 @@ const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
   const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <div className="team-col team-score">
-      <div className="team-col-bg" style={{ backgroundColor }} />
-      <div className="team-col-fg">
+      <div className="team-colored-col-bg" style={{ backgroundColor }} />
+      <div className="team-colored-col-fg">
         {solved}
         <br/><small className="d-none d-md-inline">({penalty})</small>
       </div>
@@ -165,8 +165,8 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   }
   return (
     <div className="team-col team-problem">
-      <div className={`team-col-bg bg-${status}`} />
-      <div className="team-col-fg">{content}</div>
+      <div className={`team-colored-col-bg bg-${status}`} />
+      <div className="team-colored-col-fg">{content}</div>
     </div>
   );
 };
@@ -352,7 +352,7 @@ class StandingsTableImpl extends React.Component {
       );
     });
     return (
-      <div className="standings">
+      <div className="standard-standings">
         <div className="standings-section">
           <LegendRow problems={problems} />
         </div>

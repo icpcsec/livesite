@@ -8,7 +8,7 @@ const Box = ({ children }) => (
 );
 
 const ProblemRow = ({ problem: { label, color, accepts, rejects } }) => (
-    <div className="card broadcast-card">
+    <div className="card">
       <div className="card-body">
         <div className="problem-row">
           <div className="problem-label">

@@ -29,7 +29,7 @@ const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universitySh
       ++numRejected;
     }
   }
-  const rewrittenClassName = `${className} card broadcast-card`;
+  const rewrittenClassName = `${className} card`;
   return (
       <div className={rewrittenClassName} style={{zIndex}} {...rest}>
         <div className="card-body">
@@ -56,7 +56,7 @@ const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universitySh
   );
 };
 
-class StandingsTableImpl extends React.Component {
+class CompactStandingsTableImpl extends React.Component {
   render() {
     const { entries, teams, numRows = 20, offsetRows = 0 } = this.props;
     const rows = [];
@@ -77,20 +77,22 @@ class StandingsTableImpl extends React.Component {
     const tableHeight = rowHeight * numRows;
     const tableOffset = -rowHeight * offsetRows;
     return (
-      <div className="broadcast-standings" style={{ height: `${tableHeight}px` }}>
-        <div style={{ position: 'relative', top: `${tableOffset}px` }}>
-          <AnimatingTable>
-            {rows}
-          </AnimatingTable>
+        <div className="broadcast-compact-standings">
+          <div style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
+            <div style={{ position: 'relative', top: `${tableOffset}px` }}>
+              <AnimatingTable>
+                {rows}
+              </AnimatingTable>
+            </div>
+          </div>
         </div>
-      </div>
     );
   }
 }
 
 const mapStateToProps = ({ standings: { entries }, teams }) => ({ entries, teams });
 
-const StandingsTable =
-    connect(mapStateToProps)(StandingsTableImpl);
+const CompactStandingsTable =
+    connect(mapStateToProps)(CompactStandingsTableImpl);
 
-export default StandingsTable;
+export default CompactStandingsTable;

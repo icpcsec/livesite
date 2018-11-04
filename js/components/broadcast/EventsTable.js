@@ -12,7 +12,7 @@ const EventRow = ({type, team, problem, oldRank, newRank}) => {
         {oldRank} &#x21D2; {newRank}
       </div> : null;
   return (
-    <div className="card broadcast-card">
+    <div className="card">
       <div className="card-body" style={{ display: 'flex' }}>
         <div className={`bg-${type}`} style={{ flex: '0 0 auto', width: '18px', marginRight: '4px', textAlign: 'center' }}>
           {problem.label}

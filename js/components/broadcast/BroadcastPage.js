@@ -1,9 +1,10 @@
 import React from 'react';
 
 import Clock from './Clock';
+import DetailedStandingsTable from './DetailedStandingsTable';
 import EventsTable from './EventsTable';
 import ProblemsTable from './ProblemsTable';
-import StandingsTable from './StandingsTable';
+import CompactStandingsTable from './CompactStandingsTable';
 
 const ClockPane = () => (
     <div style={{position: 'absolute', right: '40px', top: '20px'}}>
@@ -19,14 +20,14 @@ const EventsPane = () => (
 
 const RightStandingsPane = () => (
     <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '380px' }}>
-      <StandingsTable />
+      <CompactStandingsTable />
     </div>
 );
 
 const FullStandingsPane = () => {
   const Page = ({page}) => (
       <div style={{ width: '380px', flex: '0 0 auto' }}>
-        <StandingsTable numRows={20} offsetRows={20 * page} />
+        <CompactStandingsTable numRows={20} offsetRows={20 * page} />
       </div>
   );
   return (
@@ -34,6 +35,14 @@ const FullStandingsPane = () => {
         <Page page={0} />
         <Page page={1} />
         <Page page={2} />
+      </div>
+  );
+}
+
+const DetailedStandingsPane = () => {
+  return (
+      <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', display: 'flex', justifyContent: 'space-around' }}>
+        <DetailedStandingsTable />
       </div>
   );
 };
@@ -45,7 +54,7 @@ const ProblemsPane = () => (
 );
 
 const ConfigButtons = ({ state: { view }, setState }) => (
-    <div className="card broadcast-card broadcast-config" style={{ display: 'inline-block' }}>
+    <div className="card broadcast-config" style={{ display: 'inline-block' }}>
       <div className="card-body">
         <div className="btn-group">
           <button
@@ -62,6 +71,11 @@ const ConfigButtons = ({ state: { view }, setState }) => (
               className={`btn btn-sm btn-${view === 'standings' ? 'danger': 'secondary'}`}
               onClick={() => setState({ view: 'standings' })}>
             Standings
+          </button>
+          <button
+              className={`btn btn-sm btn-${view === 'detailed' ? 'danger': 'secondary'}`}
+              onClick={() => setState({ view: 'detailed' })}>
+            Detailed
           </button>
           <button
               className={`btn btn-sm btn-${view === 'problems' ? 'danger': 'secondary'}`}
@@ -102,6 +116,9 @@ class BroadcastPage extends React.Component {
         break;
       case 'standings':
         panes.push(<FullStandingsPane key="standings_full" />);
+        break;
+      case 'detailed':
+        panes.push(<DetailedStandingsPane key="standings_detailed" />, <EventsPane key="events" />);
         break;
       case 'problems':
         panes.push(<ProblemsPane key="problems" />, <EventsPane key="events" />);
