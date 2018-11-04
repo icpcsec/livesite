@@ -49,7 +49,7 @@ class ProgressBar extends React.Component {
   }
 }
 
-const BroadcastClockPaneImpl = ({ times }) => {
+const ClockPaneImpl = ({ times }) => {
   return (
       <div style={{position: 'absolute', right: '40px', top: '20px'}}>
         <Clock />
@@ -62,7 +62,7 @@ const BroadcastClockPaneImpl = ({ times }) => {
 
 const mapStateToProps = ({ contest: { times } }) => ({ times });
 
-const BroadcastClockPane =
-    connect(mapStateToProps, undefined, undefined, { pure: false })(BroadcastClockPaneImpl);
+const ClockPane =
+    connect(mapStateToProps, undefined, undefined, { pure: false })(ClockPaneImpl);
 
-export default BroadcastClockPane;
+export default ClockPane;

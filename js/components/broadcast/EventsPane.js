@@ -87,7 +87,7 @@ class EventTable extends React.Component {
   }
 }
 
-const BroadcastEventsPaneImpl = ({ events, teams, problems }) => {
+const EventsPaneImpl = ({ events, teams, problems }) => {
   return (
       <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
         <EventTable events={events} teams={teams} problems={problems} />
@@ -97,6 +97,6 @@ const BroadcastEventsPaneImpl = ({ events, teams, problems }) => {
 
 const mapStateToProps = ({ events, teams, standings: { problems } }) => ({ events, teams, problems });
 
-const BroadcastEventsPane = connect(mapStateToProps)(BroadcastEventsPaneImpl);
+const EventsPane = connect(mapStateToProps)(EventsPaneImpl);
 
-export default BroadcastEventsPane;
+export default EventsPane;

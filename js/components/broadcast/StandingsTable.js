@@ -56,7 +56,7 @@ const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universitySh
   );
 };
 
-class BroadcastStandingsTableImpl extends React.Component {
+class StandingsTableImpl extends React.Component {
   render() {
     const { entries, teams, numRows = 20, offsetRows = 0 } = this.props;
     const rows = [];
@@ -90,7 +90,7 @@ class BroadcastStandingsTableImpl extends React.Component {
 
 const mapStateToProps = ({ standings: { entries }, teams }) => ({ entries, teams });
 
-const BroadcastStandingsTable =
-    connect(mapStateToProps)(BroadcastStandingsTableImpl);
+const StandingsTable =
+    connect(mapStateToProps)(StandingsTableImpl);
 
-export default BroadcastStandingsTable;
+export default StandingsTable;

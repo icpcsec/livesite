@@ -9,8 +9,7 @@ import TeamInfoPage from './teams/TeamInfoPage';
 import SettingsPage from './settings/SettingsPage';
 import StandingsRevealPage from './standings/StandingsRevealPage';
 import GA from './common/GA';
-import NormalScene from './broadcast/NormalScene';
-import StandingsScene from './broadcast/StandingsScene';
+import BroadcastPage from './broadcast/BroadcastPage';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 
@@ -19,8 +18,7 @@ const Routes = () => (
     <Switch>
       <Route path="/broadcast/">
         <LoadingCheck loading={null}>
-          <Route path="/broadcast/normal" component={NormalScene} />
-          <Route path="/broadcast/standings" component={StandingsScene} />
+          <BroadcastPage />
         </LoadingCheck>
       </Route>
       <Route>
