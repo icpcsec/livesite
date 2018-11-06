@@ -401,12 +401,12 @@ a.no-decoration {
 .broadcast-compact-standings .team-row .team-rank {
   flex: 0 0 auto;
   width: 20px;
-  text-align: right;
+  text-align: center;
 }
 
 .broadcast-compact-standings .team-row .team-univ {
   flex: 0 0 auto;
-  width: 102px;
+  width: 85px;
 }
 
 .broadcast-compact-standings .team-row .team-name {
@@ -439,22 +439,23 @@ a.no-decoration {
 }
 
 .broadcast-detailed-standings .team-row .team-rank {
-  width: 32px;
+  width: 24px;
   text-align: center;
 }
 
 .broadcast-detailed-standings .team-row .team-solved {
-  width: 64px;
+  width: 48px;
   text-align: center;
 }
 
 .broadcast-detailed-standings .team-row .team-name-univ {
-  width: 200px;
+  width: 160px;
 }
 
 .broadcast-detailed-standings .team-row .team-problems {
   display: flex;
-  width: 560px;
+  align-items: center;
+  width: 440px;
   text-align: center;
 }
 

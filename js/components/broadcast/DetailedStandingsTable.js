@@ -28,7 +28,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
 };
 
 const LegendRow = ({ problems }) => {
-  const problemCols = problems.map((problem) => <LegendProblemCol problem={problem} />);
+  const problemCols = problems.map((problem, i) => <LegendProblemCol key={i} problem={problem} />);
   return (
       <div className="card">
         <div className="card-body">
@@ -99,7 +99,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
 };
 
 const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, university }, zIndex, className, ...rest }) => {
-  const problemCols = problems.map((problem) => <TeamProblemCol problem={problem} />);
+  const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} problem={problem} />);
   const rewrittenClassName = `${className} card`;
   return (
       <div className={rewrittenClassName} style={{zIndex}} {...rest}>

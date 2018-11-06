@@ -19,7 +19,7 @@ const EventsPane = () => (
 );
 
 const RightStandingsPane = () => (
-    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '380px' }}>
+    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '300px' }}>
       <CompactStandingsTable />
     </div>
 );
