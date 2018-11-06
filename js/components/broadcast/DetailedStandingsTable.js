@@ -68,7 +68,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
         {time}
           <br />
         <small>
-          { attempts > 0 ? <span>(+{ attempts })</span> : '-' }
+          { attempts >= 2 ? <span>(+{ attempts - 1 })</span> : '-' }
         </small>
       </span>
     );

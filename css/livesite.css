@@ -86,13 +86,6 @@ a.no-decoration {
   display: flex;
 }
 
-.standard-standings .team-row .team-problems {
-  flex: 1 0 auto;
-  width: auto;
-  min-width: 0;
-  display: flex;
-}
-
 .standard-standings .team-row .team-col {
   display: flex;
   align-items: center;
@@ -152,7 +145,7 @@ a.no-decoration {
   text-align: center;
 }
 
-.standard-standings .team-row .team-problem .team-problem-flag {
+.standard-standings .team-row .team-problems .team-problem .team-problem-flag {
   position: absolute;
   display: inline-block;
 }
@@ -454,7 +447,6 @@ a.no-decoration {
 
 .broadcast-detailed-standings .team-row .team-problems {
   display: flex;
-  align-items: center;
   width: 440px;
   text-align: center;
 }
@@ -464,6 +456,9 @@ a.no-decoration {
   width: 0;
   margin: 0 2px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .broadcast-detailed-standings .team-row .team-problems .team-problem .team-problem-flag {
