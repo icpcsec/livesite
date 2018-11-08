@@ -496,19 +496,3 @@ a.no-decoration {
   flex: 1 1 auto;
   text-align: right;
 }
-
-
-/*******************************************************************************
- *
- *  Broadcast configs
- *
- */
-
-.broadcast-config button {
-  margin-bottom: 0;
-}
-
-.broadcast-config .btn-group {
-  margin-top: 0;
-  margin-bottom: 0;
-}

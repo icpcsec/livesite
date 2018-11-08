@@ -5,6 +5,13 @@ export const updateFeeds = (update) => (
   }
 );
 
+export const updateBroadcast = (update) => (
+    {
+      type: 'UPDATE_BROADCAST',
+      update,
+    }
+);
+
 export const updateSettings = (settingsUpdate) => (
   {
     type: 'UPDATE_SETTINGS',
