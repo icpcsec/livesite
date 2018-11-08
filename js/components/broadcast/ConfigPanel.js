@@ -9,6 +9,14 @@ const Button = ({ text, enabled, onClick }) => (
     </button>
 );
 
+const SignInButton = ({ signedIn, model }) => (
+    <button
+        className={`mr-2 btn ${signedIn ? 'btn-outline-success' : 'btn-raised btn-danger'}`}
+        onClick={() => (signedIn ? (window.confirm('Sign out?') ? model.signOut() : null) : model.signIn())}>
+      {signedIn ? 'Signed In' : 'Sign In'}
+    </button>
+);
+
 const ConfigButton = ({ text, values, broadcast, model }) => {
   const update = {};
   for (const key in values) {
@@ -63,21 +71,20 @@ const DetailedStandingsButtons = ({ broadcast, entries, model }) => {
 const ConfigPanelImpl = ({ broadcast, entries, model }) => {
   const { signedIn } = broadcast;
   return (
-      <div className="broadcast-config">
-        <Button
-            text={signedIn ? 'Signed In' : 'Sign In'}
-            enabled={!signedIn}
-            onClick={() => (signedIn ? (window.confirm('Sign out?') ? model.signOut() : null) : model.signIn())} />
+      <div className="card">
+        <div className="card-body m-2">
+          <SignInButton signedIn={signedIn} model={model} />
 
-        <h3 className="mt-3">Simple Views</h3>
-        <ConfigButton text="Clock Only" values={{ view: 'none' }} broadcast={broadcast} model={model} />
-        <ConfigButton text="Problems" values={{ view: 'problems' }} broadcast={broadcast} model={model} />
+          <h3 className="mt-2">Simple Views</h3>
+          <ConfigButton text="Clock Only" values={{ view: 'none' }} broadcast={broadcast} model={model} />
+          <ConfigButton text="Problems" values={{ view: 'problems' }} broadcast={broadcast} model={model} />
 
-        <h3 className="mt-3">Normal Standings</h3>
-        <CompactStandingsButtons broadcast={broadcast} entries={entries} model={model} />
+          <h3 className="mt-2">Normal Standings</h3>
+          <CompactStandingsButtons broadcast={broadcast} entries={entries} model={model} />
 
-        <h3 className="mt-3">Detailed Standings</h3>
-        <DetailedStandingsButtons broadcast={broadcast} entries={entries} model={model} />
+          <h3 className="mt-2">Detailed Standings</h3>
+          <DetailedStandingsButtons broadcast={broadcast} entries={entries} model={model} />
+        </div>
       </div>
   );
 };
