@@ -105,16 +105,15 @@ class StandingsRevealTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const { standingsList, standingsIndex } = state.reveal;
+const mapStateToProps = ({ feeds: { teams, standings: { entries, problems } }, reveal: { standingsList, standingsIndex } }) => {
   const standings = standingsList[standingsIndex];
   return {
-    teamsMap: state.teams,
+    teamsMap: teams,
     pinnedTeamIds: [],
     togglePin: (teamId) => {},
-    entries: standings.entries,
-    problems: standings.problems,
-    standingsIndex: standingsIndex,
+    entries,
+    problems,
+    standingsIndex,
     numStandings: standingsList.length,
   };
 };

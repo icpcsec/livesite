@@ -3,15 +3,15 @@ import { Provider } from 'react-redux';
 
 import Routes from './Routes';
 import DocumentTitleUpdater from './common/DocumentTitleUpdater';
-import FeedsProvider from './data/FeedsProvider';
+import DataProvider from './data/DataProvider';
 
 const App = ({ store }) => (
     <Provider store={store}>
-      <FeedsProvider>
+      <DataProvider>
         <DocumentTitleUpdater>
           <Routes />
         </DocumentTitleUpdater>
-      </FeedsProvider>
+      </DataProvider>
     </Provider>
 );
 

@@ -90,7 +90,7 @@ class CompactStandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ standings: { entries }, teams }) => ({ entries, teams });
+const mapStateToProps = ({ feeds: { standings: { entries }, teams } }) => ({ entries, teams });
 
 const CompactStandingsTable =
     connect(mapStateToProps)(CompactStandingsTableImpl);

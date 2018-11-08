@@ -60,8 +60,8 @@ class PrefectureViewImpl extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  const teams = Object.keys(state.teams).map((key) => state.teams[key]);
+const mapStateToProps = ({ feeds: { teams: teamsMap } }) => {
+  const teams = Object.keys(teamsMap).map((key) => teamsMap[key]);
   return { teams };
 };
 

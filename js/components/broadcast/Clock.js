@@ -56,7 +56,7 @@ const ClockImpl = ({ times }) => {
   );
 };
 
-const mapStateToProps = ({ contest: { times } }) => ({ times });
+const mapStateToProps = ({ feeds: { contest: { times } } }) => ({ times });
 
 const Clock =
     connect(mapStateToProps, undefined, undefined, { pure: false })(ClockImpl);

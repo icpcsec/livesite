@@ -32,7 +32,7 @@ class ClockTextImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ contest }) => ({ contest });
+const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
 
 const ClockText = connect(mapStateToProps)(ClockTextImpl);
 

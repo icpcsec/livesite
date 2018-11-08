@@ -64,7 +64,7 @@ const NavBarImpl = ({ contest }) => {
   );
 };
 
-const mapStateToProps = ({ contest }) => ({ contest });
+const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
 
 const NavBar =
     connect(mapStateToProps, undefined, undefined, { pure: false })(NavBarImpl);

@@ -367,12 +367,12 @@ class StandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ feeds: { standings: { problems, entries }, teams }, settings: { pinnedTeamIds } }) => {
   return {
-    entries: state.standings.entries,
-    teamsMap: state.teams,
-    problems: state.standings.problems,
-    pinnedTeamIds: state.settings.pinnedTeamIds,
+    entries,
+    teamsMap: teams,
+    problems,
+    pinnedTeamIds,
   };
 };
 

@@ -5,6 +5,7 @@ import DetailedStandingsTable from './DetailedStandingsTable';
 import EventsTable from './EventsTable';
 import ProblemsTable from './ProblemsTable';
 import CompactStandingsTable from './CompactStandingsTable';
+import DataContext from '../data/DataContext';
 
 const ClockPane = () => (
     <div style={{position: 'absolute', right: '40px', top: '20px'}}>
@@ -37,7 +38,7 @@ const FullStandingsPane = () => {
         <Page page={2} />
       </div>
   );
-}
+};
 
 const DetailedStandingsPane = () => {
   return (
@@ -53,7 +54,7 @@ const ProblemsPane = () => (
     </div>
 );
 
-const ConfigButtons = ({ state: { view }, setState }) => (
+const ConfigButtonsImpl = ({ state: { view }, setState, model }) => (
     <div className="card broadcast-config" style={{ display: 'inline-block' }}>
       <div className="card-body">
         <div className="btn-group">
@@ -82,10 +83,27 @@ const ConfigButtons = ({ state: { view }, setState }) => (
               onClick={() => setState({ view: 'problems' })}>
             Problems
           </button>
+          <button
+              className="btn btn-sm btn-primary"
+              onClick={() => model.signIn()}>
+            Login
+          </button>
         </div>
       </div>
     </div>
 );
+
+const withModel = (Component) => {
+  class NewComponent extends React.Component {
+    render() {
+      return <Component model={this.context} {...this.props} />;
+    }
+  }
+  NewComponent.contextType = DataContext;
+  return NewComponent;
+};
+
+const ConfigButtons = withModel(ConfigButtonsImpl);
 
 const ConfigPane = ({ state, setState }) => (
   <div style={{ position: 'absolute', top: '740px', left: '0', width: '1280px', textAlign: 'center' }}>

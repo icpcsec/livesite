@@ -162,7 +162,7 @@ class DetailedStandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ standings: { problems, entries }, teams }) => ({ problems, entries, teams });
+const mapStateToProps = ({ feeds: { standings: { problems, entries }, teams } }) => ({ problems, entries, teams });
 
 const DetailedStandingsTable =
     connect(mapStateToProps)(DetailedStandingsTableImpl);

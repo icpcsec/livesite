@@ -6,7 +6,7 @@ const LoadingCheckImpl = ({ loaded, children, loading }) => {
 
 const mapStateToProps = (state, ownProps) => {
   const loaded = ['contest', 'teams', 'standings'].every(
-      (feed) => state.loader.loaded.has(feed));
+      (feed) => state.feeds.loaded.has(feed));
   return { loaded, ...ownProps };
 };
 

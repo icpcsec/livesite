@@ -39,7 +39,7 @@ class ProblemsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ standings: { problems, entries } }) => {
+const mapStateToProps = ({ feeds: { standings: { problems, entries } } }) => {
   const problemStats = [];
   if (entries.length > 0) {
     for (const problem of problems) {

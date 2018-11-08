@@ -87,7 +87,7 @@ class EventsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ events, teams, standings: { problems } }) => ({ events, teams, problems });
+const mapStateToProps = ({ events, feeds: { teams, standings: { problems } } }) => ({ events, teams, problems });
 
 const EventsTable = connect(mapStateToProps)(EventsTableImpl);
 

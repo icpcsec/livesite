@@ -5,7 +5,7 @@ const FrontContentImpl = ({ contest }) => (
   <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />
 );
 
-const mapStateToProps = ({ contest }) => ({ contest });
+const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
 
 const FrontContent = connect(mapStateToProps)(FrontContentImpl);
 

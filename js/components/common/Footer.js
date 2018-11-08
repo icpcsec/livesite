@@ -9,7 +9,7 @@ const FooterImpl = ({ contest }) => (
   </footer>
 );
 
-const mapStateToProps = ({ contest }) => ({ contest });
+const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
 
 const Footer = connect(mapStateToProps)(FooterImpl);
 

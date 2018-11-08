@@ -70,10 +70,12 @@ export const deriveEvents = (reducer) => (state, action) => {
   const midState = Object.assign({}, state);
   delete midState.events;
   const newState = reducer(midState, action);
-  const oldEntries = (state.standings || {entries: []}).entries;
-  const newEntries = newState.standings.entries;
+  const oldEntries = ((state.feeds || {}).standings || {}).entries || [];
+  const newEntries = ((newState.feeds || {}).standings || {}).entries || [];
+  const newTeams = newState.feeds.teams || {};
+  const oldEvents = state.events || [];
   return Object.assign(
       {},
       newState,
-      {events: computeEvents(newEntries, oldEntries, newState.teams, state.events)});
+      {events: computeEvents(newEntries, oldEntries, newTeams, oldEvents)});
 };

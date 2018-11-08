@@ -1,28 +1,7 @@
-export const updateContest = (contest) => (
+export const updateFeeds = (update) => (
   {
-    type: 'UPDATE_CONTEST',
-    contest,
-  }
-);
-
-export const updateStandings = (standings) => (
-  {
-    type: 'UPDATE_STANDINGS',
-    standings,
-  }
-);
-
-export const updateTeams = (teams) => (
-  {
-    type: 'UPDATE_TEAMS',
-    teams,
-  }
-);
-
-export const markLoaded = (feed) => (
-  {
-    type: 'MARK_LOADED',
-    feed,
+    type: 'UPDATE_FEEDS',
+    update,
   }
 );
 
@@ -39,14 +18,14 @@ export const toggleSetting = (name) => (dispatch, getState) => {
   dispatch(updateSettings(settingsUpdate));
 };
 
-export const setRevealEntriesIndex = (index) => (
+export const setRevealStandingsIndex = (index) => (
   {
     type: 'SET_REVEAL_STANDINGS_INDEX',
     index,
   }
 );
 
-export const setRevealEntriesList = (standingsList) => (
+export const setRevealStandingsList = (standingsList) => (
   {
     type: 'SET_REVEAL_STANDINGS_LIST',
     standingsList,

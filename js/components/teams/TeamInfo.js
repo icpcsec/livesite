@@ -127,7 +127,7 @@ const TeamInfoImpl = ({ team }) => {
 };
 
 const mapStateToProps = (state, ownProps) => {
-  const { teams } = state;
+  const { feeds: { teams } } = state;
   const team = teams[ownProps.requestedTeamId];
   return { team };
 };
