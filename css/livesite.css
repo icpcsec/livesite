@@ -79,7 +79,7 @@ a.no-decoration {
   display: flex;
 }
 
-.standard-standings .team-row .team-right {
+.standard-standings .team-row {
   flex: 1 0 auto;
   width: 0;
   min-width: 0;
@@ -388,33 +388,56 @@ a.no-decoration {
  */
 
 .broadcast-compact-standings .team-row {
-  display: flex;
-}
-
-.broadcast-compact-standings .team-row > * {
   margin: 0 4px;
 }
 
-.broadcast-compact-standings .team-row .team-rank {
+.broadcast-compact-standings .team-row .team-info {
+  display: flex;
+  margin-top: 4px;
+}
+
+.broadcast-compact-standings .team-row .team-info .team-rank {
   flex: 0 0 auto;
   width: 20px;
   text-align: center;
+  margin: 0 4px;
 }
 
-.broadcast-compact-standings .team-row .team-univ {
+.broadcast-compact-standings .team-row .team-info .team-univ {
   flex: 0 0 auto;
   width: 85px;
 }
 
-.broadcast-compact-standings .team-row .team-name {
+.broadcast-compact-standings .team-row .team-info .team-name {
   flex: 1 1 auto;
 }
 
-.broadcast-compact-standings .team-row .team-stats {
+.broadcast-compact-standings .team-row .team-info .team-solved {
   flex: 0 0 auto;
-  width: 56px;
-  text-align: right;
-  color: #bbb;
+}
+
+.broadcast-compact-standings .team-row .team-info .team-solved small {
+  color: #888;
+}
+
+.broadcast-compact-standings .team-row .team-problems {
+  display: flex;
+}
+
+.broadcast-compact-standings .team-row .team-problems .team-problem {
+  flex: 1 1 auto;
+  width: 0;
+  height: 4px;
+  margin-left: 4px;
+  border-radius: 2px;
+}
+
+.broadcast-compact-standings .team-row .team-problems .team-problem:first-child {
+  margin-left: 0;
+}
+
+.broadcast-compact-standings .bg-pending {
+  animation: none;
 }
 
 

@@ -11,45 +11,45 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const Count = ({ count, color }) => {
-  if (count === 0) {
-    return '0';
-  }
-  return <span style={{ color, fontWeight: 'bold' }}>{count}</span>;
+const TeamInfo = ({ rank, name, universityShort, solved, penalty }) => (
+    <div className="team-info">
+      <div className="team-rank">
+        {rank}
+      </div>
+      <div className="team-univ text-ellipsis">
+        {universityShort}
+      </div>
+      <div className="team-name text-ellipsis">
+        {name}
+      </div>
+      <div className="team-solved">
+        {solved}<small>/{penalty}</small>
+      </div>
+    </div>
+);
+
+const TeamProblemCol = ({ solved, attempts, pendings }) => {
+  const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattemped';
+  return <div className={`team-problem bg-${status}`} />;
 };
 
-const TeamRow = ({ entry: { rank, solved, problems }, team: { name, universityShort }, zIndex, className, ...rest }) => {
-  let numSolved = 0, numRejected = 0, numPending = 0;
-  for (const problem of problems) {
-    if (problem.solved) {
-      ++numSolved;
-    } else if (problem.pendings > 0) {
-      ++numPending;
-    } else if (problem.attempts > 0) {
-      ++numRejected;
-    }
-  }
+const TeamProblems = ({ problems }) => {
+  const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} {...problem} />);
+  return (
+      <div className="team-problems">
+        {problemCols}
+      </div>
+  )
+};
+
+const TeamRow = ({ entry: { rank, problems, solved, penalty }, team: { name, universityShort }, zIndex, className, ...rest }) => {
   const rewrittenClassName = `${className} card`;
   return (
       <div className={rewrittenClassName} style={{zIndex}} {...rest}>
         <div className="card-body">
           <div className="team-row">
-            <div className="team-rank">
-              {rank}
-            </div>
-            <div className="team-univ text-ellipsis">
-              {universityShort}
-            </div>
-            <div className="team-name text-ellipsis">
-              {name}
-            </div>
-            <div className="team-stats">
-              <Count count={numSolved} color="#0c0" />
-              /
-              <Count count={numPending} color="yellow" />
-              /
-              <Count count={numRejected} color="red" />
-            </div>
+            <TeamInfo rank={rank} name={name} universityShort={universityShort} solved={solved} penalty={penalty} />
+            <TeamProblems problems={problems} />
           </div>
         </div>
       </div>
@@ -73,7 +73,7 @@ class CompactStandingsTableImpl extends React.Component {
           />
       );
     }
-    const rowHeight = 28 + 1;
+    const rowHeight = 36 + 1;
     const tableHeight = rowHeight * numRows;
     const tableOffset = -rowHeight * offsetRows;
     return (

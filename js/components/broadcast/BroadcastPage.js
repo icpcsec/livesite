@@ -55,7 +55,7 @@ class AutoPager extends React.Component {
   }
 }
 
-const COMPACT_STANDINGS_NUM_ROWS = 20;
+const COMPACT_STANDINGS_NUM_ROWS = 16;
 
 const CompactStandingsTablePage = ({ page }) => (
     <CompactStandingsTable

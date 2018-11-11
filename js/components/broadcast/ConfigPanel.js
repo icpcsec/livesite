@@ -37,7 +37,7 @@ const ConfigButton = ({ text, values, broadcast, model }) => {
 };
 
 const CompactStandingsButtons = ({ broadcast, entries, model }) => {
-  const PAGE_SIZE = 20;
+  const PAGE_SIZE = 16;
   const buttons = [];
   for (let i = 0; i * PAGE_SIZE < entries.length; ++i) {
     const text = `${i * PAGE_SIZE + 1}...${(i + 1) * PAGE_SIZE}`;
