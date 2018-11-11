@@ -11,7 +11,7 @@ const Button = ({ text, enabled, onClick }) => (
 
 const SignInButton = ({ signedIn, model }) => (
     <button
-        className={`mr-2 btn ${signedIn ? 'btn-outline-success' : 'btn-raised btn-danger'}`}
+        className={`mr-2 btn ${signedIn ? 'btn-outline-success' : 'btn-raised btn-primary'}`}
         onClick={() => (signedIn ? (window.confirm('Sign out?') ? model.signOut() : null) : model.signIn())}>
       {signedIn ? 'Signed In' : 'Sign In'}
     </button>
@@ -71,10 +71,10 @@ const DetailedStandingsButtons = ({ broadcast, entries, model }) => {
 const ConfigPanelImpl = ({ broadcast, entries, model }) => {
   const { signedIn } = broadcast;
   return (
-      <div className="card">
-        <div className="card-body m-2">
-          <SignInButton signedIn={signedIn} model={model} />
+      <div>
+        <SignInButton signedIn={signedIn} model={model} />
 
+        <div style={{ display: (signedIn ? null : 'none')}}>
           <h3 className="mt-2">Simple Views</h3>
           <ConfigButton text="Clock Only" values={{ view: 'none' }} broadcast={broadcast} model={model} />
           <ConfigButton text="Problems" values={{ view: 'problems' }} broadcast={broadcast} model={model} />

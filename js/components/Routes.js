@@ -10,6 +10,7 @@ import SettingsPage from './settings/SettingsPage';
 import StandingsRevealPage from './standings/StandingsRevealPage';
 import GA from './common/GA';
 import BroadcastPage from './broadcast/BroadcastPage';
+import ControllerPage from './broadcast/ControllerPage';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 
@@ -18,7 +19,14 @@ const Routes = () => (
     <Switch>
       <Route path="/broadcast/">
         <LoadingCheck loading={null}>
-          <BroadcastPage />
+          <Switch>
+            <Route exact path="/broadcast/">
+              <BroadcastPage />
+            </Route>
+            <Route path="/broadcast/controller">
+              <ControllerPage />
+            </Route>
+          </Switch>
         </LoadingCheck>
       </Route>
       <Route>

@@ -6,7 +6,6 @@ import DetailedStandingsTable from './DetailedStandingsTable';
 import EventsTable from './EventsTable';
 import ProblemsTable from './ProblemsTable';
 import CompactStandingsTable from './CompactStandingsTable';
-import ConfigPanel from './ConfigPanel';
 
 const ClockPane = () => (
     <div style={{position: 'absolute', right: '40px', top: '20px'}}>
@@ -98,66 +97,40 @@ const ProblemsPane = () => (
     </div>
 );
 
-const ConfigMainPane = () => (
-    <div style={{ position: 'absolute', top: '20px', left: '20px', zIndex: '999999' }}>
-      <ConfigPanel />
-    </div>
-);
-
-const ConfigBottomPane = ({ showConfig, toggle }) => (
-    <div style={{ position: 'absolute', top: '740px', left: '20px' }}>
-      <button className="btn btn-raised btn-secondary" onClick={toggle}>
-        {showConfig ? 'Hide' : 'Show'}
-      </button>
-    </div>
-);
-
 const Frame = ({ children }) => (
     <div className="broadcast-frame">
       {children}
     </div>
 );
 
-class BroadcastPageImpl extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { showConfig: false }
+const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
+  const panes = [
+      <ClockPane key="clock" />,
+      <EventsPane key="events" />,
+  ];
+  switch (view) {
+    case 'normal':
+      panes.push(
+          <CompactStandingsPane key="standings_right" page={page} numEntries={numEntries} />);
+      break;
+    case 'detailed':
+      panes.push(
+          <DetailedStandingsPane key="standings_detailed" page={page} numEntries={numEntries} />,
+          <ProblemsPane key="problems" />);
+      break;
+    case 'problems':
+      panes.push(
+          <ProblemsPane key="problems" />);
+      break;
   }
-
-  render() {
-    const { broadcast: { view, page }, numEntries } = this.props;
-    const { showConfig } = this.state;
-    const panes = [
-        <ClockPane key="clock" />,
-        <EventsPane key="events" />,
-    ];
-    const configPane = showConfig ? <ConfigMainPane /> : null;
-    switch (view) {
-      case 'normal':
-        panes.push(
-            <CompactStandingsPane key="standings_right" page={page} numEntries={numEntries} />);
-        break;
-      case 'detailed':
-        panes.push(
-            <DetailedStandingsPane key="standings_detailed" page={page} numEntries={numEntries} />,
-            <ProblemsPane key="problems" />);
-        break;
-      case 'problems':
-        panes.push(
-            <ProblemsPane key="problems" />);
-        break;
-    }
-    return (
-        <div>
-          <Frame>
-            {panes}
-          </Frame>
-          {configPane},
-          <ConfigBottomPane showConfig={showConfig} toggle={() => this.setState({showConfig: !showConfig})} />,
-        </div>
-    );
-  }
-}
+  return (
+      <div>
+        <Frame>
+          {panes}
+        </Frame>
+      </div>
+  );
+};
 
 const mapStateToProps = ({ broadcast, feeds: { standings: { entries } } }) => ({ broadcast, numEntries: entries.length });
 
