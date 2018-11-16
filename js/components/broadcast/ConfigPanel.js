@@ -74,12 +74,12 @@ const ConfigPanelImpl = ({ broadcast, entries, model }) => {
       <div>
         <SignInButton signedIn={signedIn} model={model} />
 
-        <div style={{ display: (signedIn ? null : 'none')}}>
+        <div>
           <h3 className="mt-2">Simple Views</h3>
           <ConfigButton text="Clock Only" values={{ view: 'none' }} broadcast={broadcast} model={model} />
           <ConfigButton text="Problems" values={{ view: 'problems' }} broadcast={broadcast} model={model} />
 
-          <h3 className="mt-2">Normal Standings</h3>
+          <h3 className="mt-2">Compact Standings</h3>
           <CompactStandingsButtons broadcast={broadcast} entries={entries} model={model} />
 
           <h3 className="mt-2">Detailed Standings</h3>

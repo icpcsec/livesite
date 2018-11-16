@@ -6,6 +6,7 @@ import DetailedStandingsTable from './DetailedStandingsTable';
 import EventsTable from './EventsTable';
 import ProblemsTable from './ProblemsTable';
 import CompactStandingsTable from './CompactStandingsTable';
+import ConfigPanel from './ConfigPanel';
 
 const ClockPane = () => (
     <div style={{position: 'absolute', right: '40px', top: '20px'}}>
@@ -103,6 +104,12 @@ const Frame = ({ children }) => (
     </div>
 );
 
+const ConfigPane = () => (
+    <div style={{ position: 'absolute', top: '740px', left: '20px' }}>
+      <ConfigPanel />
+    </div>
+);
+
 const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
   const panes = [
       <ClockPane key="clock" />,
@@ -125,6 +132,7 @@ const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
   }
   return (
       <div>
+        <ConfigPane />
         <Frame>
           {panes}
         </Frame>
