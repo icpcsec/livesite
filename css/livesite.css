@@ -79,7 +79,7 @@ a.no-decoration {
   display: flex;
 }
 
-.standard-standings .team-row {
+.standard-standings .team-row .team-right {
   flex: 1 0 auto;
   width: 0;
   min-width: 0;
