@@ -9,7 +9,7 @@ import CompactStandingsTable from './CompactStandingsTable';
 import ConfigPanel from './ConfigPanel';
 
 const ClockPane = () => (
-    <div style={{position: 'absolute', right: '40px', top: '20px'}}>
+    <div style={{position: 'absolute', right: '20px', top: '16px'}}>
       <Clock />
     </div>
 );
@@ -65,7 +65,7 @@ const CompactStandingsTablePage = ({ page }) => (
 );
 
 const CompactStandingsPane = ({ page, numEntries }) => (
-    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '300px' }}>
+    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '340px' }}>
       <AutoPager
           component={CompactStandingsTablePage}
           interval={10 * 1000}
@@ -83,7 +83,7 @@ const DetailedStandingsTablePage = ({ page }) => (
 );
 
 const DetailedStandingsPane = ({ page, numEntries }) => (
-    <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px', display: 'flex', justifyContent: 'space-around' }}>
+    <div style={{ position: 'absolute', bottom: '20px', left: '320px' }}>
       <AutoPager
           component={DetailedStandingsTablePage}
           interval={5 * 1000}

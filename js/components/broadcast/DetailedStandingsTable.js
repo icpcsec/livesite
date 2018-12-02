@@ -33,15 +33,9 @@ const LegendRow = ({ problems }) => {
       <div className="card">
         <div className="card-body">
           <div className="team-row">
-            <div className="team-rank">
-              #
-            </div>
-            <div className="team-solved">
-              Solved
-            </div>
-            <div className="team-name-univ text-ellipsis">
-              Team
-            </div>
+            <div className="team-rank" />
+            <div className="team-solved" />
+            <div className="team-name-univ text-ellipsis" />
             <div className="team-problems">
               {problemCols}
             </div>
@@ -98,7 +92,7 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   );
 };
 
-const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, university }, zIndex, className, ...rest }) => {
+const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, university, universityJa }, zIndex, className, ...rest }) => {
   const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} problem={problem} />);
   const rewrittenClassName = `${className} card`;
   return (
@@ -116,7 +110,7 @@ const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, uni
             <div className="team-name-univ text-ellipsis">
               {name}
               <br />
-              <small>{university}</small>
+              <small>{universityJa || university}</small>
             </div>
             <div className="team-problems">
               {problemCols}

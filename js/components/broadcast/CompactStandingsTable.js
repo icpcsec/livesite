@@ -11,19 +11,19 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const TeamInfo = ({ rank, name, universityShort, solved, penalty }) => (
+const TeamInfo = ({ rank, name, university, universityJa, universityJaShort, solved, penalty }) => (
     <div className="team-info">
       <div className="team-rank">
         {rank}
       </div>
       <div className="team-univ text-ellipsis">
-        {universityShort}
+        {universityJaShort || universityJa || university}
       </div>
       <div className="team-name text-ellipsis">
         {name}
       </div>
       <div className="team-solved">
-        {solved}<small>/{penalty}</small>
+        <small>{penalty}/</small>{solved}
       </div>
     </div>
 );
@@ -42,13 +42,13 @@ const TeamProblems = ({ problems }) => {
   )
 };
 
-const TeamRow = ({ entry: { rank, problems, solved, penalty }, team: { name, universityShort }, zIndex, className, ...rest }) => {
+const TeamRow = ({ entry: { rank, problems, solved, penalty }, team, zIndex, className, ...rest }) => {
   const rewrittenClassName = `${className} card`;
   return (
       <div className={rewrittenClassName} style={{zIndex}} {...rest}>
         <div className="card-body">
           <div className="team-row">
-            <TeamInfo rank={rank} name={name} universityShort={universityShort} solved={solved} penalty={penalty} />
+            <TeamInfo rank={rank} solved={solved} penalty={penalty} {...team} />
             <TeamProblems problems={problems} />
           </div>
         </div>

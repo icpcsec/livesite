@@ -1,21 +1,29 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-import csv
 import json
 import sys
 
-in_teams = list(csv.DictReader(open('teams-conf.csv')))
-in_teams.sort(key=lambda t: t['team'])
+teams = json.load(sys.stdin)
 
-standings = []
-for t in in_teams:
-    standings.append({
+entries = []
+for t in teams.values():
+    entries.append({
         'rank': '-',
-        'teamId': t['baylor_id'],
+        'teamId': t['id'],
         'solved': 0,
         'penalty': 0,
     })
 
-with open('standings.json', 'w') as f:
-    json.dump(standings, f)
+entries.sort(key=lambda e: int(e['teamId']))
+
+standings = {
+    'entries': entries,
+    'problems': [
+        {'color':'#ffa500','color_text':'orange','label':'A','name':'Problem A'},
+        {'color':'#add8e6','color_text':'lightblue','label':'B','name':'Problem B'},
+        {'color':'#90ee90','color_text':'lightgreen','label':'C','name':'Problem C'},
+    ],
+}
+
+json.dump(standings, sys.stdout, separators=(',', ':'), sort_keys=True)

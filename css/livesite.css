@@ -347,7 +347,7 @@ a.no-decoration {
   padding: 2px;
 }
 
-.broadcast-mode .team-row.new-solved {
+.broadcast-mode .new-solved {
   background-color: rgba(255, 214, 0, 0.9);
 }
 
@@ -396,11 +396,14 @@ a.no-decoration {
   margin-top: 4px;
 }
 
+.broadcast-compact-standings .team-row .team-info > * {
+  margin: 0 4px;
+}
+
 .broadcast-compact-standings .team-row .team-info .team-rank {
   flex: 0 0 auto;
   width: 20px;
   text-align: center;
-  margin: 0 4px;
 }
 
 .broadcast-compact-standings .team-row .team-info .team-univ {
@@ -417,7 +420,7 @@ a.no-decoration {
 }
 
 .broadcast-compact-standings .team-row .team-info .team-solved small {
-  color: #888;
+  color: #aaa;
 }
 
 .broadcast-compact-standings .team-row .team-problems {
@@ -469,7 +472,7 @@ a.no-decoration {
 }
 
 .broadcast-detailed-standings .team-row .team-name-univ {
-  width: 160px;
+  width: 172px;
 }
 
 .broadcast-detailed-standings .team-row .team-problems {
