@@ -362,22 +362,26 @@ a.no-decoration {
  *
  */
 
-.event-animation-enter {
+.broadcast-events .event-animation-enter {
   opacity: 0;
 }
 
-.event-animation-enter.event-animation-enter-active {
+.broadcast-events .event-animation-enter.event-animation-enter-active {
   opacity: 1;
   transition: opacity 500ms ease-in;
 }
 
-.event-animation-leave {
+.broadcast-events .event-animation-leave {
   opacity: 1;
 }
 
-.event-animation-leave.event-animation-leave-active {
+.broadcast-events .event-animation-leave.event-animation-leave-active {
   opacity: 0;
   transition: opacity 300ms ease-in;
+}
+
+.broadcast-events .bg-pending {
+  animation: none;
 }
 
 

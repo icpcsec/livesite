@@ -78,7 +78,7 @@ class EventsTableImpl extends React.Component {
       );
     }
     return (
-      <div style={{display: 'flex', flexDirection: 'column-reverse', width: '100%', height: '100%' }}>
+      <div className="broadcast-events" style={{display: 'flex', flexDirection: 'column-reverse', width: '100%', height: '100%' }}>
         <TransitionGroup component={null}>
           {rows}
         </TransitionGroup>
