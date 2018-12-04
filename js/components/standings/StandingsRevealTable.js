@@ -101,7 +101,7 @@ class StandingsRevealTableImpl extends React.Component {
   render() {
     return this.props.entries.length === 0 ?
       <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} /> :
-      <StandingsTable revealMode={true} entries={this.props.entries} {...this.props} />;
+      <StandingsTable revealMode={true} {...this.props.standings} {...this.props} />;
   }
 }
 
@@ -111,7 +111,7 @@ const mapStateToProps = ({ feeds: { teams, standings: { entries, problems } }, r
     teamsMap: teams,
     pinnedTeamIds: [],
     togglePin: (teamId) => {},
-    entries,
+    standings,
     problems,
     standingsIndex,
     numStandings: standingsList.length,
