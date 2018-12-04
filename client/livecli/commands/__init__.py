@@ -18,10 +18,6 @@ def make_parser() -> argparse.ArgumentParser:
         '--config-path',
         default=constants.DEFAULT_CONFIG_PATH,
         help='Path to the config file')
-    global_parser.add_argument(
-        '--local',
-        action='store_true',
-        help='Operate on the local development server')
 
     root_parser = argparse.ArgumentParser(parents=[global_parser])
     root_parser.set_defaults(handler=None)
@@ -38,12 +34,20 @@ def make_parser() -> argparse.ArgumentParser:
         'upload', parents=[global_parser])
     upload_parser.set_defaults(handler=upload.upload_main)
     upload_parser.add_argument(
-        '--project', required=True, help='Firebase project name')
+        '--project', help='Firebase project name')
+    upload_parser.add_argument(
+        '--local',
+        action='store_true',
+        help='Operate on the local development server')
     upload_parser.add_argument('paths', nargs='+', help='Paths to feed files')
 
     scrape_common_parser = argparse.ArgumentParser(add_help=False)
     scrape_common_parser.add_argument(
-        '--project', required=True, help='Firebase project name')
+        '--project', help='Firebase project name')
+    scrape_common_parser.add_argument(
+        '--local',
+        action='store_true',
+        help='Operate on the local development server')
     scrape_common_parser.add_argument(
         '--scoreboard-url', help='Scoreboard URL')
     scrape_common_parser.add_argument(

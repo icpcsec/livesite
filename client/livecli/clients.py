@@ -80,6 +80,8 @@ class Client(abc.ABC):
 
 
 class DevClient(Client):
+    STATIC_URL = 'http://localhost:5000'
+    FIREBASE_URL = 'http://localhost:5001'
     DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../public/demodata')
 
     def __init__(self):
@@ -101,22 +103,22 @@ class DevClient(Client):
         feed_urls = {}
         for feed_type, data in feeds.items():
             name = '%s.%.6f.json' % (feed_type, time.time())
-            with open(os.path.join(DevClient.DEMODATA_DIR, name), 'wb') as f:
+            with open(os.path.join(DevClient.DEMODATA_DIR, name), 'w') as f:
                 json.dump(data, f, indent=2, sort_keys=True)
             feed_urls[feed_type] = '/demodata/%s' % name
 
-        client = FirebaseClient(self._session, 'localhost:5000')
+        client = FirebaseClient(self._session, DevClient.FIREBASE_URL)
         client.set_feeds(feed_urls)
 
     def get_feeds(self) -> Dict[types.FeedType, Any]:
-        client = FirebaseClient(self._session, 'localhost:5000')
+        client = FirebaseClient(self._session, DevClient.FIREBASE_URL)
         feed_urls = client.get_feeds()
         feeds = {}
         for feed_type, feed_url in feed_urls.items():
-            assert feed_url.startswith('/demodata/')
-            rel_path = feed_url.split('/', 2)[2]
-            with open(os.path.join(DevClient.DEMODATA_DIR, rel_path), 'rb') as f:
-                feeds[feed_type] = json.load(f)
+            real_feed_url = urllib.parse.urljoin(DevClient.STATIC_URL, feed_url)
+            r = self._session.get(real_feed_url)
+            r.raise_for_status()
+            feeds[feed_type] = r.json()
         return feeds
 
 
@@ -230,5 +232,7 @@ def create_client(options: argparse.Namespace) -> Client:
     if options.local:
         return DevClient()
 
+    if not options.project:
+        raise ValueError('--project or --local is required')
     config = types.Config.load(options.config_path)
     return ProdClient(options.project, config)
