@@ -7,7 +7,7 @@ import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
 
 const TeamComment = ({ comment }) => (
-  <div className="alert alert-secondary" style={{ textAlign: 'center' }}>
+  <div className="alert alert-secondary mt-3 mb-2" style={{ textAlign: 'center' }}>
     {comment}
   </div>
 );
@@ -112,12 +112,12 @@ const TeamInfoImpl = ({ team }) => {
         </small>
       </h1>
       {
-        team.comment ? <TeamComment comment={team.comment} /> : null
-      }
-      {
         siteconfig.features.photo ?
         <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photoAspectRatio} /> :
         null
+      }
+      {
+        team.comment ? <TeamComment comment={team.comment} /> : null
       }
       <div className="row">
         {memberElements}
