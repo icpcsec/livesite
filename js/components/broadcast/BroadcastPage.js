@@ -65,7 +65,7 @@ const CompactStandingsTablePage = ({ page }) => (
 );
 
 const CompactStandingsPane = ({ page, numEntries }) => (
-    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '340px' }}>
+    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '300px' }}>
       <AutoPager
           component={CompactStandingsTablePage}
           interval={10 * 1000}
@@ -104,12 +104,6 @@ const Frame = ({ children }) => (
     </div>
 );
 
-const ConfigPane = () => (
-    <div style={{ position: 'absolute', top: '740px', left: '20px' }}>
-      <ConfigPanel />
-    </div>
-);
-
 const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
   const panes = [
       <ClockPane key="clock" />,
@@ -131,12 +125,9 @@ const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
       break;
   }
   return (
-      <div>
-        <ConfigPane />
-        <Frame>
-          {panes}
-        </Frame>
-      </div>
+      <Frame>
+        {panes}
+      </Frame>
   );
 };
 

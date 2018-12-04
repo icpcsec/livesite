@@ -320,6 +320,7 @@ a.no-decoration {
 
 .broadcast-mode body {
   background-color: transparent;
+  overflow: hidden;
 }
 
 .broadcast-frame {
@@ -406,13 +407,13 @@ a.no-decoration {
 
 .broadcast-compact-standings .team-row .team-info .team-rank {
   flex: 0 0 auto;
-  width: 20px;
+  width: 1.25em;
   text-align: center;
 }
 
 .broadcast-compact-standings .team-row .team-info .team-univ {
   flex: 0 0 auto;
-  width: 85px;
+  width: 5em;
 }
 
 .broadcast-compact-standings .team-row .team-info .team-name {
