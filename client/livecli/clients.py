@@ -19,54 +19,6 @@ from livecli import constants
 from livecli import types
 
 
-class _BytesListWriter:
-    def __init__(self, buffer: List[bytes]):
-        self._buffer = buffer
-
-    def write(self, data: bytes) -> None:
-        self._buffer.append(data)
-
-
-class _GzipEncoder:
-    def __init__(self, fileobj: BinaryIO):
-        self._iterator = iter(self._gzip_stream(fileobj))
-        self._read_buffer = b''
-
-    def read(self, size: Optional[int] = None) -> bytes:
-        if size is None or size < 0:
-            size = 1 << 64
-        data = b''
-        while len(data) < size:
-            while not self._read_buffer:
-                try:
-                    self._read_buffer += next(self._iterator)
-                except StopIteration:
-                    break
-            if not self._read_buffer:
-                break
-            take_size = min(size - len(data), len(self._read_buffer))
-            data += self._read_buffer[:take_size]
-            self._read_buffer = self._read_buffer[take_size:]
-        return data
-
-    @staticmethod
-    def _gzip_stream(fileobj: BinaryIO) -> Generator[bytes, None, None]:
-        out_buffer = []
-        with gzip.GzipFile(fileobj=_BytesListWriter(out_buffer), mode='wb') as gzip_file:
-            while True:
-                plain_data = fileobj.read(4096)
-                if not plain_data:
-                    break
-                gzip_file.write(plain_data)
-                for gzip_data in out_buffer:
-                    yield gzip_data
-                del out_buffer[:]
-        # GzipFile.close() may write trailers.
-        for gzip_data in out_buffer:
-            yield gzip_data
-        del out_buffer[:]
-
-
 def _get_gs_public_url(gs_url: str) -> str:
     parsed_gs_url = urllib.parse.urlparse(gs_url)
     return 'https://storage.googleapis.com/%s%s' % (parsed_gs_url.netloc,
