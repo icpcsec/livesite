@@ -16,7 +16,6 @@ class FeedType(enum.Enum):
 
 
 class Config(typing.NamedTuple):
-    project: str
     gs_url_prefix: str
     user_info: dict
 
@@ -31,7 +30,6 @@ class Config(typing.NamedTuple):
             logging.error('  livecli.py setup')
             sys.exit(1)
         return cls(
-            project=raw_dict['project'],
             gs_url_prefix=raw_dict['gs_url_prefix'],
             user_info=raw_dict['user_info'])
 
@@ -42,7 +40,6 @@ class Config(typing.NamedTuple):
         except (OSError, ValueError):
             raw_dict = {}
         raw_dict.update({
-            'project': self.project,
             'gs_url_prefix': self.gs_url_prefix,
             'user_info': self.user_info,
         })

@@ -13,11 +13,6 @@ from livecli import types
 
 
 def setup_main(options: argparse.Namespace) -> None:
-    project = input('Google Cloud Platform project ID? ')
-    if not project:
-        logging.error('Empty project ID is not allowed.')
-        sys.exit(1)
-
     gs_url_prefix = input('Google Cloud Storage URL? ')
     p = urllib.parse.urlparse(gs_url_prefix)
     if p.scheme != 'gs':
@@ -35,7 +30,7 @@ def setup_main(options: argparse.Namespace) -> None:
     }
 
     new_config = types.Config(
-        project=project, gs_url_prefix=gs_url_prefix, user_info=user_info)
+        gs_url_prefix=gs_url_prefix, user_info=user_info)
     new_client = clients.ProdClient(new_config)
 
     verify_credentials.verify_credentials(new_client)

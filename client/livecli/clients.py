@@ -169,16 +169,17 @@ class DevClient(Client):
 
 
 class ProdClient(Client):
-    def __init__(self, config: types.Config):
+    def __init__(self, project: str, config: types.Config):
+        self._project = project
         self._config = config
         self._session = google_auth_requests.AuthorizedSession(
             google_credentials.Credentials.from_authorized_user_info(
                 config.user_info, scopes=constants.SCOPES))
-        self._storage = storage_client.Client(project=config.project, _http=self._session)
+        self._storage = storage_client.Client(project=project, _http=self._session)
 
     def print_configs(self) -> None:
         logging.info('Using production client.')
-        logging.info('  Project: %s', self._config.project)
+        logging.info('  Project: %s', self._project)
         logging.info('  GCS URL: %s', self._config.gs_url_prefix)
 
     def get_email(self) -> Optional[str]:
@@ -191,14 +192,14 @@ class ProdClient(Client):
         return r.json()['email']
 
     def verify_database_permission(self) -> bool:
-        r = self._session.get('https://%s.firebaseio.com/.json' % self._config.project)
+        r = self._session.get('https://%s.firebaseio.com/.json' % self._project)
         try:
             r.raise_for_status()
         except requests.HTTPError:
             logging.exception(
                 'Could not verify Firebase admin access. '
                 'Do you have Editor access to GCP project %s?',
-                self._config.project)
+                self._project)
             return False
         logging.info('Verified Firebase admin access.')
         return True
@@ -234,7 +235,7 @@ class ProdClient(Client):
     def _update_database(self, feed_urls: Dict[types.FeedType, str]) -> None:
         for feed_type, public_url in feed_urls.items():
             db_url = 'https://%s.firebaseio.com/feeds/%s.json' % (
-                self._config.project, feed_type)
+                self._project, feed_type)
             r = self._session.put(db_url, json=public_url)
             r.raise_for_status()
 
@@ -254,7 +255,7 @@ class ProdClient(Client):
         self._update_database(public_urls)
 
     def get_feeds(self) -> Dict[types.FeedType, Any]:
-        feeds_url = 'https://%s.firebaseio.com/feeds.json' % self._config.project
+        feeds_url = 'https://%s.firebaseio.com/feeds.json' % self._project
         r = self._session.get(feeds_url)
         r.raise_for_status()
         result = r.json()
@@ -278,4 +279,4 @@ def create_client(options: argparse.Namespace) -> Client:
         return DevClient()
 
     config = types.Config.load(options.config_path)
-    return ProdClient(config)
+    return ProdClient(options.project, config)
