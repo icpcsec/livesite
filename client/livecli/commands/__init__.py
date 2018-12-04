@@ -39,13 +39,7 @@ def make_parser() -> argparse.ArgumentParser:
     upload_parser.set_defaults(handler=upload.upload_main)
     upload_parser.add_argument(
         '--project', required=True, help='Firebase project name')
-    upload_parser.add_argument(
-        '--feed',
-        type=types.FeedType,
-        choices=list(types.FeedType),
-        required=True,
-        help='Feed type')
-    upload_parser.add_argument('path', nargs=1, help='Path to the feed file')
+    upload_parser.add_argument('paths', nargs='+', help='Paths to feed files')
 
     scrape_common_parser = argparse.ArgumentParser(add_help=False)
     scrape_common_parser.add_argument(
