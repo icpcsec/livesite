@@ -11,3 +11,4 @@
 node_modules
 /firebase-debug.log
 /.firebaserc
+/public/.dev

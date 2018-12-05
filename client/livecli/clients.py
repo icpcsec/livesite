@@ -82,7 +82,7 @@ class Client(abc.ABC):
 class DevClient(Client):
     STATIC_URL = 'http://localhost:5000'
     FIREBASE_URL = 'http://localhost:5001'
-    DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../public/demodata')
+    DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../public/.dev')
 
     def __init__(self):
         self._session = requests.Session()
@@ -100,12 +100,17 @@ class DevClient(Client):
         return True
 
     def set_feeds(self, feeds: Dict[types.FeedType, Any]) -> None:
+        try:
+            os.mkdir(DevClient.DEMODATA_DIR)
+        except FileExistsError:
+            pass
+
         feed_urls = {}
         for feed_type, data in feeds.items():
             name = '%s.%.6f.json' % (feed_type, time.time())
             with open(os.path.join(DevClient.DEMODATA_DIR, name), 'w') as f:
                 json.dump(data, f, indent=2, sort_keys=True)
-            feed_urls[feed_type] = '/demodata/%s' % name
+            feed_urls[feed_type] = '/.dev/%s' % name
 
         client = FirebaseClient(self._session, DevClient.FIREBASE_URL)
         client.set_feeds(feed_urls)
