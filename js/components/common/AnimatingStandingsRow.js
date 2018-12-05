@@ -30,11 +30,16 @@ class AnimatingStandingsRow extends React.Component {
   }
 
   render() {
-    const { component: Component, className = '', entry, ...rest } = this.props;
+    const { component: Component, index, className = '', entry, ...rest } = this.props;
     const rewrittenClassName = `${className} ${this.state.newSolved ? 'new-solved' : ''}`;
     const rewrittenEntry = Object.assign(
         {}, entry, this.state.rankHidden ? {rank: '...'} : {});
-    return <Component data-key={entry.teamId} className={rewrittenClassName} entry={rewrittenEntry} {...rest} />;
+    // Wrap in <div> since AnimatingTable can manipulate it.
+    return (
+        <div data-key={entry.teamId} style={{ position: 'relative', zIndex: (9999 - index) }}>
+          <Component className={rewrittenClassName} entry={rewrittenEntry} {...rest} />
+        </div>
+    );
   }
 }
 

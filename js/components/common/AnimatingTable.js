@@ -1,37 +1,56 @@
 import React from 'react';
 
-import {CancelableCallbacks, TimerSet} from '../../utils';
+import {TimerSet} from '../../utils';
 
 class AnimatingTable extends React.Component {
   constructor(props) {
     super(props);
     this.ref_ = React.createRef();
     this.timers_ = new TimerSet();
-    this.callbacks_ = new CancelableCallbacks();
+    this.cancels_ = [];
   }
 
   getSnapshotBeforeUpdate() {
     const rows = Array.from(this.ref_.current.children);
 
+    // Record the previous row positions.
+    const lastKeyOrder = [];
+    const lastKeyToOffsetTop = new Map();
+    for (const row of rows) {
+      lastKeyOrder.push(row.dataset.key);
+      lastKeyToOffsetTop.set(row.dataset.key, row.offsetTop);
+    }
+    return { lastKeyOrder, lastKeyToOffsetTop };
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const { delay = 1000 } = this.props;
+    const { lastKeyOrder, lastKeyToOffsetTop } = snapshot;
+    const rows = Array.from(this.ref_.current.children);
+
+    // Check if the order changed.
+    if (rows.length === lastKeyOrder.length) {
+      let changed = false;
+      for (let i = 0; i < rows.length; ++i) {
+        if (rows[i].dataset.key !== lastKeyOrder[i]) {
+          changed = true;
+          break;
+        }
+      }
+      if (!changed) {
+        return;
+      }
+    }
+
     // Cancel all animations.
     this.timers_.clearTimeouts();
-    this.callbacks_.cancelAll();
+    for (const cancel of this.cancels_.splice(0)) {
+      cancel();
+    }
     rows.forEach((row) => {
       row.classList.remove('animate-table-start', 'animate-table-active');
       row.style.transform = null;
     });
-
-    // Record the previous row positions.
-    const lastKeyToOffsetTop = new Map();
-    for (const row of rows) {
-      lastKeyToOffsetTop.set(row.dataset.key, row.offsetTop);
-    }
-    return lastKeyToOffsetTop;
-  }
-
-  componentDidUpdate(prevProps, prevState, lastKeyToOffsetTop) {
-    const { delay = 1000 } = this.props;
-    const rows = Array.from(this.ref_.current.children);
 
     // Currently all rows are in the final position. Record all positions.
     const currentKeyToOffsetTop = new Map();
@@ -55,9 +74,18 @@ class AnimatingTable extends React.Component {
         this.timers_.setTimeout(() => {
           row.classList.add('animate-table-active');
           row.style.transform = 'translate(0, 0)';
-          row.addEventListener('transitionend', this.callbacks_.wrap(() => {
+          const finish = (e) => {
+            if (e.target !== row) {
+              return;
+            }
             row.classList.remove('animate-table-start', 'animate-table-active');
-          }), {once: true})
+            cancel();
+          };
+          const cancel = () => {
+            row.removeEventListener('transitionend', finish);
+          };
+          row.addEventListener('transitionend', finish);
+          this.cancels_.push(cancel);
         }, delay);
       }
     }
@@ -68,9 +96,9 @@ class AnimatingTable extends React.Component {
   }
 
   render() {
-    const { children, delay, ...rest } = this.props;
+    const { children } = this.props;
     return (
-        <div {...rest} ref={this.ref_}>
+        <div ref={this.ref_}>
           {children}
         </div>
     );

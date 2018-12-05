@@ -328,7 +328,7 @@ class StandingsTableImpl extends React.Component {
           pinned={pinnedTeamIdSet.has(entry.teamId)}
           onClickPin={() => this.handleClickPin(entry.teamId)}
           revealMode={revealMode}
-          zIndex={9999 - index}
+          index={index}
         />
       );
     }
@@ -346,7 +346,7 @@ class StandingsTableImpl extends React.Component {
           problems={problems}
           pinned={true}
           onClickPin={() => this.handleClickPin(entry.teamId)}
-          zIndex={0}
+          index={0}
           className="sticky"
         />
       );
@@ -359,9 +359,11 @@ class StandingsTableImpl extends React.Component {
         <div className="standings-section">
           {stickyRows}
         </div>
-        <AnimatingTable className="standings-section">
-          {normalRows}
-        </AnimatingTable>
+        <div className="standings-section">
+          <AnimatingTable>
+            {normalRows}
+          </AnimatingTable>
+        </div>
       </div>
     );
   }

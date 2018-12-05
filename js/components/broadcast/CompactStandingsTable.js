@@ -69,7 +69,7 @@ class CompactStandingsTableImpl extends React.Component {
               component={TeamRow}
               entry={entry}
               team={team}
-              zIndex={9999 - index}
+              index={index}
           />
       );
     }
