@@ -3,7 +3,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
-const EVENT_TIMEOUT_SECONDS = 30;
+const EVENT_TIMEOUT_SECONDS = 20;
 
 const EventRow = ({type, team, problem, oldRank, newRank}) => {
   const rankCol =
