@@ -69,6 +69,7 @@ class AnimatingTable extends React.Component {
           currentOffsetTop;
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
       if (relativeOffsetTop !== 0) {
+        const acutalDelay = row.classList.contains('no-animation') ? 0 : delay;
         row.classList.add('animate-table-start');
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
         this.timers_.setTimeout(() => {
@@ -86,7 +87,7 @@ class AnimatingTable extends React.Component {
           };
           row.addEventListener('transitionend', finish);
           this.cancels_.push(cancel);
-        }, delay);
+        }, acutalDelay);
       }
     }
   }

@@ -209,7 +209,7 @@ a.no-decoration {
 }
 
 .standard-standings .reveal-row.animate-table-active {
-  transition: transform 0.5s ease;
+  transition: transform 0.5s ease !important;
 }
 
 .standard-standings .reveal-row .team-row {

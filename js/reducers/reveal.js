@@ -1,15 +1,15 @@
 import applyPartialUpdate from 'immutability-helper';
 
 const DEFAULT_REVEAL = {
-  standingsList: [[]],
-  standingsIndex: 0,
+  reveal: { entriesList: [[]], problems: [] },
+  step: 0,
 };
 
 const reveal = (reveal = DEFAULT_REVEAL, action) => {
-  if (action.type === 'SET_REVEAL_STANDINGS_INDEX') {
-    return applyPartialUpdate(reveal, { standingsIndex: { $set: action.index }});
-  } else if (action.type === 'SET_REVEAL_STANDINGS_LIST') {
-    return { standingsList: action.standingsList, standingsIndex: 0 };
+  if (action.type === 'SET_REVEAL_STEP') {
+    return applyPartialUpdate(reveal, { step: { $set: action.step }});
+  } else if (action.type === 'SET_REVEAL_DATA') {
+    return { reveal: action.reveal, step: 0 };
   }
   return reveal;
 };

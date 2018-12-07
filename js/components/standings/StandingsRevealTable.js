@@ -2,7 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions/index';
-import StandingsTable from './StandingsTable';
+import {StandingsTableImpl} from './StandingsTable';
 
 class StandingsUploadForm extends React.Component {
   constructor(props) {
@@ -14,17 +14,13 @@ class StandingsUploadForm extends React.Component {
 
   onChange(e) {
     this.setState({ loaded: true });
-    const promises = Array.from(e.target.files).map((file) => {
-      const loader = new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.onload = (e) => resolve(e.target.result);
-        reader.readAsText(file);
-      });
-      return loader.then((text) => JSON.parse(text));
+    const loader = new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => resolve(e.target.result);
+      reader.readAsText(e.target.files[0]);
     });
-    Promise.all(promises).then((reveal) => {
-      const { standingsList } = reveal;
-      this.props.onLoaded(standingsList);
+    loader.then((text) => JSON.parse(text)).then((reveal) => {
+      this.props.onLoaded(reveal);
     });
   }
 
@@ -52,7 +48,6 @@ class StandingsRevealTableImpl extends React.Component {
   constructor(props) {
     super(props);
     this.keyDownListener_ = this.onKeyDown.bind(this);
-    this.scrolling_ = false;
   }
 
   componentDidMount() {
@@ -63,68 +58,62 @@ class StandingsRevealTableImpl extends React.Component {
     document.removeEventListener('keydown', this.keyDownListener_);
   }
 
-  componentDidUpdate() {
-    // No reveal marker in the final state.
-    if (this.props.standingsIndex === this.props.numStandings - 1) {
-      return;
-    }
-    const $marker = $('.reveal-marker');
-    const scrollTop =
-      $marker.length > 0 ?
-      $marker.offset().top - $(window).height() * 2 / 3 :
-      1000000;
-    this.scrolling_ = true;
-    $('html, body').animate({ scrollTop }, 500, () => {
-      this.scrolling_ = false;
-    });
-  }
-
   onKeyDown(e) {
-    if (this.scrolling_) {
-      return;
-    }
+    const { step, numSteps } = this.props;
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
       if (e.keyCode === 39) {  // ArrowRight
-        this.props.setStandingsIndex(
-          Math.min(this.props.standingsIndex + 1, this.props.numStandings - 1));
+        this.props.setStep(Math.min(step + 1, numSteps - 1));
       } else if (e.keyCode === 37) {  // ArrowLeft
-        this.props.setStandingsIndex(
-          Math.max(this.props.standingsIndex - 1, 0));
+        this.props.setStep(Math.max(step - 1, 0));
       }
     }
   }
 
-  onLoaded(standingsList) {
-    this.props.setStandingsList(standingsList);
+  onLoaded(reveal) {
+    this.props.setData(reveal);
+  }
+
+  getSnapshotBeforeUpdate() {
+    return document.scrollingElement.scrollTop;
+  }
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    document.scrollingElement.scrollTop = snapshot;
   }
 
   render() {
-    return this.props.entries.length === 0 ?
+    const { teams, entries, problems } = this.props;
+    return entries.length === 0 ?
       <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} /> :
-      <StandingsTable revealMode={true} {...this.props.standings} {...this.props} />;
+      <StandingsTableImpl
+          revealMode={true}
+          teams={teams}
+          entries={entries}
+          problems={problems}
+          pinnedTeamIds={[]}
+          togglePin={(teamId) => {}}
+      />;
   }
 }
 
-const mapStateToProps = ({ feeds: { teams, standings: { entries, problems } }, reveal: { standingsList, standingsIndex } }) => {
-  const standings = standingsList[standingsIndex];
+const mapStateToProps = ({ feeds: { teams }, reveal: { reveal: { entriesList, problems }, step } }) => {
+  const entries = entriesList[step];
   return {
-    teamsMap: teams,
-    pinnedTeamIds: [],
-    togglePin: (teamId) => {},
-    standings,
+    teams,
+    entries,
     problems,
-    standingsIndex,
-    numStandings: standingsList.length,
+    step,
+    numSteps: entriesList.length,
   };
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  setStandingsIndex(index) {
-    dispatch(actions.setRevealStandingsIndex(index));
+  setStep(step) {
+    dispatch(actions.setRevealStep(step));
   },
 
-  setStandingsList(standingsList) {
-    dispatch(actions.setRevealStandingsList(standingsList));
+  setData(reveal) {
+    dispatch(actions.setRevealData(reveal));
   },
 });
 

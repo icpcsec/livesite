@@ -251,17 +251,16 @@ class TeamRow extends React.Component {
 }
 
 const RevealRow = (props) => (
-  // .reveal-marker is used to compute the marker position in StandingsRevealTable.
   <div className="reveal-row no-animation">
     <TeamRow {...props} />
     <div className="reveal-marker" />
   </div>
 );
 
-const computeUniversityRanks = (entries, teamsMap) => {
+const computeUniversityRanks = (entries, teams) => {
   const universityToEntries = {};
   entries.forEach((entry) => {
-    const team = teamsMap[entry.teamId];
+    const team = teams[entry.teamId];
     if (team) {
       const { university } = team;
       if (universityToEntries[university] === undefined) {
@@ -284,19 +283,19 @@ const computeUniversityRanks = (entries, teamsMap) => {
   return universityRanks;
 };
 
-class StandingsTableImpl extends React.Component {
+export class StandingsTableImpl extends React.Component {
   handleClickPin(teamId) {
     this.props.togglePin(teamId);
   }
 
   render() {
-    const { entries, teamsMap, problems, pinnedTeamIds, revealMode = false } = this.props;
+    const { entries, teams, problems, pinnedTeamIds, revealMode = false } = this.props;
     const pinnedTeamIdSet = new Set(pinnedTeamIds);
-    const universityRanks = computeUniversityRanks(entries, teamsMap);
+    const universityRanks = computeUniversityRanks(entries, teams);
     const normalRows = [];
     for (let index = 0; index < entries.length; ++index) {
       const entry = entries[index];
-      const team = teamsMap[entry.teamId] || DEFAULT_TEAM;
+      const team = teams[entry.teamId] || DEFAULT_TEAM;
       const revealCurrent =
           revealMode &&
           ((index + 1 < entries.length &&
@@ -305,7 +304,6 @@ class StandingsTableImpl extends React.Component {
            (index === entries.length - 1 &&
             entry.revealState !== 'finalized'));
       if (revealCurrent) {
-        // FIXME: Reveal marker broken
         normalRows.push(
           <RevealRow
             key={'__reveal_marker__'}
@@ -335,7 +333,7 @@ class StandingsTableImpl extends React.Component {
     const pinnedEntries = entries.filter(
       (entry) => pinnedTeamIdSet.has(entry.teamId));
     const stickyRows = pinnedEntries.map((entry) => {
-      const team = teamsMap[entry.teamId] || DEFAULT_TEAM;
+      const team = teams[entry.teamId] || DEFAULT_TEAM;
       return (
         <AnimatingStandingsRow
           component={TeamRow}
@@ -372,7 +370,7 @@ class StandingsTableImpl extends React.Component {
 const mapStateToProps = ({ feeds: { standings: { problems, entries }, teams }, settings: { pinnedTeamIds } }) => {
   return {
     entries,
-    teamsMap: teams,
+    teams,
     problems,
     pinnedTeamIds,
   };

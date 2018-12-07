@@ -18,26 +18,26 @@ gflags.MarkFlagAsRequired('final_standings')
 gflags.MarkFlagAsRequired('output_json')
 
 
-def recompute_standings(standings):
-    for status in standings:
-        status['solved'] = len([p for p in status['problems'] if p['solved']])
-        status['penalty'] = sum([
-            p['penalty'] + 20 * (p['attempts'] - 1) for p in status['problems']
+def recompute_entries(entries):
+    for entry in entries:
+        entry['solved'] = len([p for p in entry['problems'] if p['solved']])
+        entry['penalty'] = sum([
+            p['penalty'] + 20 * (p['attempts'] - 1) for p in entry['problems']
             if p['solved']
         ])
-    standings.sort(key=lambda status: (-status['solved'], status['penalty']))
-    for i, status in enumerate(standings):
-        status['rank'] = i + 1
+    entries.sort(key=lambda entry: (-entry['solved'], entry['penalty']))
+    for i, entry in enumerate(entries):
+        entry['rank'] = i + 1
 
 
-def check_standings_equals(standings1, standings2):
-    if standings1 == standings2:
+def check_entries_equals(entries1, entries2):
+    if entries1 == entries2:
         return
-    for i, (status1, status2) in enumerate(zip(standings1, standings2)):
-        if status1 != status2:
+    for i, (entry1, entry2) in enumerate(zip(entries1, entries2)):
+        if entry1 != entry2:
             print 'ERROR: standings mismatch at rank %d' % (i + 1)
-            print status1
-            print status2
+            print entry1
+            print entry2
 
 
 def main(unused_argv):
@@ -46,48 +46,57 @@ def main(unused_argv):
     with open(FLAGS.final_standings) as f:
         standings_end = json.load(f)
 
-    for status in standings_start:
-        status['revealState'] = 'pending'
-    for status in standings_end:
-        status['revealState'] = 'finalized'
+    assert standings_start['problems'] == standings_end['problems']
+    all_problems = standings_start['problems']
+
+    entries_start = standings_start['entries']
+    entries_end = standings_end['entries']
+
+    for entry in entries_start:
+        entry['revealState'] = 'pending'
+    for entry in entries_end:
+        entry['revealState'] = 'finalized'
 
     final_map = {}
-    for status in standings_end:
-        for i, problem in enumerate(status['problems']):
-            final_map[(status['teamId'], i)] = problem
+    for entry in entries_end:
+        for i, problem in enumerate(entry['problems']):
+            final_map[(entry['teamId'], i)] = problem
 
     def reveal_step():
-        for status in reversed(standings):
-            if status['revealState'] == 'finalized':
+        for entry in reversed(entries):
+            if entry['revealState'] == 'finalized':
                 continue
-            for i, problem in enumerate(status['problems']):
+            for i, problem in enumerate(entry['problems']):
                 if problem['pendings'] > 0:
                     problem.clear()
-                    problem.update(final_map[(status['teamId'], i)])
+                    problem.update(final_map[(entry['teamId'], i)])
                     return True
-            status['revealState'] = 'finalized'
+            entry['revealState'] = 'finalized'
             return True
         return False
 
-    standings = copy.deepcopy(standings_start)
-    recompute_standings(standings)
-    check_standings_equals(standings, standings_start)
+    entries = copy.deepcopy(entries_start)
+    recompute_entries(entries)
+    check_entries_equals(entries, entries_start)
 
-    standings_list = [copy.deepcopy(standings)]
+    entries_list = [copy.deepcopy(entries)]
     while reveal_step():
-        recompute_standings(standings)
-        standings_list.append(copy.deepcopy(standings))
+        recompute_entries(entries)
+        entries_list.append(copy.deepcopy(entries))
         sys.stdout.write('.')
         sys.stdout.flush()
     sys.stdout.write('\n')
     sys.stdout.flush()
 
-    check_standings_equals(standings, standings_end)
+    check_entries_equals(entries, entries_end)
 
-    data = {'reveal': standings_list, }
+    data = {
+        'entriesList': entries_list,
+        'problems': all_problems,
+    }
 
     with open(FLAGS.output_json, 'w') as f:
-        json.dump(data, f, sort_keys=True)
+        json.dump(data, f, sort_keys=True, separators=(',', ':'))
 
 
 if __name__ == '__main__':
