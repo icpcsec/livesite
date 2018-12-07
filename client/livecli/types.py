@@ -15,9 +15,10 @@ class FeedType(enum.Enum):
         return self.value
 
 
-class Config(typing.NamedTuple):
-    gs_url_prefix: str
-    user_info: dict
+class Config:
+    def __init__(self, gs_url_prefix, user_info):
+        self.gs_url_prefix = gs_url_prefix
+        self.user_info = user_info
 
     @classmethod
     def load(cls, path: str) -> 'Config':

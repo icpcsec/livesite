@@ -28,7 +28,11 @@ def make_parser() -> argparse.ArgumentParser:
 
     verify_parser = root_subparsers.add_parser(
         'verify-credentials', parents=[global_parser])
-    verify_parser.set_defaults(handler=verify_credentials.verify_credentials_main)
+    verify_parser.set_defaults(
+        handler=verify_credentials.verify_credentials_main,
+        local=False)
+    verify_parser.add_argument(
+        '--project', required=True, help='Firebase project name')
 
     upload_parser = root_subparsers.add_parser(
         'upload', parents=[global_parser])
