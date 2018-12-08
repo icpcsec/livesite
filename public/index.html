@@ -8,7 +8,7 @@
     <title>LiveSite</title>
 
     <script>
-      window.broadcastMode = (location.pathname.indexOf('/broadcast') === 0);
+      window.broadcastMode = (location.pathname.indexOf('/broadcast') === 0 || location.pathname.indexOf('/dashboard') === 0);
       if (window.broadcastMode) {
         document.documentElement.classList.add('broadcast-mode');
       }

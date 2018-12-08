@@ -27,10 +27,12 @@ const Routes = () => (
             <Route path="/broadcast/controller">
               <ControllerPage />
             </Route>
-            <Route path="/broadcast/dashboard">
-              <DashboardPage />
-            </Route>
           </Switch>
+        </LoadingCheck>
+      </Route>
+      <Route path="/dashboard/">
+        <LoadingCheck loading={null}>
+          <DashboardPage />
         </LoadingCheck>
       </Route>
       <Route>
