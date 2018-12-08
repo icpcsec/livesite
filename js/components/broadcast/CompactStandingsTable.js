@@ -58,7 +58,7 @@ const TeamRow = ({ entry: { rank, problems, solved, penalty }, team, zIndex, cla
 
 class CompactStandingsTableImpl extends React.Component {
   render() {
-    const { entries, teams, numRows = 20, offsetRows = 0 } = this.props;
+    const { entries, teams, numRows = 20, offsetRows = 0, dense = false } = this.props;
     const rows = [];
     for (let index = 0; index < entries.length; ++index) {
       const entry = entries[index];
@@ -73,11 +73,11 @@ class CompactStandingsTableImpl extends React.Component {
           />
       );
     }
-    const rowHeight = 36 + 1;
+    const rowHeight = (dense ? 33 : 36) + 1;
     const tableHeight = rowHeight * numRows;
     const tableOffset = -rowHeight * offsetRows;
     return (
-        <div className="broadcast-compact-standings">
+        <div className={`broadcast-compact-standings ${dense ? 'dense' : ''}`}>
           <div style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
             <div style={{ position: 'relative', top: `${tableOffset}px` }}>
               <AnimatingTable>

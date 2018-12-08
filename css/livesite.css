@@ -323,13 +323,17 @@ a.no-decoration {
   overflow: hidden;
 }
 
-.broadcast-frame {
+.broadcast-frame, .dashboard-frame {
   position: absolute;
   left: 0;
   top: 0;
   width: 1280px;
   height: 720px;
   overflow: hidden;
+}
+
+.dashboard-frame {
+  background: black;
 }
 
 .broadcast-mode.obs-false .broadcast-frame {
@@ -399,6 +403,10 @@ a.no-decoration {
 .broadcast-compact-standings .team-row .team-info {
   display: flex;
   margin-top: 4px;
+}
+
+.broadcast-compact-standings.dense .team-row .team-info {
+  margin-top: 1px;
 }
 
 .broadcast-compact-standings .team-row .team-info > * {

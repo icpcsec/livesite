@@ -86,7 +86,7 @@ const DetailedStandingsPane = ({ page, numEntries }) => (
     <div style={{ position: 'absolute', bottom: '20px', left: '320px' }}>
       <AutoPager
           component={DetailedStandingsTablePage}
-          interval={5 * 1000}
+          interval={10 * 1000}
           page={page}
           numPages={Math.ceil(numEntries / DETAILED_STANDINGS_NUM_ROWS)} />
     </div>

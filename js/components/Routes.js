@@ -11,6 +11,7 @@ import StandingsRevealPage from './standings/StandingsRevealPage';
 import GA from './common/GA';
 import BroadcastPage from './broadcast/BroadcastPage';
 import ControllerPage from './broadcast/ControllerPage';
+import DashboardPage from './broadcast/DashboardPage';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 
@@ -25,6 +26,9 @@ const Routes = () => (
             </Route>
             <Route path="/broadcast/controller">
               <ControllerPage />
+            </Route>
+            <Route path="/broadcast/dashboard">
+              <DashboardPage />
             </Route>
           </Switch>
         </LoadingCheck>
