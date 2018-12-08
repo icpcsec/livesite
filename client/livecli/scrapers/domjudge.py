@@ -14,6 +14,10 @@ class DomjudgeScraper(base.Scraper):
         standings = {'problems': [], 'entries': []}
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
+
+        if not doc.select('.scoreheader'):
+            return standings
+
         scoreheader_elem = doc.select('.scoreheader')[0]
         for problem_elem in scoreheader_elem.select('th')[3:]:
             label = problem_elem.get_text().strip()
