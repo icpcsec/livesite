@@ -16,11 +16,11 @@ class DomjudgeScraper(base.Scraper):
         doc = bs4.BeautifulSoup(html, 'html5lib')
 
         if not doc.select('.scoreheader'):
-            return standings
+            return None
 
         scoreheader_elem = doc.select('.scoreheader')[0]
         for problem_elem in scoreheader_elem.select('th')[3:]:
-            label = problem_elem.get_text().strip()
+            label = problem_elem.get_text().strip()[-1]
             tooltip = problem_elem.attrs.get('title', '')
             if tooltip.startswith('problem '):
                 name = tooltip[len('problem '):].strip(' \'')

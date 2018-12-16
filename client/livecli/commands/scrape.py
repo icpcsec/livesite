@@ -16,14 +16,8 @@ from livecli.scrapers import base
 def _scrape_test(scraper: base.Scraper, local_file_path: str) -> None:
     with open(local_file_path, 'r') as f:
         html = f.read()
-    problems, standings = scraper.scrape(html)
-    print('problems:')
-    json.dump(problems, sys.stdout, separators=(',', ':'))
-    print()
-    print()
-    print('standings:')
-    json.dump(standings, sys.stdout, separators=(',', ':'))
-    print()
+    standings = scraper.scrape(html)
+    json.dump(standings, sys.stdout, separators=(',', ':'), sort_keys=True)
 
 
 def _wait_next_tick(interval_seconds: int) -> None:
