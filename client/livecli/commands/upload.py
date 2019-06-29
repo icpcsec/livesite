@@ -18,6 +18,8 @@ import logging
 import sys
 from typing import Optional
 
+import yaml
+
 from livecli import clients
 from livecli import types
 
@@ -40,7 +42,7 @@ def upload_main(options: argparse.Namespace) -> None:
     for feed_path in options.paths:
         try:
             with open(feed_path, 'r') as f:
-                data = json.load(f)
+                data = yaml.safe_load(f)
         except OSError:
             logging.error('File not found: %s', feed_path)
             sys.exit(1)

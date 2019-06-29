@@ -3,5 +3,6 @@ html5lib==1.0.1
 google-auth
 google-auth-oauthlib
 google-cloud-storage
+pyyaml
 requests
 yapf
