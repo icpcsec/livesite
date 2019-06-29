@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import json
 import logging
 import readline  # For readline support in input()
 import sys
@@ -32,14 +33,18 @@ def setup_main(options: argparse.Namespace) -> None:
         sys.exit(1)
 
     # Initiate Google OAuth2 authorization.
-    flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_config(
-        constants.CLIENT_CONFIG, scopes=constants.SCOPES)
-    creds = flow.run_console()
-    user_info = {
-        'client_id': creds.client_id,
-        'client_secret': creds.client_secret,
-        'refresh_token': creds.refresh_token,
-    }
+    if options.service_account_json:
+        with open(options.service_account_json) as f:
+            user_info = json.load(f)
+    else:
+        flow = google_auth_oauthlib.flow.InstalledAppFlow.from_client_config(
+            constants.CLIENT_CONFIG, scopes=constants.SCOPES)
+        creds = flow.run_console()
+        user_info = {
+            'client_id': creds.client_id,
+            'client_secret': creds.client_secret,
+            'refresh_token': creds.refresh_token,
+        }
 
     new_config = types.Config(
         gs_url_prefix=gs_url_prefix, user_info=user_info)

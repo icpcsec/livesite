@@ -24,9 +24,10 @@ from typing import Any, Dict, Optional
 import urllib.parse
 
 from google.api_core import exceptions as google_api_exceptions
-from google.oauth2 import credentials as google_credentials
 from google.auth.transport import requests as google_auth_requests
 from google.cloud.storage import client as storage_client
+from google.oauth2 import credentials as google_credentials
+from google.oauth2 import service_account
 import requests
 
 from livecli import constants
@@ -145,9 +146,13 @@ class ProdClient(Client):
     def __init__(self, project: str, config: types.Config):
         self._project = project
         self._config = config
-        self._session = google_auth_requests.AuthorizedSession(
-            google_credentials.Credentials.from_authorized_user_info(
-                config.user_info, scopes=constants.SCOPES))
+        if config.user_info.get('type') == 'service_account':
+            creds = service_account.Credentials.from_service_account_info(
+                config.user_info, scopes=constants.SCOPES)
+        else:
+            creds = google_credentials.Credentials.from_authorized_user_info(
+                config.user_info, scopes=constants.SCOPES)
+        self._session = google_auth_requests.AuthorizedSession(creds)
         self._storage = storage_client.Client(project=project, _http=self._session)
 
     def print_configs(self) -> None:
@@ -165,16 +170,17 @@ class ProdClient(Client):
         return r.json()['email']
 
     def verify_database_permission(self) -> bool:
-        r = self._session.get('https://%s.firebaseio.com/.json' % self._project)
+        url = 'https://%s.firebaseio.com/sandbox/verify_credentials.json' % self._project
+        r = self._session.put(url, json={'test': 'hello'})
         try:
             r.raise_for_status()
         except requests.HTTPError:
             logging.exception(
-                'Could not verify Firebase admin access. '
+                'Could not verify Firebase database access. '
                 'Do you have Editor access to GCP project %s?',
                 self._project)
             return False
-        logging.info('Verified Firebase admin access.')
+        logging.info('Verified Firebase database access.')
         return True
 
     def verify_storage_permission(self) -> bool:

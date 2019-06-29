@@ -23,7 +23,9 @@ def make_parser() -> argparse.ArgumentParser:
     root_subparsers = root_parser.add_subparsers()
 
     setup_parser = root_subparsers.add_parser('setup', parents=[global_parser])
-    setup_parser.set_defaults(handler=setup.setup_main)
+    setup_parser.set_defaults(handler=setup.setup_main, local=False)
+    setup_parser.add_argument(
+        '--service-account-json', help='Service account JSON file')
 
     verify_parser = root_subparsers.add_parser(
         'verify-credentials', parents=[global_parser])
