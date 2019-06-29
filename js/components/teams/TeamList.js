@@ -25,6 +25,13 @@ const TeamPhoto = ({ photo }) => {
   return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
 };
 
+const TeamLink = ({ id, children }) => {
+  if (!siteconfig.ui.teamPage) {
+    return children;
+  }
+  return <Link to={`/team/${id}`} className="no-decoration">{ children }</Link>;
+};
+
 const TeamItem = ({ team: { id, name, university, country, photo, members } }) => {
   const displayNames = [];
   for (let profile of members) {
@@ -39,29 +46,35 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
       <div className="card-body">
         {
           siteconfig.features.photo ?
-          <Link to={`/team/${id}`}>
-            <TeamPhoto photo={photo} />
-          </Link> :
-          null
+          <div className="mb-3">
+            <TeamLink id={id}>
+              <TeamPhoto photo={photo} />
+            </TeamLink>
+          </div>
+          : null
         }
-        <h4 className="my-3 text-ellipsis">
-          <Link to={`/team/${id}`} className="no-decoration">{name}</Link>
+        <h4 className="mb-1 text-ellipsis">
+          <TeamLink id={id}>{name}</TeamLink>
         </h4>
         <div className="text-ellipsis">
-          <Link to={`/team/${id}`} className="no-decoration">
+          <TeamLink id={id}>
             {
               siteconfig.features.country ?
               <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
               null
             }
             {university}
-          </Link>
+          </TeamLink>
         </div>
-        <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
-          <Link to={`/team/${id}`} className="no-decoration">
-            {memberNames}
-          </Link>
-        </div>
+        {
+          memberNames ?
+          <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
+            <TeamLink id={id}>
+              {memberNames}
+            </TeamLink>
+          </div>
+          : null
+        }
       </div>
     </div>
   );

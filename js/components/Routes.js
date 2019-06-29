@@ -28,44 +28,51 @@ import ControllerPage from './broadcast/ControllerPage';
 import DashboardPage from './broadcast/DashboardPage';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
+import siteconfig from '../siteconfig';
 
-const Routes = () => (
-  <BrowserRouter>
-    <Switch>
-      <Route path="/broadcast/">
-        <LoadingCheck loading={null}>
-          <Switch>
-            <Route exact path="/broadcast/">
-              <BroadcastPage />
-            </Route>
-            <Route path="/broadcast/controller">
-              <ControllerPage />
-            </Route>
-          </Switch>
-        </LoadingCheck>
-      </Route>
-      <Route path="/dashboard/">
-        <LoadingCheck loading={null}>
-          <DashboardPage />
-        </LoadingCheck>
-      </Route>
-      <Route>
-        <LoadingCheck loading={<LoadingPage />}>
-          <Frame>
-            <Switch>
-              <Route exact path="/" component={FrontPage} />
-              <Route path="/standings/" component={StandingsPage} />
-              <Route exact path="/team/" component={TeamIndexPage} />
-              <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
-              <Route path="/settings/" component={SettingsPage} />
-              <Route path="/reveal/" component={StandingsRevealPage} />
-            </Switch>
-          </Frame>
-          <GA />
-        </LoadingCheck>
-      </Route>
-    </Switch>
-  </BrowserRouter>
-);
+
+const Routes = () => {
+  const teamPageRoute = siteconfig.ui.teamPage ?
+      <Route path="/team/:requestedTeamId" component={TeamInfoPage}/> :
+      null;
+  return (
+      <BrowserRouter>
+        <Switch>
+          <Route path="/broadcast/">
+            <LoadingCheck loading={null}>
+              <Switch>
+                <Route exact path="/broadcast/">
+                  <BroadcastPage/>
+                </Route>
+                <Route path="/broadcast/controller">
+                  <ControllerPage/>
+                </Route>
+              </Switch>
+            </LoadingCheck>
+          </Route>
+          <Route path="/dashboard/">
+            <LoadingCheck loading={null}>
+              <DashboardPage/>
+            </LoadingCheck>
+          </Route>
+          <Route>
+            <LoadingCheck loading={<LoadingPage/>}>
+              <Frame>
+                <Switch>
+                  <Route exact path="/" component={FrontPage}/>
+                  <Route path="/standings/" component={StandingsPage}/>
+                  <Route exact path="/team/" component={TeamIndexPage}/>
+                  { teamPageRoute }
+                  <Route path="/settings/" component={SettingsPage}/>
+                  <Route path="/reveal/" component={StandingsRevealPage}/>
+                </Switch>
+              </Frame>
+              <GA/>
+            </LoadingCheck>
+          </Route>
+        </Switch>
+      </BrowserRouter>
+  );
+};
 
 export default Routes;

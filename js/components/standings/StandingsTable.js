@@ -233,10 +233,11 @@ class TeamRowRight extends React.Component {
         <small>{' '}[{universityRank || '???'}]</small>
       </span>
     );
+    const to = siteconfig.ui.teamPage ? `/team/${id}` : null;
     return (
       <div className="team-right">
         <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
-        <TeamGenericCol className="team-name" text={name} small={universityContent} to={`/team/${id}`} />
+        <TeamGenericCol className="team-name" text={name} small={universityContent} to={to} />
         <TeamProblemCols problems={problems} />
       </div>
     );
