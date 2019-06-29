@@ -1,7 +1,6 @@
 import argparse
 
 from livecli import constants
-from livecli import types
 from livecli.commands import scrape
 from livecli.commands import setup
 from livecli.commands import upload

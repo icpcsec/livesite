@@ -17,7 +17,6 @@ import json
 import logging
 import os
 import sys
-import typing
 
 
 class FeedType(enum.Enum):

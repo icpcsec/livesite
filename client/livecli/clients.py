@@ -20,7 +20,7 @@ import io
 import json
 import os
 import time
-from typing import Any, BinaryIO, Dict, Generator, List, Optional
+from typing import Any, Dict, Optional
 import urllib.parse
 
 from google.api_core import exceptions as google_api_exceptions

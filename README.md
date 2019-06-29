@@ -22,7 +22,7 @@ Prerequisites
 -------------
 
 - Node.js
-- Python 3.6+ (for client)
+- Python 3.5+ (for client)
 - Google Account and Google Cloud Platform project (for deployment)
 
 

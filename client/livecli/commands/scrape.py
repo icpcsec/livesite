@@ -31,7 +31,7 @@ def _scrape_test(scraper: base.Scraper, local_file_path: str) -> None:
     with open(local_file_path, 'r') as f:
         html = f.read()
     standings = scraper.scrape(html)
-    json.dump(standings, sys.stdout, separators=(',', ':'), sort_keys=True)
+    json.dump(standings, sys.stdout, indent=2, sort_keys=True)
 
 
 def _wait_next_tick(interval_seconds: int) -> None:
