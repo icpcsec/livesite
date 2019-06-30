@@ -143,8 +143,8 @@ class DevClient(Client):
 
 
 class ProdClient(Client):
-    def __init__(self, project: str, config: types.Config):
-        self._project = project
+    def __init__(self, config: types.Config, override_project: Optional[str] = None):
+        self._project = override_project or config.project
         self._config = config
         if config.user_info.get('type') == 'service_account':
             creds = service_account.Credentials.from_service_account_info(
@@ -153,7 +153,7 @@ class ProdClient(Client):
             creds = google_credentials.Credentials.from_authorized_user_info(
                 config.user_info, scopes=constants.SCOPES)
         self._session = google_auth_requests.AuthorizedSession(creds)
-        self._storage = storage_client.Client(project=project, _http=self._session)
+        self._storage = storage_client.Client(project=self._project, _http=self._session)
 
     def print_configs(self) -> None:
         logging.info('Using production client.')
@@ -257,7 +257,5 @@ def create_client(options: argparse.Namespace) -> Client:
     if options.local:
         return DevClient()
 
-    if not options.project:
-        raise ValueError('--project or --local is required')
     config = types.Config.load(options.config_path)
-    return ProdClient(options.project, config)
+    return ProdClient(config, options.override_project)

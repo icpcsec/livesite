@@ -33,13 +33,13 @@ def make_parser() -> argparse.ArgumentParser:
         handler=verify_credentials.verify_credentials_main,
         local=False)
     verify_parser.add_argument(
-        '--project', required=True, help='Firebase project name')
+        '--override-project', help='Override Firebase project name')
 
     upload_parser = root_subparsers.add_parser(
         'upload', parents=[global_parser])
     upload_parser.set_defaults(handler=upload.upload_main)
     upload_parser.add_argument(
-        '--project', help='Firebase project name')
+        '--override-project', help='Override Firebase project name')
     upload_parser.add_argument(
         '--local',
         action='store_true',
@@ -48,7 +48,7 @@ def make_parser() -> argparse.ArgumentParser:
 
     scrape_common_parser = argparse.ArgumentParser(add_help=False)
     scrape_common_parser.add_argument(
-        '--project', help='Firebase project name')
+        '--override-project', help='Override Firebase project name')
     scrape_common_parser.add_argument(
         '--local',
         action='store_true',
