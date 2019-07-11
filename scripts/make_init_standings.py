@@ -21,10 +21,10 @@ import sys
 teams = json.load(sys.stdin)
 
 entries = []
-for t in teams.values():
+for tid in teams.keys():
     entries.append({
         'rank': '-',
-        'teamId': t['id'],
+        'teamId': tid,
         'solved': 0,
         'penalty': 0,
     })
@@ -40,4 +40,4 @@ standings = {
     ],
 }
 
-json.dump(standings, sys.stdout, separators=(',', ':'), sort_keys=True)
+json.dump(standings, sys.stdout, indent=2, sort_keys=True)
