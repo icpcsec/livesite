@@ -27,6 +27,12 @@ for tid in teams.keys():
         'teamId': tid,
         'solved': 0,
         'penalty': 0,
+        'problems': [{
+            'solved': False,
+            'attempts': 0,
+            'penalty': 0,
+            'pendings': 0,
+        } for _ in range(3)]
     })
 
 entries.sort(key=lambda e: int(e['teamId']))
