@@ -44,6 +44,7 @@ def _parse_problem_status(text: str) -> dict:
     else:
         attempts = 0
     if text:
+        attempts += 1
         penalty = int(text)
         solved = True
     else:
