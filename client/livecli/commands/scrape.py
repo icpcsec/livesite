@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+import datetime
 import json
 import logging
 import math
@@ -72,7 +73,27 @@ def scrape_main(options: argparse.Namespace) -> None:
     logging.info('OK.')
 
     while True:
+        if options.auto_exit_minutes > 0:
+            try:
+                feeds = client.get_feeds()
+                contest = feeds[types.FeedType.CONTEST]
+                end_time = datetime.datetime.fromtimestamp(
+                    contest['times']['end'])
+                exit_time = end_time + datetime.timedelta(
+                    minutes=options.auto_exit_minutes)
+                now = datetime.datetime.now()
+                if now >= exit_time:
+                    logging.info('Exiting automatically')
+                    break
+                elif now >= end_time:
+                    grace_seconds = (exit_time - now).total_seconds()
+                    logging.info(
+                        'Contest is over; exiting in %ds', int(grace_seconds))
+            except Exception:
+                logging.exception('Unhandled exception')
+
         _wait_next_tick(options.interval_seconds)
+
         try:
             timestamp = int(time.time())
             r = requests.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
