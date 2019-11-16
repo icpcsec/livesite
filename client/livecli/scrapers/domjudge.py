@@ -56,12 +56,11 @@ class DomjudgeScraper(base.Scraper):
                 if not text:
                     penalty, attempts, pendings = 0, 0, 0
                 else:
-                    m = re.search(r'^(?:(?P<penalty>\d+)\s+)?(?P<knowns>\d+)\s+(?:\+\s+(?P<pendings>\d+)\s+)?(?:try|tries)$', text)
+                    m = re.search(r'^(?:(?P<penalty>\d+)\s+)?(?P<attempts>\d+)\s+(?:\+\s+(?P<pendings>\d+)\s+)?(?:try|tries)$', text)
                     assert m, text
                     penalty = int(m.group('penalty') or '0')
-                    knowns = int(m.group('knowns'))
+                    attempts = int(m.group('attempts'))
                     pendings = int(m.group('pendings') or '0')
-                    attempts = knowns + pendings
                 classes = problem_elem['class']
                 solved = len(problem_elem.select('.score_correct')) > 0
                 team_problems.append({
