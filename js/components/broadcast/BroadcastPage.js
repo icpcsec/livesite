@@ -70,16 +70,17 @@ class AutoPager extends React.Component {
   }
 }
 
-const COMPACT_STANDINGS_NUM_ROWS = 16;
+const COMPACT_STANDINGS_NUM_ROWS = 17;
 
 const CompactStandingsTablePage = ({ page }) => (
     <CompactStandingsTable
+        dense={true}
         numRows={COMPACT_STANDINGS_NUM_ROWS}
         offsetRows={page * COMPACT_STANDINGS_NUM_ROWS} />
 );
 
 const CompactStandingsPane = ({ page, numEntries }) => (
-    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '300px' }}>
+    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '360px' }}>
       <AutoPager
           component={CompactStandingsTablePage}
           interval={10 * 1000}
