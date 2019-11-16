@@ -14,14 +14,14 @@
 
 const siteconfig = {
   ui: {
-    lang: 'ja',
+    lang: 'en',
     photoAspectRatio: 9 / 16,
   },
   features: {
-    country: false,
-    prefecture: true,
+    country: true,
+    prefecture: false,
     teamPage: false,
-    photo: false,
+    photo: true,
     icon: false,
   },
   firebase: {
