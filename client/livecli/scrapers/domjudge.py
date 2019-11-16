@@ -74,9 +74,9 @@ class DomjudgeScraper(base.Scraper):
                 last_rank = rank = int(rank)
             else:
                 rank = last_rank
-            name_university = team_elem.select('.scoretn')[0].get_text().strip()
+            name = team_elem.select('.scoretn .forceWidth')[0].get_text().strip()
             try:
-                tid = str(int(name_university.split(':', 1)[0], 10))
+                tid = str(int(name.split(':', 1)[0], 10))
             except ValueError:
                 continue
             solved = int(team_elem.select('.scorenc')[0].get_text().strip())
