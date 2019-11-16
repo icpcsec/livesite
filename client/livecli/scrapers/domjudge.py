@@ -47,26 +47,23 @@ class DomjudgeScraper(base.Scraper):
 
         scoreboard_elem = doc.select('table.scoreboard')[0]
         last_rank = 1
-        for team_elem in scoreboard_elem.select('tbody:nth-of-type(1) tr'):
+        for team_elem in scoreboard_elem.select('tbody tr'):
+            if not team_elem.attrs.get('id', '').startswith('team:'):
+                break
             team_problems = []
-            for problem_elem in team_elem.select('td')[5:]:
+            for problem_elem in team_elem.select('td.score_cell'):
                 text = problem_elem.get_text().strip()
-                m = re.search(r'^(\d+)/(\d+)$', text)
-                if m:
-                    attempts, penalty1 = map(int, m.groups())
-                    pendings = 0
-                    penalty = penalty1  # - 20 * (attempts - 1)
+                if not text:
+                    penalty, attempts, pendings = 0, 0, 0
                 else:
-                    m = re.search(r'^(\d+) \+ (\d+)$', text)
-                    if m:
-                        attempts, pendings = map(int, m.groups())
-                        penalty = 0
-                    else:
-                        attempts = int(text)
-                        pendings = 0
-                        penalty = 0
+                    m = re.search(r'^(?:(?P<penalty>\d+)\s+)?(?P<knowns>\d+)\s+(?:\+\s+(?P<pendings>\d+)\s+)?(?:try|tries)$', text)
+                    assert m, text
+                    penalty = int(m.group('penalty') or '0')
+                    knowns = int(m.group('knowns'))
+                    pendings = int(m.group('pendings') or '0')
+                    attempts = knowns + pendings
                 classes = problem_elem['class']
-                solved = 'score_correct' in classes
+                solved = len(problem_elem.select('.score_correct')) > 0
                 team_problems.append({
                     'attempts': attempts,
                     'pendings': pendings,
@@ -80,7 +77,7 @@ class DomjudgeScraper(base.Scraper):
                 rank = last_rank
             name_university = team_elem.select('.scoretn')[0].get_text().strip()
             try:
-                tid = int(name_university.split(':', 1)[0], 10)
+                tid = str(int(name_university.split(':', 1)[0], 10))
             except ValueError:
                 continue
             solved = int(team_elem.select('.scorenc')[0].get_text().strip())
