@@ -138,7 +138,7 @@ const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
   );
 };
 
-const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
+const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved }, problemSpec: { label }, revealMode }) => {
   let status;
   let content;
   if (solved) {
@@ -167,15 +167,27 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
     } else {
       status = 'unattempted';
     }
-    content = (
-      <span>
-        -
-        <br />
-        <small>
-          { attempts > 0 ? `(+${attempts})` : null }
-        </small>
-      </span>
-    );
+    if (revealMode && pendings > 0) {
+      content = (
+        <span>
+          {label} [+{pendings}]
+          <br />
+          <small>
+            { attempts > 0 ? `(+${attempts})` : null }
+          </small>
+        </span>
+      );
+    } else {
+      content = (
+        <span>
+          -
+          <br />
+          <small>
+            { attempts > 0 ? `(+${attempts})` : null }
+          </small>
+        </span>
+      );
+    }
   }
   return (
     <div className="team-col team-problem">
@@ -185,9 +197,9 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
   );
 };
 
-const TeamProblemCols = ({ problems }) => {
+const TeamProblemCols = ({ problems, problemSpecs, revealMode }) => {
   const problemCols = problems.map((problem, i) => (
-    <TeamProblemCol key={i} problem={problem} />
+    <TeamProblemCol key={i} problem={problem} problemSpec={problemSpecs[i]} revealMode={revealMode} />
   ));
   return (
     <div className="team-problems">
@@ -220,7 +232,7 @@ class TeamRowRight extends React.Component {
   }
 
   render() {
-    const { solved, penalty, problemSpecs, team, universityRank, problems } = this.props;
+    const { solved, penalty, problemSpecs, team, universityRank, problems, revealMode } = this.props;
     const { id, name, university, country } = team;
     const universityContent = (
       <span>
@@ -238,7 +250,7 @@ class TeamRowRight extends React.Component {
       <div className="team-right">
         <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
         <TeamGenericCol className="team-name" text={name} small={universityContent} to={to} />
-        <TeamProblemCols problems={problems} />
+        <TeamProblemCols problems={problems} problemSpecs={problemSpecs} revealMode={revealMode} />
       </div>
     );
   }
@@ -259,7 +271,7 @@ class TeamRow extends React.Component {
       <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
         <TeamRowLeft pinned={pinned} revealMode={revealMode} revealState={revealState} onClickPin={onClickPin} />
         <TeamGenericCol className="team-rank" text={rank} />
-        <TeamRowRight solved={solved} penalty={penalty} problemSpecs={problemSpecs} team={team} universityRank={universityRank} problems={problems} />
+        <TeamRowRight solved={solved} penalty={penalty} problemSpecs={problemSpecs} team={team} universityRank={universityRank} problems={problems} revealMode={revealMode} />
       </div>
     );
   }
