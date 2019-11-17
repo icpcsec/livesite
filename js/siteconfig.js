@@ -20,7 +20,7 @@ const siteconfig = {
   features: {
     country: true,
     prefecture: false,
-    teamPage: false,
+    teamPage: true,
     photo: true,
     icon: false,
   },

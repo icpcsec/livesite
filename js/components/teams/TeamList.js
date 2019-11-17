@@ -26,7 +26,7 @@ const TeamPhoto = ({ photo }) => {
 };
 
 const TeamLink = ({ id, children }) => {
-  if (!siteconfig.ui.teamPage) {
+  if (!siteconfig.features.teamPage) {
     return children;
   }
   return <Link to={`/team/${id}`} className="no-decoration">{ children }</Link>;

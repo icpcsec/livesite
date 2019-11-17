@@ -32,7 +32,7 @@ import siteconfig from '../siteconfig';
 
 
 const Routes = () => {
-  const teamPageRoute = siteconfig.ui.teamPage ?
+  const teamPageRoute = siteconfig.features.teamPage ?
       <Route path="/team/:requestedTeamId" component={TeamInfoPage}/> :
       null;
   return (

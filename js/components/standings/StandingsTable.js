@@ -233,7 +233,7 @@ class TeamRowRight extends React.Component {
         <small>{' '}[{universityRank || '???'}]</small>
       </span>
     );
-    const to = siteconfig.ui.teamPage ? `/team/${id}` : null;
+    const to = siteconfig.features.teamPage ? `/team/${id}` : null;
     return (
       <div className="team-right">
         <TeamScoreCol solved={solved} penalty={penalty} problemSpecs={problemSpecs} />
