@@ -4,7 +4,7 @@
   "description": "",
   "main": "js/index.js",
   "scripts": {
-    "serve": "node devserver/devserver.js",
+    "serve": "firebase emulators:exec devserver/boot.sh",
     "build": "NODE_ENV=production browserify js/index.js -o public/assets/livesite/js/bundle.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ] -g envify -g uglifyify",
     "watch": "watchify js/index.js -o public/assets/livesite/js/bundle.js -d -v -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] ]",
     "lint": "eslint js",
@@ -48,7 +48,6 @@
     "eslint": "^5.16.0",
     "eslint-plugin-react": "^7.21.5",
     "express": "^4.17.1",
-    "firebase-server": "^1.1.0",
     "license-checker": "^24.1.0",
     "watchify": "^3.11.1"
   }

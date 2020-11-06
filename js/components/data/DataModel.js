@@ -28,7 +28,7 @@ function initializeApp() {
   const hostname = window.location.hostname;
   if (hostname === 'localhost') {
     options.authDomain = 'icpcsec.firebaseapp.com';
-    options.databaseURL = 'ws://localhost:5001';
+    options.databaseURL = 'http://localhost:9000?ns=fake-server';
   } else if (hostname.endsWith('.firebaseapp.com')) {
     const appName = hostname.split(".")[0];
     options.authDomain = appName + '.firebaseapp.com';
