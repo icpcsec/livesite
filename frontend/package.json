@@ -4,7 +4,7 @@
   "description": "",
   "main": "js/index.js",
   "scripts": {
-    "serve": "firebase emulators:exec devserver/boot.sh",
+    "serve": "firebase emulators:exec --project=fake devserver/boot.sh",
     "build": "webpack",
     "watch": "webpack -w",
     "lint": "eslint js",
