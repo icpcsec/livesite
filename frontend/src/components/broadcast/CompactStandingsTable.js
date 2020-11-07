@@ -25,7 +25,8 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const TeamInfo = ({ rank, name, university, universityJa, universityJaShort, solved, penalty }) => (
+function TeamInfo({ rank, name, university, universityJa, universityJaShort, solved, penalty }) {
+  return (
     <div className="team-info">
       <div className="team-rank">
         {rank}
@@ -40,23 +41,24 @@ const TeamInfo = ({ rank, name, university, universityJa, universityJaShort, sol
         <small>{penalty}/</small>{solved}
       </div>
     </div>
-);
+  );
+}
 
-const TeamProblemCol = ({ solved, attempts, pendings }) => {
+function TeamProblemCol({ solved, attempts, pendings }) {
   const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattemped';
   return <div className={`team-problem bg-${status}`} />;
-};
+}
 
-const TeamProblems = ({ problems }) => {
+function TeamProblems({ problems }) {
   const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} {...problem} />);
   return (
       <div className="team-problems">
         {problemCols}
       </div>
   )
-};
+}
 
-const TeamRow = ({ entry: { rank, problems, solved, penalty }, team, zIndex, className, ...rest }) => {
+function TeamRow({ entry: { rank, problems, solved, penalty }, team, zIndex, className, ...rest }) {
   const rewrittenClassName = `${className} card`;
   return (
       <div className={rewrittenClassName} style={{zIndex}} {...rest}>
@@ -68,7 +70,7 @@ const TeamRow = ({ entry: { rank, problems, solved, penalty }, team, zIndex, cla
         </div>
       </div>
   );
-};
+}
 
 class CompactStandingsTableImpl extends React.Component {
   render() {
@@ -104,7 +106,9 @@ class CompactStandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ feeds: { standings: { entries }, teams } }) => ({ entries, teams });
+function mapStateToProps({ feeds: { standings: { entries }, teams } }) {
+  return { entries, teams };
+}
 
 const CompactStandingsTable =
     connect(mapStateToProps)(CompactStandingsTableImpl);

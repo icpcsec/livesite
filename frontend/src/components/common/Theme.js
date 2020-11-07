@@ -28,14 +28,16 @@ const DARK_STYLES = (
   '.standings .team-row.sticky { background-color: #616161 !important; }'
 );
 
-const ThemeImpl = ({ settings }) => {
+function ThemeImpl({ settings }) {
   if (settings.invertColor) {
     return <style>{DARK_STYLES}</style>;
   }
   return <style>{LIGHT_STYLES}</style>;
-};
+}
 
-const mapStateToProps = ({ settings }) => ({ settings });
+function mapStateToProps({ settings }) {
+  return { settings };
+}
 
 const Theme = connect(mapStateToProps)(ThemeImpl);
 

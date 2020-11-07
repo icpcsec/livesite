@@ -17,21 +17,25 @@ import {connect} from 'react-redux';
 
 import DataContext from '../data/DataContext';
 
-const Button = ({ text, enabled, onClick }) => (
+function Button({ text, enabled, onClick }) {
+  return (
     <button className={`mr-2 btn btn-raised btn-${enabled ? 'danger' : 'secondary'}`} onClick={onClick}>
       {text}
     </button>
-);
+  );
+}
 
-const SignInButton = ({ signedIn, model }) => (
+function SignInButton({ signedIn, model }) {
+  return (
     <button
         className={`mr-2 btn ${signedIn ? 'btn-outline-success' : 'btn-raised btn-primary'}`}
         onClick={() => (signedIn ? (window.confirm('Sign out?') ? model.signOut() : null) : model.signIn())}>
       {signedIn ? 'Signed In' : 'Sign In'}
     </button>
-);
+  );
+}
 
-const ConfigButton = ({ text, values, broadcast, model }) => {
+function ConfigButton({ text, values, broadcast, model }) {
   const update = {};
   for (const key in values) {
     if (values.hasOwnProperty(key)) {
@@ -48,9 +52,9 @@ const ConfigButton = ({ text, values, broadcast, model }) => {
     }
   }
   return <Button text={text} enabled={enabled} onClick={() => model.updateBroadcast(update)} />;
-};
+}
 
-const CompactStandingsButtons = ({ broadcast, entries, model }) => {
+function CompactStandingsButtons({ broadcast, entries, model }) {
   const PAGE_SIZE = 17;
   const buttons = [];
   for (let i = 0; i * PAGE_SIZE < entries.length; ++i) {
@@ -64,9 +68,9 @@ const CompactStandingsButtons = ({ broadcast, entries, model }) => {
         <div className="btn-group" style={{ display: 'inline' }}>{buttons}</div>
       </div>
   );
-};
+}
 
-const DetailedStandingsButtons = ({ broadcast, entries, model }) => {
+function DetailedStandingsButtons({ broadcast, entries, model }) {
   const PAGE_SIZE = 12;
   const buttons = [];
   for (let i = 0; i * PAGE_SIZE < entries.length; ++i) {
@@ -80,9 +84,9 @@ const DetailedStandingsButtons = ({ broadcast, entries, model }) => {
         {buttons}
       </div>
   );
-};
+}
 
-const ConfigPanelImpl = ({ broadcast, entries, model }) => {
+function ConfigPanelImpl({ broadcast, entries, model }) {
   const { signedIn } = broadcast;
   return (
       <div>
@@ -101,9 +105,9 @@ const ConfigPanelImpl = ({ broadcast, entries, model }) => {
         </div>
       </div>
   );
-};
+}
 
-const withModel = (Component) => {
+function withModel(Component) {
   class NewComponent extends React.Component {
     render() {
       return <Component model={this.context} {...this.props} />;
@@ -111,9 +115,11 @@ const withModel = (Component) => {
   }
   NewComponent.contextType = DataContext;
   return NewComponent;
-};
+}
 
-const mapStateToProps = ({ broadcast, feeds: { standings: { entries } } }) => ({ broadcast, entries });
+function mapStateToProps({ broadcast, feeds: { standings: { entries } } }) {
+  return { broadcast, entries };
+}
 
 const ConfigPanel = withModel(connect(mapStateToProps)(ConfigPanelImpl));
 

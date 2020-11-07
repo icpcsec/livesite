@@ -44,7 +44,7 @@ class NavLink extends React.Component {
   }
 }
 
-const NavBarImpl = ({ contest }) => {
+function NavBarImpl({ contest }) {
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top" style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}>
       <div className="container">
@@ -76,9 +76,11 @@ const NavBarImpl = ({ contest }) => {
       </div>
     </nav>
   );
-};
+}
 
-const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
+function mapStateToProps({ feeds: { contest } }) {
+  return { contest };
+}
 
 const NavBar =
     connect(mapStateToProps, undefined, undefined, { pure: false })(NavBarImpl);

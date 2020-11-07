@@ -21,18 +21,18 @@ import GridFlow from '../common/GridFlow';
 import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
 
-const TeamPhoto = ({ photo }) => {
+function TeamPhoto({ photo }) {
   return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
-};
+}
 
-const TeamLink = ({ id, children }) => {
+function TeamLink({ id, children }) {
   if (!siteconfig.features.teamPage) {
     return children;
   }
   return <Link to={`/team/${id}`} className="no-decoration">{ children }</Link>;
-};
+}
 
-const TeamItem = ({ team: { id, name, university, country, photo, members } }) => {
+function TeamItem({ team: { id, name, university, country, photo, members } }) {
   const displayNames = [];
   for (let profile of members) {
     const { name } = profile;
@@ -78,15 +78,17 @@ const TeamItem = ({ team: { id, name, university, country, photo, members } }) =
       </div>
     </div>
   );
-};
+}
 
-const TeamItemFlow = ({ children }) => (
-  <GridFlow className="col-md-6 col-lg-4">
-    {children}
-  </GridFlow>
-);
+function TeamItemFlow({ children }) {
+  return (
+    <GridFlow className="col-md-6 col-lg-4">
+      {children}
+    </GridFlow>
+  );
+}
 
-const TeamListSimple = ({ teams }) => {
+function TeamListSimple({ teams }) {
   const sortedTeams = [...teams];
   sortedTeams.sort((a, b) => (
       a.university.localeCompare(b.university) ||
@@ -95,9 +97,9 @@ const TeamListSimple = ({ teams }) => {
   const items = sortedTeams.map(
       (team) => <TeamItem key={team.id} team={team} />);
   return <TeamItemFlow>{items}</TeamItemFlow>;
-};
+}
 
-const TeamListWithPrefecture = ({ teams }) => {
+function TeamListWithPrefecture({ teams }) {
   const teamsByPrefecture = {};
   for (let i = 1; i <= 48; ++i) {
     teamsByPrefecture[i] = [];
@@ -122,15 +124,15 @@ const TeamListWithPrefecture = ({ teams }) => {
     }
   }
   return <div>{children}</div>;
-};
+}
 
 const TeamListImpl =
   siteconfig.features.prefecture ? TeamListWithPrefecture : TeamListSimple;
 
-const mapStateToProps = ({ feeds: { teams: teamsMap } }) => {
+function mapStateToProps({ feeds: { teams: teamsMap } }) {
   const teams = Object.keys(teamsMap).map((key) => teamsMap[key]);
   return { teams };
-};
+}
 
 const TeamList = connect(mapStateToProps)(TeamListImpl);
 

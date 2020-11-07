@@ -27,7 +27,7 @@ const DEFAULT = {
   loaded: new Set(),
 };
 
-const feeds = (state = DEFAULT, action) => {
+function feeds(state = DEFAULT, action) {
   if (action.type === 'UPDATE_FEEDS') {
     state = applyPartialUpdate(state, action.update);
     const newLoaded = new Set(state.loaded);
@@ -39,6 +39,6 @@ const feeds = (state = DEFAULT, action) => {
     state = applyPartialUpdate(state, {loaded: {$set: newLoaded}});
   }
   return state;
-};
+}
 
 export default feeds;

@@ -110,7 +110,7 @@ class StandingsRevealTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ feeds: { teams }, reveal: { reveal: { entriesList, problems }, step } }) => {
+function mapStateToProps({ feeds: { teams }, reveal: { reveal: { entriesList, problems }, step } }) {
   const entries = entriesList[step];
   return {
     teams,
@@ -119,17 +119,19 @@ const mapStateToProps = ({ feeds: { teams }, reveal: { reveal: { entriesList, pr
     step,
     numSteps: entriesList.length,
   };
-};
+}
 
-const mapDispatchToProps = (dispatch) => ({
-  setStep(step) {
-    dispatch(actions.setRevealStep(step));
-  },
+function mapDispatchToProps(dispatch) {
+  return {
+    setStep(step) {
+      dispatch(actions.setRevealStep(step));
+    },
 
-  setData(reveal) {
-    dispatch(actions.setRevealData(reveal));
-  },
-});
+    setData(reveal) {
+      dispatch(actions.setRevealData(reveal));
+    },
+  };
+}
 
 const StandingsRevealTable =
     connect(mapStateToProps, mapDispatchToProps)(StandingsRevealTableImpl);

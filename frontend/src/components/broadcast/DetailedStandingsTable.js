@@ -26,7 +26,7 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
+function LegendProblemCol({ problem: { label, title, color = 'black' } }) {
   return (
       <div className="team-problem">
         <div>
@@ -39,9 +39,9 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
         </div>
       </div>
   );
-};
+}
 
-const LegendRow = ({ problems }) => {
+function LegendRow({ problems }) {
   const problemCols = problems.map((problem, i) => <LegendProblemCol key={i} problem={problem} />);
   return (
       <div className="card">
@@ -57,9 +57,9 @@ const LegendRow = ({ problems }) => {
         </div>
       </div>
   );
-};
+}
 
-const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) => {
+function TeamProblemCol({ problem: { attempts, penalty, pendings, solved } }) {
   let status;
   let content;
   if (solved) {
@@ -104,9 +104,9 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved } }) =>
         <div className="team-colored-col-fg">{content}</div>
       </div>
   );
-};
+}
 
-const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, university, universityJa }, zIndex, className, ...rest }) => {
+function TeamRow({ entry: { rank, solved, penalty, problems }, team: { name, university, universityJa }, zIndex, className, ...rest }) {
   const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} problem={problem} />);
   const rewrittenClassName = `${className} card`;
   return (
@@ -133,7 +133,7 @@ const TeamRow = ({ entry: { rank, solved, penalty, problems }, team: { name, uni
         </div>
       </div>
   );
-};
+}
 
 class DetailedStandingsTableImpl extends React.Component {
   render() {
@@ -170,7 +170,9 @@ class DetailedStandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ feeds: { standings: { problems, entries }, teams } }) => ({ problems, entries, teams });
+function mapStateToProps({ feeds: { standings: { problems, entries }, teams } }) {
+  return { problems, entries, teams };
+}
 
 const DetailedStandingsTable =
     connect(mapStateToProps)(DetailedStandingsTableImpl);

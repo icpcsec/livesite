@@ -18,28 +18,34 @@ import Clock from './Clock';
 import EventsTable from './EventsTable';
 import CompactStandingsTable from './CompactStandingsTable';
 
-const ClockPane = () => (
+function ClockPane() {
+  return (
     <div style={{position: 'absolute', right: '20px', top: '16px'}}>
       <Clock />
     </div>
-);
+  );
+}
 
-const EventsPane = () => (
+function EventsPane() {
+  return (
     <div style={{position: 'absolute', top: '120px', bottom: '20px', right: '20px', width: '280px' }}>
       <EventsTable />
     </div>
-);
+  );
+}
 
 const COMPACT_STANDINGS_NUM_ROWS = 20;
 
-const StandingsPage = ({ page }) => (
+function StandingsPage({ page }) {
+  return (
     <CompactStandingsTable
         numRows={COMPACT_STANDINGS_NUM_ROWS}
         offsetRows={page * COMPACT_STANDINGS_NUM_ROWS}
         dense={true} />
-);
+  );
+}
 
-const StandingsPane = () => {
+function StandingsPane() {
   const pages = [];
   for (let page = 0; page < 4; page++) {
     pages.push(
@@ -53,20 +59,24 @@ const StandingsPane = () => {
       {pages}
     </div>
   );
-};
+}
 
-const Frame = ({ children }) => (
+function Frame({ children }) {
+  return (
     <div className="dashboard-frame">
       {children}
     </div>
-);
+  );
+}
 
-const DashboardPage = () => (
+function DashboardPage() {
+  return (
     <Frame>
       <ClockPane />
       <EventsPane />
       <StandingsPane />
     </Frame>
-);
+  );
+}
 
 export default DashboardPage;

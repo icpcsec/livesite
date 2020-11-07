@@ -19,7 +19,8 @@ import Routes from './Routes';
 import DocumentTitleUpdater from './common/DocumentTitleUpdater';
 import DataProvider from './data/DataProvider';
 
-const App = ({ store }) => (
+function App({ store }) {
+  return (
     <Provider store={store}>
       <DataProvider>
         <DocumentTitleUpdater>
@@ -27,6 +28,7 @@ const App = ({ store }) => (
         </DocumentTitleUpdater>
       </DataProvider>
     </Provider>
-);
+  );
+}
 
 export default App;

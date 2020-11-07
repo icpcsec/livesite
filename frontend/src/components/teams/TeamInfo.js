@@ -20,13 +20,15 @@ import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
 
-const TeamComment = ({ comment }) => (
-  <div className="alert alert-secondary mt-3 mb-2" style={{ textAlign: 'center' }}>
-    {comment}
-  </div>
-);
+function TeamComment({ comment }) {
+  return (
+    <div className="alert alert-secondary mt-3 mb-2" style={{ textAlign: 'center' }}>
+      {comment}
+    </div>
+  );
+}
 
-const MemberProfile = ({ profile, index }) => {
+function MemberProfile({ profile, index }) {
   const displayName = profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
   if (profile.topcoderId) {
@@ -97,9 +99,9 @@ const MemberProfile = ({ profile, index }) => {
       </div>
     </div>
   );
-};
+}
 
-const TeamInfoImpl = ({ team }) => {
+function TeamInfoImpl({ team }) {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
@@ -138,13 +140,13 @@ const TeamInfoImpl = ({ team }) => {
       </div>
     </div>
   );
-};
+}
 
-const mapStateToProps = (state, ownProps) => {
+function mapStateToProps(state, ownProps) {
   const { feeds: { teams } } = state;
   const team = teams[ownProps.requestedTeamId];
   return { team };
-};
+}
 
 const TeamInfo = connect(mapStateToProps)(TeamInfoImpl);
 

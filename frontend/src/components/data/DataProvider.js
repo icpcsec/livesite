@@ -40,7 +40,9 @@ class DataProviderImpl extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => ({ dispatch });
+function mapDispatchToProps(dispatch) {
+  return { dispatch };
+}
 
 const DataProvider = connect(undefined, mapDispatchToProps, undefined, {pure: false})(DataProviderImpl);
 

@@ -15,11 +15,13 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const FrontContentImpl = ({ contest }) => (
-  <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />
-);
+function FrontContentImpl({ contest }) {
+  return <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />;
+}
 
-const mapStateToProps = ({ feeds: { contest } }) => ({ contest });
+function mapStateToProps({ feeds: { contest } }) {
+  return { contest };
+}
 
 const FrontContent = connect(mapStateToProps)(FrontContentImpl);
 

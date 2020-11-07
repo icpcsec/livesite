@@ -14,7 +14,7 @@
 
 import applyPartialUpdate from 'immutability-helper';
 
-const updateSettings = (settings) => {
+function updateSettings(settings) {
   if (settings.version === undefined) {
     const serialized = localStorage.getItem('settings');
     if (serialized) {
@@ -48,14 +48,14 @@ const updateSettings = (settings) => {
     );
   }
   return settings;
-};
+}
 
-const settings = (settings = {}, action) => {
+function settings(settings = {}, action) {
   settings = updateSettings(settings);
   if (action.type === 'UPDATE_SETTINGS') {
     settings = applyPartialUpdate(settings, action.settingsUpdate);
   }
   return settings;
-};
+}
 
 export default settings;

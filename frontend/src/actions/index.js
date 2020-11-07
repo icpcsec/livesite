@@ -12,43 +12,45 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export const updateFeeds = (update) => (
-  {
+export function updateFeeds(update) {
+  return {
     type: 'UPDATE_FEEDS',
     update,
-  }
-);
+  };
+}
 
-export const updateBroadcast = (update) => (
-    {
-      type: 'UPDATE_BROADCAST',
-      update,
-    }
-);
+export function updateBroadcast(update) {
+  return {
+    type: 'UPDATE_BROADCAST',
+    update,
+  };
+}
 
-export const updateSettings = (settingsUpdate) => (
-  {
+export function updateSettings(settingsUpdate) {
+  return {
     type: 'UPDATE_SETTINGS',
     settingsUpdate,
-  }
-);
+  };
+}
 
-export const toggleSetting = (name) => (dispatch, getState) => {
-  const oldSettings = getState().settings;
-  const settingsUpdate = {[name]: {$set: !oldSettings[name]}};
-  dispatch(updateSettings(settingsUpdate));
-};
+export function toggleSetting(name) {
+  return (dispatch, getState) => {
+    const oldSettings = getState().settings;
+    const settingsUpdate = {[name]: {$set: !oldSettings[name]}};
+    dispatch(updateSettings(settingsUpdate));
+  };
+}
 
-export const setRevealStep = (step) => (
-  {
+export function setRevealStep(step) {
+  return {
     type: 'SET_REVEAL_STEP',
     step,
-  }
-);
+  };
+}
 
-export const setRevealData = (reveal) => (
-  {
+export function setRevealData(reveal) {
+  return {
     type: 'SET_REVEAL_DATA',
     reveal,
-  }
-);
+  };
+}

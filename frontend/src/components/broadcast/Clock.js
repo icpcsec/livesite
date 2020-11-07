@@ -52,7 +52,7 @@ class ProgressBar extends React.Component {
   }
 }
 
-const ClockImpl = ({ times }) => {
+function ClockImpl({ times }) {
   return (
       <div>
         <div style={{
@@ -68,9 +68,11 @@ const ClockImpl = ({ times }) => {
         </div>
       </div>
   );
-};
+}
 
-const mapStateToProps = ({ feeds: { contest: { times } } }) => ({ times });
+function mapStateToProps({ feeds: { contest: { times } } }) {
+  return { times };
+}
 
 const Clock =
     connect(mapStateToProps, undefined, undefined, { pure: false })(ClockImpl);

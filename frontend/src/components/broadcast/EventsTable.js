@@ -19,7 +19,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 
 const EVENT_TIMEOUT_SECONDS = 20;
 
-const EventRow = ({type, team, problem, oldRank, newRank}) => {
+function EventRow({type, team, problem, oldRank, newRank}) {
   const rankCol =
       type === 'solved' ?
       <div style={{ flex: '0 0 auto', marginLeft: '12px' }}>
@@ -38,7 +38,7 @@ const EventRow = ({type, team, problem, oldRank, newRank}) => {
       </div>
     </div>
   );
-};
+}
 
 class EventsTableImpl extends React.Component {
   constructor(props) {
@@ -101,7 +101,9 @@ class EventsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ events, feeds: { teams, standings: { problems } } }) => ({ events, teams, problems });
+function mapStateToProps({ events, feeds: { teams, standings: { problems } } }) {
+  return { events, teams, problems }
+}
 
 const EventsTable = connect(mapStateToProps)(EventsTableImpl);
 

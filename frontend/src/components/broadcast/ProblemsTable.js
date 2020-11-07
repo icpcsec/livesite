@@ -15,13 +15,16 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const Box = ({ children }) => (
+function Box({ children }) {
+  return (
     <span style={{ display: 'inline-block', minWidth: '2ex', textAlign: 'right' }}>
       {children}
     </span>
-);
+  );
+}
 
-const ProblemRow = ({ problem: { label, color, accepts, rejects } }) => (
+function ProblemRow({ problem: { label, color, accepts, rejects } }) {
+  return (
     <div className="card">
       <div className="card-body">
         <div className="problem-row">
@@ -39,7 +42,8 @@ const ProblemRow = ({ problem: { label, color, accepts, rejects } }) => (
         </div>
       </div>
     </div>
-);
+  );
+}
 
 class ProblemsTableImpl extends React.Component {
   render() {
@@ -53,7 +57,7 @@ class ProblemsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ feeds: { standings: { problems, entries } } }) => {
+function mapStateToProps({ feeds: { standings: { problems, entries } } }) {
   const problemStats = [];
   if (entries.length > 0) {
     for (const problem of problems) {
@@ -76,7 +80,7 @@ const mapStateToProps = ({ feeds: { standings: { problems, entries } } }) => {
     }
   }
   return { problems: problemStats };
-};
+}
 
 const ProblemsTable = connect(mapStateToProps)(ProblemsTableImpl);
 

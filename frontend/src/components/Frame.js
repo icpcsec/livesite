@@ -19,7 +19,7 @@ import Footer from './common/Footer';
 import NavBar from './common/NavBar';
 import Theme from './common/Theme';
 
-const Frame = ({ children }) => {
+function Frame({ children }) {
   return (
     <div style={{width: '100%'}}>
       <Switch>
@@ -36,6 +36,6 @@ const Frame = ({ children }) => {
       <Theme />
     </div>
   );
-};
+}
 
 export default Frame;

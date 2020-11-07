@@ -62,6 +62,8 @@ class Persist {
   }
 }
 
-const createPersist = () => new Persist();
+function createPersist() {
+  return new Persist();
+}
 
 export { createPersist };

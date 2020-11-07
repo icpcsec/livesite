@@ -16,10 +16,12 @@ import React from 'react';
 
 import ConfigPanel from './ConfigPanel';
 
-const ControllerPage = () => (
+function ControllerPage() {
+  return (
     <div className="m-3">
       <ConfigPanel />
     </div>
-);
+  );
+}
 
 export default ControllerPage;

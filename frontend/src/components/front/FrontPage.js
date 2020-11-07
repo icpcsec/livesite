@@ -16,6 +16,8 @@ import React from 'react';
 
 import FrontContent from './FrontContent';
 
-const FrontPage = () => <FrontContent />;
+function FrontPage() {
+  return <FrontContent />;
+}
 
 export default FrontPage;

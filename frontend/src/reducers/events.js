@@ -12,15 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-const makeEntryMap = (entries) => {
+function makeEntryMap(entries) {
   const entryMap = {};
   for (const entry of entries) {
     entryMap[entry.teamId] = entry;
   }
   return entryMap;
-};
+}
 
-const computeEvents = (newEntries, oldEntries, teams, events = []) => {
+function computeEvents(newEntries, oldEntries, teams, events = []) {
   if (teams.length === 0 || oldEntries.length === 0 || newEntries.length === 0) {
     return events;
   }
@@ -78,18 +78,20 @@ const computeEvents = (newEntries, oldEntries, teams, events = []) => {
     }
   }
   return [].concat(events, newEvents);
-};
+}
 
-export const deriveEvents = (reducer) => (state, action) => {
-  const midState = Object.assign({}, state);
-  delete midState.events;
-  const newState = reducer(midState, action);
-  const oldEntries = ((state.feeds || {}).standings || {}).entries || [];
-  const newEntries = ((newState.feeds || {}).standings || {}).entries || [];
-  const newTeams = newState.feeds.teams || {};
-  const oldEvents = state.events || [];
-  return Object.assign(
-      {},
-      newState,
-      {events: computeEvents(newEntries, oldEntries, newTeams, oldEvents)});
-};
+export function deriveEvents(reducer) {
+  return (state, action) => {
+    const midState = Object.assign({}, state);
+    delete midState.events;
+    const newState = reducer(midState, action);
+    const oldEntries = ((state.feeds || {}).standings || {}).entries || [];
+    const newEntries = ((newState.feeds || {}).standings || {}).entries || [];
+    const newTeams = newState.feeds.teams || {};
+    const oldEvents = state.events || [];
+    return Object.assign(
+        {},
+        newState,
+        {events: computeEvents(newEntries, oldEntries, newTeams, oldEvents)});
+  };
+}

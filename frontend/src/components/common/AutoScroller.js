@@ -64,11 +64,13 @@ class AutoScrollerImpl extends React.Component {
   }
 }
 
-const AutoScrollerSelector = ({ enabled }) => (
-  enabled ? <AutoScrollerImpl /> : <div />
-);
+function AutoScrollerSelector({ enabled }) {
+  return enabled ? <AutoScrollerImpl /> : <div />
+}
 
-const mapStateToProps = ({ settings }) => ({ enabled: settings.autoscroll });
+function mapStateToProps({ settings }) {
+  return { enabled: settings.autoscroll };
+}
 
 const AutoScroller = connect(mapStateToProps)(AutoScrollerSelector);
 

@@ -22,17 +22,21 @@ import ProblemsTable from './ProblemsTable';
 import CompactStandingsTable from './CompactStandingsTable';
 import ConfigPanel from './ConfigPanel';
 
-const ClockPane = () => (
+function ClockPane() {
+  return (
     <div style={{position: 'absolute', right: '20px', top: '16px'}}>
       <Clock />
     </div>
-);
+  );
+}
 
-const EventsPane = () => (
+function EventsPane() {
+  return (
     <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
       <EventsTable />
     </div>
-);
+  );
+}
 
 class AutoPager extends React.Component {
   constructor(props) {
@@ -72,14 +76,17 @@ class AutoPager extends React.Component {
 
 const COMPACT_STANDINGS_NUM_ROWS = 17;
 
-const CompactStandingsTablePage = ({ page }) => (
+function CompactStandingsTablePage({ page }) {
+  return (
     <CompactStandingsTable
         dense={true}
         numRows={COMPACT_STANDINGS_NUM_ROWS}
         offsetRows={page * COMPACT_STANDINGS_NUM_ROWS} />
-);
+  );
+}
 
-const CompactStandingsPane = ({ page, numEntries }) => (
+function CompactStandingsPane({ page, numEntries }) {
+  return (
     <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '360px' }}>
       <AutoPager
           component={CompactStandingsTablePage}
@@ -87,17 +94,21 @@ const CompactStandingsPane = ({ page, numEntries }) => (
           page={page}
           numPages={Math.ceil(numEntries / COMPACT_STANDINGS_NUM_ROWS)} />
     </div>
-);
+  );
+}
 
 const DETAILED_STANDINGS_NUM_ROWS = 12;
 
-const DetailedStandingsTablePage = ({ page }) => (
+function DetailedStandingsTablePage({ page }) {
+  return (
     <DetailedStandingsTable
         numRows={DETAILED_STANDINGS_NUM_ROWS}
         offsetRows={page * DETAILED_STANDINGS_NUM_ROWS} />
-);
+  );
+}
 
-const DetailedStandingsPane = ({ page, numEntries }) => (
+function DetailedStandingsPane({ page, numEntries }) {
+  return (
     <div style={{ position: 'absolute', bottom: '20px', left: '320px' }}>
       <AutoPager
           component={DetailedStandingsTablePage}
@@ -105,21 +116,26 @@ const DetailedStandingsPane = ({ page, numEntries }) => (
           page={page}
           numPages={Math.ceil(numEntries / DETAILED_STANDINGS_NUM_ROWS)} />
     </div>
-);
+  );
+}
 
-const ProblemsPane = () => (
+function ProblemsPane() {
+  return (
     <div style={{ position: 'absolute', right: '40px', bottom: '20px', width: '120px' }}>
       <ProblemsTable />
     </div>
-);
+  );
+}
 
-const Frame = ({ children }) => (
+function Frame({ children }) {
+  return (
     <div className="broadcast-frame">
       {children}
     </div>
-);
+  );
+}
 
-const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
+function BroadcastPageImpl({ broadcast: { view, page }, numEntries }) {
   const panes = [
       <ClockPane key="clock" />,
       <EventsPane key="events" />,
@@ -144,9 +160,11 @@ const BroadcastPageImpl = ({ broadcast: { view, page }, numEntries }) => {
         {panes}
       </Frame>
   );
-};
+}
 
-const mapStateToProps = ({ broadcast, feeds: { standings: { entries } } }) => ({ broadcast, numEntries: entries.length });
+function mapStateToProps({ broadcast, feeds: { standings: { entries } } }) {
+  return { broadcast, numEntries: entries.length };
+}
 
 const BroadcastPage = connect(mapStateToProps)(BroadcastPageImpl);
 

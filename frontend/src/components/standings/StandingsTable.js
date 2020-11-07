@@ -32,7 +32,7 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-const achievementColor = (solved, numProblems) => {
+function achievementColor(solved, numProblems) {
   // HACK: Assume 8 problems if there is no problem settings.
   const actualNumProblems = numProblems || 8;
 
@@ -42,7 +42,7 @@ const achievementColor = (solved, numProblems) => {
   // Range is 180...-90
   const hue = 180 - (solved - 1) / (actualNumProblems - 1) * 270;
   return `hsl(${hue}, 80%, 55%)`;
-};
+}
 
 class TeamGenericCol extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -59,7 +59,7 @@ class TeamGenericCol extends React.Component {
   }
 }
 
-const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
+function LegendProblemCol({ problem: { label, title, color = 'black' } }) {
   return (
     <div className="team-col team-problem">
       <div>
@@ -72,7 +72,7 @@ const LegendProblemCol = ({ problem: { label, title, color = 'black' } }) => {
       </div>
     </div>
   );
-};
+}
 
 class LegendProblemCols extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -92,7 +92,7 @@ class LegendProblemCols extends React.Component {
   }
 }
 
-const LegendRow = ({ problems }) => {
+function LegendRow({ problems }) {
   return (
     <div className="team-row legend">
       <div className="team-col team-mark"></div>
@@ -102,9 +102,9 @@ const LegendRow = ({ problems }) => {
       <LegendProblemCols problems={problems} />
     </div>
   );
-};
+}
 
-const TeamPinCol = ({ pinned, onClick, revealMode }) => {
+function TeamPinCol({ pinned, onClick, revealMode }) {
   if (revealMode) {
     return <div />;
   }
@@ -115,17 +115,17 @@ const TeamPinCol = ({ pinned, onClick, revealMode }) => {
       <i className={className} onClick={onClick} />
     </div>
   );
-};
+}
 
-const TeamRevealStateCol = ({ revealMode, revealState }) => {
+function TeamRevealStateCol({ revealMode, revealState }) {
   if (!revealMode) {
     return <div />;
   }
   const mark = revealState === 'finalized' && <span className="fas fa-check" />;
   return <div className="team-col team-mark">{mark}</div>;
-};
+}
 
-const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
+function TeamScoreCol({ solved, penalty, problemSpecs }) {
   const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <div className="team-col team-score">
@@ -136,9 +136,9 @@ const TeamScoreCol = ({ solved, penalty, problemSpecs }) => {
       </div>
     </div>
   );
-};
+}
 
-const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved }, problemSpec: { label }, revealMode }) => {
+function TeamProblemCol({ problem: { attempts, penalty, pendings, solved }, problemSpec: { label }, revealMode }) {
   let status;
   let content;
   if (solved) {
@@ -195,9 +195,9 @@ const TeamProblemCol = ({ problem: { attempts, penalty, pendings, solved }, prob
       <div className="team-colored-col-fg">{content}</div>
     </div>
   );
-};
+}
 
-const TeamProblemCols = ({ problems, problemSpecs, revealMode }) => {
+function TeamProblemCols({ problems, problemSpecs, revealMode }) {
   const problemCols = problems.map((problem, i) => (
     <TeamProblemCol key={i} problem={problem} problemSpec={problemSpecs[i]} revealMode={revealMode} />
   ));
@@ -206,7 +206,7 @@ const TeamProblemCols = ({ problems, problemSpecs, revealMode }) => {
       { problemCols }
     </div>
   );
-};
+}
 
 class TeamRowLeft extends React.Component {
   shouldComponentUpdate(nextProps, nextState) {
@@ -277,14 +277,16 @@ class TeamRow extends React.Component {
   }
 }
 
-const RevealRow = (props) => (
-  <div className="reveal-row no-animation">
-    <TeamRow {...props} />
-    <div className="reveal-marker" />
-  </div>
-);
+function RevealRow(props) {
+  return (
+    <div className="reveal-row no-animation">
+      <TeamRow {...props} />
+      <div className="reveal-marker" />
+    </div>
+  );
+}
 
-const computeUniversityRanks = (entries, teams) => {
+function computeUniversityRanks(entries, teams) {
   const universityToEntries = {};
   entries.forEach((entry) => {
     const team = teams[entry.teamId];
@@ -308,7 +310,7 @@ const computeUniversityRanks = (entries, teams) => {
     });
   });
   return universityRanks;
-};
+}
 
 export class StandingsTableImpl extends React.Component {
   handleClickPin(teamId) {
@@ -394,23 +396,23 @@ export class StandingsTableImpl extends React.Component {
   }
 }
 
-const mapStateToProps = ({ feeds: { standings: { problems, entries }, teams }, settings: { pinnedTeamIds } }) => {
+function mapStateToProps({ feeds: { standings: { problems, entries }, teams }, settings: { pinnedTeamIds } }) {
   return {
     entries,
     teams,
     problems,
     pinnedTeamIds,
   };
-};
+}
 
-const mapDispatchToProps = (dispatch) => {
+function mapDispatchToProps(dispatch) {
   const setPinnedTeamIds = (teamIds) => {
     dispatch(updateSettings({pinnedTeamIds: {$set: Array.from(teamIds)}}));
   };
   return { setPinnedTeamIds };
-};
+}
 
-const mergeProps = (stateProps, dispatchProps, ownProps) => {
+function mergeProps(stateProps, dispatchProps, ownProps) {
   const togglePin = (teamId) => {
     const { pinnedTeamIds } = stateProps;
     const { setPinnedTeamIds } = dispatchProps;
@@ -426,7 +428,7 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   };
   const extraProps = { togglePin };
   return Object.assign({}, ownProps, stateProps, dispatchProps, extraProps);
-};
+}
 
 const StandingsTable =
     connect(mapStateToProps, mapDispatchToProps, mergeProps)(StandingsTableImpl);

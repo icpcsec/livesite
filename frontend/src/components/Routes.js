@@ -31,7 +31,7 @@ import LoadingPage from './LoadingPage';
 import siteconfig from '../siteconfig';
 
 
-const Routes = () => {
+function Routes() {
   const teamPageRoute = siteconfig.features.teamPage ?
       <Route path="/team/:requestedTeamId" component={TeamInfoPage}/> :
       null;
@@ -73,6 +73,6 @@ const Routes = () => {
         </Switch>
       </BrowserRouter>
   );
-};
+}
 
 export default Routes;

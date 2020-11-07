@@ -14,7 +14,7 @@
 
 import React from 'react';
 
-const FixedRatioThumbnail = ({ url, ratio }) => {
+function FixedRatioThumbnail({ url, ratio }) {
   const paddingTop = 100 * ratio + '%';
   const backgroundImage = `url("${url}")`;
   return (
@@ -33,6 +33,6 @@ const FixedRatioThumbnail = ({ url, ratio }) => {
       </div>
     </div>
   );
-};
+}
 
 export default FixedRatioThumbnail;
