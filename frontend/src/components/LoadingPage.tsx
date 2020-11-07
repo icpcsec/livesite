@@ -12,34 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 
-class LoadingPage extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { seconds: 0 };
-  }
+function LoadingPage() {
+  const [tick, setTick] = useState(0);
 
-  componentDidMount() {
-    this.timer_ = setInterval(
-        () => this.setState({ seconds: this.state.seconds + 1 }),
+  useEffect(() => {
+    const timer = window.setTimeout(
+        () => setTick(tick + 1),
         500);
-  }
+    return () => {
+      window.clearTimeout(timer);
+    };
+  }, [tick]);
 
-  componentWillUnmount() {
-    clearInterval(this.timer_);
-  }
-
-  render() {
-    const message = 'Loading.' + '.'.repeat(this.state.seconds % 3);
-    return (
-      <div className="container">
-        <h1 className="my-3">
-          {message}
-        </h1>
-      </div>
-    );
-  }
+  const message = 'Loading.' + '.'.repeat(tick % 3);
+  return (
+    <div className="container">
+      <h1 className="my-3">
+        {message}
+      </h1>
+    </div>
+  );
 }
 
 export default LoadingPage;
