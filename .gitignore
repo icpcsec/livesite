@@ -9,6 +9,7 @@
 .DS_Store
 
 node_modules
+/database-debug.log
 /firebase-debug.log
 /.firebaserc
 /public/.dev
