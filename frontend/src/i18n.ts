@@ -12,16 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export const printBanner = () => {
-  console.log(
-    ' _     _           _____ _ _       \n' +
-    '| |   (_)         /  ___(_) |      \n' +
-    '| |    ___   _____\\ `--. _| |_ ___ \n' +
-    '| |   | \\ \\ / / _ \\`--. \\ | __/ _ \\\n' +
-    '| |___| |\\ V /  __/\\__/ / | ||  __/\n' +
-    '\\_____/_| \\_/ \\___\\____/|_|\\__\\___|\n' +
-    '\n' +
-    '  Authored by @nya3jp\n' +
-    '  Presented by ICPC Secretaries'
-  );
-};
+import siteconfig from './siteconfig';
+
+export function tr(en: string, ja: string): string {
+  return siteconfig.ui.lang === 'ja' ? ja : en;
+}

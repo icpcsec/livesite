@@ -12,25 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export class TimerSet {
-  constructor() {
-    this.timers_ = new Set();
-  }
-
-  setTimeout(callback, timeout) {
-    const timer = setTimeout(() => {
-      if (this.timers_.has(timer)) {
-        this.timers_.delete(timer);
-        callback();
-      }
-    }, timeout);
-    this.timers_.add(timer);
-  }
-
-  clearTimeouts() {
-    this.timers_.forEach((timer) => {
-      clearTimeout(timer);
-    });
-    this.timers_.clear();
-  }
+export function printBanner() {
+  console.log(
+    ' _     _           _____ _ _       \n' +
+    '| |   (_)         /  ___(_) |      \n' +
+    '| |    ___   _____\\ `--. _| |_ ___ \n' +
+    '| |   | \\ \\ / / _ \\`--. \\ | __/ _ \\\n' +
+    '| |___| |\\ V /  __/\\__/ / | ||  __/\n' +
+    '\\_____/_| \\_/ \\___\\____/|_|\\__\\___|\n' +
+    '\n' +
+    '  Authored by @nya3jp\n' +
+    '  Presented by ICPC Secretaries'
+  );
 }

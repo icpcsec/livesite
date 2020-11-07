@@ -12,8 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import siteconfig from './siteconfig';
+export class TimerSet {
+  timers_: Set<number>
 
-export const tr = (en, ja) => {
-  return siteconfig.ui.lang === 'ja' ? ja : en;
-};
+  constructor() {
+    this.timers_ = new Set<number>();
+  }
+
+  setTimeout(callback: () => void, timeout: number) {
+    const timer = window.setTimeout(() => {
+      if (this.timers_.has(timer)) {
+        this.timers_.delete(timer);
+        callback();
+      }
+    }, timeout);
+    this.timers_.add(timer);
+  }
+
+  clearTimeouts() {
+    this.timers_.forEach((timer) => {
+      clearTimeout(timer);
+    });
+    this.timers_.clear();
+  }
+}
