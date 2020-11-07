@@ -1,6 +1,6 @@
 const path = require('path');
 
-const publicDir = path.resolve(__dirname, 'public');
+const outDir = path.resolve(__dirname, 'out');
 
 module.exports = {
   mode: 'production',
@@ -20,6 +20,6 @@ module.exports = {
   },
   output: {
     filename: 'bundle.js',
-    path: path.join(publicDir, 'assets/livesite/js'),
+    path: outDir,
   },
 };
