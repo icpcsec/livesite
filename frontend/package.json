@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "serve": "firebase emulators:exec --project=fake devserver/boot.sh",
-    "build": "webpack",
-    "watch": "webpack -w",
+    "build": "webpack --mode=production",
+    "watch": "webpack -w --mode=development",
     "lint": "eslint src",
     "deploy": "npm run build && firebase deploy"
   },
