@@ -32,6 +32,7 @@ How to run locally
 Initial setup:
 
 ```
+$ cd frontend
 $ npm install
 ```
 
