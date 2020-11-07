@@ -2,7 +2,6 @@
   "name": "livesite",
   "version": "1.0.0",
   "description": "",
-  "main": "js/index.js",
   "scripts": {
     "serve": "firebase emulators:exec --project=fake devserver/boot.sh",
     "build": "webpack",

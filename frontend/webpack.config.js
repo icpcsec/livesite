@@ -5,7 +5,7 @@ const outDir = path.resolve(__dirname, 'out');
 module.exports = {
   mode: 'production',
   target: 'web',
-  entry: './js/index.js',
+  entry: './src/index.js',
   module: {
     rules: [
       {
