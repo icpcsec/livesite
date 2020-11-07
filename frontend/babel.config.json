@@ -5,7 +5,8 @@
         "browsers": ["last 2 Chrome versions", "Firefox ESR"]
       }
     }],
-    "@babel/preset-react"
+    "@babel/preset-react",
+    "@babel/preset-typescript"
   ],
   "plugins": [
     ["@babel/plugin-proposal-object-rest-spread", {
