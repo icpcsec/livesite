@@ -3,6 +3,8 @@
     "module": "commonjs",
     "target": "es6",
     "strict": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
     "inlineSourceMap": true
   }
 }
