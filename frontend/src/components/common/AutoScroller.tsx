@@ -14,21 +14,24 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import * as $ from 'jquery';
 
 class AutoScrollerImpl extends React.Component {
+  private running: boolean = false
+
   componentDidMount() {
-    this._running = true;
-    setTimeout(() => this.run_(), 1000);
+    this.running = true;
+    setTimeout(() => this.run(), 1000);
   }
 
   componentWillUnmount() {
-    this._running = false;
+    this.running = false;
     const $screen = $('body,html');
     $screen.stop();
   }
 
-  run_() {
-    if (!this._running) {
+  private run() {
+    if (!this.running) {
       return;
     }
     const pixelsPerSecond = 100;
@@ -37,15 +40,15 @@ class AutoScrollerImpl extends React.Component {
     const $screen = $('body,html');
     const $body = $('body');
     const doScroll = () => {
-      if (!this._running) {
+      if (!this.running) {
         return;
       }
-      $screen.scrollTop($body.height());
+      $screen.scrollTop($body.height() as number);
       setTimeout(() => {
         $screen.animate(
           { scrollTop: 0 },
           {
-            duration: $body.height() / pixelsPerSecond * 1000,
+            duration: ($body.height() as number) / pixelsPerSecond * 1000,
             easing: 'linear',
             done: scrollDone,
           });
@@ -55,7 +58,7 @@ class AutoScrollerImpl extends React.Component {
       $screen.stop();
       setTimeout(() => this.run(), postWaitSeconds * 1000);
     };
-    $screen.scrollTop($body.height());
+    $screen.scrollTop($body.height() as number);
     setTimeout(doScroll, preWaitSeconds * 1000);
   }
 
@@ -64,11 +67,11 @@ class AutoScrollerImpl extends React.Component {
   }
 }
 
-function AutoScrollerSelector({ enabled }) {
+function AutoScrollerSelector({ enabled }: { enabled: boolean }) {
   return enabled ? <AutoScrollerImpl /> : <div />
 }
 
-function mapStateToProps({ settings }) {
+function mapStateToProps({ settings }: { settings: { autoscroll: boolean } }) {
   return { enabled: settings.autoscroll };
 }
 
