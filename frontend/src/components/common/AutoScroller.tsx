@@ -14,7 +14,7 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import * as $ from 'jquery';
+import $ from 'jquery';
 
 class AutoScrollerImpl extends React.Component {
   private running: boolean = false
