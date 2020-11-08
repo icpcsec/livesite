@@ -7,6 +7,8 @@
     "build": "webpack --mode=production",
     "watch": "webpack -w --mode=development",
     "lint": "eslint src",
+    "test": "npm run test:smoke",
+    "test:smoke": "firebase emulators:exec --project=fake devserver/smoke.sh",
     "deploy": "npm run build && firebase deploy"
   },
   "keywords": [],
@@ -48,6 +50,7 @@
     "webpack-cli": "^4.2.0"
   },
   "devDependencies": {
+    "cypress": "^5.5.0",
     "eslint": "^7.13.0",
     "eslint-plugin-react": "^7.21.5",
     "license-checker": "^24.1.0"
