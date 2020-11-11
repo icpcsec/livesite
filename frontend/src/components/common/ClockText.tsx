@@ -12,53 +12,36 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import {connect} from 'react-redux';
 import {sprintf} from 'sprintf-js';
-import { Contest, State } from '../../data';
+import { ContestTimes, State } from '../../data';
 
-interface ClockTextProps {
-  contest: Contest
+function formatClock(times: ContestTimes): string {
+  const { start = 0, end = 0, scale = 1 } = times;
+  const now = new Date().getTime() / 1000;
+  const delta = Math.max(end, now) - Math.max(start, now);
+  const deltaScaled = delta * scale;
+  return sprintf(
+      '%d:%02d:%02d',
+      Math.floor(deltaScaled / 60 / 60),
+      Math.floor(deltaScaled / 60) % 60,
+      Math.floor(deltaScaled) % 60);
 }
 
-interface ClockTextState {
-  text: string
-}
-
-class ClockTextImpl extends React.Component<ClockTextProps, ClockTextState> {
-  private timer?: number
-
-  updateText_() {
-    const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
-    const now = new Date().getTime() / 1000;
-    const delta = Math.max(end, now) - Math.max(start, now);
-    const deltaScaled = delta * scale;
-    const text = sprintf(
-        '%d:%02d:%02d',
-        Math.floor(deltaScaled / 60 / 60),
-        Math.floor(deltaScaled / 60) % 60,
-        Math.floor(deltaScaled) % 60);
-    this.setState({ text });
-  }
-
-  componentWillMount() {
-    this.updateText_();
-    const { scale = 1 } = this.props.contest.times;
+export function ClockTextImpl({ times }: { times: ContestTimes }) {
+  const [text, setText] = useState(() => formatClock(times));
+  useEffect(() => {
+    const { scale = 1 } = times;
     const updateInterval = Math.max(1000 / scale, 100);
-    this.timer = window.setInterval(() => this.updateText_(), updateInterval);
-  }
-
-  componentWillUnmount() {
-    window.clearInterval(this.timer);
-  }
-
-  render() {
-    return <span>{this.state.text}</span>;
-  }
+    const timer = window.setInterval(() => setText(formatClock(times)), updateInterval);
+    return () => window.clearInterval(timer);
+  }, [times]);
+  return <span>{text}</span>;
 }
 
-function mapStateToProps({ feeds: { contest } }: State) {
-  return { contest };
+function mapStateToProps({ feeds: { contest: { times } } }: State) {
+  return { times };
 }
 
 const ClockText = connect(mapStateToProps)(ClockTextImpl);
