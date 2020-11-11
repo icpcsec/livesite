@@ -13,22 +13,20 @@
 // limitations under the License.
 
 import React from 'react';
-import { connect } from 'react-redux';
 
-function FooterImpl({ contest }) {
+interface GridFlowProps {
+  className: string
+  children: React.ReactNode[]
+}
+
+function GridFlow({ className, children }: GridFlowProps) {
+  const elements = children.map(
+      (e, i) => <div key={i} className={className}>{e}</div>);
   return (
-    <footer>
-      <div className="container-fluid" style={{ textAlign: 'right' }}>
-        {contest.title}
-      </div>
-    </footer>
+    <div className="row">
+      {elements}
+    </div>
   );
 }
 
-function mapStateToProps({ feeds: { contest } }) {
-  return { contest };
-}
-
-const Footer = connect(mapStateToProps)(FooterImpl);
-
-export default Footer;
+export default GridFlow;

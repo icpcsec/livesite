@@ -14,14 +14,30 @@
 
 import React from 'react';
 
-function GridFlow({ className, children }) {
-  const elements = children.map(
-      (e, i) => <div key={i} className={className}>{e}</div>);
+interface FixedRatioThumbnailProps {
+  url: string
+  ratio: number
+}
+
+function FixedRatioThumbnail({ url, ratio }: FixedRatioThumbnailProps) {
+  const paddingTop = 100 * ratio + '%';
+  const backgroundImage = `url("${url}")`;
   return (
-    <div className="row">
-      {elements}
+    <div style={{ position: 'relative' }}>
+      <div style={{ paddingTop }}>
+        <div style={{
+          position: 'absolute',
+          left: '0',
+          top: '0',
+          right: '0',
+          bottom: '0',
+          backgroundImage: backgroundImage,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center center',
+        }} />
+      </div>
     </div>
   );
 }
 
-export default GridFlow;
+export default FixedRatioThumbnail;

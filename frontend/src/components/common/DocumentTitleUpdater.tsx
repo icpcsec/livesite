@@ -12,17 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react';
+import { connect } from 'react-redux';
 
-function ErrorMessage({ header, body }) {
-  return (
-    <div>
-      <div className="page-header">
-        <h1>{header}</h1>
-      </div>
-      <p>{body}</p>
-    </div>
-  );
+import DocumentTitle from 'react-document-title';
+import { State } from '../../data';
+
+function mapStateToProps({ feeds: { contest: { title } } }: State) {
+  return { title: (title || 'LiveSite') };
 }
 
-export default ErrorMessage;
+const DocumentTitleUpdater = connect(mapStateToProps)(DocumentTitle);
+
+export default DocumentTitleUpdater;

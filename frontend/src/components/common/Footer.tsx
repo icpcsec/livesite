@@ -13,26 +13,23 @@
 // limitations under the License.
 
 import React from 'react';
+import { connect } from 'react-redux';
+import { Contest, State } from '../../data';
 
-function FixedRatioThumbnail({ url, ratio }) {
-  const paddingTop = 100 * ratio + '%';
-  const backgroundImage = `url("${url}")`;
+function FooterImpl({ contest }: { contest: Contest }) {
   return (
-    <div style={{ position: 'relative' }}>
-      <div style={{ paddingTop }}>
-        <div style={{
-          position: 'absolute',
-          left: '0',
-          top: '0',
-          right: '0',
-          bottom: '0',
-          backgroundImage: backgroundImage,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-        }} />
+    <footer>
+      <div className="container-fluid" style={{ textAlign: 'right' }}>
+        {contest.title}
       </div>
-    </div>
+    </footer>
   );
 }
 
-export default FixedRatioThumbnail;
+function mapStateToProps({ feeds: { contest } }: State) {
+  return { contest };
+}
+
+const Footer = connect(mapStateToProps)(FooterImpl);
+
+export default Footer;
