@@ -15,8 +15,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {sprintf} from 'sprintf-js';
+import { Contest, State } from '../../data';
 
-class ClockTextImpl extends React.Component {
+interface ClockTextProps {
+  contest: Contest
+}
+
+interface ClockTextState {
+  text: string
+}
+
+class ClockTextImpl extends React.Component<ClockTextProps, ClockTextState> {
+  private timer?: number
+
   updateText_() {
     const { start = 0, end = 0, scale = 1 } = this.props.contest.times;
     const now = new Date().getTime() / 1000;
@@ -34,11 +45,11 @@ class ClockTextImpl extends React.Component {
     this.updateText_();
     const { scale = 1 } = this.props.contest.times;
     const updateInterval = Math.max(1000 / scale, 100);
-    this._timer = setInterval(() => this.updateText_(), updateInterval);
+    this.timer = window.setInterval(() => this.updateText_(), updateInterval);
   }
 
   componentWillUnmount() {
-    clearInterval(this._timer);
+    window.clearInterval(this.timer);
   }
 
   render() {
@@ -46,7 +57,7 @@ class ClockTextImpl extends React.Component {
   }
 }
 
-function mapStateToProps({ feeds: { contest } }) {
+function mapStateToProps({ feeds: { contest } }: State) {
   return { contest };
 }
 
