@@ -19,6 +19,20 @@ import bs4
 
 from livecli.scrapers import base
 
+_DEFAULT_COLORS = (
+    '#F44336',  # red
+    '#4CAF50',  # green
+    '#EAD61E',  # yellow
+    '#3F51B5',  # blue
+    '#F48FB1',  # pink
+    '#FF9800',  # orange
+    '#81D4FA',  # cyan
+    '#E040FB',  # purple
+    '#76FF03',  # light green
+    '#FFFFFF',  # white
+    '#000000',  # black
+)
+
 
 class DomjudgeScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
@@ -29,16 +43,20 @@ class DomjudgeScraper(base.Scraper):
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
         scoreheader_elem = doc.select('.scoreheader')[0]
-        for problem_elem in scoreheader_elem.select('th')[3:]:
+        for index_problem, problem_elem in enumerate(scoreheader_elem.select('th')[3:]):
             label = problem_elem.get_text().strip()
             tooltip = problem_elem.attrs.get('title', '')
             if tooltip.startswith('problem '):
                 name = tooltip[len('problem '):].strip(' \'')
             else:
                 name = ''
-            style = problem_elem.select('.circle')[0].attrs.get('style', '')
-            m = re.search(r'background:\s*([^\s;]+)\s*;', style)
-            color = m.group(1) if m else ''
+            circles = problem_elem.select('.circle')
+            if circles:
+                style = circles[0].attrs.get('style', '')
+                m = re.search(r'background:\s*([^\s;]+)\s*;', style)
+                color = m.group(1) if m else ''
+            else:
+                color = _DEFAULT_COLORS[index_problem % len(_DEFAULT_COLORS)]
             standings['problems'].append({
                 'label': label,
                 'name': name,
