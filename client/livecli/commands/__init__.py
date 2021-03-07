@@ -59,6 +59,9 @@ def make_parser() -> argparse.ArgumentParser:
         '--log-dir', help='Path to log output dir')
     scrape_common_parser.add_argument(
         '--test-with-local-file', help='Scrape from a file and exit without uploading')
+    scrape_common_parser.add_argument(
+        '--no-upload', action='store_false', dest='upload',
+        help='Do not upload scraped data')
 
     scrape_parser = root_subparsers.add_parser('scrape')
     scrape_parser.set_defaults(handler=scrape.scrape_main)

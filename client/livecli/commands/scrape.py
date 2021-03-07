@@ -106,6 +106,9 @@ def scrape_main(options: argparse.Namespace) -> None:
                 json.dump(standings, f, separators=(',', ':'), sort_keys=True)
             if standings is not None and standings != last_standings:
                 logging.info('Updating the feeds...')
+                if not options.upload:
+                    logging.warning('Not uploading because of --no-upload flag')
+                    continue
                 client.set_feeds({types.FeedType.STANDINGS: standings})
                 last_standings = standings
             else:
