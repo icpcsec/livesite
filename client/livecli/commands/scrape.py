@@ -66,13 +66,26 @@ def scrape_main(options: argparse.Namespace) -> None:
     email = client.get_email()
     logging.info('Logged in as: %s', email)
 
-    logging.debug('Getting the initial feeds...')
+    logging.info('Getting initial feeds...')
     init_feeds = client.get_feeds()
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
     session = requests.Session()
 
-    logging.info('OK.')
+    logging.info('Attempting an initial scrape...')
+    r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
+    r.raise_for_status()
+    try:
+        scraper.scrape(r.text)
+    except base.NeedLoginException:
+        logging.info('Logging in...')
+        scraper.login(session)
+        logging.info('Attempting an initial scrape after login...')
+        r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
+        r.raise_for_status()
+        scraper.scrape(r.text)
+
+    logging.info('Ready.')
 
     while True:
         if options.auto_exit_minutes > 0:
@@ -97,14 +110,14 @@ def scrape_main(options: argparse.Namespace) -> None:
         _wait_next_tick(options.interval_seconds)
 
         try:
+            logging.info('Scraping...')
             timestamp = int(time.time())
             r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
             with open(os.path.join(log_dir, 'standings.%d.html' % timestamp), 'wb') as f:
                 f.write(r.content)
             r.raise_for_status()
-            html = r.text
             try:
-                standings = scraper.scrape(html)
+                standings = scraper.scrape(r.text)
             except base.NeedLoginException:
                 logging.info('Logging in...')
                 scraper.login(session)
@@ -113,13 +126,13 @@ def scrape_main(options: argparse.Namespace) -> None:
             with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
                 json.dump(standings, f, separators=(',', ':'), sort_keys=True)
             if standings is not None and standings != last_standings:
-                logging.info('Updating the feeds...')
+                logging.info('Updating feeds...')
                 if not options.upload:
                     logging.warning('Not uploading because of --no-upload flag')
                     continue
                 client.set_feeds({types.FeedType.STANDINGS: standings})
                 last_standings = standings
             else:
-                logging.info('No update.')
+                logging.info('No update')
         except Exception:
             logging.exception('Unhandled exception')

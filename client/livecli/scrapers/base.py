@@ -60,4 +60,4 @@ class Scraper(abc.ABC):
         ...
 
     def login(self, session: requests.Session) -> None:
-        raise NotImplementedError('Login not implemented')
+        pass
