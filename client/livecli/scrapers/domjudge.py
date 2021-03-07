@@ -16,6 +16,7 @@ import argparse
 import re
 
 import bs4
+import requests
 
 from livecli.scrapers import base
 
@@ -39,9 +40,13 @@ class DomjudgeScraper(base.Scraper):
         self._options = options
 
     def scrape_impl(self, html: str) -> dict:
+        doc = bs4.BeautifulSoup(html, 'html5lib')
+
+        if doc.select('#loginform'):
+            raise base.NeedLoginException()
+
         standings = {'problems': [], 'entries': []}
 
-        doc = bs4.BeautifulSoup(html, 'html5lib')
         scoreheader_elem = doc.select('.scoreheader')[0]
         for index_problem, problem_elem in enumerate(scoreheader_elem.select('th')[3:]):
             label = problem_elem.get_text().strip()
@@ -107,3 +112,24 @@ class DomjudgeScraper(base.Scraper):
                 'problems': team_problems,
             })
         return standings
+
+    def login(self, session: requests.Session) -> None:
+        r = session.get(self._options.login_url)
+        r.raise_for_status()
+
+        doc = bs4.BeautifulSoup(r.text, 'html5lib')
+        form = doc.select('#loginform form')[0]
+
+        params = {}
+        for kv in form.select('input[type=hidden]'):
+            params[kv.attrs['name']] = kv.attrs['value']
+        params['_username'] = self._options.login_user
+        params['_password'] = self._options.login_password
+
+        r = session.post(self._options.login_url, params)
+        r.raise_for_status()
+
+        doc = bs4.BeautifulSoup(r.text, 'html5lib')
+        alerts = doc.select('#loginform .login-content .alert')
+        if alerts:
+            raise Exception('Login failed: %s' % alerts[0].get_text())

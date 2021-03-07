@@ -76,4 +76,7 @@ def make_parser() -> argparse.ArgumentParser:
 
     domjudge_parser = scrape_subparsers.add_parser('domjudge', parents=[scrape_common_parser])
     domjudge_parser.set_defaults(scraper_class=domjudge.DomjudgeScraper)
+    domjudge_parser.add_argument('--login-url', help='Login URL')
+    domjudge_parser.add_argument('--login-user', help='Login user name')
+    domjudge_parser.add_argument('--login-password', help='Login password')
     return root_parser

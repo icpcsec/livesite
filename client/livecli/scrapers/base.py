@@ -14,6 +14,7 @@
 
 import abc
 
+import requests
 
 _DEFAULT_PROBLEMS = [
     {
@@ -41,6 +42,10 @@ _INIT_PROBLEM_STATUS = {
 }
 
 
+class NeedLoginException(Exception):
+    pass
+
+
 class Scraper(abc.ABC):
     def scrape(self, html: str) -> dict:
         standings = self.scrape_impl(html)
@@ -53,3 +58,6 @@ class Scraper(abc.ABC):
     @abc.abstractmethod
     def scrape_impl(self, html: str) -> dict:
         ...
+
+    def login(self, session: requests.Session) -> None:
+        raise NotImplementedError('Login not implemented')

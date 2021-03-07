@@ -70,6 +70,8 @@ def scrape_main(options: argparse.Namespace) -> None:
     init_feeds = client.get_feeds()
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
+    session = requests.Session()
+
     logging.info('OK.')
 
     while True:
@@ -96,12 +98,18 @@ def scrape_main(options: argparse.Namespace) -> None:
 
         try:
             timestamp = int(time.time())
-            r = requests.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
+            r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
             with open(os.path.join(log_dir, 'standings.%d.html' % timestamp), 'wb') as f:
                 f.write(r.content)
             r.raise_for_status()
             html = r.text
-            standings = scraper.scrape(html)
+            try:
+                standings = scraper.scrape(html)
+            except base.NeedLoginException:
+                logging.info('Logging in...')
+                scraper.login(session)
+                logging.info('Login success')
+                continue
             with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
                 json.dump(standings, f, separators=(',', ':'), sort_keys=True)
             if standings is not None and standings != last_standings:
