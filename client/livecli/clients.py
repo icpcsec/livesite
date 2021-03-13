@@ -96,8 +96,8 @@ class Client(abc.ABC):
 
 class DevClient(Client):
     STATIC_URL = 'http://localhost:5000'
-    FIREBASE_URL = 'http://localhost:5001'
-    DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../public/.dev')
+    FIREBASE_URL = 'http://localhost:9000'
+    DEMODATA_DIR = os.path.join(os.path.dirname(__file__), '../../frontend/public/.dev')
 
     def __init__(self):
         self._session = requests.Session()
