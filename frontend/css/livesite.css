@@ -221,7 +221,7 @@ a.no-decoration {
   transition: background-color 1s linear;
 }
 
-@media (max-width: 1023px) {
+@media (max-width: 767px) {
   .events {
     display: none !important;
   }
