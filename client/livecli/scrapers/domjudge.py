@@ -34,6 +34,8 @@ _DEFAULT_COLORS = (
     '#000000',  # black
 )
 
+_LABEL_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
 
 class DomjudgeScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
@@ -52,7 +54,8 @@ class DomjudgeScraper(base.Scraper):
             raise Exception('Scoreboard not available yet')
         scoreheader_elem = scoreheader_elems[0]
         for index_problem, problem_elem in enumerate(scoreheader_elem.select('th')[3:]):
-            label = problem_elem.get_text().strip()
+            # label = problem_elem.get_text().strip()
+            label = _LABEL_CHARS[index_problem % len(_LABEL_CHARS)]
             tooltip = problem_elem.attrs.get('title', '')
             if tooltip.startswith('problem '):
                 name = tooltip[len('problem '):].strip(' \'')
