@@ -70,7 +70,8 @@ class DomjudgeScraper(base.Scraper):
                 color = _DEFAULT_COLORS[index_problem % len(_DEFAULT_COLORS)]
             standings['problems'].append({
                 'label': label,
-                'name': name,
+                # 'name': name,
+                'name': label,
                 'color': color,
             })
 
