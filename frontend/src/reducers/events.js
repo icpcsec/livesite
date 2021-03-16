@@ -20,12 +20,14 @@ function makeEntryMap(entries) {
   return entryMap;
 }
 
-function computeEvents(newEntries, oldEntries, teams, events = []) {
+function computeEvents(newEntries, oldEntries, teams, times, events = []) {
   if (teams.length === 0 || oldEntries.length === 0 || newEntries.length === 0) {
     return events;
   }
 
   const now = new Date().getTime() / 1000;
+
+  const freezeTime = times.freeze || 0;
 
   const newEvents = [];
 
@@ -65,14 +67,16 @@ function computeEvents(newEntries, oldEntries, teams, events = []) {
             problemIndex: problemIndex,
           });
         }
-        for (let pendingIndex = oldProblem.pendings; pendingIndex < newProblem.pendings; ++pendingIndex) {
-          newEvents.push({
-            eventId: `${now}.${teamId}.${problemIndex}.pending.${pendingIndex}`,
-            time: now,
-            type: 'pending',
-            teamId,
-            problemIndex: problemIndex,
-          });
+        if (now >= freezeTime) {
+          for (let pendingIndex = oldProblem.pendings; pendingIndex < newProblem.pendings; ++pendingIndex) {
+            newEvents.push({
+              eventId: `${now}.${teamId}.${problemIndex}.pending.${pendingIndex}`,
+              time: now,
+              type: 'pending',
+              teamId,
+              problemIndex: problemIndex,
+            });
+          }
         }
       }
     }
@@ -88,10 +92,11 @@ export function deriveEvents(reducer) {
     const oldEntries = ((state.feeds || {}).standings || {}).entries || [];
     const newEntries = ((newState.feeds || {}).standings || {}).entries || [];
     const newTeams = newState.feeds.teams || {};
+    const newTimes = (newState.feeds.contest || {}).times || {};
     const oldEvents = state.events || [];
     return Object.assign(
         {},
         newState,
-        {events: computeEvents(newEntries, oldEntries, newTeams, oldEvents)});
+        {events: computeEvents(newEntries, oldEntries, newTeams, newTimes, oldEvents)});
   };
 }
