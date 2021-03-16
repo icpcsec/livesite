@@ -112,7 +112,7 @@ def scrape_main(options: argparse.Namespace) -> None:
         _wait_next_tick(options.interval_seconds)
 
         try:
-            logging.info('Scraping...')
+            logging.info('Scraping...%s' % ('' if options.upload and upload else ' (dry-run)'))
             timestamp = int(time.time())
             r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
             with open(os.path.join(log_dir, 'standings.%d.html' % timestamp), 'wb') as f:
