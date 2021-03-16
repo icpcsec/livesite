@@ -54,7 +54,9 @@ def make_parser() -> argparse.ArgumentParser:
     scrape_common_parser.add_argument(
         '--interval-seconds', type=int, default=10, help='Interval to scrape in seconds')
     scrape_common_parser.add_argument(
-        '--auto-exit-minutes', type=int, default=5, help='Exit automatically after specified seconds')
+        '--pre-contest-minutes', type=int, default=10, help='When to start uploading')
+    scrape_common_parser.add_argument(
+        '--post-contest-minutes', type=int, default=10, help='When to stop uploading')
     scrape_common_parser.add_argument(
         '--log-dir', help='Path to log output dir')
     scrape_common_parser.add_argument(

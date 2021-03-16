@@ -76,36 +76,38 @@ def scrape_main(options: argparse.Namespace) -> None:
     r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
     r.raise_for_status()
     try:
-        scraper.scrape(r.text)
-    except base.NeedLoginException:
-        logging.info('Logging in...')
-        scraper.login(session)
-        logging.info('Attempting an initial scrape after login...')
-        r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
-        r.raise_for_status()
-        scraper.scrape(r.text)
-
-    logging.info('Ready.')
+        try:
+            scraper.scrape(r.text)
+        except base.NeedLoginException:
+            logging.info('Logging in...')
+            scraper.login(session)
+            logging.info('Attempting an initial scrape after login...')
+            r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
+            r.raise_for_status()
+            scraper.scrape(r.text)
+    except Exception:
+        logging.exception('Unhandled exception')
+    else:
+        logging.info('Ready.')
 
     while True:
-        if options.auto_exit_minutes > 0:
-            try:
-                feeds = client.get_feeds()
-                contest = feeds[types.FeedType.CONTEST]
-                end_time = datetime.datetime.fromtimestamp(
-                    contest['times']['end'])
-                exit_time = end_time + datetime.timedelta(
-                    minutes=options.auto_exit_minutes)
-                now = datetime.datetime.now()
-                if now >= exit_time:
-                    logging.info('Exiting automatically')
-                    break
-                elif now >= end_time:
-                    grace_seconds = (exit_time - now).total_seconds()
-                    logging.info(
-                        'Contest is over; exiting in %ds', int(grace_seconds))
-            except Exception:
-                logging.exception('Unhandled exception')
+        upload = False
+        try:
+            feeds = client.get_feeds()
+            contest = feeds[types.FeedType.CONTEST]
+            contest_start_time = datetime.datetime.fromtimestamp(
+                contest['times']['start'])
+            contest_end_time = datetime.datetime.fromtimestamp(
+                contest['times']['end'])
+        except Exception:
+            logging.exception('Unhandled exception')
+        else:
+            now = datetime.datetime.now()
+            upload_start_time = contest_start_time - datetime.timedelta(
+                minutes=options.pre_contest_minutes)
+            upload_end_time = contest_end_time + datetime.timedelta(
+                minutes=options.post_contest_minutes)
+            upload = upload_start_time <= now <= upload_end_time
 
         _wait_next_tick(options.interval_seconds)
 
@@ -126,10 +128,13 @@ def scrape_main(options: argparse.Namespace) -> None:
             with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
                 json.dump(standings, f, separators=(',', ':'), sort_keys=True)
             if standings is not None and standings != last_standings:
-                logging.info('Updating feeds...')
                 if not options.upload:
                     logging.warning('Not uploading because of --no-upload flag')
                     continue
+                if not upload:
+                    logging.warning('Not uploading because it is out of contest time')
+                    continue
+                logging.info('Updating feeds...')
                 client.set_feeds({types.FeedType.STANDINGS: standings})
                 last_standings = standings
             else:
