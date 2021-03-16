@@ -75,11 +75,11 @@ def main(argv):
         json.dump(contest, f, indent=2, sort_keys=True)
 
     print(contest_json_name, file=sys.stderr)
-    session.put('http://localhost:5001/feeds/contest.json',
+    session.put('http://localhost:9000/feeds/contest.json?ns=fake-server',
                 json=('%s/%s' % (URL_PREFIX, contest_json_name)))
 
     print('teams.json', file=sys.stderr)
-    session.put('http://localhost:5001/feeds/teams.json',
+    session.put('http://localhost:9000/feeds/teams.json?ns=fake-server',
                 json=('%s/%s' % (URL_PREFIX, 'teams.json')))
 
     standings_series = []
@@ -99,7 +99,7 @@ def main(argv):
         standings_series.append(last_standings)
 
     print(standings_series[0][1], file=sys.stderr)
-    session.put('http://localhost:5001/feeds/standings.json',
+    session.put('http://localhost:9000/feeds/standings.json?ns=fake-server',
                 json=('%s/%s' % (URL_PREFIX, standings_series[0][1])))
 
     for record_time, name in standings_series[1:]:
@@ -113,7 +113,7 @@ def main(argv):
         done = False
         while not done:
             try:
-                session.put('http://localhost:5001/feeds/standings.json',
+                session.put('http://localhost:9000/feeds/standings.json?ns=fake-server',
                             json=('%s/%s' % (URL_PREFIX, name)))
             except Exception:
                 print('warning: retry', file=sys.stderr)
