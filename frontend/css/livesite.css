@@ -227,6 +227,15 @@ a.no-decoration {
   }
 }
 
+@keyframes event-slidein {
+  from { transform: translate(320px, 0); }
+  to { transform: translate(0, 0); }
+}
+
+.events .card {
+  animation: event-slidein 1s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
 .events .card .card-body {
   padding: 2px;
 }
@@ -252,7 +261,6 @@ a.no-decoration {
 .events .bg-pending {
   animation: none;
 }
-
 
 
 /*******************************************************************************
