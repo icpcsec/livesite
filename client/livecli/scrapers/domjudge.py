@@ -47,7 +47,10 @@ class DomjudgeScraper(base.Scraper):
 
         standings = {'problems': [], 'entries': []}
 
-        scoreheader_elem = doc.select('.scoreheader')[0]
+        scoreheader_elems = doc.select('.scoreheader')
+        if not scoreheader_elems:
+            raise Exception('Scoreboard not available yet')
+        scoreheader_elem = scoreheader_elems[0]
         for index_problem, problem_elem in enumerate(scoreheader_elem.select('th')[3:]):
             label = problem_elem.get_text().strip()
             tooltip = problem_elem.attrs.get('title', '')
