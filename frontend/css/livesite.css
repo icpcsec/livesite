@@ -228,7 +228,7 @@ a.no-decoration {
 }
 
 @keyframes event-slidein {
-  from { transform: translate(320px, 0); }
+  from { transform: translate(360px, 0); }
   to { transform: translate(0, 0); }
 }
 

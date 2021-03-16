@@ -25,6 +25,9 @@ function EventRow({type, team, problem, oldRank, newRank}) {
       <div style={{ flex: '0 0 auto', marginLeft: '12px' }}>
         {oldRank} &#x21D2; {newRank}
       </div> : null;
+  const teamLabel = team ?
+      (team.universityShort ? `${team.universityShort} / ${team.name}` : team.name)
+      : '???';
   return (
     <div className="card">
       <div className="card-body" style={{ display: 'flex' }}>
@@ -32,7 +35,7 @@ function EventRow({type, team, problem, oldRank, newRank}) {
           {problem.label}
         </div>
         <div className="text-ellipsis" style={{ flex: '1 1 auto' }}>
-          {team.universityShort} {team.name}
+          {teamLabel}
         </div>
         {rankCol}
       </div>
@@ -109,7 +112,7 @@ const EventsTable = connect(mapStateToProps)(EventsTableImpl);
 
 function EventsOverlay() {
   return (
-      <div style={{position: 'fixed', right: '20px', bottom: '20px', top: '140px', width: '280px', zIndex: 1000000 }}>
+      <div style={{position: 'fixed', right: '20px', bottom: '20px', top: '140px', width: '340px', zIndex: 1000000 }}>
         <EventsTable />
       </div>
   );
