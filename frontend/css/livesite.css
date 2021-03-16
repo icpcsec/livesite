@@ -209,6 +209,51 @@ a.no-decoration {
   }
 }
 
+.events .event-animation-enter {
+  opacity: 0;
+}
+
+.events .card {
+  margin-bottom: 1px;
+  font-size: inherit;
+  background-color: rgba(245, 245, 245, 0.9);
+  flex: 0 0 auto;
+  transition: background-color 1s linear;
+}
+
+@media (max-width: 1023px) {
+  .events {
+    display: none !important;
+  }
+}
+
+.events .card .card-body {
+  padding: 2px;
+}
+
+.events * {
+  user-select: none;
+}
+
+.events .event-animation-enter.event-animation-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.events .event-animation-leave {
+  opacity: 1;
+}
+
+.events .event-animation-leave.event-animation-leave-active {
+  opacity: 0;
+  transition: opacity 300ms ease-in;
+}
+
+.events .bg-pending {
+  animation: none;
+}
+
+
 
 /*******************************************************************************
  *

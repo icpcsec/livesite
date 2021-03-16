@@ -15,6 +15,7 @@
 import React from 'react';
 import {Route, Switch} from 'react-router-dom';
 
+import EventsOverlay from './common/EventsOverlay';
 import Footer from './common/Footer';
 import NavBar from './common/NavBar';
 import Theme from './common/Theme';
@@ -32,6 +33,7 @@ function Frame({ children }) {
       <div className="container" style={{position: 'relative' }}>
         {children}
       </div>
+      <EventsOverlay />
       <Footer />
       <Theme />
     </div>
