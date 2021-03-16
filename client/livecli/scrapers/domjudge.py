@@ -104,6 +104,11 @@ class DomjudgeScraper(base.Scraper):
             else:
                 rank = last_rank
             name = team_elem.select('.scoretn .forceWidth')[0].get_text().strip()
+            # Strip badge texts
+            for badge in team_elem.select('.badge'):
+                prefix = badge.get_text().strip()
+                assert name.startswith(prefix)
+                name = name[len(prefix):].strip()
             try:
                 tid = str(int(name.split(':', 1)[0], 10))
             except ValueError:
