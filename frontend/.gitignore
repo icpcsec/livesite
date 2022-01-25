@@ -3,5 +3,6 @@ node_modules
 /out
 /database-debug.log
 /firebase-debug.log
+/.firebase
 /.firebaserc
 /public/.dev

@@ -6,6 +6,10 @@
     "allowJs": true,
     "jsx": "react",
     "esModuleInterop": true,
-    "inlineSourceMap": true
-  }
+    "inlineSourceMap": true,
+    "outDir": "out"
+  },
+  "include": [
+    "src"
+  ]
 }
