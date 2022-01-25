@@ -1,5 +1,7 @@
-[{
-  "method": ["GET"],
-  "origin": ["*"],
-  "maxAgeSeconds": 3600
-}]
+[
+  {
+    "method": ["GET"],
+    "origin": ["*"],
+    "maxAgeSeconds": 3600
+  }
+]

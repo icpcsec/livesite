@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
@@ -22,14 +22,20 @@ import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
 
 function TeamPhoto({ photo }) {
-  return <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
+  return (
+    <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
+  );
 }
 
 function TeamLink({ id, children }) {
   if (!siteconfig.features.teamPage) {
     return children;
   }
-  return <Link to={`/team/${id}`} className="no-decoration">{ children }</Link>;
+  return (
+    <Link to={`/team/${id}`} className="no-decoration">
+      {children}
+    </Link>
+  );
 }
 
 function TeamItem({ team: { id, name, university, country, photo, members } }) {
@@ -42,60 +48,63 @@ function TeamItem({ team: { id, name, university, country, photo, members } }) {
   const hasInfo = members.some((profile) => profile.name.length > 0);
   const memberNames = displayNames.join(' / ');
   return (
-    <div className="card mb-3" style={{ backgroundColor: (hasInfo ? null : 'inherit !important') }}>
+    <div
+      className="card mb-3"
+      style={{ backgroundColor: hasInfo ? null : 'inherit !important' }}
+    >
       <div className="card-body">
-        {
-          siteconfig.features.photo ?
+        {siteconfig.features.photo ? (
           <div className="mb-3">
             <TeamLink id={id}>
               <TeamPhoto photo={photo} />
             </TeamLink>
           </div>
-          : null
-        }
+        ) : null}
         <h4 className="mb-1 text-ellipsis">
           <TeamLink id={id}>{name}</TeamLink>
         </h4>
         <div className="text-ellipsis">
           <TeamLink id={id}>
-            {
-              siteconfig.features.country ?
-              <img src={`/images/${country}.png`} style={{ width: '21px', height: '14px', marginRight: '3px', marginBottom: '2px', border: '1px solid #000' }} /> :
-              null
-            }
+            {siteconfig.features.country ? (
+              <img
+                src={`/images/${country}.png`}
+                style={{
+                  width: '21px',
+                  height: '14px',
+                  marginRight: '3px',
+                  marginBottom: '2px',
+                  border: '1px solid #000',
+                }}
+              />
+            ) : null}
             {university}
           </TeamLink>
         </div>
-        {
-          memberNames ?
+        {memberNames ? (
           <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
-            <TeamLink id={id}>
-              {memberNames}
-            </TeamLink>
+            <TeamLink id={id}>{memberNames}</TeamLink>
           </div>
-          : null
-        }
+        ) : null}
       </div>
     </div>
   );
 }
 
 function TeamItemFlow({ children }) {
-  return (
-    <GridFlow className="col-md-6 col-lg-4">
-      {children}
-    </GridFlow>
-  );
+  return <GridFlow className="col-md-6 col-lg-4">{children}</GridFlow>;
 }
 
 function TeamListSimple({ teams }) {
   const sortedTeams = [...teams];
-  sortedTeams.sort((a, b) => (
+  sortedTeams.sort(
+    (a, b) =>
       a.university.localeCompare(b.university) ||
       a.name.localeCompare(b.name) ||
-      a.id.localeCompare(b.id)));
-  const items = sortedTeams.map(
-      (team) => <TeamItem key={team.id} team={team} />);
+      a.id.localeCompare(b.id)
+  );
+  const items = sortedTeams.map((team) => (
+    <TeamItem key={team.id} team={team} />
+  ));
   return <TeamItemFlow>{items}</TeamItemFlow>;
 }
 
@@ -110,24 +119,34 @@ function TeamListWithPrefecture({ teams }) {
   const children = [];
   for (let i = 1; i <= 48; ++i) {
     const teamsInPrefecture = teamsByPrefecture[i];
-    teamsInPrefecture.sort((a, b) => (
-      a.university.localeCompare(b.university) ||
-      a.name.localeCompare(b.name) ||
-      a.id.localeCompare(b.id)));
+    teamsInPrefecture.sort(
+      (a, b) =>
+        a.university.localeCompare(b.university) ||
+        a.name.localeCompare(b.name) ||
+        a.id.localeCompare(b.id)
+    );
     const count = teamsInPrefecture.length;
     if (count > 0) {
-      const items = teamsInPrefecture.map(
-        (team) => <TeamItem key={team.id} team={team} />);
+      const items = teamsInPrefecture.map((team) => (
+        <TeamItem key={team.id} team={team} />
+      ));
       const name = constants.PREFECTURES[i];
-      children.push(<h3 key={`pref${i}.h`} id={`pref${i}`} className="my-3">{`${name} (${count})`}</h3>);
+      children.push(
+        <h3
+          key={`pref${i}.h`}
+          id={`pref${i}`}
+          className="my-3"
+        >{`${name} (${count})`}</h3>
+      );
       children.push(<TeamItemFlow key={`pref${i}.s`}>{items}</TeamItemFlow>);
     }
   }
   return <div>{children}</div>;
 }
 
-const TeamListImpl =
-  siteconfig.features.prefecture ? TeamListWithPrefecture : TeamListSimple;
+const TeamListImpl = siteconfig.features.prefecture
+  ? TeamListWithPrefecture
+  : TeamListSimple;
 
 function mapStateToProps({ feeds: { teams: teamsMap } }) {
   const teams = Object.keys(teamsMap).map((key) => teamsMap[key]);

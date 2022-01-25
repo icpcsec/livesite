@@ -20,9 +20,7 @@ import { tr } from '../../i18n';
 function SettingsPage() {
   return (
     <div>
-      <h1 className="my-4">
-        {tr('Settings', '設定')}
-      </h1>
+      <h1 className="my-4">{tr('Settings', '設定')}</h1>
       <SettingsForm />
     </div>
   );

@@ -36,7 +36,7 @@ export function updateSettings(settingsUpdate) {
 export function toggleSetting(name) {
   return (dispatch, getState) => {
     const oldSettings = getState().settings;
-    const settingsUpdate = {[name]: {$set: !oldSettings[name]}};
+    const settingsUpdate = { [name]: { $set: !oldSettings[name] } };
     dispatch(updateSettings(settingsUpdate));
   };
 }

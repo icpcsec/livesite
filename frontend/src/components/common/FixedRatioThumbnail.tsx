@@ -15,8 +15,8 @@
 import React from 'react';
 
 interface FixedRatioThumbnailProps {
-  url: string
-  ratio: number
+  url: string;
+  ratio: number;
 }
 
 function FixedRatioThumbnail({ url, ratio }: FixedRatioThumbnailProps) {
@@ -25,16 +25,18 @@ function FixedRatioThumbnail({ url, ratio }: FixedRatioThumbnailProps) {
   return (
     <div style={{ position: 'relative' }}>
       <div style={{ paddingTop }}>
-        <div style={{
-          position: 'absolute',
-          left: '0',
-          top: '0',
-          right: '0',
-          bottom: '0',
-          backgroundImage: backgroundImage,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center center',
-        }} />
+        <div
+          style={{
+            position: 'absolute',
+            left: '0',
+            top: '0',
+            right: '0',
+            bottom: '0',
+            backgroundImage: backgroundImage,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center center',
+          }}
+        />
       </div>
     </div>
   );

@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 import $ from 'jquery';
 
 class AutoScrollerImpl extends React.Component {
-  private running: boolean = false
+  private running: boolean = false;
 
   componentDidMount() {
     this.running = true;
@@ -48,10 +48,11 @@ class AutoScrollerImpl extends React.Component {
         $screen.animate(
           { scrollTop: 0 },
           {
-            duration: ($body.height() as number) / pixelsPerSecond * 1000,
+            duration: (($body.height() as number) / pixelsPerSecond) * 1000,
             easing: 'linear',
             done: scrollDone,
-          });
+          }
+        );
       }, 100);
     };
     const scrollDone = () => {
@@ -68,7 +69,7 @@ class AutoScrollerImpl extends React.Component {
 }
 
 function AutoScrollerSelector({ enabled }: { enabled: boolean }) {
-  return enabled ? <AutoScrollerImpl /> : <div />
+  return enabled ? <AutoScrollerImpl /> : <div />;
 }
 
 function mapStateToProps({ settings }: { settings: { autoscroll: boolean } }) {

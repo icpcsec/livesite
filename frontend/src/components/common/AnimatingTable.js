@@ -14,7 +14,7 @@
 
 import React from 'react';
 
-import {TimerSet} from '../../utils';
+import { TimerSet } from '../../utils';
 
 class AnimatingTable extends React.Component {
   constructor(props) {
@@ -77,10 +77,9 @@ class AnimatingTable extends React.Component {
     for (const row of rows) {
       const key = row.dataset.key;
       const currentOffsetTop = currentKeyToOffsetTop.get(key);
-      const lastOffsetTop =
-          lastKeyToOffsetTop.has(key) ?
-          lastKeyToOffsetTop.get(key) :
-          currentOffsetTop;
+      const lastOffsetTop = lastKeyToOffsetTop.has(key)
+        ? lastKeyToOffsetTop.get(key)
+        : currentOffsetTop;
       const relativeOffsetTop = lastOffsetTop - currentOffsetTop;
       if (relativeOffsetTop !== 0) {
         const acutalDelay = row.classList.contains('no-animation') ? 0 : delay;
@@ -112,11 +111,7 @@ class AnimatingTable extends React.Component {
 
   render() {
     const { children } = this.props;
-    return (
-        <div ref={this.ref_}>
-          {children}
-        </div>
-    );
+    return <div ref={this.ref_}>{children}</div>;
   }
 }
 

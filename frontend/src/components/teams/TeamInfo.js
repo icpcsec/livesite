@@ -22,59 +22,69 @@ import siteconfig from '../../siteconfig';
 
 function TeamComment({ comment }) {
   return (
-    <div className="alert alert-secondary mt-3 mb-2" style={{ textAlign: 'center' }}>
+    <div
+      className="alert alert-secondary mt-3 mb-2"
+      style={{ textAlign: 'center' }}
+    >
       {comment}
     </div>
   );
 }
 
 function MemberProfile({ profile, index }) {
-  const displayName = profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
+  const displayName =
+    profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
   if (profile.topcoderId) {
     contactsElements.push(
       'TopCoder: ',
-      <a target="_blank"
-         href={`https://www.topcoder.com/members/${profile.topcoderId}/`}>
+      <a
+        target="_blank"
+        href={`https://www.topcoder.com/members/${profile.topcoderId}/`}
+      >
         {profile.topcoderId}
       </a>,
-      <br />);
+      <br />
+    );
   }
   if (profile.codeforcesId) {
     contactsElements.push(
       'CodeForces: ',
-      <a target="_blank"
-         href={`http://codeforces.com/profile/${profile.codeforcesId}/`}>
+      <a
+        target="_blank"
+        href={`http://codeforces.com/profile/${profile.codeforcesId}/`}
+      >
         {profile.codeforcesId}
       </a>,
-      <br />);
+      <br />
+    );
   }
   if (profile.atcoderId) {
     contactsElements.push(
       'AtCoder: ',
-      <a target="_blank"
-         href={`https://atcoder.jp/user/${profile.atcoderId}/`}>
+      <a target="_blank" href={`https://atcoder.jp/user/${profile.atcoderId}/`}>
         {profile.atcoderId}
       </a>,
-      <br />);
+      <br />
+    );
   }
   if (profile.twitterId) {
     contactsElements.push(
       'Twitter: ',
-      <a target="_blank"
-         href={`https://twitter.com/${profile.twitterId}/`}>
+      <a target="_blank" href={`https://twitter.com/${profile.twitterId}/`}>
         @{profile.twitterId}
       </a>,
-      <br />);
+      <br />
+    );
   }
   if (profile.githubId) {
     contactsElements.push(
       'GitHub: ',
-      <a target="_blank"
-         href={`https://github.com/${profile.githubId}/`}>
+      <a target="_blank" href={`https://github.com/${profile.githubId}/`}>
         {profile.githubId}
       </a>,
-      <br />);
+      <br />
+    );
   }
   if (contactsElements.length > 0) {
     contactsElements.pop();
@@ -83,14 +93,15 @@ function MemberProfile({ profile, index }) {
     <div className="col-lg-4">
       <div className="profile card">
         <div className="card-body">
-          {
-            siteconfig.features.icon ?
+          {siteconfig.features.icon ? (
             <div className="profile-icon">
               <FixedRatioThumbnail url={profile.icon} ratio={1} />
-            </div> :
-            null
-          }
-          <div className="profile-data" style={{ marginLeft: siteconfig.features.icon ? null : '0' }}>
+            </div>
+          ) : null}
+          <div
+            className="profile-data"
+            style={{ marginLeft: siteconfig.features.icon ? null : '0' }}
+          >
             <p className="profile-name">{displayName}</p>
             <p className="profile-contacts">{contactsElements}</p>
             <p className="profile-comment">{profile.comment}</p>
@@ -105,9 +116,9 @@ function TeamInfoImpl({ team }) {
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
-  const memberElements = team.members.map(
-    (profile, index) =>
-        <MemberProfile key={index} profile={profile} index={index} />);
+  const memberElements = team.members.map((profile, index) => (
+    <MemberProfile key={index} profile={profile} index={index} />
+  ));
   return (
     <div className="teaminfo">
       <h1 className="my-3">
@@ -115,35 +126,28 @@ function TeamInfoImpl({ team }) {
         <br />
         <small>
           {team.university}
-          {
-            siteconfig.features.prefecture ?
-            ` (${constants.PREFECTURES[team.prefecture || 48]})` :
-            null
-          }
-          {
-            siteconfig.features.country ?
-            ` - ${team.country}` :
-            null
-          }
+          {siteconfig.features.prefecture
+            ? ` (${constants.PREFECTURES[team.prefecture || 48]})`
+            : null}
+          {siteconfig.features.country ? ` - ${team.country}` : null}
         </small>
       </h1>
-      {
-        siteconfig.features.photo ?
-        <FixedRatioThumbnail url={team.photo} ratio={siteconfig.ui.photoAspectRatio} /> :
-        null
-      }
-      {
-        team.comment ? <TeamComment comment={team.comment} /> : null
-      }
-      <div className="row">
-        {memberElements}
-      </div>
+      {siteconfig.features.photo ? (
+        <FixedRatioThumbnail
+          url={team.photo}
+          ratio={siteconfig.ui.photoAspectRatio}
+        />
+      ) : null}
+      {team.comment ? <TeamComment comment={team.comment} /> : null}
+      <div className="row">{memberElements}</div>
     </div>
   );
 }
 
 function mapStateToProps(state, ownProps) {
-  const { feeds: { teams } } = state;
+  const {
+    feeds: { teams },
+  } = state;
   const team = teams[ownProps.requestedTeamId];
   return { team };
 }

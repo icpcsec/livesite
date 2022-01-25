@@ -18,7 +18,7 @@ rules:
   no-unused-vars:
     - error
     - args: none
-  react/prop-types:  # TODO: enable
+  react/prop-types: # TODO: enable
     - warn
-  react/no-deprecated:  # TODO: enable
+  react/no-deprecated: # TODO: enable
     - warn

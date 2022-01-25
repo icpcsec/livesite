@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import DataModel from './DataModel';
 import DataContext from './DataContext';
@@ -33,9 +33,9 @@ class DataProviderImpl extends React.Component {
 
   render() {
     return (
-        <DataContext.Provider value={this.state.model}>
-          {this.props.children}
-        </DataContext.Provider>
+      <DataContext.Provider value={this.state.model}>
+        {this.props.children}
+      </DataContext.Provider>
     );
   }
 }
@@ -44,6 +44,8 @@ function mapDispatchToProps(dispatch) {
   return { dispatch };
 }
 
-const DataProvider = connect(undefined, mapDispatchToProps, undefined, {pure: false})(DataProviderImpl);
+const DataProvider = connect(undefined, mapDispatchToProps, undefined, {
+  pure: false,
+})(DataProviderImpl);
 
 export default DataProvider;

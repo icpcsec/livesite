@@ -15,18 +15,17 @@
 import React from 'react';
 
 interface GridFlowProps {
-  className: string
-  children: React.ReactNode[]
+  className: string;
+  children: React.ReactNode[];
 }
 
 function GridFlow({ className, children }: GridFlowProps) {
-  const elements = children.map(
-      (e, i) => <div key={i} className={className}>{e}</div>);
-  return (
-    <div className="row">
-      {elements}
+  const elements = children.map((e, i) => (
+    <div key={i} className={className}>
+      {e}
     </div>
-  );
+  ));
+  return <div className="row">{elements}</div>;
 }
 
 export default GridFlow;

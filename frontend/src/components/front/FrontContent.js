@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 function FrontContentImpl({ contest }) {
   return <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />;

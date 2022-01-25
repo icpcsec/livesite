@@ -14,24 +14,35 @@
 
 import deepEqual from 'deep-equal';
 import React from 'react';
-import {connect} from 'react-redux';
-import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import { connect } from 'react-redux';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 const EVENT_TIMEOUT_SECONDS = 20;
 
-function EventRow({type, team, problem, oldRank, newRank}) {
+function EventRow({ type, team, problem, oldRank, newRank }) {
   const rankCol =
-      type === 'solved' ?
+    type === 'solved' ? (
       <div style={{ flex: '0 0 auto', marginLeft: '12px' }}>
         {oldRank} &#x21D2; {newRank}
-      </div> : null;
-  const teamLabel = team ?
-      (team.universityShort ? `${team.universityShort} / ${team.name}` : team.name)
-      : '???';
+      </div>
+    ) : null;
+  const teamLabel = team
+    ? team.universityShort
+      ? `${team.universityShort} / ${team.name}`
+      : team.name
+    : '???';
   return (
     <div className="card">
       <div className="card-body" style={{ display: 'flex' }}>
-        <div className={`bg-${type}`} style={{ flex: '0 0 auto', width: '18px', marginRight: '4px', textAlign: 'center' }}>
+        <div
+          className={`bg-${type}`}
+          style={{
+            flex: '0 0 auto',
+            width: '18px',
+            marginRight: '4px',
+            textAlign: 'center',
+          }}
+        >
           {problem.label}
         </div>
         <div className="text-ellipsis" style={{ flex: '1 1 auto' }}>
@@ -81,30 +92,53 @@ class EventsTableImpl extends React.Component {
   }
 
   render() {
-    const {teams, problems} = this.props;
-    const {events} = this.state;
+    const { teams, problems } = this.props;
+    const { events } = this.state;
     const rows = [];
     for (const event of events) {
-      const {eventId, type, teamId, problemIndex, oldRank, newRank} = event;
+      const { eventId, type, teamId, problemIndex, oldRank, newRank } = event;
       const team = teams[teamId];
       const problem = problems[problemIndex];
       rows.push(
-          <CSSTransition key={eventId} timeout={{ enter: 500, exit: 300 }} classNames="event-animation">
-            <EventRow key={eventId} type={type} team={team} problem={problem} oldRank={oldRank} newRank={newRank} />
-          </CSSTransition>
+        <CSSTransition
+          key={eventId}
+          timeout={{ enter: 500, exit: 300 }}
+          classNames="event-animation"
+        >
+          <EventRow
+            key={eventId}
+            type={type}
+            team={team}
+            problem={problem}
+            oldRank={oldRank}
+            newRank={newRank}
+          />
+        </CSSTransition>
       );
     }
     return (
-      <div className="events" style={{display: 'flex', flexDirection: 'column-reverse', width: '100%', height: '100%' }}>
-        <TransitionGroup component={null}>
-          {rows}
-        </TransitionGroup>
+      <div
+        className="events"
+        style={{
+          display: 'flex',
+          flexDirection: 'column-reverse',
+          width: '100%',
+          height: '100%',
+        }}
+      >
+        <TransitionGroup component={null}>{rows}</TransitionGroup>
       </div>
     );
   }
 }
 
-function mapStateToProps({ events, feeds: { teams, standings: { problems } } }) {
+function mapStateToProps({
+  events,
+  feeds: {
+    teams,
+    standings: { problems },
+  },
+}) {
   return { events, teams, problems };
 }
 
@@ -112,9 +146,18 @@ const EventsTable = connect(mapStateToProps)(EventsTableImpl);
 
 function EventsOverlay() {
   return (
-      <div style={{position: 'fixed', right: '20px', bottom: '20px', top: '140px', width: '340px', zIndex: 1000000 }}>
-        <EventsTable />
-      </div>
+    <div
+      style={{
+        position: 'fixed',
+        right: '20px',
+        bottom: '20px',
+        top: '140px',
+        width: '340px',
+        zIndex: 1000000,
+      }}
+    >
+      <EventsTable />
+    </div>
   );
 }
 

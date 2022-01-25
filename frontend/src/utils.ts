@@ -13,7 +13,7 @@
 // limitations under the License.
 
 export class TimerSet {
-  timers_: Set<number>
+  timers_: Set<number>;
 
   constructor() {
     this.timers_ = new Set<number>();

@@ -21,7 +21,11 @@ function makeEntryMap(entries) {
 }
 
 function computeEvents(newEntries, oldEntries, teams, times, events = []) {
-  if (teams.length === 0 || oldEntries.length === 0 || newEntries.length === 0) {
+  if (
+    teams.length === 0 ||
+    oldEntries.length === 0 ||
+    newEntries.length === 0
+  ) {
     return events;
   }
 
@@ -42,7 +46,11 @@ function computeEvents(newEntries, oldEntries, teams, times, events = []) {
     if (oldProblems.length !== newProblems.length) {
       continue;
     }
-    for (let problemIndex = 0; problemIndex < newProblems.length; ++problemIndex) {
+    for (
+      let problemIndex = 0;
+      problemIndex < newProblems.length;
+      ++problemIndex
+    ) {
       const newProblem = newProblems[problemIndex];
       const oldProblem = oldProblems[problemIndex];
       if (newProblem.solved) {
@@ -58,7 +66,11 @@ function computeEvents(newEntries, oldEntries, teams, times, events = []) {
           });
         }
       } else {
-        for (let attemptIndex = oldProblem.attempts; attemptIndex < newProblem.attempts; ++attemptIndex) {
+        for (
+          let attemptIndex = oldProblem.attempts;
+          attemptIndex < newProblem.attempts;
+          ++attemptIndex
+        ) {
           newEvents.push({
             eventId: `${now}.${teamId}.${problemIndex}.reject.${attemptIndex}`,
             time: now,
@@ -68,7 +80,11 @@ function computeEvents(newEntries, oldEntries, teams, times, events = []) {
           });
         }
         if (now >= freezeTime) {
-          for (let pendingIndex = oldProblem.pendings; pendingIndex < newProblem.pendings; ++pendingIndex) {
+          for (
+            let pendingIndex = oldProblem.pendings;
+            pendingIndex < newProblem.pendings;
+            ++pendingIndex
+          ) {
             newEvents.push({
               eventId: `${now}.${teamId}.${problemIndex}.pending.${pendingIndex}`,
               time: now,
@@ -94,9 +110,14 @@ export function deriveEvents(reducer) {
     const newTeams = newState.feeds.teams || {};
     const newTimes = (newState.feeds.contest || {}).times || {};
     const oldEvents = state.events || [];
-    return Object.assign(
-        {},
-        newState,
-        {events: computeEvents(newEntries, oldEntries, newTeams, newTimes, oldEvents)});
+    return Object.assign({}, newState, {
+      events: computeEvents(
+        newEntries,
+        oldEntries,
+        newTeams,
+        newTimes,
+        oldEvents
+      ),
+    });
   };
 }

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import AnimatingTable from '../common/AnimatingTable';
 import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
@@ -25,92 +25,117 @@ const DEFAULT_TEAM = {
   members: [],
 };
 
-function TeamInfo({ rank, name, university, universityJa, universityJaShort, solved, penalty }) {
+function TeamInfo({
+  rank,
+  name,
+  university,
+  universityJa,
+  universityJaShort,
+  solved,
+  penalty,
+}) {
   return (
     <div className="team-info">
-      <div className="team-rank">
-        {rank}
-      </div>
+      <div className="team-rank">{rank}</div>
       <div className="team-univ text-ellipsis">
         {universityJaShort || universityJa || university}
       </div>
-      <div className="team-name text-ellipsis">
-        {name}
-      </div>
+      <div className="team-name text-ellipsis">{name}</div>
       <div className="team-solved">
-        <small>{penalty}/</small>{solved}
+        <small>{penalty}/</small>
+        {solved}
       </div>
     </div>
   );
 }
 
 function TeamProblemCol({ solved, attempts, pendings }) {
-  const status = solved ? 'solved' : pendings > 0 ? 'pending' : attempts > 0 ? 'rejected' : 'unattemped';
+  const status = solved
+    ? 'solved'
+    : pendings > 0
+    ? 'pending'
+    : attempts > 0
+    ? 'rejected'
+    : 'unattemped';
   return <div className={`team-problem bg-${status}`} />;
 }
 
 function TeamProblems({ problems }) {
-  const problemCols = problems.map((problem, i) => <TeamProblemCol key={i} {...problem} />);
-  return (
-      <div className="team-problems">
-        {problemCols}
-      </div>
-  )
+  const problemCols = problems.map((problem, i) => (
+    <TeamProblemCol key={i} {...problem} />
+  ));
+  return <div className="team-problems">{problemCols}</div>;
 }
 
-function TeamRow({ entry: { rank, problems, solved, penalty }, team, zIndex, className, ...rest }) {
+function TeamRow({
+  entry: { rank, problems, solved, penalty },
+  team,
+  zIndex,
+  className,
+  ...rest
+}) {
   const rewrittenClassName = `${className} card`;
   return (
-      <div className={rewrittenClassName} style={{zIndex}} {...rest}>
-        <div className="card-body">
-          <div className="team-row">
-            <TeamInfo rank={rank} solved={solved} penalty={penalty} {...team} />
-            <TeamProblems problems={problems} />
-          </div>
+    <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
+      <div className="card-body">
+        <div className="team-row">
+          <TeamInfo rank={rank} solved={solved} penalty={penalty} {...team} />
+          <TeamProblems problems={problems} />
         </div>
       </div>
+    </div>
   );
 }
 
 class CompactStandingsTableImpl extends React.Component {
   render() {
-    const { entries, teams, numRows = 20, offsetRows = 0, dense = false } = this.props;
+    const {
+      entries,
+      teams,
+      numRows = 20,
+      offsetRows = 0,
+      dense = false,
+    } = this.props;
     const rows = [];
     for (let index = 0; index < entries.length; ++index) {
       const entry = entries[index];
       const team = teams[entry.teamId] || DEFAULT_TEAM;
       rows.push(
-          <AnimatingStandingsRow
-              key={entry.teamId}
-              component={TeamRow}
-              entry={entry}
-              team={team}
-              index={index}
-          />
+        <AnimatingStandingsRow
+          key={entry.teamId}
+          component={TeamRow}
+          entry={entry}
+          team={team}
+          index={index}
+        />
       );
     }
     const rowHeight = (dense ? 33 : 36) + 1;
     const tableHeight = rowHeight * numRows;
     const tableOffset = -rowHeight * offsetRows;
     return (
-        <div className={`broadcast-compact-standings ${dense ? 'dense' : ''}`}>
-          <div style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
-            <div style={{ position: 'relative', top: `${tableOffset}px` }}>
-              <AnimatingTable>
-                {rows}
-              </AnimatingTable>
-            </div>
+      <div className={`broadcast-compact-standings ${dense ? 'dense' : ''}`}>
+        <div style={{ overflow: 'hidden', height: `${tableHeight}px` }}>
+          <div style={{ position: 'relative', top: `${tableOffset}px` }}>
+            <AnimatingTable>{rows}</AnimatingTable>
           </div>
         </div>
+      </div>
     );
   }
 }
 
-function mapStateToProps({ feeds: { standings: { entries }, teams } }) {
+function mapStateToProps({
+  feeds: {
+    standings: { entries },
+    teams,
+  },
+}) {
   return { entries, teams };
 }
 
-const CompactStandingsTable =
-    connect(mapStateToProps)(CompactStandingsTableImpl);
+const CompactStandingsTable = connect(mapStateToProps)(
+  CompactStandingsTableImpl
+);
 
 export default CompactStandingsTable;

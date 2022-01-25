@@ -20,9 +20,7 @@ import { tr } from '../../i18n';
 function StandingsRevealPage() {
   return (
     <div>
-      <h1 className="my-4">
-        {tr('Standings', '順位表')}
-      </h1>
+      <h1 className="my-4">{tr('Standings', '順位表')}</h1>
       <StandingsRevealTable />
     </div>
   );

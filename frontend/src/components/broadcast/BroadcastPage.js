@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import Clock from './Clock';
 import DetailedStandingsTable from './DetailedStandingsTable';
@@ -24,7 +24,7 @@ import ConfigPanel from './ConfigPanel';
 
 function ClockPane() {
   return (
-    <div style={{position: 'absolute', right: '20px', top: '16px'}}>
+    <div style={{ position: 'absolute', right: '20px', top: '16px' }}>
       <Clock />
     </div>
   );
@@ -32,7 +32,15 @@ function ClockPane() {
 
 function EventsPane() {
   return (
-    <div style={{position: 'absolute', top: '20px', bottom: '20px', left: '20px', width: '280px' }}>
+    <div
+      style={{
+        position: 'absolute',
+        top: '20px',
+        bottom: '20px',
+        left: '20px',
+        width: '280px',
+      }}
+    >
       <EventsTable />
     </div>
   );
@@ -69,7 +77,13 @@ class AutoPager extends React.Component {
   }
 
   render() {
-    const { component: Component, page, numPages, interval, ...rest } = this.props;
+    const {
+      component: Component,
+      page,
+      numPages,
+      interval,
+      ...rest
+    } = this.props;
     return <Component page={this.state.page} {...rest} />;
   }
 }
@@ -79,20 +93,29 @@ const COMPACT_STANDINGS_NUM_ROWS = 17;
 function CompactStandingsTablePage({ page }) {
   return (
     <CompactStandingsTable
-        dense={true}
-        numRows={COMPACT_STANDINGS_NUM_ROWS}
-        offsetRows={page * COMPACT_STANDINGS_NUM_ROWS} />
+      dense={true}
+      numRows={COMPACT_STANDINGS_NUM_ROWS}
+      offsetRows={page * COMPACT_STANDINGS_NUM_ROWS}
+    />
   );
 }
 
 function CompactStandingsPane({ page, numEntries }) {
   return (
-    <div style={{ position: 'absolute', right: '20px', bottom: '20px', width: '360px' }}>
+    <div
+      style={{
+        position: 'absolute',
+        right: '20px',
+        bottom: '20px',
+        width: '360px',
+      }}
+    >
       <AutoPager
-          component={CompactStandingsTablePage}
-          interval={10 * 1000}
-          page={page}
-          numPages={Math.ceil(numEntries / COMPACT_STANDINGS_NUM_ROWS)} />
+        component={CompactStandingsTablePage}
+        interval={10 * 1000}
+        page={page}
+        numPages={Math.ceil(numEntries / COMPACT_STANDINGS_NUM_ROWS)}
+      />
     </div>
   );
 }
@@ -102,8 +125,9 @@ const DETAILED_STANDINGS_NUM_ROWS = 12;
 function DetailedStandingsTablePage({ page }) {
   return (
     <DetailedStandingsTable
-        numRows={DETAILED_STANDINGS_NUM_ROWS}
-        offsetRows={page * DETAILED_STANDINGS_NUM_ROWS} />
+      numRows={DETAILED_STANDINGS_NUM_ROWS}
+      offsetRows={page * DETAILED_STANDINGS_NUM_ROWS}
+    />
   );
 }
 
@@ -111,58 +135,69 @@ function DetailedStandingsPane({ page, numEntries }) {
   return (
     <div style={{ position: 'absolute', bottom: '20px', left: '320px' }}>
       <AutoPager
-          component={DetailedStandingsTablePage}
-          interval={10 * 1000}
-          page={page}
-          numPages={Math.ceil(numEntries / DETAILED_STANDINGS_NUM_ROWS)} />
+        component={DetailedStandingsTablePage}
+        interval={10 * 1000}
+        page={page}
+        numPages={Math.ceil(numEntries / DETAILED_STANDINGS_NUM_ROWS)}
+      />
     </div>
   );
 }
 
 function ProblemsPane() {
   return (
-    <div style={{ position: 'absolute', right: '40px', bottom: '20px', width: '120px' }}>
+    <div
+      style={{
+        position: 'absolute',
+        right: '40px',
+        bottom: '20px',
+        width: '120px',
+      }}
+    >
       <ProblemsTable />
     </div>
   );
 }
 
 function Frame({ children }) {
-  return (
-    <div className="broadcast-frame">
-      {children}
-    </div>
-  );
+  return <div className="broadcast-frame">{children}</div>;
 }
 
 function BroadcastPageImpl({ broadcast: { view, page }, numEntries }) {
-  const panes = [
-      <ClockPane key="clock" />,
-      <EventsPane key="events" />,
-  ];
+  const panes = [<ClockPane key="clock" />, <EventsPane key="events" />];
   switch (view) {
     case 'normal':
       panes.push(
-          <CompactStandingsPane key="standings_right" page={page} numEntries={numEntries} />);
+        <CompactStandingsPane
+          key="standings_right"
+          page={page}
+          numEntries={numEntries}
+        />
+      );
       break;
     case 'detailed':
       panes.push(
-          <DetailedStandingsPane key="standings_detailed" page={page} numEntries={numEntries} />,
-          <ProblemsPane key="problems" />);
+        <DetailedStandingsPane
+          key="standings_detailed"
+          page={page}
+          numEntries={numEntries}
+        />,
+        <ProblemsPane key="problems" />
+      );
       break;
     case 'problems':
-      panes.push(
-          <ProblemsPane key="problems" />);
+      panes.push(<ProblemsPane key="problems" />);
       break;
   }
-  return (
-      <Frame>
-        {panes}
-      </Frame>
-  );
+  return <Frame>{panes}</Frame>;
 }
 
-function mapStateToProps({ broadcast, feeds: { standings: { entries } } }) {
+function mapStateToProps({
+  broadcast,
+  feeds: {
+    standings: { entries },
+  },
+}) {
   return { broadcast, numEntries: entries.length };
 }
 

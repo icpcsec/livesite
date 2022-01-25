@@ -36,7 +36,7 @@ function feeds(state = DEFAULT, action) {
         newLoaded.add(name);
       }
     }
-    state = applyPartialUpdate(state, {loaded: {$set: newLoaded}});
+    state = applyPartialUpdate(state, { loaded: { $set: newLoaded } });
   }
   return state;
 }

@@ -15,8 +15,8 @@
 import React from 'react';
 
 interface ErrorMessageProps {
-  header: string
-  body: string
+  header: string;
+  body: string;
 }
 
 function ErrorMessage({ header, body }: ErrorMessageProps) {

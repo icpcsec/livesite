@@ -14,7 +14,7 @@
 
 import React from 'react';
 import ReactGA from 'react-ga';
-import {withRouter} from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class GAImpl extends React.Component {
   constructor(props) {

@@ -29,8 +29,12 @@ function SettingsFormImpl({ settings, toggleSetting }) {
               <input
                 type="checkbox"
                 checked={settings.invertColor}
-                onChange={() => toggleSetting('invertColor')} />
-              {tr('Enable dark coloring (suitable for projecting)', '背景を黒くする(プロジェクター向き)')}
+                onChange={() => toggleSetting('invertColor')}
+              />
+              {tr(
+                'Enable dark coloring (suitable for projecting)',
+                '背景を黒くする(プロジェクター向き)'
+              )}
             </label>
           </div>
           <div className="switch">
@@ -38,8 +42,12 @@ function SettingsFormImpl({ settings, toggleSetting }) {
               <input
                 type="checkbox"
                 checked={settings.autoscroll}
-                onChange={() => toggleSetting('autoscroll')} />
-              {tr('Enable autoscrolling in standings page', '順位表ページで自動的にスクロールする')}
+                onChange={() => toggleSetting('autoscroll')}
+              />
+              {tr(
+                'Enable autoscrolling in standings page',
+                '順位表ページで自動的にスクロールする'
+              )}
             </label>
           </div>
         </div>
@@ -57,10 +65,12 @@ function mapDispatchToProps(dispatch) {
     toggleSetting(name) {
       dispatch(actions.toggleSetting(name));
     },
-  }
+  };
 }
 
-const SettingsForm =
-    connect(mapStateToProps, mapDispatchToProps)(SettingsFormImpl);
+const SettingsForm = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(SettingsFormImpl);
 
 export default SettingsForm;

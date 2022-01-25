@@ -12,15 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 
 function LoadingPage() {
   const [tick, setTick] = useState(0);
 
   useEffect(() => {
-    const timer = window.setTimeout(
-        () => setTick(tick + 1),
-        500);
+    const timer = window.setTimeout(() => setTick(tick + 1), 500);
     return () => {
       window.clearTimeout(timer);
     };
@@ -29,9 +27,7 @@ function LoadingPage() {
   const message = 'Loading.' + '.'.repeat(tick % 3);
   return (
     <div className="container">
-      <h1 className="my-3">
-        {message}
-      </h1>
+      <h1 className="my-3">{message}</h1>
     </div>
   );
 }

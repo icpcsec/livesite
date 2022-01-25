@@ -13,13 +13,16 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 import DataContext from '../data/DataContext';
 
 function Button({ text, enabled, onClick }) {
   return (
-    <button className={`mr-2 btn btn-raised btn-${enabled ? 'danger' : 'secondary'}`} onClick={onClick}>
+    <button
+      className={`mr-2 btn btn-raised btn-${enabled ? 'danger' : 'secondary'}`}
+      onClick={onClick}
+    >
       {text}
     </button>
   );
@@ -28,8 +31,17 @@ function Button({ text, enabled, onClick }) {
 function SignInButton({ signedIn, model }) {
   return (
     <button
-        className={`mr-2 btn ${signedIn ? 'btn-outline-success' : 'btn-raised btn-primary'}`}
-        onClick={() => (signedIn ? (window.confirm('Sign out?') ? model.signOut() : null) : model.signIn())}>
+      className={`mr-2 btn ${
+        signedIn ? 'btn-outline-success' : 'btn-raised btn-primary'
+      }`}
+      onClick={() =>
+        signedIn
+          ? window.confirm('Sign out?')
+            ? model.signOut()
+            : null
+          : model.signIn()
+      }
+    >
       {signedIn ? 'Signed In' : 'Sign In'}
     </button>
   );
@@ -39,7 +51,7 @@ function ConfigButton({ text, values, broadcast, model }) {
   const update = {};
   for (const key in values) {
     if (values.hasOwnProperty(key)) {
-      update[key] = {$set: values[key]};
+      update[key] = { $set: values[key] };
     }
   }
   let enabled = true;
@@ -51,7 +63,13 @@ function ConfigButton({ text, values, broadcast, model }) {
       }
     }
   }
-  return <Button text={text} enabled={enabled} onClick={() => model.updateBroadcast(update)} />;
+  return (
+    <Button
+      text={text}
+      enabled={enabled}
+      onClick={() => model.updateBroadcast(update)}
+    />
+  );
 }
 
 function CompactStandingsButtons({ broadcast, entries, model }) {
@@ -60,13 +78,27 @@ function CompactStandingsButtons({ broadcast, entries, model }) {
   for (let i = 0; i * PAGE_SIZE < entries.length; ++i) {
     const text = `${i * PAGE_SIZE + 1}...${(i + 1) * PAGE_SIZE}`;
     buttons.push(
-        <ConfigButton key={i} text={text} values={{ view: 'normal', page: i }} broadcast={broadcast} model={model} />);
+      <ConfigButton
+        key={i}
+        text={text}
+        values={{ view: 'normal', page: i }}
+        broadcast={broadcast}
+        model={model}
+      />
+    );
   }
   return (
-      <div>
-        <ConfigButton text="auto" values={{ view: 'normal', page: -1 }} broadcast={broadcast} model={model} />
-        <div className="btn-group" style={{ display: 'inline' }}>{buttons}</div>
+    <div>
+      <ConfigButton
+        text="auto"
+        values={{ view: 'normal', page: -1 }}
+        broadcast={broadcast}
+        model={model}
+      />
+      <div className="btn-group" style={{ display: 'inline' }}>
+        {buttons}
       </div>
+    </div>
   );
 }
 
@@ -76,34 +108,64 @@ function DetailedStandingsButtons({ broadcast, entries, model }) {
   for (let i = 0; i * PAGE_SIZE < entries.length; ++i) {
     const text = `${i * PAGE_SIZE + 1}...${(i + 1) * PAGE_SIZE}`;
     buttons.push(
-        <ConfigButton key={i} text={text} values={{ view: 'detailed', page: i }} broadcast={broadcast} model={model} />);
+      <ConfigButton
+        key={i}
+        text={text}
+        values={{ view: 'detailed', page: i }}
+        broadcast={broadcast}
+        model={model}
+      />
+    );
   }
   return (
-      <div>
-        <ConfigButton text="auto" values={{ view: 'detailed', page: -1 }} broadcast={broadcast} model={model} />
-        {buttons}
-      </div>
+    <div>
+      <ConfigButton
+        text="auto"
+        values={{ view: 'detailed', page: -1 }}
+        broadcast={broadcast}
+        model={model}
+      />
+      {buttons}
+    </div>
   );
 }
 
 function ConfigPanelImpl({ broadcast, entries, model }) {
   const { signedIn } = broadcast;
   return (
+    <div>
+      <SignInButton signedIn={signedIn} model={model} />
+
       <div>
-        <SignInButton signedIn={signedIn} model={model} />
+        <h3 className="mt-2">Simple Views</h3>
+        <ConfigButton
+          text="Clock Only"
+          values={{ view: 'none' }}
+          broadcast={broadcast}
+          model={model}
+        />
+        <ConfigButton
+          text="Problems"
+          values={{ view: 'problems' }}
+          broadcast={broadcast}
+          model={model}
+        />
 
-        <div>
-          <h3 className="mt-2">Simple Views</h3>
-          <ConfigButton text="Clock Only" values={{ view: 'none' }} broadcast={broadcast} model={model} />
-          <ConfigButton text="Problems" values={{ view: 'problems' }} broadcast={broadcast} model={model} />
+        <h3 className="mt-2">Compact Standings</h3>
+        <CompactStandingsButtons
+          broadcast={broadcast}
+          entries={entries}
+          model={model}
+        />
 
-          <h3 className="mt-2">Compact Standings</h3>
-          <CompactStandingsButtons broadcast={broadcast} entries={entries} model={model} />
-
-          <h3 className="mt-2">Detailed Standings</h3>
-          <DetailedStandingsButtons broadcast={broadcast} entries={entries} model={model} />
-        </div>
+        <h3 className="mt-2">Detailed Standings</h3>
+        <DetailedStandingsButtons
+          broadcast={broadcast}
+          entries={entries}
+          model={model}
+        />
       </div>
+    </div>
   );
 }
 
@@ -117,7 +179,12 @@ function withModel(Component) {
   return NewComponent;
 }
 
-function mapStateToProps({ broadcast, feeds: { standings: { entries } } }) {
+function mapStateToProps({
+  broadcast,
+  feeds: {
+    standings: { entries },
+  },
+}) {
   return { broadcast, entries };
 }
 

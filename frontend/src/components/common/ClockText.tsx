@@ -13,8 +13,8 @@
 // limitations under the License.
 
 import React, { useEffect, useState } from 'react';
-import {connect} from 'react-redux';
-import {sprintf} from 'sprintf-js';
+import { connect } from 'react-redux';
+import { sprintf } from 'sprintf-js';
 import { ContestTimes, State } from '../../data';
 
 function formatClock(times: ContestTimes): string {
@@ -23,10 +23,11 @@ function formatClock(times: ContestTimes): string {
   const delta = Math.max(end, now) - Math.max(start, now);
   const deltaScaled = delta * scale;
   return sprintf(
-      '%d:%02d:%02d',
-      Math.floor(deltaScaled / 60 / 60),
-      Math.floor(deltaScaled / 60) % 60,
-      Math.floor(deltaScaled) % 60);
+    '%d:%02d:%02d',
+    Math.floor(deltaScaled / 60 / 60),
+    Math.floor(deltaScaled / 60) % 60,
+    Math.floor(deltaScaled) % 60
+  );
 }
 
 export function ClockTextImpl({ times }: { times: ContestTimes }) {
@@ -34,13 +35,20 @@ export function ClockTextImpl({ times }: { times: ContestTimes }) {
   useEffect(() => {
     const { scale = 1 } = times;
     const updateInterval = Math.max(1000 / scale, 100);
-    const timer = window.setInterval(() => setText(formatClock(times)), updateInterval);
+    const timer = window.setInterval(
+      () => setText(formatClock(times)),
+      updateInterval
+    );
     return () => window.clearInterval(timer);
   }, [times]);
   return <span>{text}</span>;
 }
 
-function mapStateToProps({ feeds: { contest: { times } } }: State) {
+function mapStateToProps({
+  feeds: {
+    contest: { times },
+  },
+}: State) {
   return { times };
 }
 

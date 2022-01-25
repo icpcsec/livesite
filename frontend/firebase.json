@@ -4,17 +4,11 @@
   },
   "hosting": {
     "public": "public",
-    "ignore": [
-      ".dev/**",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": [".dev/**", "**/.*", "**/node_modules/**"],
     "headers": [
       {
         "source": "**",
-        "headers": [
-          { "key": "Cache-Control", "value": "no-cache" }
-        ]
+        "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
       }
     ],
     "rewrites": [

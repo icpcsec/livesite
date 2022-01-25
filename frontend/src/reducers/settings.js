@@ -29,23 +29,17 @@ function updateSettings(settings) {
     }
   }
   if (settings.version < 1) {
-    settings = applyPartialUpdate(
-      settings,
-      {
-        version: {$set: 1},
-        pinnedTeamIds: {$set: []},
-      }
-    );
+    settings = applyPartialUpdate(settings, {
+      version: { $set: 1 },
+      pinnedTeamIds: { $set: [] },
+    });
   }
   if (settings.version < 2) {
-    settings = applyPartialUpdate(
-      settings,
-      {
-        version: {$set: 2},
-        invertColor: {$set: false},
-        autoscroll: {$set: false},
-      }
-    );
+    settings = applyPartialUpdate(settings, {
+      version: { $set: 2 },
+      invertColor: { $set: false },
+      autoscroll: { $set: false },
+    });
   }
   return settings;
 }

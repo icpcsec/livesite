@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {Route, Switch} from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import EventsOverlay from './common/EventsOverlay';
 import Footer from './common/Footer';
@@ -22,7 +22,7 @@ import Theme from './common/Theme';
 
 function Frame({ children }) {
   return (
-    <div style={{width: '100%'}}>
+    <div style={{ width: '100%' }}>
       <Switch>
         <Route path="/reveal/" />
         <Route>
@@ -30,7 +30,7 @@ function Frame({ children }) {
         </Route>
       </Switch>
       <div style={{ paddingTop: '70px' }} />
-      <div className="container" style={{position: 'relative' }}>
+      <div className="container" style={{ position: 'relative' }}>
         {children}
       </div>
       <EventsOverlay />

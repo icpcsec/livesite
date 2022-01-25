@@ -13,36 +13,33 @@
 // limitations under the License.
 
 export interface Contest {
-    title: string
-    times: ContestTimes
+  title: string;
+  times: ContestTimes;
 }
 
 export interface ContestTimes {
-    start: number
-    end: number
-    scale?: number
+  start: number;
+  end: number;
+  scale?: number;
 }
 
-export interface Problem {
-}
+export interface Problem {}
 
-export interface StandingsEntry {
-}
+export interface StandingsEntry {}
 
 export interface Standings {
-    problems: Problem[]
-    entries: StandingsEntry[]
+  problems: Problem[];
+  entries: StandingsEntry[];
 }
 
-export interface Team {
-}
+export interface Team {}
 
 export interface Feeds {
-    contest: Contest
-    standings: Standings
-    teams: Record<string, Team>
+  contest: Contest;
+  standings: Standings;
+  teams: Record<string, Team>;
 }
 
 export interface State {
-    feeds: Feeds
+  feeds: Feeds;
 }

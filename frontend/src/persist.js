@@ -41,7 +41,7 @@ class Persist {
           type: 'LOAD',
           update: { settings: { $set: settings } },
         });
-      } catch(e) {
+      } catch (e) {
         // Ignore corrupted settings.
       }
     }

@@ -20,7 +20,7 @@ import CompactStandingsTable from './CompactStandingsTable';
 
 function ClockPane() {
   return (
-    <div style={{position: 'absolute', right: '20px', top: '16px'}}>
+    <div style={{ position: 'absolute', right: '20px', top: '16px' }}>
       <Clock />
     </div>
   );
@@ -28,7 +28,15 @@ function ClockPane() {
 
 function EventsPane() {
   return (
-    <div style={{position: 'absolute', top: '120px', bottom: '20px', right: '20px', width: '280px' }}>
+    <div
+      style={{
+        position: 'absolute',
+        top: '120px',
+        bottom: '20px',
+        right: '20px',
+        width: '280px',
+      }}
+    >
       <EventsTable />
     </div>
   );
@@ -39,9 +47,10 @@ const COMPACT_STANDINGS_NUM_ROWS = 20;
 function StandingsPage({ page }) {
   return (
     <CompactStandingsTable
-        numRows={COMPACT_STANDINGS_NUM_ROWS}
-        offsetRows={page * COMPACT_STANDINGS_NUM_ROWS}
-        dense={true} />
+      numRows={COMPACT_STANDINGS_NUM_ROWS}
+      offsetRows={page * COMPACT_STANDINGS_NUM_ROWS}
+      dense={true}
+    />
   );
 }
 
@@ -49,24 +58,29 @@ function StandingsPane() {
   const pages = [];
   for (let page = 0; page < 4; page++) {
     pages.push(
-        <div style={{ width: '300px' }} key={page} >
-          <StandingsPage page={page} />
-        </div>
+      <div style={{ width: '300px' }} key={page}>
+        <StandingsPage page={page} />
+      </div>
     );
   }
   return (
-    <div style={{ position: 'absolute', left: '20px', right: '20px', bottom: '16px', display: 'flex', justifyContent: 'space-between' }}>
+    <div
+      style={{
+        position: 'absolute',
+        left: '20px',
+        right: '20px',
+        bottom: '16px',
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
       {pages}
     </div>
   );
 }
 
 function Frame({ children }) {
-  return (
-    <div className="dashboard-frame">
-      {children}
-    </div>
-  );
+  return <div className="dashboard-frame">{children}</div>;
 }
 
 function DashboardPage() {

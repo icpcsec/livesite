@@ -16,7 +16,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../actions/index';
-import {StandingsTableImpl} from './StandingsTable';
+import { StandingsTableImpl } from './StandingsTable';
 
 class StandingsUploadForm extends React.Component {
   constructor(props) {
@@ -33,9 +33,11 @@ class StandingsUploadForm extends React.Component {
       reader.onload = (e) => resolve(e.target.result);
       reader.readAsText(e.target.files[0]);
     });
-    loader.then((text) => JSON.parse(text)).then((reveal) => {
-      this.props.onLoaded(reveal);
-    });
+    loader
+      .then((text) => JSON.parse(text))
+      .then((reveal) => {
+        this.props.onLoaded(reveal);
+      });
   }
 
   render() {
@@ -46,12 +48,15 @@ class StandingsUploadForm extends React.Component {
       <div>
         <p>
           Please select reveal JSON files:
-          <input type="file"
-                 multiple="multiple"
-                 onChange={this.onChange.bind(this)} />
+          <input
+            type="file"
+            multiple="multiple"
+            onChange={this.onChange.bind(this)}
+          />
         </p>
         <p>
-          Use arrow keys to navigate (right arrow: forward, left arrow: backward).
+          Use arrow keys to navigate (right arrow: forward, left arrow:
+          backward).
         </p>
       </div>
     );
@@ -75,9 +80,11 @@ class StandingsRevealTableImpl extends React.Component {
   onKeyDown(e) {
     const { step, numSteps } = this.props;
     if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
-      if (e.keyCode === 39) {  // ArrowRight
+      if (e.keyCode === 39) {
+        // ArrowRight
         this.props.setStep(Math.min(step + 1, numSteps - 1));
-      } else if (e.keyCode === 37) {  // ArrowLeft
+      } else if (e.keyCode === 37) {
+        // ArrowLeft
         this.props.setStep(Math.max(step - 1, 0));
       }
     }
@@ -97,20 +104,28 @@ class StandingsRevealTableImpl extends React.Component {
 
   render() {
     const { teams, entries, problems } = this.props;
-    return entries.length === 0 ?
-      <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} /> :
+    return entries.length === 0 ? (
+      <StandingsUploadForm onLoaded={this.onLoaded.bind(this)} />
+    ) : (
       <StandingsTableImpl
-          revealMode={true}
-          teams={teams}
-          entries={entries}
-          problems={problems}
-          pinnedTeamIds={[]}
-          togglePin={(teamId) => {}}
-      />;
+        revealMode={true}
+        teams={teams}
+        entries={entries}
+        problems={problems}
+        pinnedTeamIds={[]}
+        togglePin={(teamId) => {}}
+      />
+    );
   }
 }
 
-function mapStateToProps({ feeds: { teams }, reveal: { reveal: { entriesList, problems }, step } }) {
+function mapStateToProps({
+  feeds: { teams },
+  reveal: {
+    reveal: { entriesList, problems },
+    step,
+  },
+}) {
   const entries = entriesList[step];
   return {
     teams,
@@ -133,7 +148,9 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-const StandingsRevealTable =
-    connect(mapStateToProps, mapDispatchToProps)(StandingsRevealTableImpl);
+const StandingsRevealTable = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(StandingsRevealTableImpl);
 
 export default StandingsRevealTable;

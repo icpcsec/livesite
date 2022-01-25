@@ -13,11 +13,13 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 function Box({ children }) {
   return (
-    <span style={{ display: 'inline-block', minWidth: '2ex', textAlign: 'right' }}>
+    <span
+      style={{ display: 'inline-block', minWidth: '2ex', textAlign: 'right' }}
+    >
       {children}
     </span>
   );
@@ -28,9 +30,7 @@ function ProblemRow({ problem: { label, color, accepts, rejects } }) {
     <div className="card">
       <div className="card-body">
         <div className="problem-row">
-          <div className="problem-label">
-            {label}
-          </div>
+          <div className="problem-label">{label}</div>
           <div className="problem-flag">
             <i className="fas fa-flag" style={{ color }} />
           </div>
@@ -48,23 +48,22 @@ function ProblemRow({ problem: { label, color, accepts, rejects } }) {
 class ProblemsTableImpl extends React.Component {
   render() {
     const { problems } = this.props;
-    const rows = problems.map((problem) => <ProblemRow key={problem.label} problem={problem} />);
-    return (
-        <div className="broadcast-problems">
-          {rows}
-        </div>
-    );
+    const rows = problems.map((problem) => (
+      <ProblemRow key={problem.label} problem={problem} />
+    ));
+    return <div className="broadcast-problems">{rows}</div>;
   }
 }
 
-function mapStateToProps({ feeds: { standings: { problems, entries } } }) {
+function mapStateToProps({
+  feeds: {
+    standings: { problems, entries },
+  },
+}) {
   const problemStats = [];
   if (entries.length > 0) {
     for (const problem of problems) {
-      problemStats.push(Object.assign(
-          {},
-          problem,
-          { accepts: 0, rejects: 0 }));
+      problemStats.push(Object.assign({}, problem, { accepts: 0, rejects: 0 }));
     }
     for (const entry of entries) {
       for (let i = 0; i < problemStats.length; ++i) {

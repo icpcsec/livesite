@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 class PrefectureViewImpl extends React.Component {
   componentDidMount() {
@@ -40,34 +40,39 @@ class PrefectureViewImpl extends React.Component {
         prefectures: [i],
       });
     }
-    $('#prefectures').empty().japanMap({
-      width: 732,
-      selection: 'area',
-      areas: areas,
-      color: '#bdbdbd',
-      lineColor: '#bdbdbd',
-      fontColor: '#000',
-      hoverColor: '#ff9100',
-      lineWidth: 1,
-      drawsBoxLine: true,
-      showsPrefectureName: false,
-      showsAreaName: true,
-      movesIslands: true,
-      fontSize: 11,
-      onSelect: ({ code }) => {
-        const $target = $(`#pref${code}`);
-        if ($target.length > 0) {
-          $(document).scrollTop($target.offset().top - 80);
-        }
-      },
-    });
+    $('#prefectures')
+      .empty()
+      .japanMap({
+        width: 732,
+        selection: 'area',
+        areas: areas,
+        color: '#bdbdbd',
+        lineColor: '#bdbdbd',
+        fontColor: '#000',
+        hoverColor: '#ff9100',
+        lineWidth: 1,
+        drawsBoxLine: true,
+        showsPrefectureName: false,
+        showsAreaName: true,
+        movesIslands: true,
+        fontSize: 11,
+        onSelect: ({ code }) => {
+          const $target = $(`#pref${code}`);
+          if ($target.length > 0) {
+            $(document).scrollTop($target.offset().top - 80);
+          }
+        },
+      });
   }
 
   render() {
     // TODO: Support high-DPI devices.
     // Until then, we can not show the map in narrow viewport.
     return (
-      <div className="d-none d-md-block" style={{ textAlign: 'center', marginBottom: '24px' }}>
+      <div
+        className="d-none d-md-block"
+        style={{ textAlign: 'center', marginBottom: '24px' }}
+      >
         <div id="prefectures" />
       </div>
     );

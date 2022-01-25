@@ -39,14 +39,12 @@ const composeEnhancersForDevTool =
 const store = Redux.createStore(
   persist.createReducer(reducer),
   {},
-  composeEnhancersForDevTool(Redux.applyMiddleware(ReduxThunk)));
+  composeEnhancersForDevTool(Redux.applyMiddleware(ReduxThunk))
+);
 
 persist.start(store);
 
-ReactDOM.render(
-  <App store={store} />,
-  document.getElementById('root')
-);
+ReactDOM.render(<App store={store} />, document.getElementById('root'));
 
 $('body').bootstrapMaterialDesign();
 

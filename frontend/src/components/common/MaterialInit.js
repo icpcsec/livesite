@@ -21,7 +21,11 @@ class MaterialInit extends React.Component {
 
   render() {
     return (
-      <div ref={(dom) => { this._dom = dom; }}>
+      <div
+        ref={(dom) => {
+          this._dom = dom;
+        }}
+      >
         {this.props.children}
       </div>
     );

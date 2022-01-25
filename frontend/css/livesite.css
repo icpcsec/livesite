@@ -46,7 +46,6 @@ a.no-decoration {
   color: inherit !important;
 }
 
-
 /*******************************************************************************
  *
  *  Standard standings
@@ -81,11 +80,11 @@ a.no-decoration {
 }
 
 .standard-standings .team-row.sticky {
-  background-color: #BDBDBD;
+  background-color: #bdbdbd;
 }
 
 .standard-standings .team-row.new-solved {
-  background-color: #FFD600;
+  background-color: #ffd600;
 }
 
 .standard-standings .team-row .team-left {
@@ -119,11 +118,11 @@ a.no-decoration {
 }
 
 .standard-standings .team-row .team-mark .fa-thumbtack {
-  color: #BDBDBD;
+  color: #bdbdbd;
 }
 
 .standard-standings .team-row .team-mark .fa-thumbtack.pinned {
-  color: #F44336;
+  color: #f44336;
 }
 
 .standard-standings .team-row .team-rank {
@@ -228,8 +227,12 @@ a.no-decoration {
 }
 
 @keyframes event-slidein {
-  from { transform: translate(360px, 0); }
-  to { transform: translate(0, 0); }
+  from {
+    transform: translate(360px, 0);
+  }
+  to {
+    transform: translate(0, 0);
+  }
 }
 
 .events .card {
@@ -262,7 +265,6 @@ a.no-decoration {
   animation: none;
 }
 
-
 /*******************************************************************************
  *
  *  Standard standings (reveal)
@@ -294,7 +296,6 @@ a.no-decoration {
   box-shadow: 0 0 0 5px red;
 }
 
-
 /*******************************************************************************
  *
  *  Standings common
@@ -306,21 +307,25 @@ a.no-decoration {
 }
 
 @keyframes pending-blink {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .bg-solved {
-  background-color: #64DD17;
+  background-color: #64dd17;
 }
 
 .bg-pending {
-  background-color: #FFD600;
+  background-color: #ffd600;
   animation: pending-blink 1s ease 0s infinite alternate-reverse none running;
 }
 
 .bg-rejected {
-  background-color: #FF5252;
+  background-color: #ff5252;
 }
 
 .bg-unattempted {
@@ -339,7 +344,6 @@ a.no-decoration {
   top: 0;
   bottom: 0;
 }
-
 
 /*******************************************************************************
  *
@@ -380,7 +384,6 @@ a.no-decoration {
   vertical-align: bottom;
 }
 
-
 /*******************************************************************************
  *
  *  Broadcast common
@@ -392,7 +395,8 @@ a.no-decoration {
   overflow: hidden;
 }
 
-.broadcast-frame, .dashboard-frame {
+.broadcast-frame,
+.dashboard-frame {
   position: absolute;
   left: 0;
   top: 0;
@@ -429,7 +433,6 @@ a.no-decoration {
   user-select: none;
 }
 
-
 /*******************************************************************************
  *
  *  Broadcast events
@@ -457,7 +460,6 @@ a.no-decoration {
 .broadcast-events .bg-pending {
   animation: none;
 }
-
 
 /*******************************************************************************
  *
@@ -517,14 +519,16 @@ a.no-decoration {
   border-radius: 2px;
 }
 
-.broadcast-compact-standings .team-row .team-problems .team-problem:first-child {
+.broadcast-compact-standings
+  .team-row
+  .team-problems
+  .team-problem:first-child {
   margin-left: 0;
 }
 
 .broadcast-compact-standings .bg-pending {
   animation: none;
 }
-
 
 /*******************************************************************************
  *
@@ -573,11 +577,14 @@ a.no-decoration {
   justify-content: center;
 }
 
-.broadcast-detailed-standings .team-row .team-problems .team-problem .team-problem-flag {
+.broadcast-detailed-standings
+  .team-row
+  .team-problems
+  .team-problem
+  .team-problem-flag {
   position: absolute;
   font-size: 80%;
 }
-
 
 /*******************************************************************************
  *

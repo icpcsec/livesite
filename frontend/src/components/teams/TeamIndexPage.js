@@ -22,9 +22,7 @@ import siteconfig from '../../siteconfig';
 function TeamIndexPage() {
   return (
     <div>
-      <h1 className="my-4">
-        {tr('Team List', 'チーム一覧')}
-      </h1>
+      <h1 className="my-4">{tr('Team List', 'チーム一覧')}</h1>
       {siteconfig.features.prefecture ? <PrefectureView /> : null}
       <TeamList />
     </div>

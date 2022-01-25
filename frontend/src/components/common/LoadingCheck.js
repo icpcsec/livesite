@@ -12,18 +12,21 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 
 function LoadingCheckImpl({ loaded, children, loading }) {
   return loaded ? children : loading;
 }
 
 function mapStateToProps(state, ownProps) {
-  const loaded = ['contest', 'teams', 'standings'].every(
-      (feed) => state.feeds.loaded.has(feed));
+  const loaded = ['contest', 'teams', 'standings'].every((feed) =>
+    state.feeds.loaded.has(feed)
+  );
   return { loaded, ...ownProps };
 }
 
-const LoadingCheck = connect(mapStateToProps, undefined, undefined, {pure: false})(LoadingCheckImpl);
+const LoadingCheck = connect(mapStateToProps, undefined, undefined, {
+  pure: false,
+})(LoadingCheckImpl);
 
 export default LoadingCheck;

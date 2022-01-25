@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import {BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 import Frame from './Frame';
 import FrontPage from './front/FrontPage';
@@ -30,48 +30,47 @@ import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 import siteconfig from '../siteconfig';
 
-
 function Routes() {
-  const teamPageRoute = siteconfig.features.teamPage ?
-      <Route path="/team/:requestedTeamId" component={TeamInfoPage}/> :
-      null;
+  const teamPageRoute = siteconfig.features.teamPage ? (
+    <Route path="/team/:requestedTeamId" component={TeamInfoPage} />
+  ) : null;
   return (
-      <BrowserRouter>
-        <Switch>
-          <Route path="/broadcast/">
-            <LoadingCheck loading={null}>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/broadcast/">
+          <LoadingCheck loading={null}>
+            <Switch>
+              <Route exact path="/broadcast/">
+                <BroadcastPage />
+              </Route>
+              <Route path="/broadcast/controller">
+                <ControllerPage />
+              </Route>
+            </Switch>
+          </LoadingCheck>
+        </Route>
+        <Route path="/dashboard/">
+          <LoadingCheck loading={null}>
+            <DashboardPage />
+          </LoadingCheck>
+        </Route>
+        <Route>
+          <LoadingCheck loading={<LoadingPage />}>
+            <Frame>
               <Switch>
-                <Route exact path="/broadcast/">
-                  <BroadcastPage/>
-                </Route>
-                <Route path="/broadcast/controller">
-                  <ControllerPage/>
-                </Route>
+                <Route exact path="/" component={FrontPage} />
+                <Route path="/standings/" component={StandingsPage} />
+                <Route exact path="/team/" component={TeamIndexPage} />
+                {teamPageRoute}
+                <Route path="/settings/" component={SettingsPage} />
+                <Route path="/reveal/" component={StandingsRevealPage} />
               </Switch>
-            </LoadingCheck>
-          </Route>
-          <Route path="/dashboard/">
-            <LoadingCheck loading={null}>
-              <DashboardPage/>
-            </LoadingCheck>
-          </Route>
-          <Route>
-            <LoadingCheck loading={<LoadingPage/>}>
-              <Frame>
-                <Switch>
-                  <Route exact path="/" component={FrontPage}/>
-                  <Route path="/standings/" component={StandingsPage}/>
-                  <Route exact path="/team/" component={TeamIndexPage}/>
-                  { teamPageRoute }
-                  <Route path="/settings/" component={SettingsPage}/>
-                  <Route path="/reveal/" component={StandingsRevealPage}/>
-                </Switch>
-              </Frame>
-              <GA/>
-            </LoadingCheck>
-          </Route>
-        </Switch>
-      </BrowserRouter>
+            </Frame>
+            <GA />
+          </LoadingCheck>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

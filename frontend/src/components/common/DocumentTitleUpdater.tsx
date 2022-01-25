@@ -17,8 +17,12 @@ import { connect } from 'react-redux';
 import DocumentTitle from 'react-document-title';
 import { State } from '../../data';
 
-function mapStateToProps({ feeds: { contest: { title } } }: State) {
-  return { title: (title || 'LiveSite') };
+function mapStateToProps({
+  feeds: {
+    contest: { title },
+  },
+}: State) {
+  return { title: title || 'LiveSite' };
 }
 
 const DocumentTitleUpdater = connect(mapStateToProps)(DocumentTitle);

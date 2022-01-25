@@ -18,7 +18,7 @@ import 'firebase/auth';
 import 'firebase/database';
 import applyPartialUpdate from 'immutability-helper';
 
-import {updateBroadcast, updateFeeds} from '../../actions';
+import { updateBroadcast, updateFeeds } from '../../actions';
 import siteconfig from '../../siteconfig';
 
 const FEEDS = ['contest', 'standings', 'teams'];
@@ -30,7 +30,7 @@ function initializeApp() {
     options.authDomain = 'icpcsec.firebaseapp.com';
     options.databaseURL = 'http://localhost:9000?ns=fake-server';
   } else if (hostname.endsWith('.firebaseapp.com')) {
-    const appName = hostname.split(".")[0];
+    const appName = hostname.split('.')[0];
     options.authDomain = appName + '.firebaseapp.com';
     options.databaseURL = 'https://' + appName + '.firebaseio.com';
   } else {
@@ -47,8 +47,9 @@ class DataModel {
     this.auth_ = firebase.auth(this.app_);
 
     for (const feed of FEEDS) {
-      this.db_.ref(`feeds/${feed}`).on(
-          'value', (snapshot) => this.onFeedUpdate_(feed, snapshot.val()));
+      this.db_
+        .ref(`feeds/${feed}`)
+        .on('value', (snapshot) => this.onFeedUpdate_(feed, snapshot.val()));
     }
     this.db_.ref('broadcast').on('value', (snapshot) => {
       const broadcast = snapshot.val();
@@ -56,7 +57,7 @@ class DataModel {
         const update = {};
         for (const key in broadcast) {
           if (broadcast.hasOwnProperty(key)) {
-            update[key] = {$set: broadcast[key]};
+            update[key] = { $set: broadcast[key] };
           }
         }
         this.dispatch_(updateBroadcast(update));
@@ -92,7 +93,7 @@ class DataModel {
     }
     const response = await axios.get(url);
     const data = response.data;
-    this.dispatch_(updateFeeds({[feed]: {$set: data}}));
+    this.dispatch_(updateFeeds({ [feed]: { $set: data } }));
   }
 }
 
