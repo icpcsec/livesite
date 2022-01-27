@@ -3,13 +3,13 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "serve": "firebase emulators:exec --project=fake devserver/boot.sh",
+    "serve": "firebase emulators:exec --project=fake --only=hosting,database devserver/boot.sh",
     "build": "webpack --mode=production",
     "watch": "webpack -w --mode=development",
     "lint": "eslint src",
     "format": "prettier --write .",
     "test": "npm run test:smoke",
-    "test:smoke": "firebase emulators:exec --project=fake devserver/smoke.sh",
+    "test:smoke": "firebase emulators:exec --project=fake --only=hosting,database devserver/smoke.sh",
     "deploy": "npm run build && firebase deploy"
   },
   "keywords": [],
