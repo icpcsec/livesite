@@ -18,28 +18,17 @@ import '@babel/polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import GA from 'react-ga';
-import * as Redux from 'redux';
-import { composeWithDevTools } from '@redux-devtools/extension';
-import { load, save } from 'redux-localstorage-simple';
 
 import { printBanner } from './banner';
 import App from './components/App';
-import reducer from './reducers';
+import { createAppStore } from './redux';
 import siteconfig from './siteconfig';
 
 if (siteconfig.misc.googleAnalyticsId) {
   GA.initialize(siteconfig.misc.googleAnalyticsId);
 }
 
-const persistOptions = {
-  states: ['settings'],
-};
-
-const store = Redux.createStore(
-  reducer,
-  load(persistOptions),
-  composeWithDevTools(Redux.applyMiddleware(save(persistOptions)))
-);
+const store = createAppStore();
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
 

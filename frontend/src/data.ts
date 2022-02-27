@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+export type FeedName = 'contest' | 'standings' | 'teams';
+
 export type Contest = {
   title: string;
   times: ContestTimes;
@@ -42,4 +44,9 @@ export type Feeds = {
 
 export type State = {
   feeds: Feeds;
+};
+
+export type StandingsHistory = {
+  problems: Problem[];
+  entriesList: StandingsEntry[][];
 };
