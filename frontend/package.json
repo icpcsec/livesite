@@ -21,6 +21,7 @@
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
     "@babel/preset-typescript": "^7.12.1",
+    "@redux-devtools/extension": "^3.2.2",
     "@types/jquery": "^3.5.4",
     "@types/react": "^16.9.56",
     "@types/react-document-title": "^2.0.4",
