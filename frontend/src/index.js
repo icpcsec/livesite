@@ -19,7 +19,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GA from 'react-ga';
 import * as Redux from 'redux';
-import ReduxThunk from 'redux-thunk';
 import { composeWithDevTools } from '@redux-devtools/extension';
 
 import { printBanner } from './banner';
@@ -37,7 +36,7 @@ const persist = createPersist();
 const store = Redux.createStore(
   persist.createReducer(reducer),
   {},
-  composeWithDevTools(Redux.applyMiddleware(ReduxThunk))
+  composeWithDevTools(Redux.applyMiddleware())
 );
 
 persist.start(store);

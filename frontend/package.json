@@ -46,7 +46,6 @@
     "react-router-dom": "^5.2.0",
     "react-transition-group": "^2.9.0",
     "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0",
     "sprintf-js": "^1.1.2",
     "ts-loader": "^8.0.10",
     "typescript": "^4.0.5",
