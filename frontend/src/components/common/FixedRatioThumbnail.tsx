@@ -14,10 +14,10 @@
 
 import React from 'react';
 
-interface FixedRatioThumbnailProps {
+type FixedRatioThumbnailProps = {
   url: string;
   ratio: number;
-}
+};
 
 function FixedRatioThumbnail({ url, ratio }: FixedRatioThumbnailProps) {
   const paddingTop = 100 * ratio + '%';

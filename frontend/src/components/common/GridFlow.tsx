@@ -14,10 +14,10 @@
 
 import React from 'react';
 
-interface GridFlowProps {
+type GridFlowProps = {
   className: string;
   children: React.ReactNode[];
-}
+};
 
 function GridFlow({ className, children }: GridFlowProps) {
   const elements = children.map((e, i) => (

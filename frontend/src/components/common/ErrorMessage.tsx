@@ -14,10 +14,10 @@
 
 import React from 'react';
 
-interface ErrorMessageProps {
+type ErrorMessageProps = {
   header: string;
   body: string;
-}
+};
 
 function ErrorMessage({ header, body }: ErrorMessageProps) {
   return (

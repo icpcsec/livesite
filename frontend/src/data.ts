@@ -12,34 +12,34 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export interface Contest {
+export type Contest = {
   title: string;
   times: ContestTimes;
-}
+};
 
-export interface ContestTimes {
+export type ContestTimes = {
   start: number;
   end: number;
   scale?: number;
-}
+};
 
-export interface Problem {}
+export type Problem = {};
 
-export interface StandingsEntry {}
+export type StandingsEntry = {};
 
-export interface Standings {
+export type Standings = {
   problems: Problem[];
   entries: StandingsEntry[];
-}
+};
 
-export interface Team {}
+export type Team = {};
 
-export interface Feeds {
+export type Feeds = {
   contest: Contest;
   standings: Standings;
   teams: Record<string, Team>;
-}
+};
 
-export interface State {
+export type State = {
   feeds: Feeds;
-}
+};
