@@ -13,13 +13,10 @@
 // limitations under the License.
 
 import applyPartialUpdate from 'immutability-helper';
-import { ContestFeed, FeedName, StandingsFeed, TeamsFeed } from '../data';
+import { FeedName, AllFeeds } from '../data';
 import { AppAction } from '../redux';
 
-export type FeedsState = {
-  contest: ContestFeed;
-  standings: StandingsFeed;
-  teams: TeamsFeed;
+export type FeedsState = AllFeeds & {
   loaded: Set<FeedName>;
 };
 

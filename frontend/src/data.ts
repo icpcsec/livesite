@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export type FeedName = 'contest' | 'standings' | 'teams';
-
 export type ContestFeed = {
   title: string;
   times: ContestTimes;
@@ -55,6 +53,14 @@ export type Team = {
 export type TeamMember = {};
 
 export type TeamsFeed = Record<string, Team>;
+
+export type AllFeeds = {
+  contest: ContestFeed;
+  teams: TeamsFeed;
+  standings: StandingsFeed;
+};
+
+export type FeedName = keyof AllFeeds;
 
 export type StandingsHistory = {
   problems: Problem[];
