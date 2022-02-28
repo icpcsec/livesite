@@ -103,3 +103,11 @@ export function setRevealData(reveal: StandingsHistory): SetRevealData {
     reveal,
   };
 }
+
+export type AppAction =
+  | UpdateFeeds
+  | UpdateBroadcast
+  | UpdateSettings
+  | ToggleSetting
+  | SetRevealStep
+  | SetRevealData;

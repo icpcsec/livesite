@@ -1,16 +1,10 @@
 import { composeWithDevTools } from '@redux-devtools/extension';
 import { createSelectorHook, useDispatch } from 'react-redux';
-import {
-  AnyAction,
-  applyMiddleware,
-  createStore,
-  Dispatch,
-  Store,
-} from 'redux';
+import { applyMiddleware, createStore, Dispatch, Store } from 'redux';
 import { load, save } from 'redux-localstorage-simple';
+import { AppAction } from './actions';
 import reducer, { AppState } from './reducers';
 
-export type AppAction = AnyAction; // TODO: Use a concrete type.
 export type AppStore = Store<AppState, AppAction>;
 export type AppDispatch = Dispatch<AppAction>;
 
