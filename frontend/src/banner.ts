@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export function printBanner() {
+export function printBanner(): void {
   console.log(
     ' _     _           _____ _ _       \n' +
       '| |   (_)         /  ___(_) |      \n' +

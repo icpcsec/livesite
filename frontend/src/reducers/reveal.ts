@@ -26,7 +26,7 @@ const DEFAULT: RevealState = {
   step: 0,
 };
 
-function reveal(reveal = DEFAULT, action: AppAction) {
+function reveal(reveal = DEFAULT, action: AppAction): RevealState {
   if (action.type === 'SET_REVEAL_STEP') {
     return applyPartialUpdate(reveal, { step: { $set: action.step } });
   } else if (action.type === 'SET_REVEAL_DATA') {

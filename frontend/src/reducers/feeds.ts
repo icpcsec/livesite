@@ -37,7 +37,7 @@ const DEFAULT: FeedsState = {
   loaded: new Set(),
 };
 
-function feeds(state = DEFAULT, action: AppAction) {
+function feeds(state = DEFAULT, action: AppAction): FeedsState {
   if (action.type === 'UPDATE_FEEDS') {
     state = applyPartialUpdate(state, action.update);
     const newLoaded = new Set(state.loaded);

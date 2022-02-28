@@ -25,7 +25,7 @@ const DEFAULT: BroadcastState = {
   view: 'none',
 };
 
-function broadcast(state = DEFAULT, action: AppAction) {
+function broadcast(state = DEFAULT, action: AppAction): BroadcastState {
   if (action.type === 'UPDATE_BROADCAST') {
     state = applyPartialUpdate(state, action.update);
   }

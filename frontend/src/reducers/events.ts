@@ -71,8 +71,8 @@ function computeEvents(
   newEntries: StandingsEntry[],
   oldEntries: StandingsEntry[],
   times: ContestTimes,
-  events: Event[] = []
-): Event[] {
+  events: EventsState = []
+): EventsState {
   if (oldEntries.length === 0 || newEntries.length === 0) {
     return events;
   }
