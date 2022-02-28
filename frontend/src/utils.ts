@@ -13,26 +13,24 @@
 // limitations under the License.
 
 export class TimerSet {
-  timers_: Set<number>;
+  private readonly timers = new Set<number>();
 
-  constructor() {
-    this.timers_ = new Set<number>();
-  }
+  constructor() {}
 
-  setTimeout(callback: () => void, timeout: number) {
+  setTimeout(callback: () => void, timeout: number): void {
     const timer = window.setTimeout(() => {
-      if (this.timers_.has(timer)) {
-        this.timers_.delete(timer);
+      if (this.timers.has(timer)) {
+        this.timers.delete(timer);
         callback();
       }
     }, timeout);
-    this.timers_.add(timer);
+    this.timers.add(timer);
   }
 
-  clearTimeouts() {
-    this.timers_.forEach((timer) => {
+  clearTimeouts(): void {
+    this.timers.forEach((timer) => {
       clearTimeout(timer);
     });
-    this.timers_.clear();
+    this.timers.clear();
   }
 }
