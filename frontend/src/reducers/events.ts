@@ -12,20 +12,68 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-function makeEntryMap(entries) {
-  const entryMap = {};
+import { Reducer } from 'redux';
+import { AppNormalizedState, AppState } from '.';
+import { ContestTimes, StandingsEntry } from '../data';
+import { AppAction } from '../redux';
+
+export type SolvedEvent = {
+  type: 'solved';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+  oldRank: string;
+  newRank: string;
+};
+
+export type RejectedEvent = {
+  type: 'rejected';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type PendingEvent = {
+  type: 'pending';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type Event = SolvedEvent | RejectedEvent | PendingEvent;
+
+export type EventsState = Event[];
+
+function normalizeState(
+  state: AppState | undefined
+): AppNormalizedState | undefined {
+  if (state === undefined) {
+    return undefined;
+  }
+  const { events: _, ...normalizedState } = state;
+  return normalizedState;
+}
+
+function makeEntryMap(
+  entries: StandingsEntry[]
+): Record<string, StandingsEntry> {
+  const entryMap: Record<string, StandingsEntry> = {};
   for (const entry of entries) {
     entryMap[entry.teamId] = entry;
   }
   return entryMap;
 }
 
-function computeEvents(newEntries, oldEntries, teams, times, events = []) {
-  if (
-    teams.length === 0 ||
-    oldEntries.length === 0 ||
-    newEntries.length === 0
-  ) {
+function computeEvents(
+  newEntries: StandingsEntry[],
+  oldEntries: StandingsEntry[],
+  times: ContestTimes,
+  events: Event[] = []
+): Event[] {
+  if (oldEntries.length === 0 || newEntries.length === 0) {
     return events;
   }
 
@@ -33,7 +81,7 @@ function computeEvents(newEntries, oldEntries, teams, times, events = []) {
 
   const freezeTime = times.freeze || 0;
 
-  const newEvents = [];
+  const newEvents: Event[] = [];
 
   const oldEntrymap = makeEntryMap(oldEntries);
   const newEntryMap = makeEntryMap(newEntries);
@@ -97,27 +145,21 @@ function computeEvents(newEntries, oldEntries, teams, times, events = []) {
       }
     }
   }
-  return [].concat(events, newEvents);
+  return ([] as Event[]).concat(events, newEvents);
 }
 
-export function deriveEvents(reducer) {
-  return (state, action) => {
-    const midState = Object.assign({}, state);
-    delete midState.events;
-    const newState = reducer(midState, action);
-    const oldEntries = ((state.feeds || {}).standings || {}).entries || [];
-    const newEntries = ((newState.feeds || {}).standings || {}).entries || [];
-    const newTeams = newState.feeds.teams || {};
-    const newTimes = (newState.feeds.contest || {}).times || {};
-    const oldEvents = state.events || [];
-    return Object.assign({}, newState, {
-      events: computeEvents(
-        newEntries,
-        oldEntries,
-        newTeams,
-        newTimes,
-        oldEvents
-      ),
-    });
+export function deriveEvents(
+  reducer: Reducer<AppNormalizedState, AppAction>
+): Reducer<AppState, AppAction> {
+  return (state: AppState | undefined, action: AppAction) => {
+    const newState = reducer(normalizeState(state), action);
+    const oldEntries = state?.feeds?.standings?.entries ?? [];
+    const newEntries = newState.feeds.standings.entries;
+    const newTimes = newState.feeds.contest.times;
+    const oldEvents = state?.events ?? [];
+    return {
+      ...newState,
+      events: computeEvents(newEntries, oldEntries, newTimes, oldEvents),
+    };
   };
 }

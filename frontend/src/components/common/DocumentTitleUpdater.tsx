@@ -15,13 +15,13 @@
 import { connect } from 'react-redux';
 
 import DocumentTitle from 'react-document-title';
-import { State } from '../../data';
+import { AppState } from '../../reducers';
 
 function mapStateToProps({
   feeds: {
     contest: { title },
   },
-}: State) {
+}: AppState) {
   return { title: title || 'LiveSite' };
 }
 

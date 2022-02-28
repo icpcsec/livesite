@@ -14,7 +14,7 @@
 
 export type FeedName = 'contest' | 'standings' | 'teams';
 
-export type Contest = {
+export type ContestFeed = {
   title: string;
   times: ContestTimes;
 };
@@ -22,29 +22,39 @@ export type Contest = {
 export type ContestTimes = {
   start: number;
   end: number;
+  freeze: number;
   scale?: number;
 };
 
 export type Problem = {};
 
-export type StandingsEntry = {};
+export type StandingsEntry = {
+  teamId: string;
+  rank: string;
+  problems: StandingsProblemEntry[];
+};
 
-export type Standings = {
+export type StandingsProblemEntry = {
+  solved: boolean;
+  attempts: number;
+  pendings: number;
+};
+
+export type StandingsFeed = {
   problems: Problem[];
   entries: StandingsEntry[];
 };
 
-export type Team = {};
-
-export type Feeds = {
-  contest: Contest;
-  standings: Standings;
-  teams: Record<string, Team>;
+export type Team = {
+  id: string;
+  name: string;
+  university: string;
+  members: TeamMember[];
 };
 
-export type State = {
-  feeds: Feeds;
-};
+export type TeamMember = {};
+
+export type TeamsFeed = Record<string, Team>;
 
 export type StandingsHistory = {
   problems: Problem[];
