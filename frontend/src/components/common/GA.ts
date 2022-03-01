@@ -12,24 +12,14 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactGA from 'react-ga';
+import { useLocation } from 'react-router-dom';
 
-class MaterialInit extends React.Component {
-  componentDidMount() {
-    $(this._dom).bootstrapMaterialDesign();
-  }
-
-  render() {
-    return (
-      <div
-        ref={(dom) => {
-          this._dom = dom;
-        }}
-      >
-        {this.props.children}
-      </div>
-    );
-  }
+export default function GA() {
+  const location = useLocation();
+  useEffect(() => {
+    ReactGA.pageview(location.pathname);
+  }, [location.pathname]);
+  return null;
 }
-
-export default MaterialInit;

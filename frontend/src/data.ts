@@ -15,6 +15,7 @@
 export type ContestFeed = {
   title: string;
   times: ContestTimes;
+  problemLink?: string;
 };
 
 export type ContestTimes = {
@@ -24,12 +25,15 @@ export type ContestTimes = {
   scale?: number;
 };
 
-export type Problem = {};
+export type Problem = {
+  label: string;
+};
 
 export type StandingsEntry = {
   teamId: string;
   rank: string;
   problems: StandingsProblemEntry[];
+  solved: string;
 };
 
 export type StandingsProblemEntry = {
@@ -47,6 +51,7 @@ export type Team = {
   id: string;
   name: string;
   university: string;
+  universityShort?: string;
   members: TeamMember[];
 };
 
@@ -62,7 +67,39 @@ export type AllFeeds = {
 
 export type FeedName = keyof AllFeeds;
 
+export const FEED_NAMES = ['contest', 'teams', 'standings'] as const;
+
 export type StandingsHistory = {
   problems: Problem[];
   entriesList: StandingsEntry[][];
 };
+
+export type SolvedEvent = {
+  type: 'solved';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+  oldRank: string;
+  newRank: string;
+};
+
+export type RejectedEvent = {
+  type: 'rejected';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type PendingEvent = {
+  type: 'pending';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type Event = SolvedEvent | RejectedEvent | PendingEvent;
+
+export type EventType = Event['type'];

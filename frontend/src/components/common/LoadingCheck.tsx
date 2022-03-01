@@ -12,21 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { connect } from 'react-redux';
+import React from 'react';
+import { FEED_NAMES } from '../../data';
+import { useAppSelector } from '../../redux';
 
-function LoadingCheckImpl({ loaded, children, loading }) {
+export default function LoadingCheck({
+  loading,
+  children,
+}: {
+  loading: React.ReactNode;
+  children: React.ReactNode;
+}) {
+  const loaded = useAppSelector(({ feeds }) => {
+    return FEED_NAMES.every((feed) => feeds.loaded.has(feed));
+  });
   return loaded ? children : loading;
 }
-
-function mapStateToProps(state, ownProps) {
-  const loaded = ['contest', 'teams', 'standings'].every((feed) =>
-    state.feeds.loaded.has(feed)
-  );
-  return { loaded, ...ownProps };
-}
-
-const LoadingCheck = connect(mapStateToProps, undefined, undefined, {
-  pure: false,
-})(LoadingCheckImpl);
-
-export default LoadingCheck;

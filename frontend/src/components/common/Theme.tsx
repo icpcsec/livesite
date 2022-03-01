@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { useAppSelector } from '../../redux';
 
 const LIGHT_STYLES = 'body { color: #000 !important }';
 
@@ -25,17 +25,10 @@ const DARK_STYLES =
   'textarea { background-color: #303030 !important; }' +
   '.standings .team-row.sticky { background-color: #616161 !important; }';
 
-function ThemeImpl({ settings }) {
-  if (settings.invertColor) {
+export default function Theme() {
+  const invertColor = useAppSelector(({ settings: { invertColor }}) => invertColor);
+  if (invertColor) {
     return <style>{DARK_STYLES}</style>;
   }
   return <style>{LIGHT_STYLES}</style>;
-}
-
-function mapStateToProps({ settings }) {
-  return { settings };
-}
-
-const Theme = connect(mapStateToProps)(ThemeImpl);
-
-export default Theme;
+};
