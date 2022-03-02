@@ -23,7 +23,7 @@ import { updateSettings } from '../../actions/index';
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
 import AnimatingTable from '../common/AnimatingTable';
-import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
+import { createAnimatingStandingsRow } from '../common/AnimatingStandingsRow';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -297,58 +297,62 @@ class TeamRowRight extends React.Component {
   }
 }
 
-class TeamRow extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    const FIELDS = [
-      'entry',
-      'team',
-      'universityRank',
-      'problems',
-      'pinned',
-      'zIndex',
-      'className',
-    ];
-    const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
-    return !cached;
-  }
+const TeamRow = createAnimatingStandingsRow(
+  class TeamRow extends React.Component {
+    shouldComponentUpdate(nextProps, nextState) {
+      const FIELDS = [
+        'entry',
+        'team',
+        'universityRank',
+        'problems',
+        'pinned',
+        'zIndex',
+        'className',
+      ];
+      const cached = FIELDS.every((f) =>
+        deepEqual(this.props[f], nextProps[f])
+      );
+      return !cached;
+    }
 
-  render() {
-    const {
-      entry,
-      team,
-      universityRank,
-      problems: problemSpecs,
-      pinned,
-      onClickPin,
-      revealMode,
-      zIndex,
-      className = '',
-      ...rest
-    } = this.props;
-    const { rank, solved, penalty, revealState, problems = [] } = entry;
-    const rewrittenClassName = 'team-row ' + className;
-    return (
-      <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
-        <TeamRowLeft
-          pinned={pinned}
-          revealMode={revealMode}
-          revealState={revealState}
-          onClickPin={onClickPin}
-        />
-        <TeamGenericCol className="team-rank" text={rank} />
-        <TeamRowRight
-          solved={solved}
-          penalty={penalty}
-          problemSpecs={problemSpecs}
-          team={team}
-          universityRank={universityRank}
-          problems={problems}
-          revealMode={revealMode}
-        />
-      </div>
-    );
+    render() {
+      const {
+        entry,
+        team,
+        universityRank,
+        problems: problemSpecs,
+        pinned,
+        onClickPin,
+        revealMode,
+        zIndex,
+        className = '',
+        ...rest
+      } = this.props;
+      const { rank, solved, penalty, revealState, problems = [] } = entry;
+      const rewrittenClassName = 'team-row ' + className;
+      return (
+        <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
+          <TeamRowLeft
+            pinned={pinned}
+            revealMode={revealMode}
+            revealState={revealState}
+            onClickPin={onClickPin}
+          />
+          <TeamGenericCol className="team-rank" text={rank} />
+          <TeamRowRight
+            solved={solved}
+            penalty={penalty}
+            problemSpecs={problemSpecs}
+            team={team}
+            universityRank={universityRank}
+            problems={problems}
+            revealMode={revealMode}
+          />
+        </div>
+      );
+    }
   }
-}
+);
 
 function RevealRow(props) {
   return (
@@ -425,8 +429,7 @@ export class StandingsTableImpl extends React.Component {
         );
       }
       normalRows.push(
-        <AnimatingStandingsRow
-          component={TeamRow}
+        <TeamRow
           key={entry.teamId}
           entry={entry}
           team={team}
@@ -445,8 +448,7 @@ export class StandingsTableImpl extends React.Component {
     const stickyRows = pinnedEntries.map((entry) => {
       const team = teams[entry.teamId] || DEFAULT_TEAM;
       return (
-        <AnimatingStandingsRow
-          component={TeamRow}
+        <TeamRow
           key={entry.teamId}
           entry={entry}
           team={team}

@@ -16,7 +16,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AnimatingTable from '../common/AnimatingTable';
-import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
+import { createAnimatingStandingsRow } from '../common/AnimatingStandingsRow';
 import { sprintf } from 'sprintf-js';
 
 const DEFAULT_TEAM = {
@@ -100,7 +100,7 @@ function TeamProblemCol({ problem: { attempts, penalty, pendings, solved } }) {
   );
 }
 
-function TeamRow({
+const TeamRow = createAnimatingStandingsRow(function TeamRow({
   entry: { rank, solved, penalty, problems },
   team: { name, university, universityJa },
   zIndex,
@@ -131,7 +131,7 @@ function TeamRow({
       </div>
     </div>
   );
-}
+});
 
 class DetailedStandingsTableImpl extends React.Component {
   render() {
@@ -147,9 +147,8 @@ class DetailedStandingsTableImpl extends React.Component {
       const entry = entries[index];
       const team = teams[entry.teamId] || DEFAULT_TEAM;
       rows.push(
-        <AnimatingStandingsRow
+        <TeamRow
           key={entry.teamId}
-          component={TeamRow}
           entry={entry}
           team={team}
           index={index}

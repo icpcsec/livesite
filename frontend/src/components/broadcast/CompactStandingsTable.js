@@ -16,7 +16,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import AnimatingTable from '../common/AnimatingTable';
-import AnimatingStandingsRow from '../common/AnimatingStandingsRow';
+import { createAnimatingStandingsRow } from '../common/AnimatingStandingsRow';
 
 const DEFAULT_TEAM = {
   id: 'null',
@@ -67,7 +67,7 @@ function TeamProblems({ problems }) {
   return <div className="team-problems">{problemCols}</div>;
 }
 
-function TeamRow({
+const TeamRow = createAnimatingStandingsRow(function TeamRow({
   entry: { rank, problems, solved, penalty },
   team,
   zIndex,
@@ -85,7 +85,7 @@ function TeamRow({
       </div>
     </div>
   );
-}
+});
 
 class CompactStandingsTableImpl extends React.Component {
   render() {
@@ -101,13 +101,7 @@ class CompactStandingsTableImpl extends React.Component {
       const entry = entries[index];
       const team = teams[entry.teamId] || DEFAULT_TEAM;
       rows.push(
-        <AnimatingStandingsRow
-          key={entry.teamId}
-          component={TeamRow}
-          entry={entry}
-          team={team}
-          index={index}
-        />
+        <TeamRow key={entry.teamId} entry={entry} team={team} index={index} />
       );
     }
     const rowHeight = (dense ? 33 : 36) + 1;
