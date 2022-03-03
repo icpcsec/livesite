@@ -13,7 +13,8 @@
 // limitations under the License.
 
 import React from 'react';
+import DataModel from './DataModel';
 
-const DataContext = React.createContext(null);
+const DataContext = React.createContext<DataModel | null>(null);
 
 export default DataContext;

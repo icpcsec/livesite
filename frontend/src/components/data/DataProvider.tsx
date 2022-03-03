@@ -12,29 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-export class TimerSet {
-  private readonly timers = new Set<number>();
+import React, { useMemo } from 'react';
 
-  constructor() {}
+import DataModel from './DataModel';
+import DataContext from './DataContext';
+import { useAppDispatch } from '../../redux';
 
-  setTimeout(callback: () => void, timeout: number): void {
-    const timer = window.setTimeout(() => {
-      if (this.timers.has(timer)) {
-        this.timers.delete(timer);
-        callback();
-      }
-    }, timeout);
-    this.timers.add(timer);
-  }
-
-  clearTimeouts(): void {
-    this.timers.forEach((timer) => {
-      clearTimeout(timer);
-    });
-    this.timers.clear();
-  }
+export default function DataProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  const dispatch = useAppDispatch();
+  const model = useMemo(() => new DataModel(dispatch), [dispatch]);
+  return <DataContext.Provider value={model}>{children}</DataContext.Provider>;
 }
-
-export type TopLevelUpdate<T> = {
-  [P in keyof T]?: { $set: T[P] };
-};
