@@ -13,26 +13,33 @@
 // limitations under the License.
 
 import deepEqual from 'deep-equal';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import deepCompare from 'react-addons-deep-compare';
 import { sprintf } from 'sprintf-js';
-import { connect } from 'react-redux';
 
 import { updateSettings } from '../../actions/index';
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
 import AnimatingTable from '../common/AnimatingTable';
 import { createAnimatingStandingsRow } from '../common/AnimatingStandingsRow';
+import {
+  Problem,
+  RevealState,
+  StandingsEntry,
+  StandingsProblemEntry,
+  Team,
+} from '../../data';
+import { useAppDispatch, useAppSelector } from '../../redux';
 
-const DEFAULT_TEAM = {
+const DEFAULT_TEAM: Team = {
   id: 'null',
   name: '???',
   university: '???',
   members: [],
+  country: '???',
 };
 
-function achievementColor(solved, numProblems) {
+function achievementColor(solved: number, numProblems: number): string {
   // HACK: Assume 8 problems if there is no problem settings.
   const actualNumProblems = numProblems || 8;
 
@@ -44,9 +51,16 @@ function achievementColor(solved, numProblems) {
   return `hsl(${hue}, 80%, 55%)`;
 }
 
-class TeamGenericCol extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return deepCompare(this, nextProps, nextState);
+type TeamGenericColProps = {
+  text: React.ReactNode;
+  small?: React.ReactNode;
+  to?: string;
+  className?: string;
+};
+
+class TeamGenericCol extends React.Component<TeamGenericColProps> {
+  shouldComponentUpdate(nextProps: TeamGenericColProps, nextState: {}) {
+    return deepEqual(this.props, nextProps);
   }
 
   render() {
@@ -74,7 +88,13 @@ class TeamGenericCol extends React.Component {
   }
 }
 
-function LegendProblemCol({ problem: { label, title, color = 'black' } }) {
+type LegendProblemColProps = {
+  problem: Problem;
+};
+
+function LegendProblemCol({
+  problem: { label, title, color = 'black' },
+}: LegendProblemColProps) {
   return (
     <div className="team-col team-problem">
       <div>
@@ -87,9 +107,13 @@ function LegendProblemCol({ problem: { label, title, color = 'black' } }) {
   );
 }
 
-class LegendProblemCols extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return deepCompare(this, nextProps, nextState);
+type LegendProblemColsProps = {
+  problems: Problem[];
+};
+
+class LegendProblemCols extends React.Component<LegendProblemColsProps> {
+  shouldComponentUpdate(nextProps: LegendProblemColsProps, nextState: {}) {
+    return deepEqual(this.props, nextProps);
   }
 
   render() {
@@ -101,7 +125,11 @@ class LegendProblemCols extends React.Component {
   }
 }
 
-function LegendRow({ problems }) {
+type LegendRowProps = {
+  problems: Problem[];
+};
+
+function LegendRow({ problems }: LegendRowProps) {
   return (
     <div className="team-row legend">
       <div className="team-col team-mark"></div>
@@ -115,10 +143,33 @@ function LegendRow({ problems }) {
   );
 }
 
-function TeamPinCol({ pinned, onClick, revealMode }) {
-  if (revealMode) {
+type TeamPinColProps = {
+  teamId: string;
+  pinned: boolean | null;
+};
+
+function TeamPinCol({ teamId, pinned }: TeamPinColProps) {
+  if (pinned === null) {
     return <div />;
   }
+
+  const pinnedTeamIds = useAppSelector(
+    ({ settings: { pinnedTeamIds } }) => pinnedTeamIds
+  );
+  const dispatch = useAppDispatch();
+  const onClick = (): void => {
+    const index = pinnedTeamIds.indexOf(teamId);
+    const newPinnedTeamIds =
+      index < 0
+        ? [...pinnedTeamIds, teamId]
+        : [...pinnedTeamIds.slice(0, index), ...pinnedTeamIds.slice(index + 1)];
+    dispatch(
+      updateSettings({
+        pinnedTeamIds: { $set: newPinnedTeamIds },
+      })
+    );
+  };
+
   const className = 'fas fa-thumbtack' + (pinned ? ' pinned' : '');
   return (
     <div className="team-col team-mark">
@@ -127,7 +178,15 @@ function TeamPinCol({ pinned, onClick, revealMode }) {
   );
 }
 
-function TeamRevealStateCol({ revealMode, revealState }) {
+type TeamRevealStateColProps = {
+  revealMode: boolean;
+  revealState: RevealState | undefined;
+};
+
+function TeamRevealStateCol({
+  revealMode,
+  revealState,
+}: TeamRevealStateColProps) {
   if (!revealMode) {
     return <div />;
   }
@@ -135,7 +194,13 @@ function TeamRevealStateCol({ revealMode, revealState }) {
   return <div className="team-col team-mark">{mark}</div>;
 }
 
-function TeamScoreCol({ solved, penalty, problemSpecs }) {
+type TeamScoreColProps = {
+  solved: number;
+  penalty: number;
+  problemSpecs: Problem[];
+};
+
+function TeamScoreCol({ solved, penalty, problemSpecs }: TeamScoreColProps) {
   const backgroundColor = achievementColor(solved, problemSpecs.length);
   return (
     <div className="team-col team-score">
@@ -149,11 +214,17 @@ function TeamScoreCol({ solved, penalty, problemSpecs }) {
   );
 }
 
+type TeamProblemColProps = {
+  problem: StandingsProblemEntry;
+  problemSpec: Problem;
+  revealMode: boolean;
+};
+
 function TeamProblemCol({
   problem: { attempts, penalty, pendings, solved },
   problemSpec: { label },
   revealMode,
-}) {
+}: TeamProblemColProps) {
   let status;
   let content;
   if (solved) {
@@ -206,7 +277,17 @@ function TeamProblemCol({
   );
 }
 
-function TeamProblemCols({ problems, problemSpecs, revealMode }) {
+type TeamProblemColsProps = {
+  problems: StandingsProblemEntry[];
+  problemSpecs: Problem[];
+  revealMode: boolean;
+};
+
+function TeamProblemCols({
+  problems,
+  problemSpecs,
+  revealMode,
+}: TeamProblemColsProps) {
   const problemCols = problems.map((problem, i) => (
     <TeamProblemCol
       key={i}
@@ -218,31 +299,44 @@ function TeamProblemCols({ problems, problemSpecs, revealMode }) {
   return <div className="team-problems">{problemCols}</div>;
 }
 
-class TeamRowLeft extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    const FIELDS = ['pinned', 'revealMode', 'revealState'];
+type TeamRowLeftProps = {
+  teamId: string;
+  pinned: boolean | null;
+  revealMode: boolean;
+  revealState: RevealState | undefined;
+};
+
+class TeamRowLeft extends React.Component<TeamRowLeftProps> {
+  shouldComponentUpdate(nextProps: TeamRowLeftProps, nextState: {}) {
+    const FIELDS = ['teamId', 'pinned', 'revealMode', 'revealState'] as const;
     const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
     return !cached;
   }
 
   render() {
-    const { pinned, revealMode, revealState, onClickPin } = this.props;
+    const { pinned, teamId, revealMode, revealState } = this.props;
     return (
       <div className="team-left">
         <TeamRevealStateCol revealMode={revealMode} revealState={revealState} />
-        <TeamPinCol
-          revealMode={revealMode}
-          pinned={pinned}
-          onClick={onClickPin}
-        />
+        <TeamPinCol teamId={teamId} pinned={pinned} />
       </div>
     );
   }
 }
 
-class TeamRowRight extends React.Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    return deepCompare(this, nextProps, nextState);
+type TeamRowRightProps = {
+  solved: number;
+  penalty: number;
+  problemSpecs: Problem[];
+  team: Team;
+  universityRank: string;
+  problems: StandingsProblemEntry[];
+  revealMode: boolean;
+};
+
+class TeamRowRight extends React.Component<TeamRowRightProps> {
+  shouldComponentUpdate(nextProps: TeamRowRightProps, nextState: {}) {
+    return deepEqual(this.props, nextProps);
   }
 
   render() {
@@ -273,7 +367,7 @@ class TeamRowRight extends React.Component {
         <small> [{universityRank || '???'}]</small>
       </span>
     );
-    const to = siteconfig.features.teamPage ? `/team/${id}` : null;
+    const to = siteconfig.features.teamPage ? `/team/${id}` : undefined;
     return (
       <div className="team-right">
         <TeamScoreCol
@@ -297,18 +391,27 @@ class TeamRowRight extends React.Component {
   }
 }
 
+type TeamRowBaseProps = {
+  entry: StandingsEntry;
+  team: Team;
+  universityRank: string;
+  problems: Problem[];
+  pinned: boolean | null;
+  revealMode: boolean;
+  className: string;
+};
+
 const TeamRow = createAnimatingStandingsRow(
-  class TeamRow extends React.Component {
-    shouldComponentUpdate(nextProps, nextState) {
+  class TeamRow extends React.Component<TeamRowBaseProps> {
+    shouldComponentUpdate(nextProps: TeamRowBaseProps, nextState: {}) {
       const FIELDS = [
         'entry',
         'team',
         'universityRank',
         'problems',
         'pinned',
-        'zIndex',
         'className',
-      ];
+      ] as const;
       const cached = FIELDS.every((f) =>
         deepEqual(this.props[f], nextProps[f])
       );
@@ -322,21 +425,19 @@ const TeamRow = createAnimatingStandingsRow(
         universityRank,
         problems: problemSpecs,
         pinned,
-        onClickPin,
         revealMode,
-        zIndex,
-        className = '',
+        className,
         ...rest
       } = this.props;
       const { rank, solved, penalty, revealState, problems = [] } = entry;
       const rewrittenClassName = 'team-row ' + className;
       return (
-        <div className={rewrittenClassName} style={{ zIndex }} {...rest}>
+        <div className={rewrittenClassName} {...rest}>
           <TeamRowLeft
+            teamId={team.id}
             pinned={pinned}
             revealMode={revealMode}
             revealState={revealState}
-            onClickPin={onClickPin}
           />
           <TeamGenericCol className="team-rank" text={rank} />
           <TeamRowRight
@@ -354,7 +455,7 @@ const TeamRow = createAnimatingStandingsRow(
   }
 );
 
-function RevealRow(props) {
+function RevealRow(props: React.ComponentProps<typeof TeamRow>) {
   return (
     <div className="reveal-row no-animation">
       <TeamRow {...props} />
@@ -363,8 +464,11 @@ function RevealRow(props) {
   );
 }
 
-function computeUniversityRanks(entries, teams) {
-  const universityToEntries = {};
+function computeUniversityRanks(
+  entries: StandingsEntry[],
+  teams: Record<string, Team>
+): Record<string, string> {
+  const universityToEntries: Record<string, StandingsEntry[]> = {};
   entries.forEach((entry) => {
     const team = teams[entry.teamId];
     if (team) {
@@ -375,7 +479,7 @@ function computeUniversityRanks(entries, teams) {
       universityToEntries[university].push(entry);
     }
   });
-  const universityRanks = {};
+  const universityRanks: Record<string, string> = {};
   Object.keys(universityToEntries).forEach((university) => {
     const entries = universityToEntries[university];
     entries.forEach((entry, index) => {
@@ -390,135 +494,99 @@ function computeUniversityRanks(entries, teams) {
   return universityRanks;
 }
 
-export class StandingsTableImpl extends React.Component {
-  handleClickPin(teamId) {
-    this.props.togglePin(teamId);
-  }
+type StandingsTableProps = {
+  revealMode?: boolean;
+};
 
-  render() {
-    const {
+export default function StandingsTable({
+  revealMode = false,
+}: StandingsTableProps) {
+  const { entries, teams, problems, pinnedTeamIds } = useAppSelector(
+    ({
+      feeds: {
+        standings: { entries, problems },
+        teams,
+      },
+      settings: { pinnedTeamIds },
+    }) => ({
       entries,
-      teams,
       problems,
+      teams,
       pinnedTeamIds,
-      revealMode = false,
-    } = this.props;
-    const pinnedTeamIdSet = new Set(pinnedTeamIds);
-    const universityRanks = computeUniversityRanks(entries, teams);
-    const normalRows = [];
-    for (let index = 0; index < entries.length; ++index) {
-      const entry = entries[index];
-      const team = teams[entry.teamId] || DEFAULT_TEAM;
-      const revealCurrent =
-        revealMode &&
-        ((index + 1 < entries.length &&
-          entry.revealState !== 'finalized' &&
-          entries[index + 1].revealState === 'finalized') ||
-          (index === entries.length - 1 && entry.revealState !== 'finalized'));
-      if (revealCurrent) {
-        normalRows.push(
-          <RevealRow
-            key={'__reveal_marker__'}
-            entry={entry}
-            team={team}
-            problems={problems}
-            universityRank={universityRanks[entry.teamId]}
-            pinned={false}
-            revealMode={revealMode}
-          />
-        );
-      }
+    })
+  );
+  const pinnedTeamIdSet = new Set(pinnedTeamIds);
+  const universityRanks = useMemo(
+    () => computeUniversityRanks(entries, teams),
+    [entries, teams]
+  );
+  const normalRows = [];
+  for (let index = 0; index < entries.length; ++index) {
+    const entry = entries[index];
+    const team = teams[entry.teamId] ?? DEFAULT_TEAM;
+    const revealCurrent =
+      revealMode &&
+      ((index + 1 < entries.length &&
+        entry.revealState !== 'finalized' &&
+        entries[index + 1].revealState === 'finalized') ||
+        (index === entries.length - 1 && entry.revealState !== 'finalized'));
+    if (revealCurrent) {
       normalRows.push(
-        <TeamRow
-          key={entry.teamId}
+        <RevealRow
+          key={'__reveal_marker__'}
           entry={entry}
           team={team}
           problems={problems}
           universityRank={universityRanks[entry.teamId]}
-          pinned={pinnedTeamIdSet.has(entry.teamId)}
-          onClickPin={() => this.handleClickPin(entry.teamId)}
+          pinned={null}
           revealMode={revealMode}
-          index={index}
+          index={0}
+          className=""
         />
       );
     }
-    const pinnedEntries = entries.filter((entry) =>
-      pinnedTeamIdSet.has(entry.teamId)
-    );
-    const stickyRows = pinnedEntries.map((entry) => {
-      const team = teams[entry.teamId] || DEFAULT_TEAM;
-      return (
-        <TeamRow
-          key={entry.teamId}
-          entry={entry}
-          team={team}
-          universityRank={universityRanks[entry.teamId]}
-          problems={problems}
-          pinned={true}
-          onClickPin={() => this.handleClickPin(entry.teamId)}
-          index={0}
-          className="sticky"
-        />
-      );
-    });
-    return (
-      <div className="standard-standings">
-        <div className="standings-section">
-          <LegendRow problems={problems} />
-        </div>
-        <div className="standings-section">{stickyRows}</div>
-        <div className="standings-section">
-          <AnimatingTable>{normalRows}</AnimatingTable>
-        </div>
-      </div>
+    normalRows.push(
+      <TeamRow
+        key={entry.teamId}
+        entry={entry}
+        team={team}
+        problems={problems}
+        universityRank={universityRanks[entry.teamId]}
+        pinned={pinnedTeamIdSet.has(entry.teamId)}
+        revealMode={revealMode}
+        index={index}
+        className=""
+      />
     );
   }
+  const pinnedEntries = entries.filter((entry) =>
+    pinnedTeamIdSet.has(entry.teamId)
+  );
+  const stickyRows = pinnedEntries.map((entry) => {
+    const team = teams[entry.teamId] ?? DEFAULT_TEAM;
+    return (
+      <TeamRow
+        key={entry.teamId}
+        entry={entry}
+        team={team}
+        universityRank={universityRanks[entry.teamId]}
+        problems={problems}
+        pinned={true}
+        revealMode={false}
+        index={0}
+        className="sticky"
+      />
+    );
+  });
+  return (
+    <div className="standard-standings">
+      <div className="standings-section">
+        <LegendRow problems={problems} />
+      </div>
+      <div className="standings-section">{stickyRows}</div>
+      <div className="standings-section">
+        <AnimatingTable>{normalRows}</AnimatingTable>
+      </div>
+    </div>
+  );
 }
-
-function mapStateToProps({
-  feeds: {
-    standings: { problems, entries },
-    teams,
-  },
-  settings: { pinnedTeamIds },
-}) {
-  return {
-    entries,
-    teams,
-    problems,
-    pinnedTeamIds,
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  const setPinnedTeamIds = (teamIds) => {
-    dispatch(updateSettings({ pinnedTeamIds: { $set: Array.from(teamIds) } }));
-  };
-  return { setPinnedTeamIds };
-}
-
-function mergeProps(stateProps, dispatchProps, ownProps) {
-  const togglePin = (teamId) => {
-    const { pinnedTeamIds } = stateProps;
-    const { setPinnedTeamIds } = dispatchProps;
-    const pos = pinnedTeamIds.indexOf(teamId);
-    if (pos < 0) {
-      const newPinnedTeamIds = pinnedTeamIds.concat([teamId]);
-      setPinnedTeamIds(newPinnedTeamIds);
-    } else {
-      const newPinnedTeamIds = pinnedTeamIds.slice();
-      newPinnedTeamIds.splice(pos, 1);
-      setPinnedTeamIds(newPinnedTeamIds);
-    }
-  };
-  const extraProps = { togglePin };
-  return Object.assign({}, ownProps, stateProps, dispatchProps, extraProps);
-}
-
-const StandingsTable = connect(
-  mapStateToProps,
-  mapDispatchToProps,
-  mergeProps
-)(StandingsTableImpl);
-
-export default StandingsTable;
