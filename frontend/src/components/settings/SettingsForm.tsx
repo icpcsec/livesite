@@ -12,14 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import React from 'react';
-import { connect } from 'react-redux';
+import React, { useCallback } from 'react';
 
 import * as actions from '../../actions/index';
 import MaterialInit from '../common/MaterialInit';
 import { tr } from '../../i18n';
+import { useAppDispatch, useAppSelector } from '../../redux';
 
-function SettingsFormImpl({ settings, toggleSetting }) {
+export default function SettingsForm() {
+  const { invertColor, autoscroll } = useAppSelector((state) => state.settings);
+  const dispatch = useAppDispatch();
+  const toggleInvertColor = useCallback(() => {
+    dispatch(actions.toggleSetting('invertColor'));
+  }, [dispatch]);
+  const toggleAutoscroll = useCallback(() => {
+    dispatch(actions.toggleSetting('autoscroll'));
+  }, [dispatch]);
+
   return (
     <MaterialInit>
       <form onSubmit={(e) => e.preventDefault()}>
@@ -28,8 +37,8 @@ function SettingsFormImpl({ settings, toggleSetting }) {
             <label>
               <input
                 type="checkbox"
-                checked={settings.invertColor}
-                onChange={() => toggleSetting('invertColor')}
+                checked={invertColor}
+                onChange={toggleInvertColor}
               />
               {tr(
                 'Enable dark coloring (suitable for projecting)',
@@ -41,8 +50,8 @@ function SettingsFormImpl({ settings, toggleSetting }) {
             <label>
               <input
                 type="checkbox"
-                checked={settings.autoscroll}
-                onChange={() => toggleSetting('autoscroll')}
+                checked={autoscroll}
+                onChange={toggleAutoscroll}
               />
               {tr(
                 'Enable autoscrolling in standings page',
@@ -55,22 +64,3 @@ function SettingsFormImpl({ settings, toggleSetting }) {
     </MaterialInit>
   );
 }
-
-function mapStateToProps({ settings }) {
-  return { settings };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    toggleSetting(name) {
-      dispatch(actions.toggleSetting(name));
-    },
-  };
-}
-
-const SettingsForm = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SettingsFormImpl);
-
-export default SettingsForm;

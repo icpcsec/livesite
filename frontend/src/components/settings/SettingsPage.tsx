@@ -17,7 +17,7 @@ import React from 'react';
 import SettingsForm from './SettingsForm';
 import { tr } from '../../i18n';
 
-function SettingsPage() {
+export default function SettingsPage() {
   return (
     <div>
       <h1 className="my-4">{tr('Settings', '設定')}</h1>
@@ -25,5 +25,3 @@ function SettingsPage() {
     </div>
   );
 }
-
-export default SettingsPage;
