@@ -15,6 +15,7 @@
 export type ContestFeed = {
   title: string;
   times: ContestTimes;
+  frontPageHtml: string;
   problemLink?: string;
 };
 

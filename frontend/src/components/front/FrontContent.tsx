@@ -13,16 +13,11 @@
 // limitations under the License.
 
 import React from 'react';
-import { connect } from 'react-redux';
+import { useAppSelector } from '../../redux';
 
-function FrontContentImpl({ contest }) {
-  return <div dangerouslySetInnerHTML={{ __html: contest.frontPageHtml }} />;
+export default function FrontContent() {
+  const frontPageHtml = useAppSelector(
+    (state) => state.feeds.contest.frontPageHtml
+  );
+  return <div dangerouslySetInnerHTML={{ __html: frontPageHtml }} />;
 }
-
-function mapStateToProps({ feeds: { contest } }) {
-  return { contest };
-}
-
-const FrontContent = connect(mapStateToProps)(FrontContentImpl);
-
-export default FrontContent;
