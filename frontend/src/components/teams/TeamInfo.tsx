@@ -19,8 +19,14 @@ import ErrorMessage from '../common/ErrorMessage';
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
+import { TeamMember } from '../../data';
+import { useAppSelector } from '../../redux';
 
-function TeamComment({ comment }) {
+type TeamCommentProps = {
+  comment: string;
+};
+
+function TeamComment({ comment }: TeamCommentProps) {
   return (
     <div
       className="alert alert-secondary mt-3 mb-2"
@@ -31,7 +37,12 @@ function TeamComment({ comment }) {
   );
 }
 
-function MemberProfile({ profile, index }) {
+type MemberProfileProps = {
+  profile: TeamMember;
+  index: number;
+};
+
+function MemberProfile({ profile, index }: MemberProfileProps) {
   const displayName =
     profile.name.length > 0 ? profile.name : `Member ${index + 1}`;
   const contactsElements = [];
@@ -95,12 +106,12 @@ function MemberProfile({ profile, index }) {
         <div className="card-body">
           {siteconfig.features.icon ? (
             <div className="profile-icon">
-              <FixedRatioThumbnail url={profile.icon} ratio={1} />
+              <FixedRatioThumbnail url={profile.icon!} ratio={1} />
             </div>
           ) : null}
           <div
             className="profile-data"
-            style={{ marginLeft: siteconfig.features.icon ? null : '0' }}
+            style={{ marginLeft: siteconfig.features.icon ? undefined : '0' }}
           >
             <p className="profile-name">{displayName}</p>
             <p className="profile-contacts">{contactsElements}</p>
@@ -112,10 +123,16 @@ function MemberProfile({ profile, index }) {
   );
 }
 
-function TeamInfoImpl({ team }) {
+type TeamInfoProps = {
+  requestedTeamId: string;
+};
+
+export default function TeamInfo({ requestedTeamId }: TeamInfoProps) {
+  const team = useAppSelector((state) => state.feeds.teams[requestedTeamId]);
   if (!team) {
     return <ErrorMessage header="Team Not Found" />;
   }
+
   const memberElements = team.members.map((profile, index) => (
     <MemberProfile key={index} profile={profile} index={index} />
   ));
@@ -134,7 +151,7 @@ function TeamInfoImpl({ team }) {
       </h1>
       {siteconfig.features.photo ? (
         <FixedRatioThumbnail
-          url={team.photo}
+          url={team.photo!}
           ratio={siteconfig.ui.photoAspectRatio}
         />
       ) : null}
@@ -143,15 +160,3 @@ function TeamInfoImpl({ team }) {
     </div>
   );
 }
-
-function mapStateToProps(state, ownProps) {
-  const {
-    feeds: { teams },
-  } = state;
-  const team = teams[ownProps.requestedTeamId];
-  return { team };
-}
-
-const TeamInfo = connect(mapStateToProps)(TeamInfoImpl);
-
-export default TeamInfo;

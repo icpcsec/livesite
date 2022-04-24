@@ -19,7 +19,7 @@ import PrefectureView from './PrefectureView';
 import { tr } from '../../i18n';
 import siteconfig from '../../siteconfig';
 
-function TeamIndexPage() {
+export default function TeamIndexPage() {
   return (
     <div>
       <h1 className="my-4">{tr('Team List', 'チーム一覧')}</h1>
@@ -28,5 +28,3 @@ function TeamIndexPage() {
     </div>
   );
 }
-
-export default TeamIndexPage;

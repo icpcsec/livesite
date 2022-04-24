@@ -13,11 +13,11 @@
 // limitations under the License.
 
 import React from 'react';
+import { useRouteMatch } from 'react-router-dom';
 
 import TeamInfo from './TeamInfo';
 
-function TeamInfoPage({ match }) {
+export default function TeamInfoPage() {
+  const match = useRouteMatch<{ requestedTeamId: string }>();
   return <TeamInfo requestedTeamId={match.params.requestedTeamId} />;
 }
-
-export default TeamInfoPage;

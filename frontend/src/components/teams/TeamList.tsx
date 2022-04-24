@@ -20,16 +20,27 @@ import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import GridFlow from '../common/GridFlow';
 import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
+import { Team } from '../../data';
+import { useAppSelector } from '../../redux';
 
-function TeamPhoto({ photo }) {
+type TeamPhotoProps = {
+  photo: string;
+};
+
+function TeamPhoto({ photo }: TeamPhotoProps) {
   return (
     <FixedRatioThumbnail url={photo} ratio={siteconfig.ui.photoAspectRatio} />
   );
 }
 
-function TeamLink({ id, children }) {
+type TeamLinkProps = {
+  id: string;
+  children: React.ReactNode;
+};
+
+function TeamLink({ id, children }: TeamLinkProps) {
   if (!siteconfig.features.teamPage) {
-    return children;
+    return <>{children}</>;
   }
   return (
     <Link to={`/team/${id}`} className="no-decoration">
@@ -38,7 +49,13 @@ function TeamLink({ id, children }) {
   );
 }
 
-function TeamItem({ team: { id, name, university, country, photo, members } }) {
+type TeamItemProps = {
+  team: Team;
+};
+
+function TeamItem({
+  team: { id, name, university, country, photo, members },
+}: TeamItemProps) {
   const displayNames = [];
   for (let profile of members) {
     const { name } = profile;
@@ -50,13 +67,13 @@ function TeamItem({ team: { id, name, university, country, photo, members } }) {
   return (
     <div
       className="card mb-3"
-      style={{ backgroundColor: hasInfo ? null : 'inherit !important' }}
+      style={{ backgroundColor: hasInfo ? undefined : 'inherit !important' }}
     >
       <div className="card-body">
         {siteconfig.features.photo ? (
           <div className="mb-3">
             <TeamLink id={id}>
-              <TeamPhoto photo={photo} />
+              <TeamPhoto photo={photo!} />
             </TeamLink>
           </div>
         ) : null}
@@ -90,11 +107,19 @@ function TeamItem({ team: { id, name, university, country, photo, members } }) {
   );
 }
 
-function TeamItemFlow({ children }) {
+type TeamItemFlowProps = {
+  children: React.ReactNode;
+};
+
+function TeamItemFlow({ children }: TeamItemFlowProps) {
   return <GridFlow className="col-md-6 col-lg-4">{children}</GridFlow>;
 }
 
-function TeamListSimple({ teams }) {
+type TeamListSimpleProps = {
+  teams: Team[];
+};
+
+function TeamListSimple({ teams }: TeamListSimpleProps) {
   const sortedTeams = [...teams];
   sortedTeams.sort(
     (a, b) =>
@@ -108,8 +133,12 @@ function TeamListSimple({ teams }) {
   return <TeamItemFlow>{items}</TeamItemFlow>;
 }
 
-function TeamListWithPrefecture({ teams }) {
-  const teamsByPrefecture = {};
+type TeamListWithPrefectureProps = {
+  teams: Team[];
+};
+
+function TeamListWithPrefecture({ teams }: TeamListWithPrefectureProps) {
+  const teamsByPrefecture: Record<number, Team[]> = {};
   for (let i = 1; i <= 48; ++i) {
     teamsByPrefecture[i] = [];
   }
@@ -144,15 +173,10 @@ function TeamListWithPrefecture({ teams }) {
   return <div>{children}</div>;
 }
 
-const TeamListImpl = siteconfig.features.prefecture
-  ? TeamListWithPrefecture
-  : TeamListSimple;
-
-function mapStateToProps({ feeds: { teams: teamsMap } }) {
-  const teams = Object.keys(teamsMap).map((key) => teamsMap[key]);
-  return { teams };
+export default function TeamList() {
+  const teams = Object.values(useAppSelector((state) => state.feeds.teams));
+  if (siteconfig.features.prefecture) {
+    return <TeamListWithPrefecture teams={teams} />;
+  }
+  return <TeamListSimple teams={teams} />;
 }
-
-const TeamList = connect(mapStateToProps)(TeamListImpl);
-
-export default TeamList;

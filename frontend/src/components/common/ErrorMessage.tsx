@@ -16,10 +16,10 @@ import React from 'react';
 
 type ErrorMessageProps = {
   header: string;
-  body: string;
+  body?: string;
 };
 
-function ErrorMessage({ header, body }: ErrorMessageProps) {
+function ErrorMessage({ header, body = '' }: ErrorMessageProps) {
   return (
     <div>
       <div className="page-header">

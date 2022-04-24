@@ -58,11 +58,23 @@ export type Team = {
   name: string;
   university: string;
   universityShort?: string;
+  comment?: string;
+  photo?: string;
+  prefecture?: number;
   country: string;
   members: TeamMember[];
 };
 
-export type TeamMember = {};
+export type TeamMember = {
+  name: string;
+  comment?: string;
+  topcoderId?: string;
+  codeforcesId?: string;
+  atcoderId?: string;
+  twitterId?: string;
+  githubId?: string;
+  icon?: string;
+};
 
 export type TeamsFeed = Record<string, Team>;
 
