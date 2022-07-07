@@ -20,10 +20,10 @@ import ReactDOM from 'react-dom';
 import GA from 'react-ga';
 import * as Redux from 'redux';
 import { composeWithDevTools } from '@redux-devtools/extension';
-import { load, save } from 'redux-localstorage-simple';
 
 import { printBanner } from './banner';
 import App from './components/App';
+import { createPersist } from './persist';
 import reducer from './reducers';
 import siteconfig from './siteconfig';
 
@@ -31,15 +31,15 @@ if (siteconfig.misc.googleAnalyticsId) {
   GA.initialize(siteconfig.misc.googleAnalyticsId);
 }
 
-const persistOptions = {
-  states: ['settings'],
-};
+const persist = createPersist();
 
 const store = Redux.createStore(
-  reducer,
-  load(persistOptions),
-  composeWithDevTools(Redux.applyMiddleware(save(persistOptions)))
+  persist.createReducer(reducer),
+  {},
+  composeWithDevTools(Redux.applyMiddleware())
 );
+
+persist.start(store);
 
 ReactDOM.render(<App store={store} />, document.getElementById('root'));
 
