@@ -13,56 +13,44 @@
 // limitations under the License.
 
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import ClockText from './ClockText';
 import { tr } from '../../i18n';
-import { useAppSelector } from '../../redux';
 
-function NavLink({
-  exact,
-  to,
-  children,
-}: {
-  exact?: boolean;
-  to: string;
-  children: React.ReactNode;
-}) {
-  const external = !to.startsWith('/');
-  if (external) {
+class NavLink extends React.Component {
+  render() {
+    const { exact, to, children } = this.props;
+    const external = !to.startsWith('/');
+    if (external) {
+      return (
+        <li>
+          <a className="nav-link" target="_blank" href={to}>
+            {children}
+          </a>
+        </li>
+      );
+    }
+    const link = (
+      <Link className="nav-link" to={to}>
+        {children}
+      </Link>
+    );
     return (
-      <li>
-        <a className="nav-link" target="_blank" href={to}>
-          {children}
-        </a>
-      </li>
+      <Switch>
+        <Route exact={exact} path={to}>
+          <li className="active">{link}</li>
+        </Route>
+        <Route>
+          <li>{link}</li>
+        </Route>
+      </Switch>
     );
   }
-  const link = (
-    <Link className="nav-link" to={to}>
-      {children}
-    </Link>
-  );
-  return (
-    <Switch>
-      <Route exact={exact} path={to}>
-        <li className="active">{link}</li>
-      </Route>
-      <Route>
-        <li>{link}</li>
-      </Route>
-    </Switch>
-  );
 }
 
-export default function NavBar() {
-  const { title, problemLink } = useAppSelector(
-    ({
-      feeds: {
-        contest: { title, problemLink },
-      },
-    }) => ({ title, problemLink })
-  );
+function NavBarImpl({ contest }) {
   return (
     <nav
       className="navbar navbar-expand-md navbar-dark fixed-top"
@@ -70,7 +58,7 @@ export default function NavBar() {
     >
       <div className="container">
         <Link className="navbar-brand" to="/">
-          {title}
+          {contest.title}
         </Link>
         <button
           className="navbar-toggler"
@@ -91,8 +79,10 @@ export default function NavBar() {
             </NavLink>
             <NavLink to="/standings/">{tr('Standings', '順位表')}</NavLink>
             <NavLink to="/team/">{tr('Teams', 'チーム一覧')}</NavLink>
-            {problemLink && problemLink.length > 0 ? (
-              <NavLink to={problemLink}>{tr('Problems', '問題')}</NavLink>
+            {contest.problemLink && contest.problemLink.length > 0 ? (
+              <NavLink to={contest.problemLink}>
+                {tr('Problems', '問題')}
+              </NavLink>
             ) : null}
           </ul>
           <ul className="navbar-nav mr-2">
@@ -108,3 +98,13 @@ export default function NavBar() {
     </nav>
   );
 }
+
+function mapStateToProps({ feeds: { contest } }) {
+  return { contest };
+}
+
+const NavBar = connect(mapStateToProps, undefined, undefined, { pure: false })(
+  NavBarImpl
+);
+
+export default NavBar;

@@ -14,8 +14,36 @@
 
 import { Reducer } from 'redux';
 import { AppNormalizedState, AppState } from '.';
-import { ContestTimes, Event, StandingsEntry } from '../data';
+import { ContestTimes, StandingsEntry } from '../data';
 import { AppAction } from '../actions';
+
+export type SolvedEvent = {
+  type: 'solved';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+  oldRank: string;
+  newRank: string;
+};
+
+export type RejectedEvent = {
+  type: 'rejected';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type PendingEvent = {
+  type: 'pending';
+  eventId: string;
+  time: number;
+  teamId: string;
+  problemIndex: number;
+};
+
+export type Event = SolvedEvent | RejectedEvent | PendingEvent;
 
 export type EventsState = Event[];
 

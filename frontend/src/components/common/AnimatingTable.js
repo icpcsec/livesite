@@ -16,45 +16,31 @@ import React from 'react';
 
 import { TimerSet } from '../../utils';
 
-type AnimatingTableProps = {
-  delay?: number;
-};
+class AnimatingTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.ref_ = React.createRef();
+    this.timers_ = new TimerSet();
+    this.cancels_ = [];
+  }
 
-type AnimatingTableSnapshot = {
-  lastKeyOrder: string[];
-  lastKeyToOffsetTop: Map<string, number>;
-};
-
-export default class AnimatingTable extends React.Component<
-  AnimatingTableProps,
-  {},
-  AnimatingTableSnapshot
-> {
-  private readonly ref = React.createRef<HTMLDivElement>();
-  private readonly timers = new TimerSet();
-  private readonly cancels: (() => void)[] = [];
-
-  getSnapshotBeforeUpdate(): AnimatingTableSnapshot {
-    const rows = Array.from(this.ref.current!.children) as HTMLElement[];
+  getSnapshotBeforeUpdate() {
+    const rows = Array.from(this.ref_.current.children);
 
     // Record the previous row positions.
     const lastKeyOrder = [];
     const lastKeyToOffsetTop = new Map();
     for (const row of rows) {
-      lastKeyOrder.push(row.dataset.key!);
-      lastKeyToOffsetTop.set(row.dataset.key!, row.offsetTop);
+      lastKeyOrder.push(row.dataset.key);
+      lastKeyToOffsetTop.set(row.dataset.key, row.offsetTop);
     }
     return { lastKeyOrder, lastKeyToOffsetTop };
   }
 
-  componentDidUpdate(
-    prevProps: AnimatingTableProps,
-    prevState: unknown,
-    snapshot: AnimatingTableSnapshot
-  ) {
+  componentDidUpdate(prevProps, prevState, snapshot) {
     const { delay = 1000 } = this.props;
     const { lastKeyOrder, lastKeyToOffsetTop } = snapshot;
-    const rows = Array.from(this.ref.current!.children) as HTMLElement[];
+    const rows = Array.from(this.ref_.current.children);
 
     // Check if the order changed.
     if (rows.length === lastKeyOrder.length) {
@@ -71,13 +57,13 @@ export default class AnimatingTable extends React.Component<
     }
 
     // Cancel all animations.
-    this.timers.clearTimeouts();
-    for (const cancel of this.cancels.splice(0)) {
+    this.timers_.clearTimeouts();
+    for (const cancel of this.cancels_.splice(0)) {
       cancel();
     }
     rows.forEach((row) => {
       row.classList.remove('animate-table-start', 'animate-table-active');
-      row.style.removeProperty('transform');
+      row.style.transform = null;
     });
 
     // Currently all rows are in the final position. Record all positions.
@@ -89,7 +75,7 @@ export default class AnimatingTable extends React.Component<
 
     // Schedule animations.
     for (const row of rows) {
-      const key = row.dataset.key!;
+      const key = row.dataset.key;
       const currentOffsetTop = currentKeyToOffsetTop.get(key);
       const lastOffsetTop = lastKeyToOffsetTop.has(key)
         ? lastKeyToOffsetTop.get(key)
@@ -99,10 +85,10 @@ export default class AnimatingTable extends React.Component<
         const acutalDelay = row.classList.contains('no-animation') ? 0 : delay;
         row.classList.add('animate-table-start');
         row.style.transform = `translate(0, ${relativeOffsetTop}px)`;
-        this.timers.setTimeout(() => {
+        this.timers_.setTimeout(() => {
           row.classList.add('animate-table-active');
           row.style.transform = 'translate(0, 0)';
-          const finish = (e: TransitionEvent) => {
+          const finish = (e) => {
             if (e.target !== row) {
               return;
             }
@@ -113,18 +99,20 @@ export default class AnimatingTable extends React.Component<
             row.removeEventListener('transitionend', finish);
           };
           row.addEventListener('transitionend', finish);
-          this.cancels.push(cancel);
+          this.cancels_.push(cancel);
         }, acutalDelay);
       }
     }
   }
 
   componentWillUnmount() {
-    this.timers.clearTimeouts();
+    this.timers_.clearTimeouts();
   }
 
   render() {
     const { children } = this.props;
-    return <div ref={this.ref}>{children}</div>;
+    return <div ref={this.ref_}>{children}</div>;
   }
 }
+
+export default AnimatingTable;
