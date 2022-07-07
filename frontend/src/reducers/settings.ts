@@ -33,7 +33,7 @@ function migrateSettings(settings: SettingsState): SettingsState {
   return settings;
 }
 
-function settings(settings = DEFAULT, action: AppAction): SettingsState {
+function settings(settings = DEFAULT, action: AppAction) {
   settings = migrateSettings(settings);
   if (action.type === 'UPDATE_SETTINGS') {
     settings = applyPartialUpdate(settings, action.settingsUpdate);
