@@ -49,11 +49,6 @@ function settings(settings = {}, action) {
   if (action.type === 'UPDATE_SETTINGS') {
     settings = applyPartialUpdate(settings, action.settingsUpdate);
   }
-  if (action.type === 'TOGGLE_SETTING') {
-    settings = applyPartialUpdate(settings, {
-      [action.name]: { $set: !settings[action.name] },
-    });
-  }
   return settings;
 }
 
