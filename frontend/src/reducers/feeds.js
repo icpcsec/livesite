@@ -13,24 +13,11 @@
 // limitations under the License.
 
 import applyPartialUpdate from 'immutability-helper';
-import { ContestFeed, FeedName, StandingsFeed, TeamsFeed } from '../data';
-import { AppAction } from '../redux';
 
-export type FeedsState = {
-  contest: ContestFeed;
-  standings: StandingsFeed;
-  teams: TeamsFeed;
-  loaded: Set<FeedName>;
-};
-
-const DEFAULT: FeedsState = {
+const DEFAULT = {
   contest: {
-    title: 'LiveSite',
-    times: {
-      start: 0,
-      end: 0,
-      freeze: 0,
-    },
+    title: null,
+    times: null,
   },
   standings: {
     problems: [],
@@ -40,13 +27,13 @@ const DEFAULT: FeedsState = {
   loaded: new Set(),
 };
 
-function feeds(state = DEFAULT, action: AppAction) {
+function feeds(state = DEFAULT, action) {
   if (action.type === 'UPDATE_FEEDS') {
     state = applyPartialUpdate(state, action.update);
     const newLoaded = new Set(state.loaded);
     for (const name in action.update) {
       if (action.update.hasOwnProperty(name)) {
-        newLoaded.add(name as FeedName);
+        newLoaded.add(name);
       }
     }
     state = applyPartialUpdate(state, { loaded: { $set: newLoaded } });

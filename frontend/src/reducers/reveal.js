@@ -13,23 +13,19 @@
 // limitations under the License.
 
 import applyPartialUpdate from 'immutability-helper';
-import { AppAction } from '../redux';
 
-export type BroadcastState = {
-  signedIn: boolean;
-  view: 'none' | 'normal' | 'detailed' | 'problems';
+const DEFAULT_REVEAL = {
+  reveal: { entriesList: [[]], problems: [] },
+  step: 0,
 };
 
-const DEFAULT: BroadcastState = {
-  signedIn: false,
-  view: 'none',
-};
-
-function broadcast(state = DEFAULT, action: AppAction) {
-  if (action.type === 'UPDATE_BROADCAST') {
-    state = applyPartialUpdate(state, action.update);
+function reveal(reveal = DEFAULT_REVEAL, action) {
+  if (action.type === 'SET_REVEAL_STEP') {
+    return applyPartialUpdate(reveal, { step: { $set: action.step } });
+  } else if (action.type === 'SET_REVEAL_DATA') {
+    return { reveal: action.reveal, step: 0 };
   }
-  return state;
+  return reveal;
 }
 
-export default broadcast;
+export default reveal;

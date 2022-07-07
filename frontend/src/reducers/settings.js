@@ -13,34 +13,45 @@
 // limitations under the License.
 
 import applyPartialUpdate from 'immutability-helper';
-import { AppAction } from '../redux';
 
-export type SettingsState = {
-  version: number;
-  pinnedTeamIds: string[];
-  invertColor: boolean;
-  autoscroll: boolean;
-};
-
-const DEFAULT: SettingsState = {
-  version: 1,
-  pinnedTeamIds: [],
-  invertColor: false,
-  autoscroll: false,
-};
-
-function migrateSettings(settings: SettingsState): SettingsState {
+function updateSettings(settings) {
+  if (settings.version === undefined) {
+    const serialized = localStorage.getItem('settings');
+    if (serialized) {
+      try {
+        settings = JSON.parse(serialized);
+      } catch (e) {
+        // Ignore corrupted settings.
+      }
+    }
+    if (settings.version === undefined) {
+      settings = { version: 0 };
+    }
+  }
+  if (settings.version < 1) {
+    settings = applyPartialUpdate(settings, {
+      version: { $set: 1 },
+      pinnedTeamIds: { $set: [] },
+    });
+  }
+  if (settings.version < 2) {
+    settings = applyPartialUpdate(settings, {
+      version: { $set: 2 },
+      invertColor: { $set: false },
+      autoscroll: { $set: false },
+    });
+  }
   return settings;
 }
 
-function settings(settings = DEFAULT, action: AppAction) {
-  settings = migrateSettings(settings);
+function settings(settings = {}, action) {
+  settings = updateSettings(settings);
   if (action.type === 'UPDATE_SETTINGS') {
     settings = applyPartialUpdate(settings, action.settingsUpdate);
   }
   if (action.type === 'TOGGLE_SETTING') {
     settings = applyPartialUpdate(settings, {
-      [action.name]: { $set: !settings[action.name as keyof typeof settings] },
+      [action.name]: { $set: !settings[action.name] },
     });
   }
   return settings;

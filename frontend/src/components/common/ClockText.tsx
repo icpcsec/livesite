@@ -15,8 +15,7 @@
 import React, { useEffect, useState } from 'react';
 import { connect } from 'react-redux';
 import { sprintf } from 'sprintf-js';
-import { ContestTimes } from '../../data';
-import { AppState } from '../../reducers';
+import { ContestTimes, State } from '../../data';
 
 function formatClock(times: ContestTimes): string {
   const { start = 0, end = 0, scale = 1 } = times;
@@ -49,7 +48,7 @@ function mapStateToProps({
   feeds: {
     contest: { times },
   },
-}: AppState) {
+}: State) {
   return { times };
 }
 

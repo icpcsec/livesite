@@ -14,10 +14,9 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
-import { ContestFeed } from '../../data';
-import { AppState } from '../../reducers';
+import { Contest, State } from '../../data';
 
-function FooterImpl({ contest }: { contest: ContestFeed }) {
+function FooterImpl({ contest }: { contest: Contest }) {
   return (
     <footer>
       <div className="container-fluid" style={{ textAlign: 'right' }}>
@@ -27,7 +26,7 @@ function FooterImpl({ contest }: { contest: ContestFeed }) {
   );
 }
 
-function mapStateToProps({ feeds: { contest } }: AppState) {
+function mapStateToProps({ feeds: { contest } }: State) {
   return { contest };
 }
 
