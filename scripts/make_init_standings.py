@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
 #
 # Copyright 2019 LiveSite authors
 #
@@ -17,41 +18,32 @@
 import json
 import sys
 
+teams = json.load(sys.stdin)
 
-def main():
-    teams = json.load(sys.stdin)
-
-    entries = []
-    for tid in teams.keys():
-        entries.append({
-            'rank': '-',
-            'teamId': tid,
-            'solved': 0,
+entries = []
+for tid in teams.keys():
+    entries.append({
+        'rank': '-',
+        'teamId': tid,
+        'solved': 0,
+        'penalty': 0,
+        'problems': [{
+            'solved': False,
+            'attempts': 0,
             'penalty': 0,
-            'problems': [{
-                'solved': False,
-                'attempts': 0,
-                'penalty': 0,
-                'pendings': 0,
-            } for _ in range(3)]
-        })
+            'pendings': 0,
+        } for _ in range(3)]
+    })
 
-    entries.sort(key=lambda e: int(e['teamId']))
+entries.sort(key=lambda e: int(e['teamId']))
 
-    standings = {
-        'entries': entries,
-        'problems': [
-            {'color': '#ffa500', 'color_text': 'orange',
-                'label': 'A', 'name': 'Problem A'},
-            {'color': '#add8e6', 'color_text': 'lightblue',
-                'label': 'B', 'name': 'Problem B'},
-            {'color': '#90ee90', 'color_text': 'lightgreen',
-                'label': 'C', 'name': 'Problem C'},
-        ],
-    }
+standings = {
+    'entries': entries,
+    'problems': [
+        {'color':'#ffa500','color_text':'orange','label':'A','name':'Problem A'},
+        {'color':'#add8e6','color_text':'lightblue','label':'B','name':'Problem B'},
+        {'color':'#90ee90','color_text':'lightgreen','label':'C','name':'Problem C'},
+    ],
+}
 
-    json.dump(standings, sys.stdout, indent=2, sort_keys=True)
-
-
-if __name__ == '__main__':
-    main()
+json.dump(standings, sys.stdout, indent=2, sort_keys=True)

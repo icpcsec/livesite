@@ -14,24 +14,24 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-import argparse
 import copy
 import json
 import sys
-from typing import List
 
+import gflags
 
-def make_parser() -> argparse.ArgumentParser:
-    parser = argparse.ArgumentParser()
-    parser.add_argument('--frozen-standings', required=True)
-    parser.add_argument('--final-standings', required=True)
-    parser.add_argument('--output-json', default='/dev/stdout')
-    return parser
+FLAGS = gflags.FLAGS
+
+gflags.DEFINE_string('frozen_standings', None, '')
+gflags.DEFINE_string('final_standings', None, '')
+gflags.DEFINE_string('output_json', None, '')
+gflags.MarkFlagAsRequired('frozen_standings')
+gflags.MarkFlagAsRequired('final_standings')
+gflags.MarkFlagAsRequired('output_json')
 
 
 def rank_key(entry):
-    times = list(reversed(sorted(p['penalty']
-                 for p in entry['problems'] if p['solved'])))
+    times = list(reversed(sorted(p['penalty'] for p in entry['problems'] if p['solved'])))
     return tuple([-entry['solved'], entry['penalty']] + times)
 
 
@@ -62,13 +62,10 @@ def check_entries_equals(entries1, entries2):
             print(entry2)
 
 
-def main(argv: List[str]) -> int:
-    parser = make_parser()
-    options = parser.parse_args(argv[1:])
-
-    with open(options.frozen_standings) as f:
+def main(unused_argv):
+    with open(FLAGS.frozen_standings) as f:
         standings_start = json.load(f)
-    with open(options.final_standings) as f:
+    with open(FLAGS.final_standings) as f:
         standings_end = json.load(f)
 
     assert len(standings_start['problems']) == len(standings_end['problems'])
@@ -96,9 +93,7 @@ def main(argv: List[str]) -> int:
     for entry in entries_start:
         for i, problem_start in enumerate(entry['problems']):
             problem_end = final_map[(entry['teamId'], i)]
-            assert problem_end['attempts'] <= problem_start['attempts'] + \
-                problem_start['pendings'], 'Team %s problem %d submissions increased' % (
-                    entry['teamId'], i)
+            assert problem_end['attempts'] <= problem_start['attempts'] + problem_start['pendings'], 'Team %s problem %d submissions increased' % (entry['teamId'], i)
 
     def reveal_step():
         for entry in reversed(entries):
@@ -122,13 +117,13 @@ def main(argv: List[str]) -> int:
     while reveal_step():
         recompute_entries(entries)
         entries_list.append(copy.deepcopy(entries))
-        sys.stderr.write('.')
-        sys.stderr.flush()
+        sys.stdout.write('.')
+        sys.stdout.flush()
         step += 1
         if step >= 1000:
             assert False, entries
-    sys.stderr.write('\nOK!\n')
-    sys.stderr.flush()
+    sys.stdout.write('\n')
+    sys.stdout.flush()
 
     check_entries_equals(entries, entries_end)
 
@@ -137,11 +132,9 @@ def main(argv: List[str]) -> int:
         'problems': all_problems,
     }
 
-    with open(options.output_json, 'w') as f:
+    with open(FLAGS.output_json, 'w') as f:
         json.dump(data, f, sort_keys=True, separators=(',', ':'))
-
-    return 0
 
 
 if __name__ == '__main__':
-    sys.exit(main(sys.argv))
+    sys.exit(main(FLAGS(sys.argv)))
