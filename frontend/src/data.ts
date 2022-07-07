@@ -27,22 +27,17 @@ export type ContestTimes = {
 
 export type Problem = {
   label: string;
-  title: string;
-  color?: string;
 };
 
 export type StandingsEntry = {
   teamId: string;
   rank: string;
-  solved: number;
-  penalty: number;
   problems: StandingsProblemEntry[];
-  revealState?: RevealState;
+  solved: string;
 };
 
 export type StandingsProblemEntry = {
   solved: boolean;
-  penalty: number;
   attempts: number;
   pendings: number;
 };
@@ -57,7 +52,6 @@ export type Team = {
   name: string;
   university: string;
   universityShort?: string;
-  country: string;
   members: TeamMember[];
 };
 
@@ -79,8 +73,6 @@ export type StandingsHistory = {
   problems: Problem[];
   entriesList: StandingsEntry[][];
 };
-
-export type RevealState = 'pending' | 'finalized';
 
 export type SolvedEvent = {
   type: 'solved';
