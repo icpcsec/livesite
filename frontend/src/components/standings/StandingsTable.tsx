@@ -30,7 +30,6 @@ import {
   Team,
 } from '../../data';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { shallowEqual } from 'react-redux';
 
 const DEFAULT_TEAM: Team = {
   id: 'null',
@@ -502,20 +501,20 @@ type StandingsTableProps = {
 export default function StandingsTable({
   revealMode = false,
 }: StandingsTableProps) {
-  const { teams, standings, reveal, savedPinnedTeamIds } = useAppSelector(
-    ({ feeds: { teams, standings }, reveal, settings: { pinnedTeamIds } }) => ({
+  const { entries, teams, problems, pinnedTeamIds } = useAppSelector(
+    ({
+      feeds: {
+        standings: { entries, problems },
+        teams,
+      },
+      settings: { pinnedTeamIds },
+    }) => ({
+      entries,
+      problems,
       teams,
-      standings,
-      reveal,
-      savedPinnedTeamIds: pinnedTeamIds,
-    }),
-    shallowEqual
+      pinnedTeamIds,
+    })
   );
-  const entries = revealMode
-    ? reveal.reveal.entriesList[reveal.step]
-    : standings.entries;
-  const problems = revealMode ? reveal.reveal.problems : standings.problems;
-  const pinnedTeamIds = revealMode ? [] : savedPinnedTeamIds;
   const pinnedTeamIdSet = new Set(pinnedTeamIds);
   const universityRanks = useMemo(
     () => computeUniversityRanks(entries, teams),

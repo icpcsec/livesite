@@ -14,16 +14,16 @@
 
 import React from 'react';
 
-import AutoScroller from '../common/AutoScroller';
-import StandingsTable from './StandingsTable';
+import StandingsRevealTable from './StandingsRevealTable';
 import { tr } from '../../i18n';
 
-export default function StandingsPage() {
+function StandingsRevealPage() {
   return (
     <div>
       <h1 className="my-4">{tr('Standings', '順位表')}</h1>
-      <StandingsTable />
-      <AutoScroller />
+      <StandingsRevealTable />
     </div>
   );
 }
+
+export default StandingsRevealPage;
