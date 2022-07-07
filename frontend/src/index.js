@@ -20,7 +20,6 @@ import ReactDOM from 'react-dom';
 import GA from 'react-ga';
 import * as Redux from 'redux';
 import ReduxThunk from 'redux-thunk';
-import { composeWithDevTools } from '@redux-devtools/extension';
 
 import { printBanner } from './banner';
 import App from './components/App';
@@ -34,10 +33,13 @@ if (siteconfig.misc.googleAnalyticsId) {
 
 const persist = createPersist();
 
+const composeEnhancersForDevTool =
+  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || Redux.compose;
+
 const store = Redux.createStore(
   persist.createReducer(reducer),
   {},
-  composeWithDevTools(Redux.applyMiddleware(ReduxThunk))
+  composeEnhancersForDevTool(Redux.applyMiddleware(ReduxThunk))
 );
 
 persist.start(store);
