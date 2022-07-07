@@ -14,7 +14,7 @@
 
 import applyPartialUpdate from 'immutability-helper';
 import { FeedName, AllFeeds } from '../data';
-import { AppAction } from '../actions';
+import { AppAction } from '../redux';
 
 export type FeedsState = AllFeeds & {
   loaded: Set<FeedName>;

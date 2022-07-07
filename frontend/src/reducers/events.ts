@@ -15,7 +15,7 @@
 import { Reducer } from 'redux';
 import { AppNormalizedState, AppState } from '.';
 import { ContestTimes, StandingsEntry } from '../data';
-import { AppAction } from '../actions';
+import { AppAction } from '../redux';
 
 export type SolvedEvent = {
   type: 'solved';

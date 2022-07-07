@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import applyPartialUpdate from 'immutability-helper';
-import { AppAction } from '../actions';
+import { AppAction } from '../redux';
 
 export type BroadcastState = {
   signedIn: boolean;

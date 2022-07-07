@@ -14,7 +14,7 @@
 
 import applyPartialUpdate from 'immutability-helper';
 import { StandingsHistory } from '../data';
-import { AppAction } from '../actions';
+import { AppAction } from '../redux';
 
 export type RevealState = {
   reveal: StandingsHistory;
