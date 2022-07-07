@@ -34,7 +34,3 @@ export class TimerSet {
     this.timers.clear();
   }
 }
-
-export type TopLevelUpdate<T> = {
-  [P in keyof T]?: { $set: T[P] };
-};

@@ -15,7 +15,10 @@
 import { AllFeeds, StandingsHistory } from '../data';
 import { BroadcastState } from '../reducers/broadcast';
 import { SettingsState } from '../reducers/settings';
-import { TopLevelUpdate } from '../utils';
+
+type TopLevelUpdate<T> = {
+  [P in keyof T]?: { $set: T[P] };
+};
 
 export type UpdateFeeds = {
   type: 'UPDATE_FEEDS';

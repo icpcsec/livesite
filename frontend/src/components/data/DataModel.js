@@ -19,54 +19,29 @@ import 'firebase/database';
 import applyPartialUpdate from 'immutability-helper';
 
 import { updateBroadcast, updateFeeds } from '../../actions';
-import { BroadcastState } from '../../reducers/broadcast';
-import { AppDispatch } from '../../redux';
 import siteconfig from '../../siteconfig';
-import { TopLevelUpdate } from '../../utils';
 
 const FEEDS = ['contest', 'standings', 'teams'];
 
-type Options = {
-  apiKey: string;
-  authDomain: string;
-  messagingSenderId: string;
-  databaseURL: string;
-};
-
-function initializeApp(): firebase.app.App {
+function initializeApp() {
+  const options = Object.assign({}, siteconfig.firebase);
   const hostname = window.location.hostname;
-  let options: Options;
   if (hostname === 'localhost') {
-    options = {
-      ...siteconfig.firebase,
-      authDomain: 'icpcsec.firebaseapp.com',
-      databaseURL: 'http://localhost:9000?ns=fake-server',
-    };
+    options.authDomain = 'icpcsec.firebaseapp.com';
+    options.databaseURL = 'http://localhost:9000?ns=fake-server';
   } else if (hostname.endsWith('.firebaseapp.com')) {
     const appName = hostname.split('.')[0];
-    options = {
-      ...siteconfig.firebase,
-      databaseURL: 'https://' + appName + '.firebaseio.com',
-      authDomain: appName + '.firebaseapp.com',
-    };
+    options.authDomain = appName + '.firebaseapp.com';
+    options.databaseURL = 'https://' + appName + '.firebaseio.com';
   } else {
     throw new Error('Unsupported host: ' + hostname);
   }
   return firebase.initializeApp(options);
 }
 
-const VIEW_VALUES = ['none', 'normal', 'detailed', 'problems'] as const;
-
-type BroadcastData = {
-  view?: string;
-};
-
 class DataModel {
-  private readonly app_: firebase.app.App;
-  private readonly db_: firebase.database.Database;
-  private readonly auth_: firebase.auth.Auth;
-
-  constructor(private readonly dispatch: AppDispatch) {
+  constructor(dispatch) {
+    this.dispatch_ = dispatch;
     this.app_ = initializeApp();
     this.db_ = firebase.database(this.app_);
     this.auth_ = firebase.auth(this.app_);
@@ -74,52 +49,51 @@ class DataModel {
     for (const feed of FEEDS) {
       this.db_
         .ref(`feeds/${feed}`)
-        .on('value', (snapshot) => this.onFeedUpdate(feed, snapshot.val()));
+        .on('value', (snapshot) => this.onFeedUpdate_(feed, snapshot.val()));
     }
     this.db_.ref('broadcast').on('value', (snapshot) => {
-      const broadcast = snapshot.val() as BroadcastData | null;
+      const broadcast = snapshot.val();
       if (broadcast) {
-        const update: TopLevelUpdate<BroadcastState> = {};
-        if (
-          broadcast.view &&
-          (VIEW_VALUES as readonly string[]).includes(broadcast.view)
-        ) {
-          update.view = { $set: broadcast.view as typeof VIEW_VALUES[number] };
+        const update = {};
+        for (const key in broadcast) {
+          if (broadcast.hasOwnProperty(key)) {
+            update[key] = { $set: broadcast[key] };
+          }
         }
-        this.dispatch(updateBroadcast(update));
+        this.dispatch_(updateBroadcast(update));
       }
     });
 
     this.auth_.onAuthStateChanged((user) => {
       const signedIn = !!user;
-      this.dispatch(updateBroadcast({ signedIn: { $set: signedIn } }));
+      this.dispatch_(updateBroadcast({ signedIn: { $set: signedIn } }));
     });
   }
 
-  async signIn(): Promise<void> {
+  async signIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
     await this.auth_.signInWithPopup(provider);
   }
 
-  async signOut(): Promise<void> {
+  async signOut() {
     await this.auth_.signOut();
   }
 
-  updateBroadcast(update: TopLevelUpdate<BroadcastState>) {
+  updateBroadcast(update) {
     const ref = this.db_.ref('broadcast');
     ref.once('value', (snapshot) => {
-      const broadcast = applyPartialUpdate(snapshot.val() ?? {}, update);
+      const broadcast = applyPartialUpdate(snapshot.val() || {}, update);
       ref.set(broadcast);
     });
   }
 
-  private async onFeedUpdate(feed: string, url: string): Promise<void> {
+  async onFeedUpdate_(feed, url) {
     if (!url) {
       return;
     }
     const response = await axios.get(url);
     const data = response.data;
-    this.dispatch(updateFeeds({ [feed]: { $set: data } }));
+    this.dispatch_(updateFeeds({ [feed]: { $set: data } }));
   }
 }
 
