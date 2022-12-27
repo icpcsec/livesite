@@ -30,9 +30,20 @@ def make_parser() -> argparse.ArgumentParser:
 
 
 def rank_key(entry):
-    times = list(reversed(sorted(p['penalty']
-                 for p in entry['problems'] if p['solved'])))
-    return tuple([-entry['solved'], entry['penalty']] + times)
+    # Here we use the tie-breaker rule for ICPC World Finals.
+    #
+    # > Teams are ranked according to the most problems solved. Teams ... who
+    # > solve the same number of problems are ranked first by the least total
+    # > time and, if need be, by the earliest time of submission of the last
+    # > accepted run.
+    # https://icpc.global/worldfinals/rules
+    #
+    # This also aligns with DOMJudge's implementation.
+    # https://github.com/DOMjudge/domjudge/blob/8.1.2/webapp/src/Utils/Scoreboard/Scoreboard.php#L312
+    accept_times = [p['penalty'] for p in entry['problems'] if p['solved']]
+    accept_times.sort()
+    last_accept_time = accept_times[-1] if accept_times else 0
+    return (-entry['solved'], entry['penalty'], last_accept_time)
 
 
 def recompute_entries(entries):
