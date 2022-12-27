@@ -55,11 +55,12 @@ def check_entries_equals(entries1, entries2):
         return
     for i, (entry1, entry2) in enumerate(zip(entries1, entries2)):
         if entry1 != entry2:
-            print('ERROR: standings mismatch at rank %d' % (i + 1))
-            print('got:')
-            print(entry1)
-            print('want:')
-            print(entry2)
+            print('ERROR: standings mismatch at rank %d' % (i + 1), file=sys.stderr)
+            print('got:', file=sys.stderr)
+            print(entry1, file=sys.stderr)
+            print('want:', file=sys.stderr)
+            print(entry2, file=sys.stderr)
+            sys.exit(1)
 
 
 def main(argv: List[str]) -> int:
