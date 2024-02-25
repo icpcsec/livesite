@@ -69,7 +69,18 @@ export default function NavBar() {
       style={{ zIndex: 1000000, backgroundColor: 'var(--indigo)' }}
     >
       <div className="container">
-        <Link className="navbar-brand" to="/">
+        <Link
+          className="navbar-brand text-truncate"
+          to="/"
+          // Workaround to use ellipsis for long contest name.
+          // calculated maxWidth by:
+          // - 1rem (right margin of navbar-brand)
+          // - 1.5rem (left and right paddings of navbar-toggler)
+          // - 1.5em (width of navbar-toggler-icon)
+          // - 2px (borders of navbar-toggler-icon)
+          // - 1px additional margin.
+          style={{ maxWidth: 'calc(100% - 1.5em - 2.5rem - 3px)'}}
+        >
           {title}
         </Link>
         <button
