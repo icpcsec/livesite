@@ -136,6 +136,7 @@ function EventsOverlay() {
         top: '140px',
         width: '340px',
         zIndex: 1000000,
+        pointerEvents: 'none',
       }}
     >
       <EventsTable />
