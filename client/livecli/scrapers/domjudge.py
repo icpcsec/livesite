@@ -61,10 +61,10 @@ class DomjudgeScraper(base.Scraper):
                 name = tooltip[len('problem '):].strip(' \'')
             else:
                 name = ''
-            circles = problem_elem.select('.circle')
+            circles = problem_elem.select('.problem-badge')
             if circles:
                 style = circles[0].attrs.get('style', '')
-                m = re.search(r'background:\s*([^\s;]+)\s*;', style)
+                m = re.search(r'background-color:\s*([^\s;]+)\s*;', style)
                 color = m.group(1) if m else ''
             else:
                 color = _DEFAULT_COLORS[index_problem % len(_DEFAULT_COLORS)]
