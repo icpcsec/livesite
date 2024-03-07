@@ -4,8 +4,8 @@
   "description": "",
   "scripts": {
     "serve": "firebase emulators:exec --project=fake --only=hosting,database devserver/boot.sh",
-    "build": "webpack --mode=production",
-    "watch": "webpack -w --mode=development",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && webpack --mode=production",
+    "watch": "export NODE_OPTIONS=--openssl-legacy-provider && webpack -w --mode=development",
     "lint": "eslint src",
     "format": "prettier --write .",
     "test": "npm run test:smoke",
