@@ -28,6 +28,7 @@ const DEFAULT: FeedsState = {
       end: 0,
       freeze: 0,
     },
+    frontPageHtml: '',
   },
   standings: {
     problems: [],
