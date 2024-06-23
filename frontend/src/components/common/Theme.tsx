@@ -26,9 +26,11 @@ const DARK_STYLES =
   '.standings .team-row.sticky { background-color: #616161 !important; }';
 
 export default function Theme() {
-  const invertColor = useAppSelector(({ settings: { invertColor }}) => invertColor);
+  const invertColor = useAppSelector(
+    ({ settings: { invertColor } }) => invertColor
+  );
   if (invertColor) {
     return <style>{DARK_STYLES}</style>;
   }
   return <style>{LIGHT_STYLES}</style>;
-};
+}
