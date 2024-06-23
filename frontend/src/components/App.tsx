@@ -12,26 +12,24 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// Import this first to support old browsers.
-import '@babel/polyfill';
-
 import React from 'react';
-import ReactDOM from 'react-dom';
-import GA from 'react-ga';
+import { Provider } from 'react-redux';
 
-import { printBanner } from './banner';
-import App from './components/App';
-import { createAppStore } from './redux';
-import siteconfig from './siteconfig';
+import Routes from './Routes';
+import DocumentTitleUpdater from './common/DocumentTitleUpdater';
+import DataProvider from './data/DataProvider';
+import { AppStore } from '../redux';
 
-if (siteconfig.misc.googleAnalyticsId) {
-  GA.initialize(siteconfig.misc.googleAnalyticsId);
+function App({ store }: { store: AppStore }) {
+  return (
+    <Provider store={store}>
+      <DataProvider>
+        <DocumentTitleUpdater>
+          <Routes />
+        </DocumentTitleUpdater>
+      </DataProvider>
+    </Provider>
+  );
 }
 
-const store = createAppStore();
-
-ReactDOM.render(<App store={store} />, document.getElementById('root'));
-
-$('body').bootstrapMaterialDesign();
-
-printBanner();
+export default App;

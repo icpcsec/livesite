@@ -20,7 +20,7 @@ import Footer from './common/Footer';
 import NavBar from './common/NavBar';
 import Theme from './common/Theme';
 
-function Frame({ children }) {
+function Frame({ children }: { children: React.ReactNode }) {
   return (
     <div style={{ width: '100%' }}>
       <Switch>

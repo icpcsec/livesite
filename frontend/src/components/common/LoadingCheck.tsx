@@ -20,8 +20,8 @@ export default function LoadingCheck({
   loading,
   children,
 }: {
-  loading: React.ReactNode;
-  children: React.ReactNode;
+  loading: React.JSX.Element;
+  children: React.JSX.Element;
 }) {
   const loaded = useAppSelector(({ feeds }) => {
     return FEED_NAMES.every((feed) => feeds.loaded.has(feed));

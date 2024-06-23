@@ -44,8 +44,8 @@ function Routes() {
             <Route path="/reveal/" component={StandingsRevealPage} />
           </Switch>
         </Frame>
-        <GA />
       </LoadingCheck>
+      <GA />
     </BrowserRouter>
   );
 }
