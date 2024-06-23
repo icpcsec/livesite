@@ -14,14 +14,12 @@
 
 import { combineReducers } from 'redux';
 
-import broadcast, { BroadcastState } from './broadcast';
 import { deriveEvents, EventsState } from './events';
 import feeds, { FeedsState } from './feeds';
 import reveal, { RevealState } from './reveal';
 import settings, { SettingsState } from './settings';
 
 export type AppNormalizedState = {
-  broadcast: BroadcastState;
   feeds: FeedsState;
   reveal: RevealState;
   settings: SettingsState;
@@ -33,7 +31,6 @@ export type AppState = AppNormalizedState & {
 
 const reducer = deriveEvents(
   combineReducers({
-    broadcast,
     feeds,
     reveal,
     settings,

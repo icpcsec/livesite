@@ -16,13 +16,10 @@ import axios from 'axios';
 import firebase from 'firebase/app';
 import 'firebase/auth';
 import 'firebase/database';
-import applyPartialUpdate from 'immutability-helper';
 
-import { updateBroadcast, updateFeeds } from '../../actions';
-import { BroadcastState } from '../../reducers/broadcast';
+import { updateFeeds } from '../../actions';
 import { AppDispatch } from '../../redux';
 import siteconfig from '../../siteconfig';
-import { TopLevelUpdate } from '../../utils';
 
 const FEEDS = ['contest', 'standings', 'teams'];
 
@@ -55,12 +52,6 @@ function initializeApp(): firebase.app.App {
   return firebase.initializeApp(options);
 }
 
-const VIEW_VALUES = ['none', 'normal', 'detailed', 'problems'] as const;
-
-type BroadcastData = {
-  view?: string;
-};
-
 class DataModel {
   private readonly app_: firebase.app.App;
   private readonly db_: firebase.database.Database;
@@ -76,24 +67,6 @@ class DataModel {
         .ref(`feeds/${feed}`)
         .on('value', (snapshot) => this.onFeedUpdate(feed, snapshot.val()));
     }
-    this.db_.ref('broadcast').on('value', (snapshot) => {
-      const broadcast = snapshot.val() as BroadcastData | null;
-      if (broadcast) {
-        const update: TopLevelUpdate<BroadcastState> = {};
-        if (
-          broadcast.view &&
-          (VIEW_VALUES as readonly string[]).includes(broadcast.view)
-        ) {
-          update.view = { $set: broadcast.view as typeof VIEW_VALUES[number] };
-        }
-        this.dispatch(updateBroadcast(update));
-      }
-    });
-
-    this.auth_.onAuthStateChanged((user) => {
-      const signedIn = !!user;
-      this.dispatch(updateBroadcast({ signedIn: { $set: signedIn } }));
-    });
   }
 
   async signIn(): Promise<void> {
@@ -103,14 +76,6 @@ class DataModel {
 
   async signOut(): Promise<void> {
     await this.auth_.signOut();
-  }
-
-  updateBroadcast(update: TopLevelUpdate<BroadcastState>) {
-    const ref = this.db_.ref('broadcast');
-    ref.once('value', (snapshot) => {
-      const broadcast = applyPartialUpdate(snapshot.val() ?? {}, update);
-      ref.set(broadcast);
-    });
   }
 
   private async onFeedUpdate(feed: string, url: string): Promise<void> {

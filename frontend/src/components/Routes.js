@@ -23,9 +23,6 @@ import TeamInfoPage from './teams/TeamInfoPage';
 import SettingsPage from './settings/SettingsPage';
 import StandingsRevealPage from './standings/StandingsRevealPage';
 import GA from './common/GA';
-import BroadcastPage from './broadcast/BroadcastPage';
-import ControllerPage from './broadcast/ControllerPage';
-import DashboardPage from './broadcast/DashboardPage';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
 import siteconfig from '../siteconfig';
@@ -36,40 +33,19 @@ function Routes() {
   ) : null;
   return (
     <BrowserRouter>
-      <Switch>
-        <Route path="/broadcast/">
-          <LoadingCheck loading={null}>
-            <Switch>
-              <Route exact path="/broadcast/">
-                <BroadcastPage />
-              </Route>
-              <Route path="/broadcast/controller">
-                <ControllerPage />
-              </Route>
-            </Switch>
-          </LoadingCheck>
-        </Route>
-        <Route path="/dashboard/">
-          <LoadingCheck loading={null}>
-            <DashboardPage />
-          </LoadingCheck>
-        </Route>
-        <Route>
-          <LoadingCheck loading={<LoadingPage />}>
-            <Frame>
-              <Switch>
-                <Route exact path="/" component={FrontPage} />
-                <Route path="/standings/" component={StandingsPage} />
-                <Route exact path="/team/" component={TeamIndexPage} />
-                {teamPageRoute}
-                <Route path="/settings/" component={SettingsPage} />
-                <Route path="/reveal/" component={StandingsRevealPage} />
-              </Switch>
-            </Frame>
-            <GA />
-          </LoadingCheck>
-        </Route>
-      </Switch>
+      <LoadingCheck loading={<LoadingPage />}>
+        <Frame>
+          <Switch>
+            <Route exact path="/" component={FrontPage} />
+            <Route path="/standings/" component={StandingsPage} />
+            <Route exact path="/team/" component={TeamIndexPage} />
+            {teamPageRoute}
+            <Route path="/settings/" component={SettingsPage} />
+            <Route path="/reveal/" component={StandingsRevealPage} />
+          </Switch>
+        </Frame>
+        <GA />
+      </LoadingCheck>
     </BrowserRouter>
   );
 }

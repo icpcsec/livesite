@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import { AllFeeds, StandingsHistory } from '../data';
-import { BroadcastState } from '../reducers/broadcast';
 import { SettingsState } from '../reducers/settings';
 import { TopLevelUpdate } from '../utils';
 
@@ -25,20 +24,6 @@ export type UpdateFeeds = {
 export function updateFeeds(update: TopLevelUpdate<AllFeeds>): UpdateFeeds {
   return {
     type: 'UPDATE_FEEDS',
-    update,
-  };
-}
-
-export type UpdateBroadcast = {
-  type: 'UPDATE_BROADCAST';
-  update: TopLevelUpdate<BroadcastState>;
-};
-
-export function updateBroadcast(
-  update: TopLevelUpdate<BroadcastState>
-): UpdateBroadcast {
-  return {
-    type: 'UPDATE_BROADCAST',
     update,
   };
 }
@@ -103,7 +88,6 @@ export function setRevealData(reveal: StandingsHistory): SetRevealData {
 
 export type AppAction =
   | UpdateFeeds
-  | UpdateBroadcast
   | UpdateSettings
   | ToggleSetting
   | SetRevealStep
