@@ -33,7 +33,6 @@ import { useAppDispatch, useAppSelector } from '../../redux';
 import { shallowEqual } from 'react-redux';
 
 const DEFAULT_TEAM: Team = {
-  id: 'null',
   name: '???',
   university: '???',
   members: [],
@@ -329,6 +328,7 @@ type TeamRowRightProps = {
   solved: number;
   penalty: number;
   problemSpecs: Problem[];
+  teamId: string;
   team: Team;
   universityRank: string;
   problems: StandingsProblemEntry[];
@@ -345,12 +345,13 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
       solved,
       penalty,
       problemSpecs,
+      teamId,
       team,
       universityRank,
       problems,
       revealMode,
     } = this.props;
-    const { id, name, university, country } = team;
+    const { name, university, country } = team;
     const universityContent = (
       <span>
         {siteconfig.features.country ? (
@@ -368,7 +369,7 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
         <small> [{universityRank || '???'}]</small>
       </span>
     );
-    const to = siteconfig.features.teamPage ? `/team/${id}` : undefined;
+    const to = siteconfig.features.teamPage ? `/team/${teamId}` : undefined;
     return (
       <div className="team-right">
         <TeamScoreCol
@@ -435,7 +436,7 @@ const TeamRow = createAnimatingStandingsRow(
       return (
         <div className={rewrittenClassName} {...rest}>
           <TeamRowLeft
-            teamId={team.id}
+            teamId={entry.teamId}
             pinned={pinned}
             revealMode={revealMode}
             revealState={revealState}
@@ -445,6 +446,7 @@ const TeamRow = createAnimatingStandingsRow(
             solved={solved}
             penalty={penalty}
             problemSpecs={problemSpecs}
+            teamId={entry.teamId}
             team={team}
             universityRank={universityRank}
             problems={problems}

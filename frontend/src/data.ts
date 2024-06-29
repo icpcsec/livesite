@@ -54,7 +54,6 @@ export type StandingsFeed = {
 };
 
 export type Team = {
-  id: string;
   name: string;
   university: string;
   universityShort?: string;

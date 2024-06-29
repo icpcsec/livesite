@@ -13,14 +13,13 @@
 // limitations under the License.
 
 import React from 'react';
-import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import GridFlow from '../common/GridFlow';
 import * as constants from '../../constants';
 import siteconfig from '../../siteconfig';
-import { Team } from '../../data';
+import { Team, TeamsFeed } from '../../data';
 import { useAppSelector } from '../../redux';
 
 type TeamPhotoProps = {
@@ -50,11 +49,13 @@ function TeamLink({ id, children }: TeamLinkProps) {
 }
 
 type TeamItemProps = {
+  teamId: string;
   team: Team;
 };
 
 function TeamItem({
-  team: { id, name, university, country, photo, members },
+  teamId,
+  team: { name, university, country, photo, members },
 }: TeamItemProps) {
   const displayNames = [];
   for (let profile of members) {
@@ -72,16 +73,16 @@ function TeamItem({
       <div className="card-body">
         {siteconfig.features.photo ? (
           <div className="mb-3">
-            <TeamLink id={id}>
+            <TeamLink id={teamId}>
               <TeamPhoto photo={photo!} />
             </TeamLink>
           </div>
         ) : null}
         <h4 className="mb-1 text-ellipsis">
-          <TeamLink id={id}>{name}</TeamLink>
+          <TeamLink id={teamId}>{name}</TeamLink>
         </h4>
         <div className="text-ellipsis">
-          <TeamLink id={id}>
+          <TeamLink id={teamId}>
             {siteconfig.features.country ? (
               <img
                 src={`/images/${country}.png`}
@@ -99,7 +100,7 @@ function TeamItem({
         </div>
         {memberNames ? (
           <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
-            <TeamLink id={id}>{memberNames}</TeamLink>
+            <TeamLink id={teamId}>{memberNames}</TeamLink>
           </div>
         ) : null}
       </div>
@@ -116,48 +117,46 @@ function TeamItemFlow({ children }: TeamItemFlowProps) {
 }
 
 type TeamListSimpleProps = {
-  teams: Team[];
+  teams: TeamsFeed;
 };
 
 function TeamListSimple({ teams }: TeamListSimpleProps) {
-  const sortedTeams = [...teams];
-  sortedTeams.sort(
-    (a, b) =>
-      a.university.localeCompare(b.university) ||
-      a.name.localeCompare(b.name) ||
-      a.id.localeCompare(b.id)
-  );
-  const items = sortedTeams.map((team) => (
-    <TeamItem key={team.id} team={team} />
-  ));
+  const items = Object.keys(teams)
+    .sort(
+      (a, b) =>
+        teams[a].university.localeCompare(teams[b].university) ||
+        teams[a].name.localeCompare(teams[b].name) ||
+        a.localeCompare(b)
+    )
+    .map((id) => <TeamItem key={id} teamId={id} team={teams[id]} />);
   return <TeamItemFlow>{items}</TeamItemFlow>;
 }
 
 type TeamListWithPrefectureProps = {
-  teams: Team[];
+  teams: TeamsFeed;
 };
 
 function TeamListWithPrefecture({ teams }: TeamListWithPrefectureProps) {
-  const teamsByPrefecture: Record<number, Team[]> = {};
+  const teamsByPrefecture: Record<number, TeamItemProps[]> = {};
   for (let i = 1; i <= 48; ++i) {
     teamsByPrefecture[i] = [];
   }
-  teams.forEach((team) => {
-    teamsByPrefecture[team.prefecture || 48].push(team);
-  });
+  for (const [id, team] of Object.entries(teams)) {
+    teamsByPrefecture[team.prefecture || 48].push({ teamId: id, team });
+  }
   const children = [];
   for (let i = 1; i <= 48; ++i) {
     const teamsInPrefecture = teamsByPrefecture[i];
     teamsInPrefecture.sort(
       (a, b) =>
-        a.university.localeCompare(b.university) ||
-        a.name.localeCompare(b.name) ||
-        a.id.localeCompare(b.id)
+        a.team.university.localeCompare(b.team.university) ||
+        a.team.name.localeCompare(b.team.name) ||
+        a.teamId.localeCompare(b.teamId)
     );
     const count = teamsInPrefecture.length;
     if (count > 0) {
-      const items = teamsInPrefecture.map((team) => (
-        <TeamItem key={team.id} team={team} />
+      const items = teamsInPrefecture.map((item) => (
+        <TeamItem key={item.teamId} {...item} />
       ));
       const name = constants.PREFECTURES[i];
       children.push(
@@ -174,7 +173,7 @@ function TeamListWithPrefecture({ teams }: TeamListWithPrefectureProps) {
 }
 
 export default function TeamList() {
-  const teams = Object.values(useAppSelector((state) => state.feeds.teams));
+  const teams = useAppSelector((state) => state.feeds.teams);
   if (siteconfig.features.prefecture) {
     return <TeamListWithPrefecture teams={teams} />;
   }
