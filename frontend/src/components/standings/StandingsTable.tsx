@@ -12,10 +12,10 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import deepEqual from 'deep-equal';
 import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { sprintf } from 'sprintf-js';
+import isEqual from 'react-fast-compare';
 
 import { updateSettings } from '../../actions/index';
 import { tr } from '../../i18n';
@@ -60,7 +60,7 @@ type TeamGenericColProps = {
 
 class TeamGenericCol extends React.Component<TeamGenericColProps> {
   shouldComponentUpdate(nextProps: TeamGenericColProps, nextState: {}) {
-    return !deepEqual(this.props, nextProps);
+    return !isEqual(this.props, nextProps);
   }
 
   render() {
@@ -113,7 +113,7 @@ type LegendProblemColsProps = {
 
 class LegendProblemCols extends React.Component<LegendProblemColsProps> {
   shouldComponentUpdate(nextProps: LegendProblemColsProps, nextState: {}) {
-    return !deepEqual(this.props, nextProps);
+    return !isEqual(this.props, nextProps);
   }
 
   render() {
@@ -309,7 +309,7 @@ type TeamRowLeftProps = {
 class TeamRowLeft extends React.Component<TeamRowLeftProps> {
   shouldComponentUpdate(nextProps: TeamRowLeftProps, nextState: {}) {
     const FIELDS = ['teamId', 'pinned', 'revealMode', 'revealState'] as const;
-    const cached = FIELDS.every((f) => deepEqual(this.props[f], nextProps[f]));
+    const cached = FIELDS.every((f) => isEqual(this.props[f], nextProps[f]));
     return !cached;
   }
 
@@ -337,7 +337,7 @@ type TeamRowRightProps = {
 
 class TeamRowRight extends React.Component<TeamRowRightProps> {
   shouldComponentUpdate(nextProps: TeamRowRightProps, nextState: {}) {
-    return !deepEqual(this.props, nextProps);
+    return !isEqual(this.props, nextProps);
   }
 
   render() {
@@ -415,7 +415,7 @@ const TeamRow = createAnimatingStandingsRow(
         'className',
       ] as const;
       const cached = FIELDS.every((f) =>
-        deepEqual(this.props[f], nextProps[f])
+        isEqual(this.props[f], nextProps[f])
       );
       return !cached;
     }
