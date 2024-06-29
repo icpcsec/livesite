@@ -96,6 +96,13 @@ class DomesticScraper(base.Scraper):
                 continue
 
             entry = dict(zip(_TEAM_COLUMNS, row))
+
+            teamId = int(entry['teamId'])
+            if self._options.min_team_id != None and teamId < self._options.min_team_id:
+                continue
+            if self._options.min_team_id != None and teamId > self._options.max_team_id:
+                continue
+
             entry['solved'] = int(entry['solved'])
             entry['penalty'] = int(entry['penalty'])
             del entry[None]

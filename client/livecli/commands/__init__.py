@@ -78,6 +78,8 @@ def make_parser() -> argparse.ArgumentParser:
     domestic_parser.add_argument('--login-url', help='Login URL')
     domestic_parser.add_argument('--login-user', help='Login user name')
     domestic_parser.add_argument('--login-password', help='Login password')
+    domestic_parser.add_argument('--min-team-id', type=int, help='Allowed minimum team id')
+    domestic_parser.add_argument('--max-team-id', type=int, help='Allowed maximum team id')
 
     domjudge_parser = scrape_subparsers.add_parser('domjudge', parents=[scrape_common_parser])
     domjudge_parser.set_defaults(scraper_class=domjudge.DomjudgeScraper)
