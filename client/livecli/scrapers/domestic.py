@@ -16,6 +16,7 @@ import argparse
 import logging
 
 import bs4
+import requests
 
 from livecli.scrapers import base
 
@@ -69,6 +70,10 @@ class DomesticScraper(base.Scraper):
             return standings
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
+
+        if doc.select('form[method="POST"] input[type="password"]'):
+            raise base.NeedLoginException()
+
         mains = doc.select('.main')
         if not mains:
             return standings
@@ -99,3 +104,21 @@ class DomesticScraper(base.Scraper):
             standings['entries'].append(entry)
 
         return standings
+
+    def login(self, session: requests.Session) -> None:
+        r = session.get(self._options.login_url)
+        r.raise_for_status()
+
+        doc = bs4.BeautifulSoup(r.text, 'html5lib')
+
+        params = {}
+        params['team_id'] = self._options.login_user
+        params['pass'] = self._options.login_password
+
+        r = session.post(self._options.login_url, params)
+        r.raise_for_status()
+
+        doc = bs4.BeautifulSoup(r.text, 'html5lib')
+        alerts = doc.select('font[color=red]')
+        if alerts:
+            raise Exception('Login failed: %s' % alerts[0].get_text())
