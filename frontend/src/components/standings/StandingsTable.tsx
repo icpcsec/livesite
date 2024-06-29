@@ -60,7 +60,7 @@ type TeamGenericColProps = {
 
 class TeamGenericCol extends React.Component<TeamGenericColProps> {
   shouldComponentUpdate(nextProps: TeamGenericColProps, nextState: {}) {
-    return deepEqual(this.props, nextProps);
+    return !deepEqual(this.props, nextProps);
   }
 
   render() {
@@ -113,7 +113,7 @@ type LegendProblemColsProps = {
 
 class LegendProblemCols extends React.Component<LegendProblemColsProps> {
   shouldComponentUpdate(nextProps: LegendProblemColsProps, nextState: {}) {
-    return deepEqual(this.props, nextProps);
+    return !deepEqual(this.props, nextProps);
   }
 
   render() {
@@ -337,7 +337,7 @@ type TeamRowRightProps = {
 
 class TeamRowRight extends React.Component<TeamRowRightProps> {
   shouldComponentUpdate(nextProps: TeamRowRightProps, nextState: {}) {
-    return deepEqual(this.props, nextProps);
+    return !deepEqual(this.props, nextProps);
   }
 
   render() {
