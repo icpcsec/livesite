@@ -24,8 +24,7 @@ export default function MaterialInit({
     if (!dom) {
       return;
     }
-    // TODO(ts): Remove any.
-    ($(dom) as any).bootstrapMaterialDesign();
+    $(dom).bootstrapMaterialDesign();
   }, [dom]);
   return <div ref={setDom}>{children}</div>;
 }

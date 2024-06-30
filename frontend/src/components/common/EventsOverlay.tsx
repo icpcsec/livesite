@@ -14,7 +14,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import { Event, EventType, Problem, Team } from '../../data';
+import { Event, Problem, Team } from '../../data';
 import { useAppSelector } from '../../redux';
 
 const EVENT_TIMEOUT_SECONDS = 20;

@@ -58,7 +58,7 @@ function TeamItem({
   team: { name, university, country, photo, members },
 }: TeamItemProps) {
   const displayNames = [];
-  for (let profile of members) {
+  for (const profile of members) {
     const { name } = profile;
     const displayName = name.length > 0 ? name : '?';
     displayNames.push(displayName);

@@ -43,7 +43,7 @@ function feeds(state = DEFAULT, action: AppAction): FeedsState {
     state = applyPartialUpdate(state, action.update);
     const newLoaded = new Set(state.loaded);
     for (const name in action.update) {
-      if (action.update.hasOwnProperty(name)) {
+      if (Object.prototype.hasOwnProperty.call(action.update, name)) {
         newLoaded.add(name as FeedName);
       }
     }

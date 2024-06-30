@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React from 'react';
-import { connect } from 'react-redux';
 
 import ErrorMessage from '../common/ErrorMessage';
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
@@ -52,6 +51,7 @@ function MemberProfile({ profile, index }: MemberProfileProps) {
       <a
         target="_blank"
         href={`https://www.topcoder.com/members/${profile.topcoderId}/`}
+        rel="noreferrer"
       >
         {profile.topcoderId}
       </a>,
@@ -64,6 +64,7 @@ function MemberProfile({ profile, index }: MemberProfileProps) {
       <a
         target="_blank"
         href={`http://codeforces.com/profile/${profile.codeforcesId}/`}
+        rel="noreferrer"
       >
         {profile.codeforcesId}
       </a>,
@@ -73,7 +74,11 @@ function MemberProfile({ profile, index }: MemberProfileProps) {
   if (profile.atcoderId) {
     contactsElements.push(
       'AtCoder: ',
-      <a target="_blank" href={`https://atcoder.jp/user/${profile.atcoderId}/`}>
+      <a
+        target="_blank"
+        href={`https://atcoder.jp/user/${profile.atcoderId}/`}
+        rel="noreferrer"
+      >
         {profile.atcoderId}
       </a>,
       <br />
@@ -82,7 +87,11 @@ function MemberProfile({ profile, index }: MemberProfileProps) {
   if (profile.twitterId) {
     contactsElements.push(
       'Twitter: ',
-      <a target="_blank" href={`https://twitter.com/${profile.twitterId}/`}>
+      <a
+        target="_blank"
+        href={`https://twitter.com/${profile.twitterId}/`}
+        rel="noreferrer"
+      >
         @{profile.twitterId}
       </a>,
       <br />
@@ -91,7 +100,11 @@ function MemberProfile({ profile, index }: MemberProfileProps) {
   if (profile.githubId) {
     contactsElements.push(
       'GitHub: ',
-      <a target="_blank" href={`https://github.com/${profile.githubId}/`}>
+      <a
+        target="_blank"
+        href={`https://github.com/${profile.githubId}/`}
+        rel="noreferrer"
+      >
         {profile.githubId}
       </a>,
       <br />

@@ -32,7 +32,7 @@ function NavLink({
   if (external) {
     return (
       <li>
-        <a className="nav-link" target="_blank" href={to}>
+        <a className="nav-link" target="_blank" href={to} rel="noreferrer">
           {children}
         </a>
       </li>
