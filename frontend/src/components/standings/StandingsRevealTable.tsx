@@ -13,7 +13,6 @@
 // limitations under the License.
 
 import React, { ChangeEvent, useCallback, useEffect } from 'react';
-import { shallowEqual } from 'react-redux';
 import { setRevealData, setRevealStep } from '../../actions/index';
 import { StandingsHistory } from '../../data';
 
@@ -22,7 +21,8 @@ import StandingsTable from './StandingsTable';
 
 function StandingsUploadForm() {
   const { loaded } = useAppSelector((state) => {
-    return { loaded: state.reveal.reveal.entriesList.length !== 0 };
+    const entries = state.reveal.reveal.entriesList;
+    return { loaded: entries.length > 0 && entries[0].length > 0 };
   });
   const dispatch = useAppDispatch();
   const onChange = useCallback(
@@ -61,14 +61,14 @@ function StandingsUploadForm() {
 }
 
 export default function StandingsRevealTable() {
-  const { numSteps, step } = useAppSelector(
+  const { entries, step } = useAppSelector(
     ({
       reveal: {
         reveal: { entriesList },
         step,
       },
     }) => ({
-      numSteps: entriesList.length,
+      entries: entriesList,
       step,
     })
   );
@@ -78,14 +78,14 @@ export default function StandingsRevealTable() {
       if (!e.altKey && !e.ctrlKey && !e.metaKey && !e.shiftKey) {
         if (e.keyCode === 39) {
           // ArrowRight
-          dispatch(setRevealStep(Math.min(step + 1, numSteps - 1)));
+          dispatch(setRevealStep(Math.min(step + 1, entries.length - 1)));
         } else if (e.keyCode === 37) {
           // ArrowLeft
           dispatch(setRevealStep(Math.max(step - 1, 0)));
         }
       }
     },
-    [dispatch]
+    [dispatch, step, entries]
   );
   useEffect(() => {
     document.addEventListener('keydown', onKeyDown);
@@ -94,7 +94,7 @@ export default function StandingsRevealTable() {
     };
   }, [onKeyDown]);
 
-  return numSteps === 0 ? (
+  return entries.length === 0 || entries[0].length == 0 ? (
     <StandingsUploadForm />
   ) : (
     <StandingsTable revealMode={true} />
