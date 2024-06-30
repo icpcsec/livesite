@@ -79,7 +79,7 @@ export default function NavBar() {
           // - 1.5em (width of navbar-toggler-icon)
           // - 2px (borders of navbar-toggler-icon)
           // - 1px additional margin.
-          style={{ maxWidth: 'calc(100% - 1.5em - 2.5rem - 3px)'}}
+          style={{ maxWidth: 'calc(100% - 1.5em - 2.5rem - 3px)' }}
         >
           {title}
         </Link>

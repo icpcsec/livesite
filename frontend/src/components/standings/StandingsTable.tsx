@@ -414,9 +414,7 @@ const TeamRow = createAnimatingStandingsRow(
         'pinned',
         'className',
       ] as const;
-      const cached = FIELDS.every((f) =>
-        isEqual(this.props[f], nextProps[f])
-      );
+      const cached = FIELDS.every((f) => isEqual(this.props[f], nextProps[f]));
       return !cached;
     }
 
