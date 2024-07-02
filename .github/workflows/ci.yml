@@ -21,3 +21,5 @@ jobs:
     - run: cd frontend && npm ci
     - run: cd frontend && npm run build
     - run: cd frontend && npm run test
+    - run: cd frontend && npm run lint
+    - run: cd frontend && npm run format:check

@@ -8,6 +8,7 @@
     "watch": "webpack -w --mode=development",
     "lint": "eslint src",
     "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "test": "npm run test:smoke",
     "test:smoke": "firebase emulators:exec --project=fake --only=hosting,database devserver/smoke.sh",
     "deploy": "npm run build && firebase deploy"
