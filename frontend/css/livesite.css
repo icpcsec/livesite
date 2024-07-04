@@ -119,6 +119,7 @@ a.no-decoration {
 
 .standard-standings .team-row .team-mark .fa-thumbtack {
   color: #bdbdbd;
+  cursor: pointer;
 }
 
 .standard-standings .team-row .team-mark .fa-thumbtack.pinned {
