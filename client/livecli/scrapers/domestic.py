@@ -67,7 +67,7 @@ class DomesticScraper(base.Scraper):
         standings = {'problems': [], 'entries': []}
         if 'rehearsal' in html and not self._options.allow_rehearsal:
             logging.info('Contest has not started yet.')
-            return standings
+            raise Exception('Scoreboard is rehearsal. Add --allow-rehearsal if this is intended.')
 
         doc = bs4.BeautifulSoup(html, 'html5lib')
 
@@ -76,11 +76,11 @@ class DomesticScraper(base.Scraper):
 
         mains = doc.select('.main')
         if not mains:
-            return standings
+            raise Exception('Scoreboard not available. .main not found.')
 
         table = mains[-1].table
         if not table:
-            return standings
+            raise Exception('Scoreboard not available. table not found')
 
         for tr in table.select('tr'):
             row = [td.get_text().strip() for td in tr.select('td')]
@@ -109,6 +109,9 @@ class DomesticScraper(base.Scraper):
 
             entry['problems'] = [_parse_problem_status(col) for col in row[6:]]
             standings['entries'].append(entry)
+
+        if len(standings['entries']) == 0 or len(standings['problems']):
+            raise Exception('Scoreboard is empty.')
 
         return standings
 
