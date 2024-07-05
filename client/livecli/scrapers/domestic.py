@@ -110,7 +110,7 @@ class DomesticScraper(base.Scraper):
             entry['problems'] = [_parse_problem_status(col) for col in row[6:]]
             standings['entries'].append(entry)
 
-        if len(standings['entries']) == 0 or len(standings['problems']):
+        if len(standings['entries']) == 0 or len(standings['problems']) == 0:
             raise Exception('Scoreboard is empty.')
 
         return standings
