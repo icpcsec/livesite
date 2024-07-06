@@ -14,14 +14,16 @@
 
 export function printBanner(): void {
   console.log(
-    ' _     _           _____ _ _       \n' +
+    '%c _     _           _____ _ _       \n' +
       '| |   (_)         /  ___(_) |      \n' +
       '| |    ___   _____\\ `--. _| |_ ___ \n' +
       '| |   | \\ \\ / / _ \\`--. \\ | __/ _ \\\n' +
       '| |___| |\\ V /  __/\\__/ / | ||  __/\n' +
       '\\_____/_| \\_/ \\___\\____/|_|\\__\\___|\n' +
       '\n' +
+      '  https://github.com/icpcsec/livesite' +
       '  Authored by @nya3jp\n' +
-      '  Presented by ICPC Secretaries'
+      '  Presented by ICPC Secretaries',
+    'font-family: Menlo, Monaco, "Courier New", Consolas, monospace'
   );
 }
