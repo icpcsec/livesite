@@ -21,7 +21,7 @@ export function printBanner(): void {
       '| |___| |\\ V /  __/\\__/ / | ||  __/\n' +
       '\\_____/_| \\_/ \\___\\____/|_|\\__\\___|\n' +
       '\n' +
-      '  https://github.com/icpcsec/livesite' +
+      '  https://github.com/icpcsec/livesite\n' +
       '  Authored by @nya3jp\n' +
       '  Presented by ICPC Secretaries',
     'font-family: Menlo, Monaco, "Courier New", Consolas, monospace'
