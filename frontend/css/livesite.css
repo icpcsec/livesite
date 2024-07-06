@@ -56,6 +56,13 @@ a.no-decoration {
   position: relative;
 }
 
+.standings-section.sticky-heading {
+  position: sticky;
+  top: 3.5rem; /* the (computed) height of .navbar */
+  z-index: 10000;
+  background: #fff;
+}
+
 .standard-standings {
   line-height: 1.3;
 }

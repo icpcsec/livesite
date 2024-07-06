@@ -581,7 +581,11 @@ export default function StandingsTable({
   });
   return (
     <div className="standard-standings">
-      <div className="standings-section">
+      <div
+        className={
+          revealMode ? 'standings-section' : 'standings-section sticky-heading'
+        }
+      >
         <LegendRow problems={problems} />
       </div>
       <div className="standings-section">{stickyRows}</div>
