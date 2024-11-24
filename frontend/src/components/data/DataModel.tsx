@@ -13,9 +13,14 @@
 // limitations under the License.
 
 import axios from 'axios';
-import firebase from 'firebase/compat/app';
-import 'firebase/compat/auth';
-import 'firebase/compat/database';
+import { initializeApp, FirebaseApp } from 'firebase/app';
+import {
+  getAuth,
+  Auth,
+  GoogleAuthProvider,
+  signInWithPopup,
+} from 'firebase/auth';
+import { getDatabase, Database, ref, onValue } from 'firebase/database';
 
 import { updateFeeds } from '../../actions';
 import { AppDispatch } from '../../redux';
@@ -30,7 +35,7 @@ type Options = {
   databaseURL: string;
 };
 
-function initializeApp(): firebase.app.App {
+function initApp() {
   const hostname = window.location.hostname;
   let options: Options;
   if (hostname === 'localhost') {
@@ -49,29 +54,29 @@ function initializeApp(): firebase.app.App {
   } else {
     throw new Error('Unsupported host: ' + hostname);
   }
-  return firebase.initializeApp(options);
+  return initializeApp(options);
 }
 
 class DataModel {
-  private readonly app_: firebase.app.App;
-  private readonly db_: firebase.database.Database;
-  private readonly auth_: firebase.auth.Auth;
+  private readonly app_: FirebaseApp;
+  private readonly db_: Database;
+  private readonly auth_: Auth;
 
   constructor(private readonly dispatch: AppDispatch) {
-    this.app_ = initializeApp();
-    this.db_ = firebase.database(this.app_);
-    this.auth_ = firebase.auth(this.app_);
+    this.app_ = initApp();
+    this.db_ = getDatabase(this.app_);
+    this.auth_ = getAuth(this.app_);
 
     for (const feed of FEEDS) {
-      this.db_
-        .ref(`feeds/${feed}`)
-        .on('value', (snapshot) => this.onFeedUpdate(feed, snapshot.val()));
+      onValue(ref(this.db_, `feeds/${feed}`), (snapshot) =>
+        this.onFeedUpdate(feed, snapshot.val())
+      );
     }
   }
 
   async signIn(): Promise<void> {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    await this.auth_.signInWithPopup(provider);
+    const provider = new GoogleAuthProvider();
+    await signInWithPopup(this.auth_, provider);
   }
 
   async signOut(): Promise<void> {
