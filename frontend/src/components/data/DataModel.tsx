@@ -13,9 +13,9 @@
 // limitations under the License.
 
 import axios from 'axios';
-import firebase from 'firebase/app';
-import 'firebase/auth';
-import 'firebase/database';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/auth';
+import 'firebase/compat/database';
 
 import { updateFeeds } from '../../actions';
 import { AppDispatch } from '../../redux';
