@@ -14,12 +14,6 @@
 
 import axios from 'axios';
 import { initializeApp, FirebaseApp } from 'firebase/app';
-import {
-  getAuth,
-  Auth,
-  GoogleAuthProvider,
-  signInWithPopup,
-} from 'firebase/auth';
 import { getDatabase, Database, ref, onValue } from 'firebase/database';
 
 import { updateFeeds } from '../../actions';
@@ -60,27 +54,16 @@ function initApp() {
 class DataModel {
   private readonly app_: FirebaseApp;
   private readonly db_: Database;
-  private readonly auth_: Auth;
 
   constructor(private readonly dispatch: AppDispatch) {
     this.app_ = initApp();
     this.db_ = getDatabase(this.app_);
-    this.auth_ = getAuth(this.app_);
 
     for (const feed of FEEDS) {
       onValue(ref(this.db_, `feeds/${feed}`), (snapshot) =>
         this.onFeedUpdate(feed, snapshot.val())
       );
     }
-  }
-
-  async signIn(): Promise<void> {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth_, provider);
-  }
-
-  async signOut(): Promise<void> {
-    await this.auth_.signOut();
   }
 
   private async onFeedUpdate(feed: string, url: string): Promise<void> {
