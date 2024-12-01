@@ -143,6 +143,69 @@ function LegendRow({ problems }: LegendRowProps) {
   );
 }
 
+type ProblemStat = {
+  solved: number;
+  attemptTeams: number;
+  submissions: number;
+};
+
+type FooterProblemColProps = {
+  problemStat: ProblemStat;
+};
+
+function FooterProblemCol({
+  problemStat: { solved, attemptTeams: attempts, submissions },
+}: FooterProblemColProps) {
+  return (
+    <div className="team-col team-problem">
+      <div>
+        <span>
+          {solved} / {attempts}
+          <br />({submissions})
+        </span>
+      </div>
+    </div>
+  );
+}
+
+type FooterProblemColsProps = {
+  problemStats: ProblemStat[];
+};
+
+class FooterProblemCols extends React.Component<FooterProblemColsProps> {
+  shouldComponentUpdate(nextProps: FooterProblemColsProps, nextState: {}) {
+    return !isEqual(this.props, nextProps);
+  }
+
+  render() {
+    const { problemStats } = this.props;
+    const problemCols = problemStats.map((problemStat, i) => (
+      <FooterProblemCol key={i} problemStat={problemStat} />
+    ));
+    return <div className="team-problems">{problemCols}</div>;
+  }
+}
+
+type FooterRowProps = {
+  problemStats: ProblemStat[];
+};
+
+function FooterRow({ problemStats }: FooterRowProps) {
+  return (
+    <div className="team-row footer">
+      <div className="team-col team-mark"></div>
+      <div className="team-col team-rank"></div>
+      <div className="team-col team-score"></div>
+      <div className="team-col team-name">
+        Solved / Attempted teams
+        <br />
+        (Submissions)
+      </div>
+      <FooterProblemCols problemStats={problemStats} />
+    </div>
+  );
+}
+
 type TeamPinColProps = {
   teamId: string;
   pinned: boolean | null;
@@ -495,6 +558,25 @@ function computeUniversityRanks(
   return universityRanks;
 }
 
+function computeProblemStats(entries: StandingsEntry[], problems: Problem[]) {
+  const stats: ProblemStat[] = [];
+  problems.forEach(() =>
+    stats.push({ solved: 0, attemptTeams: 0, submissions: 0 })
+  );
+  entries.forEach((entry) => {
+    entry.problems.forEach((problem, i) => {
+      if (problem.solved) {
+        stats[i].solved++;
+        stats[i].attemptTeams++;
+      } else if (problem.attempts > 0) {
+        stats[i].attemptTeams++;
+      }
+      stats[i].submissions += problem.attempts;
+    });
+  });
+  return stats;
+}
+
 type StandingsTableProps = {
   revealMode?: boolean;
 };
@@ -520,6 +602,10 @@ export default function StandingsTable({
   const universityRanks = useMemo(
     () => computeUniversityRanks(entries, teams),
     [entries, teams]
+  );
+  const problemStats = useMemo(
+    () => computeProblemStats(entries, problems),
+    [entries, problems]
   );
   const normalRows = [];
   for (let index = 0; index < entries.length; ++index) {
@@ -592,6 +678,11 @@ export default function StandingsTable({
       <div className="standings-section">
         <AnimatingTable>{normalRows}</AnimatingTable>
       </div>
+      {revealMode ? null : (
+        <div className="standings-section">
+          <FooterRow problemStats={problemStats} />
+        </div>
+      )}
     </div>
   );
 }

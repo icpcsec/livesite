@@ -74,16 +74,18 @@ a.no-decoration {
   transition: background-color 1s linear;
 }
 
-.standard-standings .team-row:last-child {
-  border-bottom: 1px solid #888;
-}
-
 .standings-section:last-child .team-row:last-child {
   border-bottom: 1px solid #ddd;
 }
 
 .standard-standings .team-row.legend {
   font-weight: bold;
+  border-bottom: 1px solid #888;
+}
+
+.standard-standings .team-row.footer {
+  font-size: 0.8rem;
+  border-top: 1px solid #888;
 }
 
 .standard-standings .team-row.sticky {
@@ -206,6 +208,9 @@ a.no-decoration {
     width: 180px;
   }
   .standard-standings .team-row .team-problem .team-colored-col-fg {
+    display: none;
+  }
+  .standard-standings .team-row.footer {
     display: none;
   }
 }
