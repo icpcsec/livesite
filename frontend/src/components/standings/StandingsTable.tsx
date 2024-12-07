@@ -416,7 +416,8 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
     } = this.props;
     const { name, university, country } = team;
     const universityContent = (
-      <span>
+      <span className='university-container'>
+        <span className='university-name'>
         {siteconfig.features.country ? (
           <img
             src={`/images/${country}.png`}
@@ -429,7 +430,8 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
           />
         ) : null}
         {university}
-        <small> [{universityRank || '???'}]</small>
+        </span>
+        <span className='university-rank'> [{universityRank || '???'}]</span>
       </span>
     );
     const to = siteconfig.features.teamPage ? `/team/${teamId}` : undefined;

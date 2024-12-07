@@ -175,10 +175,27 @@ a.no-decoration {
   display: inline-block;
 }
 
-.standard-standings .team-generic-col-content {
+.standard-standings .team-name .team-generic-col-content {
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+
+.standard-standings .team-name .university-container {
+  display: inline-flex;
+  align-items: center;
+  width: 100%;
+}
+
+.standard-standings .team-name .university-container .university-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.standard-standings .team-name .university-container .university-rank {
+  font-size: 80%;
+  flex-grow: 0;
+  margin-left: 0.3em;
 }
 
 @media (min-width: 768px) and (max-width: 991px) {
