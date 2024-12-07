@@ -67,7 +67,7 @@ class TeamGenericCol extends React.Component<TeamGenericColProps> {
     const { text, small, to, className = '', ...rest } = this.props;
     const rewrittenClassName = 'team-col ' + className;
     const content = (
-      <span className='team-generic-col-content'>
+      <span className="team-generic-col-content">
         {text}
         <br />
         <small>{small}</small>
@@ -416,22 +416,27 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
     } = this.props;
     const { name, university, country } = team;
     const universityContent = (
-      <span className='university-container'>
-        <span className='university-name' title={university}>
-        {siteconfig.features.country ? (
-          <img
-            src={`/images/${country}.png`}
-            style={{
-              width: '19px',
-              height: '12px',
-              marginRight: '3px',
-              marginBottom: '1px',
-            }}
-          />
-        ) : null}
-        {university}
+      <span className="university-container">
+        <span className="university-name" title={university}>
+          {siteconfig.features.country ? (
+            <img
+              src={`/images/${country}.png`}
+              style={{
+                width: '19px',
+                height: '12px',
+                marginRight: '3px',
+                marginBottom: '1px',
+              }}
+            />
+          ) : null}
+          {university}
         </span>
-        <span className='university-rank' title={`Rank in the university: ${universityRank}`}> [{universityRank || '???'}]</span>
+        <span
+          className="university-rank"
+          title={`Rank in the university: ${universityRank}`}
+        >
+          [{universityRank || '???'}]
+        </span>
       </span>
     );
     const to = siteconfig.features.teamPage ? `/team/${teamId}` : undefined;
