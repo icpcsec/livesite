@@ -175,6 +175,12 @@ a.no-decoration {
   display: inline-block;
 }
 
+.standard-standings .team-generic-col-content {
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 @media (min-width: 768px) and (max-width: 991px) {
   .standard-standings {
     font-size: 0.8rem;

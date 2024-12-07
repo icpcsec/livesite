@@ -67,7 +67,7 @@ class TeamGenericCol extends React.Component<TeamGenericColProps> {
     const { text, small, to, className = '', ...rest } = this.props;
     const rewrittenClassName = 'team-col ' + className;
     const content = (
-      <span>
+      <span className='team-generic-col-content'>
         {text}
         <br />
         <small>{small}</small>
