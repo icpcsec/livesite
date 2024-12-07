@@ -299,11 +299,18 @@ function TeamProblemCol({
       hour > 0
         ? sprintf('%d:%02d:%02d', hour, minute, second)
         : sprintf('%d:%02d', minute, second);
+    const rejected = attempts - 1;
     content = (
       <span>
         {time}
         <br />
-        <small>{attempts >= 2 ? <span>(+{attempts - 1})</span> : '-'}</small>
+        <small
+          title={
+            rejected > 0 ? `rejected ${rejected} submission(s)` : undefined
+          }
+        >
+          {rejected > 0 ? <span>(+{rejected})</span> : '-'}
+        </small>
       </span>
     );
   } else {
@@ -325,9 +332,19 @@ function TeamProblemCol({
     } else {
       content = (
         <span>
-          -
+          {pendings > 0 ? (
+            <span title={`pending ${pendings} submission(s)`}>
+              [+{pendings}]
+            </span>
+          ) : (
+            '-'
+          )}
           <br />
-          <small>{attempts > 0 ? `(+${attempts})` : null}</small>
+          {attempts > 0 ? (
+            <small title={`rejected ${attempts} submissions(s)`}>
+              (+{attempts})
+            </small>
+          ) : null}
         </span>
       );
     }
