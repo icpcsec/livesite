@@ -417,7 +417,7 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
     const { name, university, country } = team;
     const universityContent = (
       <span className='university-container'>
-        <span className='university-name'>
+        <span className='university-name' title={university}>
         {siteconfig.features.country ? (
           <img
             src={`/images/${country}.png`}
@@ -431,7 +431,7 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
         ) : null}
         {university}
         </span>
-        <span className='university-rank'> [{universityRank || '???'}]</span>
+        <span className='university-rank' title={`Rank in the university: ${universityRank}`}> [{universityRank || '???'}]</span>
       </span>
     );
     const to = siteconfig.features.teamPage ? `/team/${teamId}` : undefined;
@@ -444,7 +444,7 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
         />
         <TeamGenericCol
           className="team-name"
-          text={name}
+          text={<span title={name}>{name}</span>}
           small={universityContent}
           to={to}
         />
