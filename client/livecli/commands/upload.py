@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import argparse
+from datetime import datetime
 import logging
 import sys
 from typing import Optional
@@ -56,6 +57,13 @@ def upload_main(options: argparse.Namespace) -> None:
         if not feed_type:
             logging.error('Can not detect the feed type: %s', feed_path)
             sys.exit(1)
+
+        if feed_type == types.FeedType.CONTEST:
+            for time_key in ['start', 'freeze', 'end']:
+                time = data['times'][time_key]
+                if isinstance(time, str):
+                    timestamp = datetime.fromisoformat(time).timestamp()
+                    data['times'][time_key] = int(timestamp)
 
         feeds[feed_type] = data
 
