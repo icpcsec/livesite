@@ -60,7 +60,7 @@ a.no-decoration {
   position: sticky;
   top: 3.5rem; /* the (computed) height of .navbar */
   z-index: 10000;
-  background: #fff;
+  background: #fafafa; /* The same color as bootstrap's body background. */
 }
 
 .standard-standings {
