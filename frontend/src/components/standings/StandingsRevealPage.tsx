@@ -17,26 +17,11 @@ import React from 'react';
 import StandingsRevealTable from './StandingsRevealTable';
 import { tr } from '../../i18n';
 
-class ScrollFixer extends React.Component<{}, {}, number> {
-  getSnapshotBeforeUpdate(): number {
-    return document.scrollingElement!.scrollTop;
-  }
-
-  componentDidUpdate(prevProps: {}, prevState: {}, snapshot: number) {
-    document.scrollingElement!.scrollTop = snapshot;
-  }
-
-  render() {
-    return <></>;
-  }
-}
-
 export default function StandingsRevealPage() {
   return (
     <div>
       <h1 className="my-4">{tr('Standings', '順位表')}</h1>
       <StandingsRevealTable />
-      <ScrollFixer />
     </div>
   );
 }

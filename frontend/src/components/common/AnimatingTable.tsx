@@ -23,6 +23,8 @@ type AnimatingTableProps = {
 type AnimatingTableSnapshot = {
   lastKeyOrder: string[];
   lastKeyToOffsetTop: Map<string, number>;
+  // TODO - this is a workaround to fix scrolling position sometimes moves.
+  scrollPos: number;
 };
 
 export default class AnimatingTable extends React.Component<
@@ -44,7 +46,8 @@ export default class AnimatingTable extends React.Component<
       lastKeyOrder.push(row.dataset.key!);
       lastKeyToOffsetTop.set(row.dataset.key!, row.offsetTop);
     }
-    return { lastKeyOrder, lastKeyToOffsetTop };
+    const scrollPos = document.documentElement.scrollTop;
+    return { lastKeyOrder, lastKeyToOffsetTop, scrollPos };
   }
 
   componentDidUpdate(
@@ -53,7 +56,7 @@ export default class AnimatingTable extends React.Component<
     snapshot: AnimatingTableSnapshot
   ) {
     const { delay = 1000 } = this.props;
-    const { lastKeyOrder, lastKeyToOffsetTop } = snapshot;
+    const { lastKeyOrder, lastKeyToOffsetTop, scrollPos } = snapshot;
     const rows = Array.from(this.ref.current!.children) as HTMLElement[];
 
     // Check if the order changed.
@@ -68,6 +71,11 @@ export default class AnimatingTable extends React.Component<
       if (!changed) {
         return;
       }
+    }
+
+    // TODO - this is a workaround to fix scrolling position sometimes moves.
+    if (scrollPos) {
+      document.documentElement.scrollTop = scrollPos;
     }
 
     // Cancel all animations.
