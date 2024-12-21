@@ -65,6 +65,7 @@ a.no-decoration {
 
 .standard-standings {
   line-height: 1.3;
+  overflow-anchor: none;
 }
 
 .standard-standings .team-row {
