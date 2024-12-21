@@ -123,6 +123,10 @@ class DomjudgeScraper(base.Scraper):
                 'penalty': penalty,
                 'problems': team_problems,
             })
+
+        if len(standings['entries']) == 0 or len(standings['problems']) == 0:
+            raise Exception('Scoreboard is empty.')
+
         return standings
 
     def login(self, session: requests.Session) -> None:
