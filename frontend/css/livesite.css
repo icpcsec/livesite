@@ -356,6 +356,10 @@ a.no-decoration {
   background-color: #64dd17;
 }
 
+.bg-solved-first {
+  background-color: #1daa1d;
+}
+
 .bg-pending {
   background-color: #ffd600;
   animation: pending-blink 1s ease 0s infinite alternate-reverse none running;

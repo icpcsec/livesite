@@ -46,6 +46,7 @@ export type StandingsProblemEntry = {
   penalty: number;
   attempts: number;
   pendings: number;
+  isFirst: boolean;
 };
 
 export type StandingsFeed = {

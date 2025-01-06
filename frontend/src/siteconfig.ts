@@ -23,6 +23,7 @@ const siteconfig = {
     teamPage: false,
     photo: false,
     icon: false,
+    firstAc: true,
   },
   firebase: {
     apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',

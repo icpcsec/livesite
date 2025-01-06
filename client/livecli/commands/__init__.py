@@ -86,4 +86,5 @@ def make_parser() -> argparse.ArgumentParser:
     domjudge_parser.add_argument('--login-url', help='Login URL')
     domjudge_parser.add_argument('--login-user', help='Login user name')
     domjudge_parser.add_argument('--login-password', help='Login password')
+    domjudge_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
     return root_parser
