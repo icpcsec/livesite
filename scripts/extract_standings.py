@@ -19,7 +19,6 @@ def add_css(element: bs4.element.Tag):
 
     # hack to edit .sticky-heading's 'top' attribute to 0.
     sticky_start = css_content.find('.sticky-heading')
-    print(sticky_start, file=sys.stderr)
     if sticky_start >= 0:
         match = re.compile(r"top:\s*[^;]+;").search(css_content, pos=sticky_start)
         css_content = css_content[:match.start()] + "top: 0;" + css_content[match.end():]
@@ -45,7 +44,7 @@ def main():
     main = html.select('#root > div > div.container')[0]
 
     # Find the teams list container. See StandingsTable.tsx for the structure.
-    teamsContainer = main.select('.standard-standings .standings-section')[-1].find('div')
+    teamsContainer = main.select('.standard-standings .standings-section')[-2].find('div')
 
     # Each team row has data-key attribute. Extract them and clear the list.
     teams = teamsContainer.select('div[data-key]')
