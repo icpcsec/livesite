@@ -16,6 +16,14 @@ CSS_PATH = '../frontend/css/livesite.css'
 def add_css(element: bs4.element.Tag):
     with open(CSS_PATH) as f:
         css_content = f.read()
+
+    # hack to edit .sticky-heading's 'top' attribute to 0.
+    sticky_start = css_content.find('.sticky-heading')
+    print(sticky_start, file=sys.stderr)
+    if sticky_start >= 0:
+        match = re.compile(r"top:\s*[^;]+;").search(css_content, pos=sticky_start)
+        css_content = css_content[:match.start()] + "top: 0;" + css_content[match.end():]
+
     head = element.find('head')
     head.append('<style>\n' + css_content + '</style>')
 
@@ -51,6 +59,15 @@ def main():
     result = bs4.BeautifulSoup(EMPTY_HTML, 'html5lib')
     add_css(result)
     result.find('body').append(main)
+
+    # Update HTML title and H1 text.
+    if html.title:
+        new_title = html.title.string + ' Standings'
+        new_title_tag = html.new_tag('title')
+        new_title_tag.string = new_title
+        result.head.append(new_title_tag)
+
+        result.h1.string = new_title
 
     formatter = bs4.formatter.HTMLFormatter()
     print(result.prettify(formatter=formatter))
