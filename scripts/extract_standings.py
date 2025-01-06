@@ -23,7 +23,7 @@ def add_css(element: bs4.element.Tag):
 def should_include(team_row: bs4.element.Tag) -> bool:
     score_col = team_row.select('.team-score')[0]
 
-    match = re.search('(\d+).*\((\d+)\)', score_col.text)
+    match = re.search('(\\d+).*\\((\\d+)\\)', score_col.text)
     solved = int(match.group(1))
     # score = int(match.group(2))
 
