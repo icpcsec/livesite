@@ -291,7 +291,7 @@ function TeamProblemCol({
   let status;
   let content;
   if (solved) {
-    status = (siteconfig.features.firstAc && isFirst) ? 'solved-first' : 'solved';
+    status = siteconfig.features.firstAc && isFirst ? 'solved-first' : 'solved';
     const hour = Math.floor(penalty / 60 / 60);
     const minute = Math.floor(penalty / 60) % 60;
     const second = Math.floor(penalty) % 60;
