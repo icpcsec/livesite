@@ -34,7 +34,7 @@
     "axios": "^1.7.4",
     "babel-loader": "^8.1.0",
     "bootstrap-material-design": "^4.1.3",
-    "firebase": "^10.14.1",
+    "firebase": "^11.2.0",
     "firebase-tools": "^13.11.4",
     "immutability-helper": "^2.9.1",
     "jquery": "^3.5.1",
