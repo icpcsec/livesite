@@ -18,7 +18,8 @@ def main():
             'name': team['name'],
             'university': team['university'],
             'universityEn': team['university'],
-            'members': []
+            'members': [],
+            'photo': '/images/default-photo-regional.png',
         }
 
     json.dump(entries, sys.stdout, indent=2)
