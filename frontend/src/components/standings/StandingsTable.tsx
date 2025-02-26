@@ -74,7 +74,6 @@ class TeamGenericCol extends React.Component<TeamGenericColProps> {
       </span>
     );
     const scrollWithOffset = (el: HTMLElement) => {
-      console.log(el);
       const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
       // FIXME: get the correct hight.
       const yOffset = -80;
