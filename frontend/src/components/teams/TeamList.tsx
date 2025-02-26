@@ -79,7 +79,7 @@ function TeamItem({
             </TeamLink>
           </div>
         ) : null}
-        <h4 className="mb-1 text-ellipsis">
+        <h4 className="mb-1 text-ellipsis" title={name}>
           <TeamLink id={teamId}>{name}</TeamLink>
         </h4>
         <div className="text-ellipsis">
@@ -96,7 +96,7 @@ function TeamItem({
                 }}
               />
             ) : null}
-            {university}
+            <span title={university}>{university}</span>
           </TeamLink>
         </div>
         {memberNames ? (
