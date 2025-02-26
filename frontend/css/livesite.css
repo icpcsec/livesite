@@ -176,6 +176,11 @@ a.no-decoration {
   display: inline-block;
 }
 
+.standard-standings .team-name > a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
 .standard-standings .team-name .team-generic-col-content {
   width: 100%;
   overflow: hidden;
@@ -423,4 +428,17 @@ a.no-decoration {
   font-weight: bold;
   overflow: hidden;
   vertical-align: bottom;
+}
+
+.team-highlight > .card-body {
+  animation: highlightFade 3s ease-out;
+}
+
+@keyframes highlightFade {
+  0% {
+    background-color: #ffd600;
+  }
+  100% {
+    background-color: transparent;
+  }
 }

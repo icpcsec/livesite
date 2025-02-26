@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { sprintf } from 'sprintf-js';
 import isEqual from 'react-fast-compare';
 
@@ -73,10 +73,22 @@ class TeamGenericCol extends React.Component<TeamGenericColProps> {
         <small>{small}</small>
       </span>
     );
+    const scrollWithOffset = (el: HTMLElement) => {
+      console.log(el);
+      const yCoordinate = el.getBoundingClientRect().top + window.scrollY;
+      // FIXME: get the correct hight.
+      const yOffset = -80;
+      window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
+      el.className += ' team-highlight';
+    };
     const inner = to ? (
-      <Link to={to} className="no-decoration">
+      <HashLink
+        to={to}
+        className="no-decoration"
+        scroll={(el) => scrollWithOffset(el)}
+      >
         {content}
-      </Link>
+      </HashLink>
     ) : (
       content
     );
@@ -456,7 +468,13 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
         </span>
       </span>
     );
-    const to = siteconfig.features.teamPage ? `/team/${teamId}` : undefined;
+    const to = revealMode
+      ? undefined
+      : siteconfig.features.teamPage
+        ? `/team/${teamId}`
+        : siteconfig.features.photo
+          ? `/team/#${teamId}`
+          : undefined;
     return (
       <div className="team-right">
         <TeamScoreCol

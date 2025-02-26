@@ -69,6 +69,7 @@ function TeamItem({
     <div
       className="card mb-3"
       style={{ backgroundColor: hasInfo ? undefined : 'inherit !important' }}
+      id={teamId}
     >
       <div className="card-body">
         {siteconfig.features.photo ? (
