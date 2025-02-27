@@ -51,7 +51,7 @@ function TeamLink({ id, children }: TeamLinkProps) {
 type TeamItemProps = {
   teamId: string;
   team: Team;
-  highlight?: boolean,
+  highlight?: boolean;
 };
 
 function TeamItem({
@@ -69,7 +69,7 @@ function TeamItem({
   const memberNames = displayNames.join(' / ');
   return (
     <div
-      className={"card mb-3" + (highlight ? " team-highlight" : undefined)}
+      className={'card mb-3' + (highlight ? ' team-highlight' : undefined)}
       style={{ backgroundColor: hasInfo ? undefined : 'inherit !important' }}
       id={teamId}
     >
@@ -125,7 +125,7 @@ type TeamListSimpleProps = {
 
 function TeamListSimple({ teams }: TeamListSimpleProps) {
   const { hash } = useLocation();
-  const highlightTeamId = (hash.length > 1) ? hash.slice(1) : null;
+  const highlightTeamId = hash.length > 1 ? hash.slice(1) : null;
   console.log(highlightTeamId);
   const items = Object.keys(teams)
     .sort(
@@ -134,7 +134,14 @@ function TeamListSimple({ teams }: TeamListSimpleProps) {
         teams[a].name.localeCompare(teams[b].name) ||
         a.localeCompare(b)
     )
-    .map((id) => <TeamItem key={id} teamId={id} team={teams[id]} highlight={highlightTeamId === id} />);
+    .map((id) => (
+      <TeamItem
+        key={id}
+        teamId={id}
+        team={teams[id]}
+        highlight={highlightTeamId === id}
+      />
+    ));
   return <TeamItemFlow>{items}</TeamItemFlow>;
 }
 
