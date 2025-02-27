@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 import FixedRatioThumbnail from '../common/FixedRatioThumbnail';
 import GridFlow from '../common/GridFlow';
@@ -51,11 +51,13 @@ function TeamLink({ id, children }: TeamLinkProps) {
 type TeamItemProps = {
   teamId: string;
   team: Team;
+  highlight?: boolean,
 };
 
 function TeamItem({
   teamId,
   team: { name, university, country, photo, members },
+  highlight,
 }: TeamItemProps) {
   const displayNames = [];
   for (const profile of members) {
@@ -67,7 +69,7 @@ function TeamItem({
   const memberNames = displayNames.join(' / ');
   return (
     <div
-      className="card mb-3"
+      className={"card mb-3" + (highlight ? " team-highlight" : undefined)}
       style={{ backgroundColor: hasInfo ? undefined : 'inherit !important' }}
       id={teamId}
     >
@@ -122,6 +124,9 @@ type TeamListSimpleProps = {
 };
 
 function TeamListSimple({ teams }: TeamListSimpleProps) {
+  const { hash } = useLocation();
+  const highlightTeamId = (hash.length > 1) ? hash.slice(1) : null;
+  console.log(highlightTeamId);
   const items = Object.keys(teams)
     .sort(
       (a, b) =>
@@ -129,7 +134,7 @@ function TeamListSimple({ teams }: TeamListSimpleProps) {
         teams[a].name.localeCompare(teams[b].name) ||
         a.localeCompare(b)
     )
-    .map((id) => <TeamItem key={id} teamId={id} team={teams[id]} />);
+    .map((id) => <TeamItem key={id} teamId={id} team={teams[id]} highlight={highlightTeamId === id} />);
   return <TeamItemFlow>{items}</TeamItemFlow>;
 }
 

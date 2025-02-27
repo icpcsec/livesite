@@ -78,7 +78,6 @@ class TeamGenericCol extends React.Component<TeamGenericColProps> {
       // FIXME: get the correct hight.
       const yOffset = -80;
       window.scrollTo({ top: yCoordinate + yOffset, behavior: 'smooth' });
-      el.className += ' team-highlight';
     };
     const inner = to ? (
       <HashLink
