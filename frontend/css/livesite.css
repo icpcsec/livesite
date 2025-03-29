@@ -397,6 +397,10 @@ a.no-decoration {
  *
  */
 
+.teaminfo h1.my-3 {
+  overflow-wrap: anywhere;
+}
+
 .teaminfo .team-photo {
   width: 100%;
   height: auto;
