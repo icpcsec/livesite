@@ -10,12 +10,11 @@ def main():
 
     entries = {}
     for team in teams:
-        id = int(team['id'])
-        if id <= 0 or id >= 90:
+        if team['category'] != 'Participants':
             continue
 
-        entries[str(id)] = {
-            'name': team['name'],
+        entries[team['id']] = {
+            'name': team['teamname'],
             'university': team['university'],
             'universityEn': team['university'],
             'members': [],
