@@ -3,10 +3,11 @@ LiveSite
 
 LiveSite is a web app for spectators of programming contests.
 
-LiveSite was initially created for [ICPC in Japan].
+LiveSite was initially created for [ICPC in Japan], used in [ICPC Asia Regional Contest in Japan] and [ICPC Asia Pacific Championship Contest].
 
-[ICPC in Japan]: https://icpc.iisf.or.jp/
-
+[ICPC in Japan]: https://icpc.jp/
+[ICPC Asia Regional Contest in Japan]: https://icpcsec.firebaseapp.com/
+[ICPC Asia Pacific Championship Contest]: https://icpcapac.firebaseapp.com/
 
 Features
 --------
