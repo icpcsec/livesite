@@ -2,6 +2,19 @@
 
 describe('Standings Page', () => {
   beforeEach(() => {
+    // Reset to original data before each test
+    cy.request({
+      method: 'PUT',
+      url: 'http://localhost:9000/.json?ns=fake-server',
+      body: {
+        feeds: {
+          contest: '/demodata/contest.json',
+          standings: '/demodata/standings.json',
+          teams: '/demodata/teams.json',
+        },
+      },
+    });
+
     cy.visit('http://localhost:5000/standings/');
     cy.get('.team-row').should('have.length.greaterThan', 1);
   });
