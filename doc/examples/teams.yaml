@@ -1,0 +1,48 @@
+# Teams data in YAML format
+# The key (e.g., "1", "2") must match the team ID extracted from DOMjudge team names
+# Team names in DOMjudge should be formatted as: "{id}: {name}"
+# For example: "01: TeamA", "02: TeamB", "03: TeamC"
+
+{
+  "1": {
+    "name": "TeamA",
+    "university": "Example University",
+    "universityEn": "Example University",  # English name if different
+    "members": [
+      {
+        "name": "Alice Smith"
+        # Optional: Add social profiles
+        # "topcoderId": "alice",
+        # "codeforcesId": "alice_cf",
+        # "atcoderId": "alice_ac",
+        # "githubId": "alice-gh"
+      },
+      {
+        "name": "Bob Johnson"
+      },
+      {
+        "name": "Carol Williams"
+      }
+    ],
+    # Optional: Team photo URL (can be relative path like /images/team1.jpg)
+    "photo": "/images/default-photo-regional.png",
+    # Optional: Team icon
+    # "icon": "/images/team1-icon.png",
+    # Optional: Country (if features.country is enabled in siteconfig.ts)
+    # "country": "Japan"
+  },
+  "2": {
+    "name": "TeamB",
+    "university": "Another University",
+    "universityEn": "Another University",
+    "members": [],  # Can be empty if member info not available
+    "photo": "/images/default-photo-regional.png"
+  },
+  "3": {
+    "name": "TeamC",
+    "university": "Third University",
+    "universityEn": "Third University",
+    "members": [],
+    "photo": "/images/default-photo-regional.png"
+  }
+}

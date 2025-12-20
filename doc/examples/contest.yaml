@@ -1,0 +1,24 @@
+frontPageHtml: |
+  <h1 class="page-header">Your Contest Name</h1>
+  <h3>Contest Info</h3>
+  <dl class="dl-horizontal">
+    <dt>Contest Time</dt><dd style="margin-bottom: 6px"><a href="https://www.timeanddate.com/worldclock/fixedtime.html?msg=Your+Contest&iso=20250315T1000&p1=248&ah=5">2025/03/15 (Sat) 10:00 - 15:00 (JST)</a></dd>
+    <dt>Venue</dt><dd style="margin-bottom: 6px">Your Venue</dd>
+    <dt>Problem</dt><dd style="margin-bottom: 6px"><a target="_blank" href="https://example.com/problems.pdf">PDF</a></dd>
+  </dl>
+  <p>
+  Please refer <a target="_blank" href="https://example.com/contest">the official contest website</a> for more detailed information.
+  </p>
+
+times:
+  # All times can be specified in ISO 8601 format or as Unix timestamps
+  start:  "2025-03-15 10:00:00+09:00"  # Contest start time
+  freeze: "2025-03-15 14:00:00+09:00"  # Scoreboard freeze time (usually 1 hour before end)
+  end:    "2025-03-15 15:00:00+09:00"  # Contest end time
+  # Optional: scale factor for animations (default: 1.0)
+  # scale: 0.5  # Makes animations run at half speed
+
+title: "Your Contest Name 2025"
+
+# Optional: Direct link to problem set PDF
+problemLink: https://example.com/problems.pdf
