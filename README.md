@@ -27,12 +27,12 @@ LiveSite uses a unique architecture that eliminates the need for dedicated serve
 │  DOMjudge   │──────▶│   Scraper    │──────▶│   Firebase   │
 │  Contest    │       │  (Python)    │       │  + GCS       │
 └─────────────┘       └──────────────┘       └──────┬───────┘
-                                                     │
-                                                     ▼
-                                              ┌──────────────┐
-                                              │  Viewers     │
-                                              │  (React SPA) │
-                                              └──────────────┘
+                                                    │
+                                                    ▼
+                                             ┌──────────────┐
+                                             │  Viewers     │
+                                             │  (React SPA) │
+                                             └──────────────┘
 ```
 
 1. **Python scraper** polls DOMjudge scoreboard every 10 seconds
