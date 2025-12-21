@@ -23,6 +23,7 @@ import { printBanner } from './banner';
 import App from './components/App';
 import { createAppStore } from './redux';
 import siteconfig from './siteconfig';
+import { initializeBootstrapMaterialDesign } from './util/materialDesign';
 
 if (siteconfig.misc.googleAnalyticsId) {
   GA.initialize(siteconfig.misc.googleAnalyticsId);
@@ -32,6 +33,6 @@ const appStore = createAppStore();
 
 ReactDOM.render(<App store={appStore} />, document.getElementById('root'));
 
-$('body').bootstrapMaterialDesign();
+initializeBootstrapMaterialDesign('body');
 
 printBanner();
