@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import React, { useEffect, useState } from 'react';
+import { initializeBootstrapMaterialDesign } from '../../util/materialDesign';
 
 export default function MaterialInit({
   children,
@@ -24,7 +25,7 @@ export default function MaterialInit({
     if (!dom) {
       return;
     }
-    $(dom).bootstrapMaterialDesign();
+    initializeBootstrapMaterialDesign(dom);
   }, [dom]);
   return <div ref={setDom}>{children}</div>;
 }
