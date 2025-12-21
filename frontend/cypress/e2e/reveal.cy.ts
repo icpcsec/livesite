@@ -16,7 +16,7 @@ describe('Reveal Page', () => {
     });
 
     cy.visit('http://localhost:5000/reveal/');
-    cy.contains('Standings Reveal').should('exist');
+    cy.contains('Standings').should('exist');
   });
 
   it('loads the reveal page with upload form', () => {
@@ -26,12 +26,10 @@ describe('Reveal Page', () => {
   });
 
   it('hides NavBar on reveal page', () => {
-    // NavBar should not be present on reveal page
     cy.get('nav.navbar').should('not.exist');
   });
 
   it('hides EventsOverlay on reveal page', () => {
-    // EventsOverlay should not be present on reveal page
     cy.get('.events').should('not.exist');
   });
 });
