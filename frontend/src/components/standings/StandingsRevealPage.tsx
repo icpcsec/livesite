@@ -20,7 +20,7 @@ import { tr } from '../../i18n';
 export default function StandingsRevealPage() {
   return (
     <div>
-      <h1 className="my-4">{tr('Standings', '順位表')}</h1>
+      <h1 className="my-4">{tr('Standings Reveal', '順位表凍結解除')}</h1>
       <StandingsRevealTable />
     </div>
   );

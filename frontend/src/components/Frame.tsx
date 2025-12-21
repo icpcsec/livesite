@@ -33,7 +33,12 @@ function Frame({ children }: { children: React.ReactNode }) {
       <div className="container" style={{ position: 'relative' }}>
         {children}
       </div>
-      <EventsOverlay />
+      <Switch>
+        <Route path="/reveal/" />
+        <Route>
+          <EventsOverlay />
+        </Route>
+      </Switch>
       <Footer />
       <Theme />
     </div>
