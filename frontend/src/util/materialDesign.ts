@@ -14,20 +14,23 @@
 
 /**
  * Initializes bootstrap-material-design on the given element.
- * Polls for the library to be available if not yet loaded.
+ * Polls for the library and its dependencies (Popper.js) to be available if not yet loaded.
  */
 export function initializeBootstrapMaterialDesign(
   element: HTMLElement | string
 ): void {
   function tryInitialize() {
+    // Check if jQuery, Popper.js, and bootstrapMaterialDesign are all loaded
+    // Popper.js is required by Bootstrap for dropdown functionality
     if (
       typeof $ !== 'undefined' &&
       ($ as any).fn &&
-      ($ as any).fn.bootstrapMaterialDesign
+      ($ as any).fn.bootstrapMaterialDesign &&
+      typeof (window as any).Popper !== 'undefined'
     ) {
       ($ as any)(element).bootstrapMaterialDesign();
     } else {
-      // Poll for the library to be available
+      // Poll for the library and its dependencies to be available
       setTimeout(tryInitialize, 50);
     }
   }
