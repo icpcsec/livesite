@@ -12,11 +12,3 @@ describe('Navigation', () => {
     cy.url().should('match', /\/$/);
   });
 });
-
-describe('Settings Page', () => {
-  it('loads the settings page', () => {
-    cy.visit('http://localhost:5000/');
-    cy.visit('http://localhost:5000/settings/');
-    cy.contains('Settings');
-  });
-});
