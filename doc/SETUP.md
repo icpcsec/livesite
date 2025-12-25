@@ -30,7 +30,7 @@ npm install
 cd ../client
 python3 -m venv venv
 source venv/bin/activate
-pip install -r requirements.txt
+pip install -r requirements.txt -c constraints.txt
 ```
 
 ## Preparing Contest Data
@@ -73,7 +73,7 @@ title: "Your Contest Name 2025"
 }
 ```
 
-**⚠️ IMPORTANT**: In DOMjudge, team names must be formatted as `{id}: {name}` (e.g., `01: TeamA`, `02: TeamB`)
+**⚠️ IMPORTANT**: In DOMjudge, team names must be formatted as `{id}: {name}` (e.g., `01: TeamA`, `02: TeamB`) if you use the default scraper.
 
 ## Running Locally
 
@@ -92,21 +92,37 @@ Open http://localhost:5000 in your browser.
 
 ### Load Your Contest Data
 
-Put your data files in `frontend/public/`:
+Prepare your contest and team data. In another terminal:
 
 ```bash
-cp contest.yaml frontend/public/
-cp teams.yaml frontend/public/
+cd client
+source venv/bin/activate
+
+./livecli.py upload contest.yaml --local
+./livecli.py upload teams.yaml --local
 ```
 
-Then update the local Firebase database to point to them:
+This does two things internally:
+1. Converts and saves the files under `frontend/public/.dev/` as JSON
+2. Updates the local Firebase database to point to these files
+
+In your browser, the contest data will automatically update.
+
+### Load Initial Standings
+
+Initially, no standings data is available. We recommend creating an "empty" standings file using:
 
 ```bash
-curl -X PUT -d '"/contest.yaml"' http://localhost:9000/feeds/contest.json
-curl -X PUT -d '"/teams.yaml"' http://localhost:9000/feeds/teams.json
+cd scripts
+python make_init_standings.py < ../doc/examples/teams.yaml > standings.init.json
 ```
 
-Refresh your browser to see your contest data.
+Then upload the initial standings:
+
+```bash
+cd ../client
+./livecli.py upload ../scripts/standings.init.json --local
+```
 
 ## Testing with DOMjudge
 
@@ -131,15 +147,9 @@ python livecli.py scrape domjudge \
   --local
 ```
 
-The `--local` flag makes it write to `frontend/public/.dev/` and update the local Firebase emulator.
+This scrapes the DOMjudge server every 10 seconds and updates the standings.
 
-### Verify Everything Works
-
-1. Start the frontend: `cd frontend && npm run serve`
-2. In another terminal, start the scraper (command above)
-3. Open http://localhost:5000
-4. Submit a test solution in DOMjudge
-5. Within 10 seconds, you should see updates in LiveSite
+Open http://localhost:5000 to verify that standings update automatically when submissions are made in DOMjudge.
 
 ## Testing Reveal Animation
 
@@ -153,12 +163,7 @@ python make_reveal.py \
   --output-json=reveal.json
 ```
 
-Copy it to public directory:
-```bash
-cp reveal.json ../frontend/public/
-```
-
-Open http://localhost:5000/reveal and upload the file.
+Open http://localhost:5000/reveal and upload the generated `reveal.json` using the file picker on the page.
 
 ## Next Steps
 

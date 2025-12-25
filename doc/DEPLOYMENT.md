@@ -207,29 +207,7 @@ python livecli.py scrape domjudge \
 - `--interval-seconds`: Scraping interval (10-15 seconds recommended)
 - `--log-dir`: Directory to save scraping logs (for backup and debugging)
 
-## During the Contest
-
-### Monitoring the Scraper
-
-The scraper output shows:
-- Timestamp of each scrape
-- Whether standings changed (uploaded or skipped)
-- Any errors encountered
-
-Check logs if needed:
-```bash
-ls -lt logs-contest/  # Should see recent .html and .json files
-```
-
-### Monitoring the LiveSite
-
-Open your LiveSite URL and verify:
-- ✅ Standings update within 10-15 seconds of submissions
-- ✅ Rank changes animate correctly
-- ✅ Problem status (AC/WA/pending) updates
-- ✅ Frozen submissions show as "pending" after freeze time
-
-### Common Issues During Contest
+## Common Issues During Contest
 
 **Standings not updating?**
 - Check scraper is still running
@@ -259,7 +237,7 @@ Stop the scraper with Ctrl+C.
 
 ### Step 3: Backup Scraper Logs
 
-**Important**: Save scraper logs for backup and reveal generation!
+You may want to save scraper logs for backup and reveal generation.
 
 The logs are in the `logs-contest/` directory where you ran the scraper.
 

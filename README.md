@@ -93,7 +93,7 @@ Comprehensive guides are available in the `doc/` directory:
 
 ### DOMjudge Team Naming Convention
 
-Team names in DOMjudge **must** follow this format: `{id}: {name}`
+When using the default scraper, team names in DOMjudge must follow this format: `{id}: {name}`
 
 Examples:
 - ✅ `01: TeamA`
