@@ -18,7 +18,7 @@ describe('Reveal Page', () => {
       },
     });
 
-    cy.visit('http://localhost:5000/reveal/');
+    cy.visit('/reveal/');
     cy.contains('Standings').should('exist');
   });
 
@@ -102,7 +102,7 @@ describe('Reveal Page', () => {
       cy.get('body').should('have.css', 'color', 'rgb(255, 255, 255)');
 
       // Navigate to settings page
-      cy.visit('http://localhost:5000/settings/');
+      cy.visit('/settings/');
 
       // Verify dark mode is still enabled
       cy.get('body').should('have.css', 'color', 'rgb(255, 255, 255)');
@@ -114,7 +114,7 @@ describe('Reveal Page', () => {
         .should('be.checked');
 
       // Navigate back to reveal page
-      cy.visit('http://localhost:5000/reveal/');
+      cy.visit('/reveal/');
 
       // Verify dark mode is still enabled
       cy.get('body').should('have.css', 'color', 'rgb(255, 255, 255)');

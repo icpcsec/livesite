@@ -18,7 +18,7 @@ describe('Settings Page', () => {
       },
     });
 
-    cy.visit('http://localhost:5000/settings/');
+    cy.visit('/settings/');
   });
 
   describe('Page Structure', () => {

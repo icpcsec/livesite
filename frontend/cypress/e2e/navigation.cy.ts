@@ -2,7 +2,7 @@
 
 describe('Navigation', () => {
   it('can navigate between pages', () => {
-    cy.visit('http://localhost:5000/');
+    cy.visit('/');
 
     cy.get('a[href*="standings"]').first().click();
     cy.url().should('include', '/standings');

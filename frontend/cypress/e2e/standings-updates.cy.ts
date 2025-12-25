@@ -15,7 +15,7 @@ describe('Standings Updates', () => {
       },
     });
 
-    cy.visit('http://localhost:5000/standings/');
+    cy.visit('/standings/');
     cy.get('.team-row').should('have.length.greaterThan', 1);
   });
 
