@@ -13,16 +13,25 @@
 // limitations under the License.
 
 import React, { ChangeEvent, useCallback, useEffect } from 'react';
-import { setRevealData, setRevealStep } from '../../actions/index';
+import {
+  setRevealData,
+  setRevealStep,
+  toggleSetting,
+} from '../../actions/index';
 import { StandingsHistory } from '../../data';
 
 import { useAppDispatch, useAppSelector } from '../../redux';
 import StandingsTable from './StandingsTable';
+import { tr } from '../../i18n';
+import MaterialInit from '../common/MaterialInit';
 
 function StandingsUploadForm() {
-  const { loaded } = useAppSelector((state) => {
+  const { loaded, invertColor } = useAppSelector((state) => {
     const entries = state.reveal.reveal.entriesList;
-    return { loaded: entries.length > 0 && entries[0].length > 0 };
+    return {
+      loaded: entries.length > 0 && entries[0].length > 0,
+      invertColor: state.settings.invertColor,
+    };
   });
   const dispatch = useAppDispatch();
   const onChange = useCallback(
@@ -43,20 +52,41 @@ function StandingsUploadForm() {
     },
     [loaded, dispatch]
   );
+  const toggleInvertColor = useCallback(() => {
+    dispatch(toggleSetting('invertColor'));
+  }, [dispatch]);
 
   if (loaded) {
     return null;
   }
   return (
-    <div>
-      <p>
-        Please select reveal JSON files:
-        <input type="file" multiple={true} onChange={onChange} />
-      </p>
-      <p>
-        Use arrow keys to navigate (right arrow: forward, left arrow: backward).
-      </p>
-    </div>
+    <MaterialInit>
+      <div>
+        <p>
+          Please select reveal JSON files:
+          <input type="file" multiple={true} onChange={onChange} />
+        </p>
+        <p>
+          Use arrow keys to navigate (right arrow: forward, left arrow:
+          backward).
+        </p>
+        <div className="form-group mt-3">
+          <div className="switch">
+            <label>
+              <input
+                type="checkbox"
+                checked={invertColor}
+                onChange={toggleInvertColor}
+              />
+              {tr(
+                'Enable dark coloring (suitable for projecting)',
+                '背景を黒くする(プロジェクター向き)'
+              )}
+            </label>
+          </div>
+        </div>
+      </div>
+    </MaterialInit>
   );
 }
 
