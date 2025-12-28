@@ -7,6 +7,7 @@ from livecli.commands import upload
 from livecli.commands import verify_credentials
 from livecli.scrapers import domestic
 from livecli.scrapers import domjudge
+from livecli.scrapers import domjudge_api
 
 
 def make_parser() -> argparse.ArgumentParser:
@@ -87,4 +88,9 @@ def make_parser() -> argparse.ArgumentParser:
     domjudge_parser.add_argument('--login-user', help='Login user name')
     domjudge_parser.add_argument('--login-password', help='Login password')
     domjudge_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
+
+    domjudge_api_parser = scrape_subparsers.add_parser('domjudge-api', parents=[scrape_common_parser])
+    domjudge_api_parser.set_defaults(scraper_class=domjudge_api.DomjudgeApiScraper)
+    domjudge_api_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
+
     return root_parser
