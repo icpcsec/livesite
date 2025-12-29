@@ -28,10 +28,52 @@ from livecli import types
 from livecli.scrapers import base
 
 
-def _scrape_test(scraper: base.Scraper, local_file_path: str) -> None:
-    with open(local_file_path, 'r') as f:
-        html = f.read()
-    standings = scraper.scrape(html)
+def _extract_filename_from_url(url: str) -> str:
+    """Extract filename from URL path.
+
+    Args:
+        url: URL to extract filename from
+
+    Returns:
+        Last path component (e.g., '/api/v4/contests/1/problems' -> 'problems')
+    """
+    from urllib.parse import urlparse
+    path = urlparse(url).path
+    # Get last non-empty component
+    components = [c for c in path.split('/') if c]
+    return components[-1] if components else 'resource'
+
+
+def _load_test_resources(url_list: list) -> dict:
+    """Load test resources from local files.
+
+    Args:
+        url_list: List of local file paths from scraper.get_urls()
+
+    Returns:
+        Dict mapping URL to bytes
+    """
+    resources = {}
+
+    for url in url_list:
+        # Try common extensions
+        for ext in ['', '.json', '.html', '.txt']:
+            filepath = f'{url}{ext}'
+            if os.path.exists(filepath):
+                with open(filepath, 'rb') as f:
+                    resources[url] = f.read()
+                break
+        else:
+            raise FileNotFoundError(f'File not found: {url} (tried extensions: .json, .html, .txt, and no extension)')
+
+    return resources
+
+
+def _scrape_test(scraper: base.Scraper, local_path: str) -> None:
+    """Test scraper with local files."""
+    url_list = scraper.get_urls(local_path)
+    resources = _load_test_resources(url_list)
+    standings = scraper.scrape(resources)
     json.dump(standings, sys.stdout, indent=2, sort_keys=True)
 
 
@@ -41,8 +83,49 @@ def _wait_next_tick(interval_seconds: int) -> None:
     time.sleep(next_tick - now)
 
 
+def _fetch_resources(session: requests.Session, url_list: list, timeout: float) -> dict:
+    """Fetch all resources from URLs.
+
+    Args:
+        session: requests.Session to use
+        url_list: List of URLs to fetch
+        timeout: Request timeout in seconds
+
+    Returns:
+        Dict mapping URL to response bytes
+    """
+    resources = {}
+    for url in url_list:
+        r = session.get(url, timeout=timeout)
+        r.raise_for_status()
+        resources[url] = r.content
+    return resources
+
+
+def _save_resources(resources: dict, log_dir: str, timestamp: int) -> None:
+    """Save fetched resources to archive files.
+
+    Args:
+        resources: Dict mapping URL to bytes
+        log_dir: Directory to save files
+        timestamp: Unix timestamp for filenames
+    """
+    for url, content in resources.items():
+        filename_base = _extract_filename_from_url(url)
+
+        # Determine file extension from URL
+        if '/api/' in url or 'json' in url.lower():
+            ext = '.json'
+        else:
+            ext = '.html'
+
+        filename = f'{filename_base}.{timestamp}{ext}'
+        with open(os.path.join(log_dir, filename), 'wb') as f:
+            f.write(content)
+
+
 def scrape_main(options: argparse.Namespace) -> None:
-    scraper = options.scraper_class(options)
+    scraper: base.Scraper = options.scraper_class(options)
 
     if options.test_with_local_file:
         _scrape_test(scraper, options.test_with_local_file)
@@ -71,20 +154,19 @@ def scrape_main(options: argparse.Namespace) -> None:
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
     session = requests.Session()
+    url_list = scraper.get_urls(scoreboard_url)
 
     logging.info('Attempting an initial scrape...')
-    r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
-    r.raise_for_status()
+    resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
     try:
         try:
-            scraper.scrape(r.text)
+            scraper.scrape(resources)
         except base.NeedLoginException:
             logging.info('Logging in...')
             scraper.login(session)
             logging.info('Attempting an initial scrape after login...')
-            r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
-            r.raise_for_status()
-            scraper.scrape(r.text)
+            resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
+            scraper.scrape(resources)
     except Exception:
         logging.exception('Unhandled exception')
     else:
@@ -114,19 +196,20 @@ def scrape_main(options: argparse.Namespace) -> None:
         try:
             logging.info('Scraping...%s' % ('' if options.upload and upload else ' (dry-run)'))
             timestamp = int(time.time())
-            r = session.get(scoreboard_url, timeout=(options.interval_seconds * 0.9))
-            with open(os.path.join(log_dir, 'standings.%d.html' % timestamp), 'wb') as f:
-                f.write(r.content)
-            r.raise_for_status()
+            resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
+            _save_resources(resources, log_dir, timestamp)
+
             try:
-                standings = scraper.scrape(r.text)
+                standings = scraper.scrape(resources)
             except base.NeedLoginException:
                 logging.info('Logging in...')
                 scraper.login(session)
                 logging.info('Login success')
                 continue
+
             with open(os.path.join(log_dir, 'standings.%d.json' % timestamp), 'w') as f:
                 json.dump(standings, f, separators=(',', ':'), sort_keys=True)
+
             if standings is not None and standings != last_standings:
                 if not options.upload:
                     logging.warning('Not uploading because of --no-upload flag')

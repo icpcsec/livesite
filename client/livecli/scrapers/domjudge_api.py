@@ -13,7 +13,8 @@
 # limitations under the License.
 
 import argparse
-import requests
+import json
+import logging
 
 from livecli.scrapers import base
 
@@ -36,36 +37,32 @@ class DomjudgeApiScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, html: str) -> dict:
+    def get_urls(self, base_url: str) -> list:
+        """Declare the three API endpoints needed."""
+        return [
+            f'{base_url}/problems',
+            f'{base_url}/scoreboard',
+            f'{base_url}/teams',
+        ]
+
+    def scrape_impl(self, resources: dict) -> dict:
         """Scrape DOMjudge contest data using the REST API.
 
         Args:
-            html: Ignored parameter (we make our own API requests)
+            resources: Dict mapping URL to raw bytes
 
         Returns:
             Dictionary with 'problems' and 'entries' keys in LiveSite format
         """
-        base_url = self._options.scoreboard_url
+        problems_url = next(url for url in resources.keys() if url.endswith('/problems'))
+        scoreboard_url = next(url for url in resources.keys() if url.endswith('/scoreboard'))
+        teams_url = next(url for url in resources.keys() if url.endswith('/teams'))
 
-        # Fetch problems, scoreboard, and teams from API
-        try:
-            problems_response = requests.get(f'{base_url}/problems')
-            problems_response.raise_for_status()
-            problems_data = problems_response.json()
+        problems_data = json.loads(resources[problems_url])
+        scoreboard_data = json.loads(resources[scoreboard_url])
+        teams_data = json.loads(resources[teams_url])
 
-            scoreboard_response = requests.get(f'{base_url}/scoreboard')
-            scoreboard_response.raise_for_status()
-            scoreboard_data = scoreboard_response.json()
-
-            teams_response = requests.get(f'{base_url}/teams')
-            teams_response.raise_for_status()
-            teams_data = teams_response.json()
-        except requests.RequestException as e:
-            raise Exception(f'Failed to fetch DOMjudge API: {e}')
-
-        team_id_to_name = {}
-        for team in teams_data:
-            team_id_to_name[team['id']] = team['name']
+        team_id_to_name = {team['id']: team['name'] for team in teams_data}
 
         standings = {'problems': [], 'entries': []}
 
@@ -82,14 +79,15 @@ class DomjudgeApiScraper(base.Scraper):
             rank = row['rank']
             score = row['score']
 
-            # Extract team ID from team name prefix
+            # Extract team ID from team name prefix.
             # Expected format: "ID: Name" where ID is parsed to integer
             # TODO: utilize "display name" and "name" to have clean display name.
             team_name = team_id_to_name.get(api_team_id, '')
             try:
                 team_id = str(int(team_name.split(':', 1)[0], 10))
             except (ValueError, IndexError):
-                # Skip teams that don't have the "ID: Name" format
+                logging.warning('Skipping team %s (name: "%s") - does not match "ID: Name" format',
+                                api_team_id, team_name)
                 continue
 
             team_problems = []
@@ -98,7 +96,6 @@ class DomjudgeApiScraper(base.Scraper):
                 attempts = problem['num_judged']
                 pendings = problem['num_pending']
                 first_to_solve = problem.get('first_to_solve', False)
-
                 penalty = problem.get('time', 0) if solved else 0
 
                 problem_entry = {
