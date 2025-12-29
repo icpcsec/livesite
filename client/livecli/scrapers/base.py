@@ -13,6 +13,7 @@
 # limitations under the License.
 
 import abc
+from typing import Any
 
 import requests
 
@@ -47,7 +48,7 @@ class NeedLoginException(Exception):
 
 
 class Scraper(abc.ABC):
-    def get_urls(self, base_url: str) -> list:
+    def get_urls(self, base_url: str) -> list[str]:
         """Return list of URLs to fetch.
 
         Default implementation returns single URL (base_url).
@@ -61,7 +62,7 @@ class Scraper(abc.ABC):
         """
         return [base_url]
 
-    def scrape(self, resources: dict) -> dict:
+    def scrape(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Parse resources into standings format.
 
         Args:
@@ -75,7 +76,7 @@ class Scraper(abc.ABC):
         return standings
 
     @abc.abstractmethod
-    def scrape_impl(self, resources: dict) -> dict:
+    def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Parse resources into standings.
 
         Args:

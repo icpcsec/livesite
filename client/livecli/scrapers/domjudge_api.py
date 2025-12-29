@@ -15,6 +15,7 @@
 import argparse
 import json
 import logging
+from typing import Any
 
 from livecli.scrapers import base
 
@@ -37,7 +38,7 @@ class DomjudgeApiScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def get_urls(self, base_url: str) -> list:
+    def get_urls(self, base_url: str) -> list[str]:
         """Declare the three API endpoints needed."""
         return [
             f'{base_url}/problems',
@@ -45,7 +46,7 @@ class DomjudgeApiScraper(base.Scraper):
             f'{base_url}/teams',
         ]
 
-    def scrape_impl(self, resources: dict) -> dict:
+    def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Scrape DOMjudge contest data using the REST API.
 
         Args:
