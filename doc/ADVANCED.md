@@ -2,113 +2,103 @@
 
 ## Adding Support for Other Contest Systems
 
-LiveSite currently supports DOMjudge out of the box, but you can add support for other contest management systems by implementing a custom scraper module.
+LiveSite supports DOMjudge (HTML and API modes) out of the box. You can add support for other contest systems by implementing a custom scraper.
 
-### Scraper Architecture Overview
+### Scraper Interface
 
-The scraper system is built around an abstract base class that defines the contract for parsing contest data:
-
-**Location**: `client/livecli/scrapers/base.py`
+Implement `client/livecli/scrapers/base.Scraper`:
 
 ```python
 class Scraper(abc.ABC):
+    def get_urls(self, base_url: str) -> list:
+        """Return list of URLs to fetch. Default: [base_url]"""
+        return [base_url]
+
     @abc.abstractmethod
-    def scrape_impl(self, html: str) -> dict:
-        """Parse HTML and return standings dictionary"""
+    def scrape_impl(self, resources: dict) -> dict:
+        """Parse resources (URL -> bytes) into standings dict"""
         ...
 ```
 
-### Implementing a Custom Scraper
+### HTML Scraper Example
 
-**Step 1: Create a new scraper module**
-
-Create a new file in `client/livecli/scrapers/` (e.g., `mysystem.py`):
+For single-page HTML scoreboards:
 
 ```python
 from .base import Scraper
+import bs4
 
 class MySystemScraper(Scraper):
-    def scrape_impl(self, html: str) -> dict:
-        # Parse the HTML from your contest system
-        # Return a dictionary with the required structure
-        pass
+    def scrape_impl(self, resources: dict) -> dict:
+        html = next(iter(resources.values())).decode('utf-8')
+        doc = bs4.BeautifulSoup(html, 'html5lib')
+        # Parse and return {'problems': [...], 'entries': [...]}
 ```
 
-**Step 2: Parse and return the expected format**
+See `client/livecli/scrapers/domjudge.py` for a complete example.
 
-Your scraper must return a dictionary matching this structure:
+### API Scraper Example
+
+For REST APIs with multiple endpoints:
+
+```python
+from .base import Scraper
+import json
+
+class MySystemApiScraper(Scraper):
+    def get_urls(self, base_url: str) -> list:
+        return [f'{base_url}/problems', f'{base_url}/scoreboard']
+
+    def scrape_impl(self, resources: dict) -> dict:
+        problems_url = next(url for url in resources.keys() if url.endswith('/problems'))
+        problems = json.loads(resources[problems_url])
+        # Parse and return {'problems': [...], 'entries': [...]}
+```
+
+See `client/livecli/scrapers/domjudge_api.py` for a complete example.
+
+### Output Format
 
 ```python
 {
     "problems": [
-        {"id": "A", "label": "A", "name": "Problem A"},
-        {"id": "B", "label": "B", "name": "Problem B"},
-        # ...
+        {"label": "A", "name": "Problem A", "color": "#FF0000"},
     ],
     "entries": [
         {
-            "team_id": "1",
+            "teamId": "1",
             "rank": 1,
             "solved": 3,
-            "time": 245,  # penalty time in minutes
+            "penalty": 245,
             "problems": [
-                {"solved": True, "time": 45, "num_judged": 1, "num_pending": 0},
-                {"solved": False, "time": 0, "num_judged": 2, "num_pending": 0},
-                # ... one entry per problem
+                {"solved": true, "penalty": 45, "attempts": 1, "pendings": 0},
             ]
-        },
-        # ... one entry per team
+        }
     ]
 }
 ```
 
-**Reference**: See `client/livecli/scrapers/domjudge.py` for a complete working example using BeautifulSoup to parse HTML.
+### Registration and Testing
 
-**Step 3: Register your scraper in the CLI**
-
-Edit `client/livecli/commands/__init__.py` to add your scraper:
+**1. Register in `client/livecli/commands/__init__.py`:**
 
 ```python
 from livecli.scrapers import mysystem
 
-# In the scrape_subparsers section:
 mysystem_parser = scrape_subparsers.add_parser('mysystem', parents=[scrape_common_parser])
 mysystem_parser.set_defaults(scraper_class=mysystem.MySystemScraper)
 ```
 
-**Step 4: Test your scraper**
+**2. Test with local files:**
 
 ```bash
-# Download a sample scoreboard page from your contest system
-curl https://your-contest.example.com/scoreboard > test.html
+# HTML scraper: provide file path
+python livecli.py scrape mysystem --test-with-local-file=/tmp/scoreboard.html
 
-# Test the scraper
-python livecli.py scrape mysystem --test-with-local-file test.html > output.json
-
-# Verify the output structure
-cat output.json | jq .
+# API scraper: provide directory with problems.json, scoreboard.json, etc.
+python livecli.py scrape mysystem --test-with-local-file=/tmp/testdata
 ```
 
-### Key Considerations
+### Optional Features
 
-**Team ID Extraction**: Your scraper must extract numeric team IDs. The DOMjudge scraper expects team names in the format `{id}: {name}` (e.g., `01: TeamA`). Adjust your parsing logic based on your contest system's format.
-
-**Problem Status**: For each problem attempt, you need to determine:
-- `solved`: Boolean indicating if the team has an accepted solution
-- `time`: Time of first AC in minutes from contest start (0 if not solved)
-- `num_judged`: Number of judged submissions (for penalty calculation)
-- `num_pending`: Number of pending submissions (shown during scoreboard freeze)
-
-**Scoreboard Freeze**: If your contest system supports scoreboard freeze, ensure pending submissions after the freeze time are counted in `num_pending`.
-
-### Example: DOMjudge Scraper Structure
-
-The DOMjudge scraper (`client/livecli/scrapers/domjudge.py`) demonstrates:
-
-1. Using BeautifulSoup to parse HTML tables
-2. Extracting problem list from table headers
-3. Parsing team rows to extract rank, solved count, penalty time
-4. Extracting individual problem statuses (AC/WA/pending) with submission counts
-5. Building the required JSON structure
-
-Refer to this implementation as a template for your custom scraper.
+**Authentication:** Override `login(session)` and raise `NeedLoginException` from `scrape_impl()` when login is required. The session is passed as a parameter.
