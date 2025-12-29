@@ -44,7 +44,7 @@ def _extract_filename_from_url(url: str) -> str:
     return components[-1] if components else 'resource'
 
 
-def _load_test_resources(url_list: list) -> dict:
+def _load_test_resources(url_list: list[str]) -> dict[str, bytes]:
     """Load test resources from local files.
 
     Args:
@@ -83,7 +83,7 @@ def _wait_next_tick(interval_seconds: int) -> None:
     time.sleep(next_tick - now)
 
 
-def _fetch_resources(session: requests.Session, url_list: list, timeout: float) -> dict:
+def _fetch_resources(session: requests.Session, url_list: list[str], timeout: float) -> dict[str, bytes]:
     """Fetch all resources from URLs.
 
     Args:
@@ -102,7 +102,7 @@ def _fetch_resources(session: requests.Session, url_list: list, timeout: float) 
     return resources
 
 
-def _save_resources(resources: dict, log_dir: str, timestamp: int) -> None:
+def _save_resources(resources: dict[str, bytes], log_dir: str, timestamp: int) -> None:
     """Save fetched resources to archive files.
 
     Args:

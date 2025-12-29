@@ -14,6 +14,7 @@
 
 import argparse
 import re
+from typing import Any
 
 import bs4
 import requests
@@ -41,7 +42,7 @@ class DomjudgeScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, resources: dict) -> dict:
+    def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         html = next(iter(resources.values())).decode('utf-8')
         doc = bs4.BeautifulSoup(html, 'html5lib')
 

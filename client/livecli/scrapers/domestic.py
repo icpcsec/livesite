@@ -14,6 +14,7 @@
 
 import argparse
 import logging
+from typing import Any
 
 import bs4
 import requests
@@ -63,7 +64,7 @@ class DomesticScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, resources: dict) -> dict:
+    def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         html = next(iter(resources.values())).decode('utf-8')
         standings = {'problems': [], 'entries': []}
         if 'rehearsal' in html and not self._options.allow_rehearsal:
