@@ -61,7 +61,10 @@ def make_parser() -> argparse.ArgumentParser:
     scrape_common_parser.add_argument(
         '--log-dir', help='Path to log output dir')
     scrape_common_parser.add_argument(
-        '--test-with-local-file', help='Scrape from a file and exit without uploading')
+        '--test-with-local-file',
+        help='Test scraper with local files and exit without uploading. '
+             'For HTML scrapers: provide file path (e.g., /tmp/scoreboard.html). '
+             'For API scrapers: provide directory path (e.g., /tmp/testdata) containing problems.json, scoreboard.json, etc.')
     scrape_common_parser.add_argument(
         '--no-upload', action='store_false', dest='upload',
         help='Do not upload scraped data')

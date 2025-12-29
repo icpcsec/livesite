@@ -41,7 +41,8 @@ class DomjudgeScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def scrape_impl(self, html: str) -> dict:
+    def scrape_impl(self, resources: dict) -> dict:
+        html = next(iter(resources.values())).decode('utf-8')
         doc = bs4.BeautifulSoup(html, 'html5lib')
 
         if doc.select('#loginform'):

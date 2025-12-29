@@ -47,8 +47,27 @@ class NeedLoginException(Exception):
 
 
 class Scraper(abc.ABC):
-    def scrape(self, html: str) -> dict:
-        standings = self.scrape_impl(html)
+    def get_urls(self, base_url: str) -> list:
+        """Return list of URLs to fetch.
+
+        Default implementation returns single URL (base_url).
+        Override for scrapers that need multiple URLs.
+
+        Args:
+            base_url: Base URL from --scoreboard-url
+
+        Returns:
+            List of URLs to fetch
+        """
+        return [base_url]
+
+    def scrape(self, resources: dict) -> dict:
+        """Parse resources into standings format.
+
+        Args:
+            resources: Dict mapping URL to raw bytes
+        """
+        standings = self.scrape_impl(resources)
         if not standings['problems']:
             standings['problems'] = _DEFAULT_PROBLEMS
             for entry in standings['entries']:
@@ -56,7 +75,15 @@ class Scraper(abc.ABC):
         return standings
 
     @abc.abstractmethod
-    def scrape_impl(self, html: str) -> dict:
+    def scrape_impl(self, resources: dict) -> dict:
+        """Parse resources into standings.
+
+        Args:
+            resources: Dict mapping URL to raw response bytes
+
+        Returns:
+            Dict with 'problems' and 'entries' keys
+        """
         ...
 
     def login(self, session: requests.Session) -> None:
