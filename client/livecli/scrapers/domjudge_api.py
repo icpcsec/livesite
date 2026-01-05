@@ -42,9 +42,14 @@ class DomjudgeApiScraper(base.Scraper):
 
     def get_urls(self, base_url: str) -> list[str]:
         """Declare the three API endpoints needed."""
+        # Add ?public=true to scoreboard URL if --public flag is set
+        scoreboard_url = f'{base_url}/scoreboard'
+        if hasattr(self._options, 'public') and self._options.public:
+            scoreboard_url += '?public=true'
+
         return [
             f'{base_url}/problems',
-            f'{base_url}/scoreboard',
+            scoreboard_url,
             f'{base_url}/teams',
         ]
 
@@ -57,9 +62,12 @@ class DomjudgeApiScraper(base.Scraper):
         Returns:
             Dictionary with 'problems' and 'entries' keys in LiveSite format
         """
-        problems_url = next(url for url in resources.keys() if url.endswith('/problems'))
-        scoreboard_url = next(url for url in resources.keys() if url.endswith('/scoreboard'))
-        teams_url = next(url for url in resources.keys() if url.endswith('/teams'))
+        from urllib.parse import urlparse
+
+        # Match URLs by path component (ignoring query parameters like ?public=true)
+        problems_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/problems'))
+        scoreboard_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/scoreboard'))
+        teams_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/teams'))
 
         problems_data = json.loads(resources[problems_url])
         scoreboard_data = json.loads(resources[scoreboard_url])
