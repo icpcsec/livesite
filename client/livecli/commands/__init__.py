@@ -94,6 +94,8 @@ def make_parser() -> argparse.ArgumentParser:
 
     domjudge_api_parser = scrape_subparsers.add_parser('domjudge-api', parents=[scrape_common_parser])
     domjudge_api_parser.set_defaults(scraper_class=domjudge_api.DomjudgeApiScraper)
+    domjudge_api_parser.add_argument('--login-user', help='Login user name for Basic Auth')
+    domjudge_api_parser.add_argument('--login-password', help='Login password for Basic Auth')
     domjudge_api_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
 
     return root_parser
