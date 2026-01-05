@@ -17,6 +17,8 @@ import json
 import logging
 from typing import Any
 
+import requests
+
 from livecli.scrapers import base
 
 _DEFAULT_COLORS = (
@@ -123,3 +125,24 @@ class DomjudgeApiScraper(base.Scraper):
             raise Exception('Scoreboard is empty.')
 
         return standings
+
+    def has_credentials(self) -> bool:
+        """Check if login credentials are configured."""
+        return (hasattr(self._options, 'login_user') and
+                self._options.login_user is not None and
+                self._options.login_user != '')
+
+    def login(self, session: requests.Session) -> None:
+        """Configure session with HTTP Basic Authentication.
+
+        Args:
+            session: requests.Session to configure with auth credentials
+        """
+        if not hasattr(self._options, 'login_user') or not self._options.login_user:
+            raise Exception('Login username not provided. Use --login-user and --login-password')
+
+        if not hasattr(self._options, 'login_password') or not self._options.login_password:
+            raise Exception('Login password not provided. Use --login-password')
+
+        session.auth = (self._options.login_user, self._options.login_password)
+        logging.info('Configured Basic Auth for user: %s', self._options.login_user)
