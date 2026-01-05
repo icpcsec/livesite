@@ -97,5 +97,6 @@ def make_parser() -> argparse.ArgumentParser:
     domjudge_api_parser.add_argument('--login-user', help='Login user name for Basic Auth')
     domjudge_api_parser.add_argument('--login-password', help='Login password for Basic Auth')
     domjudge_api_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
+    domjudge_api_parser.add_argument('--public', action='store_true', help='Request public scoreboard (frozen view) even with credentials')
 
     return root_parser

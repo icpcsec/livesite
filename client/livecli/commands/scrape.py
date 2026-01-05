@@ -56,15 +56,19 @@ def _load_test_resources(url_list: list[str]) -> dict[str, bytes]:
     resources = {}
 
     for url in url_list:
+        # Strip query parameters (e.g., ?public=true) from file path
+        # but keep original URL as key in resources dict
+        base_path = url.split('?')[0] if '?' in url else url
+
         # Try common extensions
         for ext in ['', '.json', '.html', '.txt']:
-            filepath = f'{url}{ext}'
+            filepath = f'{base_path}{ext}'
             if os.path.exists(filepath):
                 with open(filepath, 'rb') as f:
                     resources[url] = f.read()
                 break
         else:
-            raise FileNotFoundError(f'File not found: {url} (tried extensions: .json, .html, .txt, and no extension)')
+            raise FileNotFoundError(f'File not found: {base_path} (tried extensions: .json, .html, .txt, and no extension)')
 
     return resources
 
