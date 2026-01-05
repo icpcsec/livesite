@@ -87,5 +87,16 @@ class Scraper(abc.ABC):
         """
         ...
 
+    def has_credentials(self) -> bool:
+        """Check if login credentials are available.
+
+        Override to return True if the scraper has credentials configured.
+        This allows pre-emptive authentication before the first request.
+
+        Returns:
+            True if credentials are available, False otherwise
+        """
+        return False
+
     def login(self, session: requests.Session) -> None:
         pass
