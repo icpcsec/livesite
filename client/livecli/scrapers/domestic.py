@@ -71,7 +71,7 @@ class DomesticScraper(base.Scraper):
                 self._options.login_user != '')
 
     def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
-        html = next(iter(resources.values())).decode('utf-8')
+        html = resources['standings'].decode('utf-8')
         standings = {'problems': [], 'entries': []}
         if 'rehearsal' in html and not self._options.allow_rehearsal:
             logging.info('Contest has not started yet.')

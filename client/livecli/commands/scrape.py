@@ -44,20 +44,19 @@ def _extract_filename_from_url(url: str) -> str:
     return components[-1] if components else 'resource'
 
 
-def _load_test_resources(url_list: list[str]) -> dict[str, bytes]:
+def _load_test_resources(url_dict: dict[str, str]) -> dict[str, bytes]:
     """Load test resources from local files.
 
     Args:
-        url_list: List of local file paths from scraper.get_urls()
+        url_dict: Dict mapping resource key to local file path from scraper.get_urls()
 
     Returns:
-        Dict mapping URL to bytes
+        Dict mapping resource key to bytes
     """
     resources = {}
 
-    for url in url_list:
+    for key, url in url_dict.items():
         # Strip query parameters (e.g., ?public=true) from file path
-        # but keep original URL as key in resources dict
         base_path = url.split('?')[0] if '?' in url else url
 
         # Try common extensions
@@ -65,7 +64,7 @@ def _load_test_resources(url_list: list[str]) -> dict[str, bytes]:
             filepath = f'{base_path}{ext}'
             if os.path.exists(filepath):
                 with open(filepath, 'rb') as f:
-                    resources[url] = f.read()
+                    resources[key] = f.read()
                 break
         else:
             raise FileNotFoundError(f'File not found: {base_path} (tried extensions: .json, .html, .txt, and no extension)')
@@ -87,37 +86,40 @@ def _wait_next_tick(interval_seconds: int) -> None:
     time.sleep(next_tick - now)
 
 
-def _fetch_resources(session: requests.Session, url_list: list[str], timeout: float) -> dict[str, bytes]:
+def _fetch_resources(session: requests.Session, url_dict: dict[str, str], timeout: float) -> dict[str, bytes]:
     """Fetch all resources from URLs.
 
     Args:
         session: requests.Session to use
-        url_list: List of URLs to fetch
+        url_dict: Dict mapping resource key to URL
         timeout: Request timeout in seconds
 
     Returns:
-        Dict mapping URL to response bytes
+        Dict mapping resource key to response bytes
     """
     resources = {}
-    for url in url_list:
+    for key, url in url_dict.items():
         r = session.get(url, timeout=timeout)
         r.raise_for_status()
-        resources[url] = r.content
+        resources[key] = r.content
     return resources
 
 
-def _save_resources(resources: dict[str, bytes], log_dir: str, timestamp: int) -> None:
+def _save_resources(resources: dict[str, bytes], url_dict: dict[str, str], log_dir: str, timestamp: int) -> None:
     """Save fetched resources to archive files.
 
     Args:
-        resources: Dict mapping URL to bytes
+        resources: Dict mapping resource key to bytes
+        url_dict: Dict mapping resource key to URL (for determining file extension)
         log_dir: Directory to save files
         timestamp: Unix timestamp for filenames
     """
-    for url, content in resources.items():
-        filename_base = _extract_filename_from_url(url)
+    for key, content in resources.items():
+        # Use the resource key as filename base (e.g., 'problems', 'scoreboard', 'teams')
+        filename_base = key
 
         # Determine file extension from URL
+        url = url_dict[key]
         if '/api/' in url or 'json' in url.lower():
             ext = '.json'
         else:
@@ -158,7 +160,7 @@ def scrape_main(options: argparse.Namespace) -> None:
     last_standings = init_feeds[types.FeedType.STANDINGS]
 
     session = requests.Session()
-    url_list = scraper.get_urls(scoreboard_url)
+    url_dict = scraper.get_urls(scoreboard_url)
 
     # Pre-configure authentication if credentials are available
     if scraper.has_credentials():
@@ -167,7 +169,7 @@ def scrape_main(options: argparse.Namespace) -> None:
 
     logging.info('Attempting an initial scrape...')
     try:
-        resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
+        resources = _fetch_resources(session, url_dict, options.interval_seconds * 0.9)
         scraper.scrape(resources)
     except Exception:
         logging.exception('Unhandled exception')
@@ -198,8 +200,8 @@ def scrape_main(options: argparse.Namespace) -> None:
         try:
             logging.info('Scraping...%s' % ('' if options.upload and upload else ' (dry-run)'))
             timestamp = int(time.time())
-            resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
-            _save_resources(resources, log_dir, timestamp)
+            resources = _fetch_resources(session, url_dict, options.interval_seconds * 0.9)
+            _save_resources(resources, url_dict, log_dir, timestamp)
 
             try:
                 standings = scraper.scrape(resources)
