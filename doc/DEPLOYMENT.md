@@ -28,38 +28,28 @@ This guide covers deploying LiveSite to production for a live contest.
 3. Click the web app icon `</>` to create a web app
 4. Copy the `firebaseConfig` object
 
-### Step 3: Update siteconfig.ts
+### Step 3: Configure Firebase Settings
 
-**⚠️ CRITICAL**: You must update `frontend/src/siteconfig.ts` with your Firebase configuration.
+You must configure Firebase via environment variables before building.
 
-Edit `frontend/src/siteconfig.ts`:
+1. Create your environment file:
+   ```bash
+   cd frontend
+   cp .env.example .env
+   ```
 
-```typescript
-const siteconfig = {
-  ui: {
-    lang: 'en',
-    photoAspectRatio: 9 / 16,
-  },
-  features: {
-    country: false,
-    prefecture: false,
-    teamPage: false,
-    photo: false,
-    icon: false,
-    firstAc: false,
-  },
-  firebase: {
-    apiKey: 'YOUR_FIREBASE_API_KEY',           // ← UPDATE THIS
-    authDomain: null,                           // Auto-inferred
-    messagingSenderId: 'YOUR_MESSAGING_ID',     // ← UPDATE THIS
-    databaseURL: null,                          // Auto-inferred
-  },
-  misc: {
-    googleAnalyticsId: null,
-  },
-};
+2. Edit `.env` with your Firebase configuration:
+   ```bash
+   FIREBASE_API_KEY=your-actual-api-key
+   FIREBASE_MESSAGING_SENDER_ID=your-sender-id
+   GA_ID=UA-XXXXXXXXX-X  # Optional, leave empty to disable
+   ```
 
-export default siteconfig;
+3. The build automatically uses `.env` if it exists, otherwise falls back to `.env.defaults`.
+
+Advanced: For multiple environments, create separate files (e.g., `.env.production`, `.env.staging`) and specify at build time:
+```bash
+npm run build -- --env envFile=.env.production
 ```
 
 ### Step 4: Install Firebase CLI

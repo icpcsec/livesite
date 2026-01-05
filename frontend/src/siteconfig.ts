@@ -26,13 +26,13 @@ const siteconfig = {
     firstAc: false,
   },
   firebase: {
-    apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',
+    apiKey: process.env.FIREBASE_API_KEY!,
     authDomain: null, // Inferred at run time
-    messagingSenderId: '880347634771',
+    messagingSenderId: process.env.FIREBASE_MESSAGING_SENDER_ID!,
     databaseURL: null, // Inferred at run time
   },
   misc: {
-    googleAnalyticsId: 'UA-51402415-4',
+    googleAnalyticsId: process.env.GA_ID,
   },
 };
 

@@ -6,3 +6,11 @@ node_modules
 /.firebase
 /.firebaserc
 /public/.dev
+
+# Generated HTML from template
+/public/index.html
+
+# Environment variables (ignore all .env* except .env*.example and .env.defaults)
+.env*
+!.env*.example
+!.env.defaults

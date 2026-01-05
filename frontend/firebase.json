@@ -4,7 +4,7 @@
   },
   "hosting": {
     "public": "public",
-    "ignore": [".dev/**", "**/.*", "**/node_modules/**"],
+    "ignore": [".dev/**", "**/.*", "**/node_modules/**", "index.template.html"],
     "headers": [
       {
         "source": "**",

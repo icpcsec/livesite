@@ -260,7 +260,7 @@ See [doc/ADVANCED.md](doc/ADVANCED.md) for how to implement support for other co
 - **Animation Timing**: Contest times support a `scale` parameter to speed up/slow down animations
 - **Scoreboard Freeze**: Submissions during freeze show as "pending" until manually revealed
 - **Credentials**: OAuth credentials stored in `~/.config/livecli/config.json` (never commit!)
-- **siteconfig.ts**: Must be updated with Firebase config before production deployment (see [doc/DEPLOYMENT.md](doc/DEPLOYMENT.md))
+- **Environment Config**: Firebase and site settings configured via `.env` file (see [doc/DEPLOYMENT.md](doc/DEPLOYMENT.md)). Defaults in `.env.defaults`, override by creating `.env` from `.env.example`
 - **TypeScript Config**: Build outputs to `frontend/out/`, uses ES6 target with React JSX
 - **No Backend**: Entirely serverless - no Node.js server, only static hosting + Firebase services
 - **Local vs Production**: Use `--local` flag with scraper for local development, omit for production uploads to GCS

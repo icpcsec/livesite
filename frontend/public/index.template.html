@@ -4,8 +4,14 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta property="og:image" content="https://storage.googleapis.com/icpcsec/images/icpc-logo_8x.png">
-    <title>LiveSite</title>
+    <!-- Open Graph Metadata -->
+    <meta property="og:title" content="<%= process.env.OG_TITLE %>">
+    <meta property="og:description" content="<%= process.env.OG_DESCRIPTION %>">
+    <meta property="og:image" content="<%= process.env.OG_IMAGE %>">
+    <meta property="og:url" content="<%= process.env.OG_URL %>">
+    <meta property="og:type" content="<%= process.env.OG_TYPE %>">
+
+    <title><%= process.env.SITE_TITLE %></title>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
     <link rel="stylesheet" type="text/css" href="/assets/bootstrap-material-design/dist/css/bootstrap-material-design.min.css">
@@ -29,6 +35,5 @@
     <script src="/assets/popper/dist/umd/popper.min.js"></script>
     <script src="/assets/bootstrap-material-design/dist/js/bootstrap-material-design.js"></script>
     <script src="/assets/japan-map/jquery.japan-map.js"></script>
-    <script src="/assets/livesite/js/bundle.js"></script>
   </body>
 </html>
