@@ -48,25 +48,25 @@ class NeedLoginException(Exception):
 
 
 class Scraper(abc.ABC):
-    def get_urls(self, base_url: str) -> list[str]:
-        """Return list of URLs to fetch.
+    def get_urls(self, base_url: str) -> dict[str, str]:
+        """Return dict of resource keys to URLs to fetch.
 
-        Default implementation returns single URL (base_url).
+        Default implementation returns single URL with key 'standings'.
         Override for scrapers that need multiple URLs.
 
         Args:
             base_url: Base URL from --scoreboard-url
 
         Returns:
-            List of URLs to fetch
+            Dict mapping resource keys to URLs to fetch
         """
-        return [base_url]
+        return {'standings': base_url}
 
     def scrape(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Parse resources into standings format.
 
         Args:
-            resources: Dict mapping URL to raw bytes
+            resources: Dict mapping resource key to raw bytes
         """
         standings = self.scrape_impl(resources)
         if not standings['problems']:
@@ -80,7 +80,7 @@ class Scraper(abc.ABC):
         """Parse resources into standings.
 
         Args:
-            resources: Dict mapping URL to raw response bytes
+            resources: Dict mapping resource key to raw response bytes
 
         Returns:
             Dict with 'problems' and 'entries' keys

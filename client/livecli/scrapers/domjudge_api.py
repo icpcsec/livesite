@@ -40,38 +40,38 @@ class DomjudgeApiScraper(base.Scraper):
     def __init__(self, options: argparse.Namespace):
         self._options = options
 
-    def get_urls(self, base_url: str) -> list[str]:
-        """Declare the three API endpoints needed."""
+    def get_urls(self, base_url: str) -> dict[str, str]:
+        """Declare the three API endpoints needed.
+
+        Returns:
+            Dict mapping resource keys to URLs:
+            - 'problems': problems endpoint
+            - 'scoreboard': scoreboard endpoint (with ?public=true if --public flag set)
+            - 'teams': teams endpoint
+        """
         # Add ?public=true to scoreboard URL if --public flag is set
         scoreboard_url = f'{base_url}/scoreboard'
         if hasattr(self._options, 'public') and self._options.public:
             scoreboard_url += '?public=true'
 
-        return [
-            f'{base_url}/problems',
-            scoreboard_url,
-            f'{base_url}/teams',
-        ]
+        return {
+            'problems': f'{base_url}/problems',
+            'scoreboard': scoreboard_url,
+            'teams': f'{base_url}/teams',
+        }
 
     def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Scrape DOMjudge contest data using the REST API.
 
         Args:
-            resources: Dict mapping URL to raw bytes
+            resources: Dict mapping resource key to raw bytes
 
         Returns:
             Dictionary with 'problems' and 'entries' keys in LiveSite format
         """
-        from urllib.parse import urlparse
-
-        # Match URLs by path component (ignoring query parameters like ?public=true)
-        problems_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/problems'))
-        scoreboard_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/scoreboard'))
-        teams_url = next(url for url in resources.keys() if urlparse(url).path.endswith('/teams'))
-
-        problems_data = json.loads(resources[problems_url])
-        scoreboard_data = json.loads(resources[scoreboard_url])
-        teams_data = json.loads(resources[teams_url])
+        problems_data = json.loads(resources['problems'])
+        scoreboard_data = json.loads(resources['scoreboard'])
+        teams_data = json.loads(resources['teams'])
 
         team_id_to_name = {team['id']: team['name'] for team in teams_data}
 

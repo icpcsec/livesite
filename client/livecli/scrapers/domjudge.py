@@ -49,7 +49,7 @@ class DomjudgeScraper(base.Scraper):
                 self._options.login_user != '')
 
     def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
-        html = next(iter(resources.values())).decode('utf-8')
+        html = resources['standings'].decode('utf-8')
         doc = bs4.BeautifulSoup(html, 'html5lib')
 
         if doc.select('#loginform'):
