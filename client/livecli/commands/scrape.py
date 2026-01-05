@@ -156,17 +156,15 @@ def scrape_main(options: argparse.Namespace) -> None:
     session = requests.Session()
     url_list = scraper.get_urls(scoreboard_url)
 
+    # Pre-configure authentication if credentials are available
+    if scraper.has_credentials():
+        logging.info('Credentials provided, configuring authentication...')
+        scraper.login(session)
+
     logging.info('Attempting an initial scrape...')
-    resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
     try:
-        try:
-            scraper.scrape(resources)
-        except base.NeedLoginException:
-            logging.info('Logging in...')
-            scraper.login(session)
-            logging.info('Attempting an initial scrape after login...')
-            resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
-            scraper.scrape(resources)
+        resources = _fetch_resources(session, url_list, options.interval_seconds * 0.9)
+        scraper.scrape(resources)
     except Exception:
         logging.exception('Unhandled exception')
     else:
