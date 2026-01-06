@@ -47,6 +47,24 @@ TESTS = [
         'expected': 'golden/domestic/sample/expected.json',
         'args': {},
     },
+
+    # DOMjudge API scraper tests
+    {
+        'scraper': 'domjudge-api',
+        'name': 'final',
+        'description': 'Full API scoreboard with credentials',
+        'input': 'golden/domjudge-api/final/input',
+        'expected': 'golden/domjudge-api/final/expected.json',
+        'args': {'extract_first_ac': True},
+    },
+    {
+        'scraper': 'domjudge-api',
+        'name': 'public',
+        'description': 'Public/frozen API scoreboard',
+        'input': 'golden/domjudge-api/public/input',
+        'expected': 'golden/domjudge-api/public/expected.json',
+        'args': {'extract_first_ac': True},
+    },
 ]
 
 
