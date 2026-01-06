@@ -1,0 +1,6127 @@
+{
+  "entries": [
+    {
+      "penalty": 28152,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 130,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 479,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 643,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2142,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2871,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4239,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6132,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 10316,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "1",
+      "solved": 8,
+      "teamId": "986346"
+    },
+    {
+      "penalty": 29631,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 80,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 338,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 460,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1710,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3412,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7301,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7794,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 8536,
+          "pendings": 0,
+          "solved": true
+        }
+      ],
+      "rank": "2",
+      "solved": 8,
+      "teamId": "991349"
+    },
+    {
+      "penalty": 32201,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 189,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 531,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 798,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 1906,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4937,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7296,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4947,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 7997,
+          "pendings": 0,
+          "solved": true
+        }
+      ],
+      "rank": "3",
+      "solved": 8,
+      "teamId": "990237"
+    },
+    {
+      "penalty": 19328,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 159,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 372,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 610,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1377,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 3803,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4451,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7356,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "4",
+      "solved": 7,
+      "teamId": "988245"
+    },
+    {
+      "penalty": 28709,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 153,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 513,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1111,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1684,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4497,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 8851,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 8300,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "5",
+      "solved": 7,
+      "teamId": "989925"
+    },
+    {
+      "penalty": 28770,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 139,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 356,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 719,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3355,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4846,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 10110,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5645,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "6",
+      "solved": 7,
+      "teamId": "986403"
+    },
+    {
+      "penalty": 29001,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 159,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 522,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 760,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5650,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3997,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7382,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9331,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "7",
+      "solved": 7,
+      "teamId": "991775"
+    },
+    {
+      "penalty": 30607,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 146,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 852,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 752,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 5326,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3732,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 7413,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 9986,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "8",
+      "solved": 7,
+      "teamId": "990209"
+    },
+    {
+      "penalty": 31428,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 185,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 845,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 361,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4323,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5181,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 10629,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8704,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "9",
+      "solved": 7,
+      "teamId": "991070"
+    },
+    {
+      "penalty": 31667,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 136,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 462,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 969,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3546,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 5062,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 10132,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8960,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "10",
+      "solved": 7,
+      "teamId": "990706"
+    },
+    {
+      "penalty": 34007,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 182,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 527,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 671,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2607,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 8903,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8107,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9410,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "11",
+      "solved": 7,
+      "teamId": "991348"
+    },
+    {
+      "penalty": 35551,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 120,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 349,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 549,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2198,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10564,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9722,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8449,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "12",
+      "solved": 7,
+      "teamId": "990866"
+    },
+    {
+      "penalty": 38675,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 422,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1782,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1953,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7750,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6831,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 9772,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 10165,
+          "pendings": 0,
+          "solved": true
+        }
+      ],
+      "rank": "13",
+      "solved": 7,
+      "teamId": "991726"
+    },
+    {
+      "penalty": 39740,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 204,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 496,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 642,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 6,
+          "penalty": 2594,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 6955,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 7382,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10667,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "14",
+      "solved": 7,
+      "teamId": "989924"
+    },
+    {
+      "penalty": 13641,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 149,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 389,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1471,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1101,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7051,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3480,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "15",
+      "solved": 6,
+      "teamId": "989277"
+    },
+    {
+      "penalty": 15342,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 219,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1408,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1185,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3719,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2586,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6225,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "16",
+      "solved": 6,
+      "teamId": "990236"
+    },
+    {
+      "penalty": 16031,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 195,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 481,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1761,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2844,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3864,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6886,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "17",
+      "solved": 6,
+      "teamId": "991683"
+    },
+    {
+      "penalty": 16592,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 145,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 494,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 896,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1954,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5965,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 7138,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "18",
+      "solved": 6,
+      "teamId": "991849"
+    },
+    {
+      "penalty": 18071,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 165,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 401,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 758,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1698,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 5434,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 9615,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "19",
+      "solved": 6,
+      "teamId": "991698"
+    },
+    {
+      "penalty": 20597,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 100,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 469,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1129,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2540,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3907,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 3,
+          "penalty": 10052,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "20",
+      "solved": 6,
+      "teamId": "991680"
+    },
+    {
+      "penalty": 20793,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 148,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 363,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 541,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1608,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 9226,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8907,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "21",
+      "solved": 6,
+      "teamId": "986351"
+    },
+    {
+      "penalty": 21251,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 111,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 401,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 502,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3325,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4354,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 4,
+          "penalty": 8958,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "22",
+      "solved": 6,
+      "teamId": "991684"
+    },
+    {
+      "penalty": 21442,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 161,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 373,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 490,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2093,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7510,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9615,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "23",
+      "solved": 6,
+      "teamId": "991071"
+    },
+    {
+      "penalty": 23308,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 168,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 619,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1199,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2741,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 4770,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 2,
+          "penalty": 10211,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "24",
+      "solved": 6,
+      "teamId": "991681"
+    },
+    {
+      "penalty": 23665,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 135,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 411,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 613,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 2830,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 7433,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 8643,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "25",
+      "solved": 6,
+      "teamId": "988250"
+    },
+    {
+      "penalty": 23769,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 178,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 484,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1065,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4245,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4610,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 10787,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "26",
+      "solved": 6,
+      "teamId": "989058"
+    },
+    {
+      "penalty": 6432,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 141,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 541,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1029,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1903,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2818,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "27",
+      "solved": 5,
+      "teamId": "989909"
+    },
+    {
+      "penalty": 10525,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 181,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 508,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1069,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2724,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6043,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "28",
+      "solved": 5,
+      "teamId": "991743"
+    },
+    {
+      "penalty": 11475,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 237,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 952,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1373,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3291,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5622,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "29",
+      "solved": 5,
+      "teamId": "991949"
+    },
+    {
+      "penalty": 12118,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 121,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 417,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 733,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2702,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 8145,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "30",
+      "solved": 5,
+      "teamId": "991211"
+    },
+    {
+      "penalty": 12232,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 117,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 369,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 976,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2343,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8427,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "31",
+      "solved": 5,
+      "teamId": "989835"
+    },
+    {
+      "penalty": 13090,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 131,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 382,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 779,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4164,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 5234,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "32",
+      "solved": 5,
+      "teamId": "988528"
+    },
+    {
+      "penalty": 14215,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 206,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1000,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1506,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6306,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5197,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "33",
+      "solved": 5,
+      "teamId": "991776"
+    },
+    {
+      "penalty": 15035,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 275,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 980,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1544,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5052,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7184,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "34",
+      "solved": 5,
+      "teamId": "991675"
+    },
+    {
+      "penalty": 15065,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 344,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 935,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1635,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3434,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8717,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "35",
+      "solved": 5,
+      "teamId": "991141"
+    },
+    {
+      "penalty": 15133,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 282,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1369,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1298,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3596,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 6188,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "36",
+      "solved": 5,
+      "teamId": "990899"
+    },
+    {
+      "penalty": 15450,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 178,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 442,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 1248,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2558,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 8624,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "37",
+      "solved": 5,
+      "teamId": "990700"
+    },
+    {
+      "penalty": 15482,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 388,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 752,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1930,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3242,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 9170,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "38",
+      "solved": 5,
+      "teamId": "991140"
+    },
+    {
+      "penalty": 15560,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 155,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 597,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1123,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5290,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 5995,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "39",
+      "solved": 5,
+      "teamId": "991685"
+    },
+    {
+      "penalty": 15809,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 169,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 581,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1752,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3515,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 9792,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "40",
+      "solved": 5,
+      "teamId": "991504"
+    },
+    {
+      "penalty": 15854,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 210,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1483,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2700,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6849,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 3412,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "41",
+      "solved": 5,
+      "teamId": "989254"
+    },
+    {
+      "penalty": 15941,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 173,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 493,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1125,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6467,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7683,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "42",
+      "solved": 5,
+      "teamId": "985787"
+    },
+    {
+      "penalty": 16054,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 164,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 464,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 808,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4209,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 10409,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "43",
+      "solved": 5,
+      "teamId": "986313"
+    },
+    {
+      "penalty": 16164,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 151,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 613,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1195,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3206,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9799,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "44",
+      "solved": 5,
+      "teamId": "985789"
+    },
+    {
+      "penalty": 16538,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 123,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 612,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 929,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1755,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 5,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 3,
+          "penalty": 10719,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "45",
+      "solved": 5,
+      "teamId": "990707"
+    },
+    {
+      "penalty": 17253,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 652,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1549,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2157,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4519,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7176,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "46",
+      "solved": 5,
+      "teamId": "992525"
+    },
+    {
+      "penalty": 17532,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 213,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 746,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1664,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4886,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8823,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "47",
+      "solved": 5,
+      "teamId": "983398"
+    },
+    {
+      "penalty": 17908,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 261,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 521,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 903,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3766,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10057,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "48",
+      "solved": 5,
+      "teamId": "988771"
+    },
+    {
+      "penalty": 17963,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 210,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1380,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2217,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4949,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 9207,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "49",
+      "solved": 5,
+      "teamId": "988787"
+    },
+    {
+      "penalty": 18568,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 373,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1558,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 527,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3097,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10613,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "50",
+      "solved": 5,
+      "teamId": "991937"
+    },
+    {
+      "penalty": 19468,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 267,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 646,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1204,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 9282,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4469,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "51",
+      "solved": 5,
+      "teamId": "989319"
+    },
+    {
+      "penalty": 19704,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 166,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 847,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1420,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3113,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10558,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "52",
+      "solved": 5,
+      "teamId": "990857"
+    },
+    {
+      "penalty": 20668,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 249,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 735,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2429,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 7026,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 10229,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "53",
+      "solved": 5,
+      "teamId": "991732"
+    },
+    {
+      "penalty": 20736,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 472,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 1423,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1775,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 5053,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 8413,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "54",
+      "solved": 5,
+      "teamId": "991431"
+    },
+    {
+      "penalty": 21780,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 233,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1164,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2551,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 6342,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9090,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "55",
+      "solved": 5,
+      "teamId": "990713"
+    },
+    {
+      "penalty": 21909,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 254,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1261,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2651,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6461,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 10082,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "56",
+      "solved": 5,
+      "teamId": "991919"
+    },
+    {
+      "penalty": 23472,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 202,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 835,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1715,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 10587,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 7733,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "57",
+      "solved": 5,
+      "teamId": "990755"
+    },
+    {
+      "penalty": 24290,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 230,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1660,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1275,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8004,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 10721,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "58",
+      "solved": 5,
+      "teamId": "991783"
+    },
+    {
+      "penalty": 25046,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 229,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 931,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3483,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 8602,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 10601,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "59",
+      "solved": 5,
+      "teamId": "991939"
+    },
+    {
+      "penalty": 33119,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 298,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 3147,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1848,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 9939,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 5,
+          "penalty": 10687,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "60",
+      "solved": 5,
+      "teamId": "990881"
+    },
+    {
+      "penalty": 3108,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 129,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 457,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 728,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1794,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "61",
+      "solved": 4,
+      "teamId": "991926"
+    },
+    {
+      "penalty": 3845,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 141,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 630,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 775,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2299,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "62",
+      "solved": 4,
+      "teamId": "991686"
+    },
+    {
+      "penalty": 4306,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 116,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 401,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1059,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2730,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "63",
+      "solved": 4,
+      "teamId": "990853"
+    },
+    {
+      "penalty": 4706,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 151,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 545,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1495,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2515,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "64",
+      "solved": 4,
+      "teamId": "990408"
+    },
+    {
+      "penalty": 4826,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 229,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 501,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 888,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3208,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "65",
+      "solved": 4,
+      "teamId": "991921"
+    },
+    {
+      "penalty": 5139,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 297,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 783,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1132,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2927,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "66",
+      "solved": 4,
+      "teamId": "991848"
+    },
+    {
+      "penalty": 5184,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 164,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 538,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1342,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3140,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "67",
+      "solved": 4,
+      "teamId": "991132"
+    },
+    {
+      "penalty": 5192,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 109,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 322,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1117,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3644,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "68",
+      "solved": 4,
+      "teamId": "990898"
+    },
+    {
+      "penalty": 5429,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 175,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 710,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1198,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3346,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "69",
+      "solved": 4,
+      "teamId": "985788"
+    },
+    {
+      "penalty": 5547,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 210,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 645,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1123,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3569,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "70",
+      "solved": 4,
+      "teamId": "990516"
+    },
+    {
+      "penalty": 5594,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 163,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 534,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1131,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3766,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "71",
+      "solved": 4,
+      "teamId": "991790"
+    },
+    {
+      "penalty": 5743,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 221,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 969,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1147,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3406,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "72",
+      "solved": 4,
+      "teamId": "990407"
+    },
+    {
+      "penalty": 5810,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 148,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 661,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1726,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3275,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "73",
+      "solved": 4,
+      "teamId": "991727"
+    },
+    {
+      "penalty": 6012,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 336,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 704,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1561,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3411,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "74",
+      "solved": 4,
+      "teamId": "991098"
+    },
+    {
+      "penalty": 6115,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 236,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 592,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1340,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3947,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "75",
+      "solved": 4,
+      "teamId": "991850"
+    },
+    {
+      "penalty": 6236,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 559,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1028,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1509,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3140,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "76",
+      "solved": 4,
+      "teamId": "985792"
+    },
+    {
+      "penalty": 6457,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 175,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 838,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1559,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3885,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "77",
+      "solved": 4,
+      "teamId": "991072"
+    },
+    {
+      "penalty": 6685,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 145,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 394,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2044,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4102,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "78",
+      "solved": 4,
+      "teamId": "990879"
+    },
+    {
+      "penalty": 7123,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 208,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 741,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1805,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4369,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "79",
+      "solved": 4,
+      "teamId": "990851"
+    },
+    {
+      "penalty": 7256,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 190,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1341,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2266,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3459,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "80",
+      "solved": 4,
+      "teamId": "991694"
+    },
+    {
+      "penalty": 7362,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 141,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 759,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1354,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5108,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "81",
+      "solved": 4,
+      "teamId": "991687"
+    },
+    {
+      "penalty": 7480,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 202,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 684,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1836,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4758,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "82",
+      "solved": 4,
+      "teamId": "990205"
+    },
+    {
+      "penalty": 7526,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 421,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1275,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1491,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4339,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "83",
+      "solved": 4,
+      "teamId": "991312"
+    },
+    {
+      "penalty": 7594,
+      "problems": [
+        {
+          "attempts": 2,
+          "penalty": 542,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1104,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1646,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3102,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "84",
+      "solved": 4,
+      "teamId": "986274"
+    },
+    {
+      "penalty": 7747,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 195,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 658,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2551,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4343,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "85",
+      "solved": 4,
+      "teamId": "991419"
+    },
+    {
+      "penalty": 7950,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 415,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1183,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2349,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4003,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "86",
+      "solved": 4,
+      "teamId": "990719"
+    },
+    {
+      "penalty": 7971,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 450,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3352,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1138,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3031,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "87",
+      "solved": 4,
+      "teamId": "989292"
+    },
+    {
+      "penalty": 8083,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 118,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 576,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1362,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6027,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "88",
+      "solved": 4,
+      "teamId": "990835"
+    },
+    {
+      "penalty": 8163,
+      "problems": [
+        {
+          "attempts": 2,
+          "penalty": 350,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 779,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1652,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4182,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "89",
+      "solved": 4,
+      "teamId": "991682"
+    },
+    {
+      "penalty": 8195,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 188,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 598,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2320,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5089,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "90",
+      "solved": 4,
+      "teamId": "990691"
+    },
+    {
+      "penalty": 8200,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 138,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 1350,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1754,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 3758,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 4,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "91",
+      "solved": 4,
+      "teamId": "991824"
+    },
+    {
+      "penalty": 8217,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 226,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1412,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1108,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5471,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "92",
+      "solved": 4,
+      "teamId": "992528"
+    },
+    {
+      "penalty": 8364,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 240,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 754,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1634,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 5736,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 5,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "93",
+      "solved": 4,
+      "teamId": "986324"
+    },
+    {
+      "penalty": 8367,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 206,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1150,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 1540,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4271,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "94",
+      "solved": 4,
+      "teamId": "985842"
+    },
+    {
+      "penalty": 8517,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 470,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 972,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1526,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 4349,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "95",
+      "solved": 4,
+      "teamId": "990850"
+    },
+    {
+      "penalty": 8670,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 263,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1604,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 2320,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 4483,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "96",
+      "solved": 4,
+      "teamId": "991096"
+    },
+    {
+      "penalty": 8791,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 140,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 471,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1000,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 2,
+          "penalty": 5980,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "97",
+      "solved": 4,
+      "teamId": "990555"
+    },
+    {
+      "penalty": 8811,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 326,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 715,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 1395,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 1,
+          "penalty": 6375,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 1,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": "98",
+      "solved": 4,
+      "teamId": "990732"
+    }
+  ],
+  "problems": [
+    {
+      "color": "#F44336",
+      "label": "A",
+      "name": "Problem A"
+    },
+    {
+      "color": "#4CAF50",
+      "label": "B",
+      "name": "Problem B"
+    },
+    {
+      "color": "#EAD61E",
+      "label": "C",
+      "name": "Problem C"
+    },
+    {
+      "color": "#3F51B5",
+      "label": "D",
+      "name": "Problem D"
+    },
+    {
+      "color": "#F48FB1",
+      "label": "E",
+      "name": "Problem E"
+    },
+    {
+      "color": "#FF9800",
+      "label": "F",
+      "name": "Problem F"
+    },
+    {
+      "color": "#81D4FA",
+      "label": "G",
+      "name": "Problem G"
+    },
+    {
+      "color": "#E040FB",
+      "label": "H",
+      "name": "Problem H"
+    },
+    {
+      "color": "#76FF03",
+      "label": "I",
+      "name": "Problem I"
+    }
+  ]
+}
