@@ -98,5 +98,12 @@ def make_parser() -> argparse.ArgumentParser:
     domjudge_api_parser.add_argument('--login-password', help='Login password for Basic Auth')
     domjudge_api_parser.add_argument('--extract-first-ac', action='store_true', help='Extract the first AC')
     domjudge_api_parser.add_argument('--public', action='store_true', help='Request public scoreboard (frozen view) even with credentials')
+    domjudge_api_parser.add_argument(
+        '--team-id-format',
+        choices=['colon-prefix', 'team-prefix'],
+        default='colon-prefix',
+        help='Format for extracting team ID from team name. '
+             'colon-prefix: "ID: Name" (e.g., "01: TeamA") (default). '
+             'team-prefix: "teamID" (e.g., "team01", "team123")')
 
     return root_parser

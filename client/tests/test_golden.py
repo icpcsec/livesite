@@ -65,6 +65,14 @@ TESTS = [
         'expected': 'golden/domjudge-api/public/expected.json',
         'args': {'extract_first_ac': True},
     },
+    {
+        'scraper': 'domjudge-api',
+        'name': 'team-prefix',
+        'description': 'Scoreboard with team-prefix format (team1, team2, etc.)',
+        'input': 'golden/domjudge-api/team-prefix/input',
+        'expected': 'golden/domjudge-api/team-prefix/expected.json',
+        'args': {'team_id_format': 'team-prefix'},
+    },
 ]
 
 

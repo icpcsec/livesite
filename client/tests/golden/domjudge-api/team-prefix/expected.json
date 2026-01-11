@@ -1,0 +1,99 @@
+{
+  "entries": [
+    {
+      "penalty": 89,
+      "problems": [
+        {
+          "attempts": 2,
+          "penalty": 15,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 3,
+          "penalty": 14,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": 1,
+      "solved": 2,
+      "teamId": "2"
+    },
+    {
+      "penalty": 12,
+      "problems": [
+        {
+          "attempts": 1,
+          "penalty": 12,
+          "pendings": 0,
+          "solved": true
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": 2,
+      "solved": 1,
+      "teamId": "1"
+    },
+    {
+      "penalty": 0,
+      "problems": [
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        },
+        {
+          "attempts": 0,
+          "penalty": 0,
+          "pendings": 0,
+          "solved": false
+        }
+      ],
+      "rank": 3,
+      "solved": 0,
+      "teamId": "3"
+    }
+  ],
+  "problems": [
+    {
+      "color": "#9486EA",
+      "label": "A",
+      "name": "A"
+    },
+    {
+      "color": "#E93603",
+      "label": "B",
+      "name": "B"
+    },
+    {
+      "color": "#9B630C",
+      "label": "C",
+      "name": "C"
+    }
+  ]
+}

@@ -15,6 +15,7 @@
 import argparse
 import json
 import logging
+import re
 from typing import Any
 
 import requests
@@ -60,6 +61,33 @@ class DomjudgeApiScraper(base.Scraper):
             'teams': f'{base_url}/teams',
         }
 
+    def _extract_team_id(self, team_name: str) -> str | None:
+        """Extract team ID based on configured format.
+
+        Args:
+            team_name: Team name from DOMjudge teams endpoint
+
+        Returns:
+            Extracted team ID as string, or None if extraction fails
+        """
+        format_type = getattr(self._options, 'team_id_format', 'colon-prefix')
+
+        if format_type == 'colon-prefix':
+            # "01: TeamName" -> "1"
+            try:
+                return str(int(team_name.split(':', 1)[0], 10))
+            except (ValueError, IndexError):
+                return None
+
+        elif format_type == 'team-prefix':
+            # "team12" -> "12", "team03" -> "3"
+            match = re.match(r'^team(\d+)', team_name, re.IGNORECASE)
+            if match:
+                return str(int(match.group(1), 10))
+            return None
+
+        return None
+
     def scrape_impl(self, resources: dict[str, bytes]) -> dict[str, Any]:
         """Scrape DOMjudge contest data using the REST API.
 
@@ -90,15 +118,14 @@ class DomjudgeApiScraper(base.Scraper):
             rank = row['rank']
             score = row['score']
 
-            # Extract team ID from team name prefix.
-            # Expected format: "ID: Name" where ID is parsed to integer
-            # TODO: utilize "display name" and "name" to have clean display name.
+            # Extract team ID using configured format
             team_name = team_id_to_name.get(api_team_id, '')
-            try:
-                team_id = str(int(team_name.split(':', 1)[0], 10))
-            except (ValueError, IndexError):
-                logging.warning('Skipping team %s (name: "%s") - does not match "ID: Name" format',
-                                api_team_id, team_name)
+            team_id = self._extract_team_id(team_name)
+            if team_id is None:
+                format_type = getattr(self._options, 'team_id_format', 'colon-prefix')
+                expected_format = '"ID: Name"' if format_type == 'colon-prefix' else '"teamID"'
+                logging.warning('Skipping team %s (name: "%s") - does not match %s format',
+                                api_team_id, team_name, expected_format)
                 continue
 
             team_problems = []
