@@ -1,0 +1,3 @@
+# Mark as generated test data for GitHub Linguist
+# This excludes these files from language statistics
+* linguist-generated=true linguist-documentation=false
