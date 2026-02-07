@@ -15,8 +15,8 @@ def main():
 
         entries[team['id']] = {
             'name': team['teamname'],
-            'university': team['university'],
-            'universityEn': team['university'],
+            'university': team['affiliation'],
+            'universityEn': team['affiliation'],
             'members': [],
             'photo': '/images/default-photo-regional.png',
         }
