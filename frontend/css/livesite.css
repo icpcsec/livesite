@@ -80,7 +80,9 @@ a.no-decoration {
   position: relative;
   display: flex;
   border-bottom: 1px solid #ddd;
-  transition: background-color 1s linear, box-shadow 0.5s linear;
+  transition:
+    background-color 1s linear,
+    box-shadow 0.5s linear;
 }
 
 .standings-section:last-child .team-row:last-child {
