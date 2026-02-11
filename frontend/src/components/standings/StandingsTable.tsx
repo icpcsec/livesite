@@ -706,7 +706,7 @@ export default function StandingsTable({
     );
   });
   return (
-    <div className="standard-standings">
+    <div className={`standard-standings${revealMode ? ' reveal-mode' : ''}`}>
       <div
         className={
           revealMode ? 'standings-section' : 'standings-section sticky-heading'
@@ -714,8 +714,8 @@ export default function StandingsTable({
       >
         <LegendRow problems={problems} />
       </div>
-      <div className="standings-section">{stickyRows}</div>
-      <div className="standings-section">
+      <div className="standings-section standings-teams">{stickyRows}</div>
+      <div className="standings-section standings-teams">
         <AnimatingTable>{normalRows}</AnimatingTable>
       </div>
       {revealMode ? null : (
