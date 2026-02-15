@@ -25,6 +25,7 @@ import StandingsRevealPage from './standings/StandingsRevealPage';
 import GA from './common/GA';
 import LoadingCheck from './common/LoadingCheck';
 import LoadingPage from './LoadingPage';
+import NotFoundPage from './NotFoundPage';
 import siteconfig from '../siteconfig';
 
 function Routes() {
@@ -42,6 +43,7 @@ function Routes() {
             {teamPageRoute}
             <Route path="/settings/" component={SettingsPage} />
             <Route path="/reveal/" component={StandingsRevealPage} />
+            <Route component={NotFoundPage} />
           </Switch>
         </Frame>
       </LoadingCheck>
