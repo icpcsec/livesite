@@ -20,9 +20,9 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - run: cd frontend && npm ci
     - run: cd frontend && npm run build
-    - run: cd frontend && npm run test
     - run: cd frontend && npm run lint
     - run: cd frontend && npm run format:check
+    - run: cd frontend && npm run test
 
   client:
     runs-on: ubuntu-latest
