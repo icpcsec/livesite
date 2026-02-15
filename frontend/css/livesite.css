@@ -166,6 +166,28 @@ a.no-decoration {
   text-align: center;
 }
 
+.standard-standings .team-row .team-logo {
+  flex: 0 0 auto;
+  /* Match the row height to make a square logo area.
+     2.3rem = two lines of text: 1.3rem (line-height) + 1.3*0.8rem (<small>)
+     9px = 4px top margin + 4px bottom margin (.team-col) + 1px border-bottom (.team-row) */
+  width: calc(2.3rem + 9px);
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 2px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.standard-standings .team-row .team-logo img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+}
+
 .standard-standings .team-row .team-name {
   flex: 0 0 auto;
   width: 240px;
@@ -230,6 +252,10 @@ a.no-decoration {
   .standard-standings {
     font-size: 0.8rem;
   }
+  .standard-standings .team-row .team-logo {
+    /* 2.3rem * 0.8 (font-size at this breakpoint) = 1.84rem */
+    width: calc(1.84rem + 9px);
+  }
   .standard-standings .team-row .team-name {
     width: 180px;
   }
@@ -238,6 +264,9 @@ a.no-decoration {
 @media (max-width: 767px) {
   .standard-standings {
     font-size: 0.8rem;
+  }
+  .standard-standings .team-row .team-logo {
+    display: none;
   }
   .standard-standings .team-row .team-col {
     margin: 4px 1px;
@@ -418,6 +447,29 @@ a.no-decoration {
  *  Team info
  *
  */
+
+.team-heading {
+  display: flex;
+  align-items: center;
+}
+
+.team-heading-logo {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+  margin-right: 12px;
+}
+
+.team-heading-text {
+  min-width: 0;
+}
+
+.card-body .team-heading-logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 8px;
+}
 
 .teaminfo h1.my-3 {
   overflow-wrap: anywhere;

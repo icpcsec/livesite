@@ -145,6 +145,9 @@ function LegendRow({ problems }: LegendRowProps) {
       <div className="team-col team-mark"></div>
       <div className="team-col team-rank">#</div>
       <div className="team-col team-score">{tr('Solved', '正答数')}</div>
+      {siteconfig.features.universityLogo && (
+        <div className="team-col team-logo"></div>
+      )}
       <div className="team-col team-name">
         {tr('Team/University', 'チーム/大学')}
       </div>
@@ -206,6 +209,9 @@ function FooterRow({ problemStats }: FooterRowProps) {
       <div className="team-col team-mark"></div>
       <div className="team-col team-rank"></div>
       <div className="team-col team-score"></div>
+      {siteconfig.features.universityLogo && (
+        <div className="team-col team-logo"></div>
+      )}
       <div className="team-col team-name">
         Solved / Attempted teams
         <br />
@@ -480,6 +486,11 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
           penalty={penalty}
           problemSpecs={problemSpecs}
         />
+        {siteconfig.features.universityLogo && (
+          <div className="team-col team-logo">
+            {team.universityLogo && <img src={team.universityLogo} alt={team.university} />}
+          </div>
+        )}
         <TeamGenericCol
           className="team-name"
           text={<span title={name}>{name}</span>}

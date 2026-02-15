@@ -151,17 +151,22 @@ export default function TeamInfo({ requestedTeamId }: TeamInfoProps) {
   ));
   return (
     <div className="teaminfo">
-      <h1 className="my-3">
-        {team.name}
-        <br />
-        <small>
-          {team.university}
-          {siteconfig.features.prefecture
-            ? ` (${constants.PREFECTURES[team.prefecture || 48]})`
-            : null}
-          {siteconfig.features.country ? ` - ${team.country}` : null}
-        </small>
-      </h1>
+      <div className="team-heading">
+        {siteconfig.features.universityLogo && team.universityLogo && (
+          <img className="team-heading-logo" src={team.universityLogo} alt={team.university} />
+        )}
+        <h1 className="my-3">
+          {team.name}
+          <br />
+          <small>
+            {team.university}
+            {siteconfig.features.prefecture
+              ? ` (${constants.PREFECTURES[team.prefecture || 48]})`
+              : null}
+            {siteconfig.features.country ? ` - ${team.country}` : null}
+          </small>
+        </h1>
+      </div>
       {siteconfig.features.photo ? (
         <FixedRatioThumbnail
           url={team.photo!}

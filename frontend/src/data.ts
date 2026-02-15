@@ -60,6 +60,7 @@ export type Team = {
   universityShort?: string;
   comment?: string;
   photo?: string;
+  universityLogo?: string;
   prefecture?: number;
   country: string;
   members: TeamMember[];

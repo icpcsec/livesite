@@ -56,7 +56,7 @@ type TeamItemProps = {
 
 function TeamItem({
   teamId,
-  team: { name, university, country, photo, members },
+  team: { name, university, universityLogo, country, photo, members },
   highlight,
 }: TeamItemProps) {
   const displayNames = [];
@@ -81,31 +81,38 @@ function TeamItem({
             </TeamLink>
           </div>
         ) : null}
-        <h4 className="mb-1 text-ellipsis" title={name}>
-          <TeamLink id={teamId}>{name}</TeamLink>
-        </h4>
-        <div className="text-ellipsis">
-          <TeamLink id={teamId}>
-            {siteconfig.features.country ? (
-              <img
-                src={`/images/${country}.png`}
-                style={{
-                  width: '21px',
-                  height: '14px',
-                  marginRight: '3px',
-                  marginBottom: '2px',
-                  border: '1px solid #000',
-                }}
-              />
+        <div className="team-heading">
+          {siteconfig.features.universityLogo && universityLogo && (
+            <img className="team-heading-logo" src={universityLogo} alt={university} />
+          )}
+          <div className="team-heading-text">
+            <h4 className="mb-1 text-ellipsis" title={name}>
+              <TeamLink id={teamId}>{name}</TeamLink>
+            </h4>
+            <div className="text-ellipsis">
+              <TeamLink id={teamId}>
+                {siteconfig.features.country ? (
+                  <img
+                    src={`/images/${country}.png`}
+                    style={{
+                      width: '21px',
+                      height: '14px',
+                      marginRight: '3px',
+                      marginBottom: '2px',
+                      border: '1px solid #000',
+                    }}
+                  />
+                ) : null}
+                <span title={university}>{university}</span>
+              </TeamLink>
+            </div>
+            {memberNames ? (
+              <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
+                <TeamLink id={teamId}>{memberNames}</TeamLink>
+              </div>
             ) : null}
-            <span title={university}>{university}</span>
-          </TeamLink>
-        </div>
-        {memberNames ? (
-          <div className="text-ellipsis" style={{ paddingTop: '6px' }}>
-            <TeamLink id={teamId}>{memberNames}</TeamLink>
           </div>
-        ) : null}
+        </div>
       </div>
     </div>
   );
