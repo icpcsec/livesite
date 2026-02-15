@@ -3,9 +3,9 @@
     [
       "@babel/preset-env",
       {
-        "targets": {
-          "browsers": ["last 2 Chrome versions", "Firefox ESR"]
-        }
+        "useBuiltIns": "entry",
+        "corejs": 3,
+        "targets": "defaults"
       }
     ],
     "@babel/preset-react",

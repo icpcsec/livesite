@@ -13,7 +13,7 @@
 // limitations under the License.
 
 // Import this first to support old browsers.
-import '@babel/polyfill';
+import 'core-js/stable';
 
 import React from 'react';
 import ReactDOM from 'react-dom';
