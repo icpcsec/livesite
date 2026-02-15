@@ -83,7 +83,11 @@ function TeamItem({
         ) : null}
         <div className="team-heading">
           {siteconfig.features.universityLogo && universityLogo && (
-            <img className="team-heading-logo" src={universityLogo} alt={university} />
+            <img
+              className="team-heading-logo"
+              src={universityLogo}
+              alt={university}
+            />
           )}
           <div className="team-heading-text">
             <h4 className="mb-1 text-ellipsis" title={name}>

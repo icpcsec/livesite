@@ -153,7 +153,11 @@ export default function TeamInfo({ requestedTeamId }: TeamInfoProps) {
     <div className="teaminfo">
       <div className="team-heading">
         {siteconfig.features.universityLogo && team.universityLogo && (
-          <img className="team-heading-logo" src={team.universityLogo} alt={team.university} />
+          <img
+            className="team-heading-logo"
+            src={team.universityLogo}
+            alt={team.university}
+          />
         )}
         <h1 className="my-3">
           {team.name}

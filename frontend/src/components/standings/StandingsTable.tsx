@@ -488,7 +488,9 @@ class TeamRowRight extends React.Component<TeamRowRightProps> {
         />
         {siteconfig.features.universityLogo && (
           <div className="team-col team-logo">
-            {team.universityLogo && <img src={team.universityLogo} alt={team.university} />}
+            {team.universityLogo && (
+              <img src={team.universityLogo} alt={team.university} />
+            )}
           </div>
         )}
         <TeamGenericCol
