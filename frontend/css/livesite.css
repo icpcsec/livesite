@@ -244,7 +244,7 @@ a.no-decoration {
 
 @media (min-width: 1400px) {
   .standard-standings .team-row .team-name {
-    width: 400px;
+    width: 380px;
   }
 }
 
@@ -252,12 +252,20 @@ a.no-decoration {
   .standard-standings {
     font-size: 0.8rem;
   }
+  .standard-standings .team-row .team-mark {
+    width: 1rem;
+  }
+  .standard-standings .team-row .team-rank {
+    width: 1.4rem;
+  }
   .standard-standings .team-row .team-logo {
-    /* 2.3rem * 0.8 (font-size at this breakpoint) = 1.84rem */
-    width: calc(1.84rem + 9px);
+    width: 30px;
+  }
+  .standard-standings .team-row .team-score {
+    width: 40px;
   }
   .standard-standings .team-row .team-name {
-    width: 180px;
+    width: 160px;
   }
 }
 
