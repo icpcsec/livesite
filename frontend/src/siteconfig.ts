@@ -20,11 +20,11 @@ const siteconfig = {
   features: {
     country: false,
     prefecture: false,
-    teamPage: false,
-    photo: false,
+    teamPage: true,
+    photo: true,
     icon: false,
     firstAc: false,
-    universityLogo: false,
+    universityLogo: true,
   },
   firebase: {
     apiKey: 'AIzaSyDAplg3phAg4pO0gkZO2THZEx9iceyT0tI',
