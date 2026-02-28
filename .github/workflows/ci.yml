@@ -14,10 +14,18 @@ jobs:
         node-version: [20.x, 22.x, 24.x]
     steps:
     - uses: actions/checkout@v6
+
+    - name: Set up Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v6
       with:
         node-version: ${{ matrix.node-version }}
+
     - run: cd frontend && npm ci
     - run: cd frontend && npm run build
     - run: cd frontend && npm run lint
