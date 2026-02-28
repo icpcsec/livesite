@@ -172,10 +172,12 @@ export default function TeamInfo({ requestedTeamId }: TeamInfoProps) {
         </h1>
       </div>
       {siteconfig.features.photo ? (
-        <FixedRatioThumbnail
-          url={team.photo!}
-          ratio={siteconfig.ui.photoAspectRatio}
-        />
+        <div className="team-thumbnail">
+          <FixedRatioThumbnail
+            url={team.photo!}
+            ratio={siteconfig.ui.photoAspectRatio}
+          />
+        </div>
       ) : null}
       {team.comment ? <TeamComment comment={team.comment} /> : null}
       <div className="row">{memberElements}</div>
