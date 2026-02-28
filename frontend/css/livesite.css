@@ -483,6 +483,12 @@ a.no-decoration {
   overflow-wrap: anywhere;
 }
 
+.teaminfo .team-thumbnail {
+  width: 75%;
+  height: auto;
+  margin: auto;
+}
+
 .teaminfo .team-photo {
   width: 100%;
   height: auto;
@@ -526,5 +532,17 @@ a.no-decoration {
   }
   100% {
     background-color: transparent;
+  }
+}
+
+@media (max-width: 1199px) {
+  .teaminfo .team-thumbnail {
+    width: 80%;
+  }
+}
+
+@media (max-width: 991px) {
+  .teaminfo .team-thumbnail {
+    width: 100%;
   }
 }
