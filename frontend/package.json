@@ -39,10 +39,10 @@
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.12.3",
-    "@babel/preset-env": "^7.12.1",
-    "@babel/preset-react": "^7.12.5",
-    "@babel/preset-typescript": "^7.12.1",
+    "@babel/core": "^8.0.1",
+    "@babel/preset-env": "^8.0.2",
+    "@babel/preset-react": "^8.0.1",
+    "@babel/preset-typescript": "^8.0.1",
     "@eslint/js": "^9.6.0",
     "@redux-devtools/extension": "^3.2.2",
     "@types/eslint__js": "^8.42.3",
@@ -55,7 +55,7 @@
     "@types/react-router-hash-link": "^2.4.9",
     "@types/react-transition-group": "^4.4.4",
     "@types/sprintf-js": "^1.1.2",
-    "babel-loader": "^8.1.0",
+    "babel-loader": "^10.1.1",
     "cypress": "^13.12.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
