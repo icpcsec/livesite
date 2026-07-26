@@ -39,6 +39,7 @@
     "sprintf-js": "^1.1.2"
   },
   "devDependencies": {
+    "@types/node": "^20.14.8",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
     "@babel/preset-react": "^7.12.5",
@@ -47,7 +48,7 @@
     "@redux-devtools/extension": "^3.2.2",
     "@types/eslint__js": "^8.42.3",
     "@types/jquery": "^3.5.4",
-    "@types/react": "^16.9.56",
+    "@types/react": "^17.0.2",
     "@types/react-document-title": "^2.0.4",
     "@types/react-dom": "^17.0.2",
     "@types/react-redux": "^7.1.11",
