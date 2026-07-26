@@ -87,8 +87,4 @@ export function setRevealData(reveal: StandingsHistory): SetRevealData {
 }
 
 export type AppAction =
-  | UpdateFeeds
-  | UpdateSettings
-  | ToggleSetting
-  | SetRevealStep
-  | SetRevealData;
+  UpdateFeeds | UpdateSettings | ToggleSetting | SetRevealStep | SetRevealData;
