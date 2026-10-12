@@ -18,4 +18,4 @@ curl -T "$(dirname "$0")/feeds.json" "http://localhost:9000/.json?ns=fake-server
 
 npm run build
 
-exec cypress run
+exec cypress run --browser chrome
